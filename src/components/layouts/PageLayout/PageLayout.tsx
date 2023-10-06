@@ -34,7 +34,7 @@ export const PageLayout: FC<Props> = ({ children }) => {
   return (
     <div>
       <Sidebar isLaptop={isLaptop} />
-      <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20">
+      <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20 pb-10">
         <Header />
         <main className="flex flex-col">{children}</main>
       </div>

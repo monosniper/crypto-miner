@@ -1,0 +1,36 @@
+.wrapper {
+  @apply p-4 flex gap-4 bg-base-200 border border-base-border-100 rounded-xl text-base-content-300 text-xs items-start flex-col 375:flex-row;
+  font-family: Inter, sans-serif;
+}
+
+.avatar {
+  @apply w-10 h-10 rounded-full min-w-[40px];
+}
+
+.content {
+  @apply flex flex-col gap-4;
+}
+
+.header {
+  @apply flex justify-between items-center gap-4 flex-wrap;
+}
+
+.title {
+  @apply text-sm text-base-content-200;
+}
+
+.headerAccount {
+  @apply flex items-center gap-2 text-xs text-base-content-300;
+}
+
+.footer {
+  @apply flex justify-between items-center gap-4 text-sm text-base-content-200;
+}
+
+.footer p span {
+  @apply text-base-content-300;
+}
+
+.footer a {
+  @apply text-base-content-100 border-b border-base-content-100 text-xs;
+}

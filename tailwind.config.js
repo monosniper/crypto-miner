@@ -4,13 +4,18 @@ import { createThemes } from "tw-colors";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        375: "350px",
+      },
+    },
   },
   plugins: [
     createThemes({
       light: {
         "base-100": "#F6F8F9",
         "base-200": "#fff",
+        "base-300": "#E5E9EB",
 
         "base-content-100": "#000",
         "base-content-200": "#241F21",
@@ -24,10 +29,12 @@ export default {
         "gray-1": "#A1A1AA",
 
         primary: "#C1AAFF",
+        success: "#34C759",
       },
       dark: {
         "base-100": "#16191B",
         "base-200": "#2A2C38",
+        "base-300": "#444E54",
 
         "base-content-100": "#fff",
         "base-content-200": "#DFDBDD",
@@ -41,6 +48,7 @@ export default {
         "gray-1": "#A1A1AA",
 
         primary: "#31108C",
+        success: "#47BC64",
       },
     }),
   ],
