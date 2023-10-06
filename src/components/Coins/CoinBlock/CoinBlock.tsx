@@ -3,7 +3,7 @@ import { ArrTopIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppSelector } from "@/redux/store";
-import { main } from "@/redux/slices/main";
+import { main } from "@/redux/slices/mainSlice";
 
 export const CoinBlock = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);

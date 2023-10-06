@@ -2,7 +2,7 @@ import { AppDispatch, RootState } from "@/types";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
-import mainReducer from "./slices/main";
+import mainReducer from "./slices/mainSlice";
 
 export const rootReducer = combineReducers({
   main: mainReducer,

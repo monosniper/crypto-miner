@@ -33,7 +33,7 @@ export default {
       },
       dark: {
         "base-100": "#16191B",
-        "base-200": "#2A2C38",
+        "base-200": "#1E1F25",
         "base-300": "#444E54",
 
         "base-content-100": "#fff",

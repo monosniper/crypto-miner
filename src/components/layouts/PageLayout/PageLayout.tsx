@@ -1,7 +1,7 @@
 import { ReactNode, FC, useEffect, useState } from "react";
 import { Header, Sidebar } from "@/components";
 import { useAppDispatch } from "@/redux/store";
-import { setOpenSidebar } from "@/redux/slices/main";
+import { setOpenSidebar } from "@/redux/slices/mainSlice";
 
 type Props = {
   children: ReactNode;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppSelector } from "./redux/store";
-import { main } from "./redux/slices/main";
+import { main } from "./redux/slices/mainSlice";
 import { useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
 
