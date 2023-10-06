@@ -1,0 +1,15 @@
+.sidebar {
+  @apply w-64 p-6 fixed -left-[100vw] lg:left-0 top-0 bottom-0 h-full text-primary bg-base-200 lg:bg-base-100 flex flex-col z-20 ease-linear duration-150;
+}
+
+.sidebar.isOpen {
+  @apply left-0;
+}
+
+.header {
+  @apply flex items-center justify-between gap-2;
+}
+
+.wrapperBg {
+  @apply fixed left-0 top-0 min-h-screen w-full bg-black/50 z-20;
+}

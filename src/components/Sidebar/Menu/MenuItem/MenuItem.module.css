@@ -1,0 +1,28 @@
+.item {
+  @apply w-full p-2 flex items-center gap-2 bg-transparent text-base-content-200 text-sm cursor-pointer rounded-lg ease-linear duration-150 hover:bg-primary/50;
+  font-family: Inter, sans-serif;
+}
+
+.item svg {
+  @apply w-5 h-5;
+}
+
+.item svg path {
+  @apply fill-base-content-300;
+}
+
+.item.active {
+  @apply bg-primary text-purple-1;
+}
+
+.item.active svg path {
+  @apply fill-blue-1;
+}
+
+body[data-theme="dark"] .item.active svg path {
+  @apply fill-purple-2;
+}
+
+body[data-theme="dark"] .item.active {
+  @apply text-purple-2;
+}
