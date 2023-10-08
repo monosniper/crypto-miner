@@ -1,11 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { ArrTopIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppSelector } from "@/redux/store";
 import { main } from "@/redux/slices/mainSlice";
+import { PropsWithClassName } from "@/types";
+import cn from "clsx";
 
-export const CoinBlock = () => {
+export type Props = {
+  type?: "my" | "general";
+};
+
+export const CoinBlock: FC<PropsWithClassName<Props>> = ({
+  className,
+  type = "general",
+}) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [data] = useState([5, 27000, 10000, 1000, 10000]);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
@@ -14,7 +23,7 @@ export const CoinBlock = () => {
   const { theme } = useAppSelector(main);
 
   useEffect(() => {
-    if (!data.length) return;
+    if (!data.length || type === "my") return;
 
     const draw = () => {
       const parentWidth = svgRef.current?.parentElement?.clientWidth || 400;
@@ -133,10 +142,14 @@ export const CoinBlock = () => {
     return () => {
       window.removeEventListener("resize", draw);
     };
-  }, [data, theme]);
+  }, [data, theme, type]);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={cn(className, styles.wrapper, {
+        [styles.my]: type === "my",
+      })}
+    >
       <div className={styles.header}>
         <div className={styles.coinIconWrapper}>
           <svg
@@ -156,13 +169,18 @@ export const CoinBlock = () => {
         <p>Bitcoin, BTC</p>
       </div>
 
-      <div className={styles.chart}>
-        {hoveredData && (
-          <Tooltip data={`Value: ${hoveredData}`} position={tooltipPosition} />
-        )}
+      {type === "general" && (
+        <div className={styles.chart}>
+          {hoveredData && (
+            <Tooltip
+              data={`Value: ${hoveredData}`}
+              position={tooltipPosition}
+            />
+          )}
 
-        <svg ref={svgRef}></svg>
-      </div>
+          <svg ref={svgRef}></svg>
+        </div>
+      )}
 
       <div className={styles.footer}>
         <p>$27,127.6</p>

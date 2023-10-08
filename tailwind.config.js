@@ -8,6 +8,10 @@ export default {
       screens: {
         375: "350px",
       },
+
+      backgroundImage: {
+        "gradient-primary": "linear-gradient(90deg, #5B39B8 0%, #906BF5 100%)",
+      },
     },
   },
   plugins: [
@@ -26,12 +30,14 @@ export default {
         "purple-1": "#443274",
         "purple-2": "#D0C0FC",
         "purple-3": "#5B39B8",
+        "pink-1": "rgba(208, 192, 252, 1)",
         "blue-1": "#0B1C3F",
         "gray-1": "#A1A1AA",
 
         primary: "#C1AAFF",
         success: "#34C759",
       },
+
       dark: {
         "base-100": "#16191B",
         "base-200": "#1E1F25",
@@ -46,6 +52,7 @@ export default {
         "purple-1": "#443274",
         "purple-2": "#D0C0FC",
         "purple-3": "#7C55E7",
+        "pink-1": "rgba(208, 192, 252, 1)",
         "blue-1": "#0B1C3F",
         "gray-1": "#A1A1AA",
 

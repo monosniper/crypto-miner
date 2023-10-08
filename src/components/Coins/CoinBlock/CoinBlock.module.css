@@ -20,6 +20,10 @@
   font-family: "Work Sans", sans-serif;
 }
 
+.wrapper.my .footer {
+  @apply border-t-0;
+}
+
 .footer p {
   @apply text-lg font-medium text-base-content-200;
 }

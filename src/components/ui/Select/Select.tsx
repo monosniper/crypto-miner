@@ -70,9 +70,10 @@ export const Select: FC<Props> = ({ value, onChange, list }) => {
 
       {isOpen && (
         <div className={styles.list} ref={ref}>
-          {list.map((el) => {
+          {list.map((el, idx) => {
             return (
               <div
+                key={idx}
                 className={styles.item}
                 onClick={() => {
                   onChange(el.value as "rus" | "eng");

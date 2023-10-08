@@ -1,3 +1,7 @@
+// GENERAL
+
+export * from "./Title/Title";
+
 // HEADER
 
 export * from "./Header/Header";
@@ -12,6 +16,7 @@ export * from "./Sidebar/Sidebar";
 
 export * from "./Coins/CoinBlock/CoinBlock";
 export * from "./Coins/Coins";
+export * from "./Coins/MyCoins/MyCoins";
 
 // NEWS
 
@@ -23,4 +28,6 @@ export * from "./News/NewsItem/NewsItem";
 export * from "./Conversions/Conversions";
 export * from "./Conversions/ConversionsItem/ConversionsItem";
 
-export * from "./Title/Title";
+// WALLET
+
+export * from "./Wallet/BalanceBlock/BalanceBlock";

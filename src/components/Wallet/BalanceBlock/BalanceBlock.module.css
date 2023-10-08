@@ -1,0 +1,35 @@
+.wrapper {
+  @apply p-6;
+}
+
+.header {
+  @apply flex justify-between items-center gap-3 flex-wrap text-lg font-medium;
+}
+
+.content {
+  @apply flex justify-between items-center gap-3 mt-[18px] flex-wrap gap-y-6;
+}
+
+.balance {
+  @apply flex items-center gap-4;
+}
+
+.currentBalance {
+  @apply text-[28px] font-semibold;
+}
+
+.currentBalance span {
+  @apply text-base-content-300;
+}
+
+.changeBalance {
+  @apply flex items-center gap-1 text-success text-lg font-medium;
+}
+
+.contentBtns {
+  @apply flex items-center gap-2 flex-wrap w-full sm:w-max;
+}
+
+.contentBtns button {
+  @apply basis-[150px] flex-grow sm:flex-grow-0 sm:basis-0;
+}

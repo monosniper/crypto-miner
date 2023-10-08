@@ -15,7 +15,7 @@ import { MenuItem } from "./MenuItem/MenuItem";
 export const Menu = () => {
   return (
     <div className="flex flex-col gap-2">
-      <MenuItem icon={<HomeIcon />} title="Главная" href="/" />
+      <MenuItem icon={<HomeIcon />} title="Главная" href="/main" />
 
       <div className="mt-4">
         <h6 className="text-gray-1 text-xs uppercase">Кошелек</h6>

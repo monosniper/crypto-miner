@@ -11,3 +11,6 @@ export * from "./ExitIcon";
 export * from "./NotificationsIcon";
 export * from "./BurgerIcon";
 export * from "./ArrTopIcon";
+export * from "./AddIcon";
+export * from "./ExportIcon";
+export * from "./CartIcon";

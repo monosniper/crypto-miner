@@ -12,6 +12,10 @@
 }
 
 body {
-  @apply text-sm font-normal leading-none bg-base-100;
+  @apply text-sm font-normal leading-none bg-base-100 text-base-content-100;
   font-family: "Work Sans", sans-serif;
+}
+
+.box {
+  @apply bg-base-200 border border-base-border-100 rounded-xl;
 }
