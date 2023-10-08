@@ -25,6 +25,7 @@ export default {
 
         "purple-1": "#443274",
         "purple-2": "#D0C0FC",
+        "purple-3": "#5B39B8",
         "blue-1": "#0B1C3F",
         "gray-1": "#A1A1AA",
 
@@ -44,6 +45,7 @@ export default {
 
         "purple-1": "#443274",
         "purple-2": "#D0C0FC",
+        "purple-3": "#7C55E7",
         "blue-1": "#0B1C3F",
         "gray-1": "#A1A1AA",
 

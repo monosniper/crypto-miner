@@ -18,4 +18,9 @@ export * from "./Coins/Coins";
 export * from "./News/News";
 export * from "./News/NewsItem/NewsItem";
 
+// CONVERSIONS
+
+export * from "./Conversions/Conversions";
+export * from "./Conversions/ConversionsItem/ConversionsItem";
+
 export * from "./Title/Title";
