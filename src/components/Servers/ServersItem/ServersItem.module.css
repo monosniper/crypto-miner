@@ -1,0 +1,28 @@
+.wrapper {
+  @apply p-4;
+}
+
+.header {
+  @apply flex justify-between items-center gap-3;
+}
+
+.header svg path {
+  @apply fill-base-content-100;
+}
+
+.state {
+  @apply flex items-center gap-1 py-1 px-2 rounded-3xl bg-base-100 text-xs;
+  font-family: Inter, sans-serif;
+}
+
+.state svg path {
+  @apply fill-success;
+}
+
+.menu {
+  @apply cursor-pointer;
+}
+
+.title {
+  @apply text-base font-medium mt-4;
+}

@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-const { MainPage, WalletPage } = lazily(() => import("@/pages"));
+const { MainPage, WalletPage, MiningPage } = lazily(() => import("@/pages"));
 
 export const useRouter = () => {
   return (
@@ -21,6 +21,15 @@ export const useRouter = () => {
         element={
           <Suspense>
             <WalletPage />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/mining"
+        element={
+          <Suspense>
+            <MiningPage />
           </Suspense>
         }
       />

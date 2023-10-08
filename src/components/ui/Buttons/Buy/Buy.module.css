@@ -1,5 +1,5 @@
 .wrapper {
-  @apply p-6 flex justify-center items-center w-full h-full text-base-content-300;
+  @apply p-6 flex justify-center items-center w-full h-full text-base-content-300 border-solid;
   font-family: Inter, sans-serif;
 }
 

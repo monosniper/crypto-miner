@@ -3,4 +3,5 @@ export const pagesTitles: {
 } = {
   "/main": "Главная",
   "/wallet": "Кошелёк",
+  "/mining": "Майнинг",
 };

@@ -14,3 +14,5 @@ export * from "./ArrTopIcon";
 export * from "./AddIcon";
 export * from "./ExportIcon";
 export * from "./CartIcon";
+export * from "./SearchIcon";
+export * from "./fanIcon";

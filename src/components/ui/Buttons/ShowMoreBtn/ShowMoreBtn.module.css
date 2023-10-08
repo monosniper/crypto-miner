@@ -2,3 +2,7 @@
   @apply flex items-center gap-2 text-sm;
   font-family: Inter, sans-serif;
 }
+
+.btn svg path {
+  @apply stroke-base-content-100;
+}
