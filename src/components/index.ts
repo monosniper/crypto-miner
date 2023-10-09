@@ -40,3 +40,7 @@ export * from "./Servers/ServersItem/ServersItem";
 // SKELETS
 
 export * from "./Skelets/CoinSkelet/CoinSkelet";
+
+// FORMS
+
+export * from "./Forms/SignInForm/SignInForm";

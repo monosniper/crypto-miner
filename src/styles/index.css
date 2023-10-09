@@ -9,11 +9,12 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
+  font-family: "Work Sans", sans-serif;
 }
 
 body {
   @apply text-sm font-normal leading-none bg-base-100 text-base-content-100;
-  font-family: "Work Sans", sans-serif;
 }
 
 button,

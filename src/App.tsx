@@ -3,9 +3,11 @@ import { useAppSelector } from "./redux/store";
 import { main } from "./redux/slices/mainSlice";
 import { useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
+import { user } from "./redux/slices/userSlice";
 
 const App = () => {
   const { theme } = useAppSelector(main);
+  const { isAuth } = useAppSelector(user);
 
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
@@ -13,7 +15,7 @@ const App = () => {
 
   return (
     <div>
-      <PageLayout>{useRouter()}</PageLayout>
+      <PageLayout>{useRouter(isAuth)}</PageLayout>
     </div>
   );
 };

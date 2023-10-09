@@ -19,7 +19,7 @@ export const Button: FC<PropsWithClassName<Props>> = ({
   size = "normal",
   icon,
   title = "",
-  onClick = () => alert("Click btn"),
+  onClick,
 }) => {
   return (
     <button
