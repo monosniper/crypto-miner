@@ -12,7 +12,7 @@
 }
 
 .chart {
-  @apply py-4;
+  @apply py-4 cursor-pointer;
 }
 
 .footer {
@@ -34,4 +34,16 @@
 
 .changeCourse svg path {
   @apply fill-success;
+}
+
+.changeCourse.decline {
+  @apply text-red-500;
+}
+
+.changeCourse.decline svg {
+  @apply rotate-180;
+}
+
+.changeCourse.decline svg path {
+  @apply fill-red-500;
 }

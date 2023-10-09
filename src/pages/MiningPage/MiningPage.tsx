@@ -12,7 +12,7 @@ export const MiningPage = () => {
         onChange={() => console.log("asd")}
       />
 
-      <Coins className="mt-6" />
+      <Coins className="mt-6" rows={[]} />
 
       <div className="mt-16">
         <Title title="Задействованные сервера" />

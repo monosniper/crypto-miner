@@ -1,35 +1,116 @@
-import { CoinBlock } from "@/components";
-import { PropsWithClassName } from "@/types";
-import { FC } from "react";
+import { CoinBlock, CoinSkelet } from "@/components";
+import { Coin, CoinWithOrder, PropsWithClassName } from "@/types";
+import { FC, useEffect, useState, DragEvent } from "react";
 import cn from "clsx";
+import { changeClassParentEl } from "@/utils";
 
-export const Coins: FC<PropsWithClassName> = ({ className }) => {
+type Props = {
+  rows: Coin[] | undefined;
+  draggableItems?: boolean;
+  loading?: boolean;
+};
+
+export const Coins: FC<PropsWithClassName<Props>> = ({
+  className,
+  rows,
+  draggableItems = false,
+  loading = false,
+}) => {
+  const [list, setList] = useState<CoinWithOrder[]>();
+  const [currentCoin, setCurrentCoin] = useState<null | CoinWithOrder>(null);
+  const skeletItems = Array(8).fill(0);
+
+  useEffect(() => {
+    if (!rows) return;
+
+    const coinsWithOrder = rows.map((el, idx) => {
+      return { ...el, order: idx + 1 };
+    });
+
+    setList(coinsWithOrder);
+  }, [rows]);
+
+  const dragStartHandler = (coin: CoinWithOrder) => {
+    setCurrentCoin(coin);
+  };
+
+  const dragEndHandler = (e: DragEvent) => {
+    changeClassParentEl(e, "remove", "overCoin", "draggableEl");
+  };
+
+  const dragOverHandler = (e: DragEvent) => {
+    e.preventDefault();
+
+    changeClassParentEl(e, "add", "overCoin", "draggableEl");
+  };
+
+  const dropHandler = (e: DragEvent, coin: CoinWithOrder) => {
+    e.preventDefault();
+
+    if (!list) return;
+
+    if (currentCoin) {
+      setList(
+        list.map((el) => {
+          if (el.id === coin.id) {
+            return { ...el, order: currentCoin.order };
+          }
+
+          if (el.id === currentCoin.id) {
+            return { ...el, order: coin.order };
+          }
+
+          return el;
+        }),
+      );
+    }
+
+    changeClassParentEl(e, "remove", "overCoin", "draggableEl");
+  };
+
+  const sortCoins = (coinOne: CoinWithOrder, coinTwo: CoinWithOrder) => {
+    if (coinOne.order > coinTwo.order) {
+      return 1;
+    } else {
+      return -1;
+    }
+  };
+
   return (
     <div className={cn(className, "flex flex-wrap -m-2")}>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <CoinBlock />
-      </div>
+      {loading ? (
+        <>
+          {skeletItems.map((_, idx) => {
+            return (
+              <div key={idx} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+                <CoinSkelet />
+              </div>
+            );
+          })}
+        </>
+      ) : (
+        <>
+          {list &&
+            list.sort(sortCoins).map((el, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
+                >
+                  <CoinBlock
+                    data={el}
+                    draggable={draggableItems}
+                    onDragStart={dragStartHandler}
+                    onDragLeave={dragEndHandler}
+                    onDragEnd={dragEndHandler}
+                    onDragOver={dragOverHandler}
+                    onDrop={dropHandler}
+                  />
+                </div>
+              );
+            })}
+        </>
+      )}
     </div>
   );
 };
