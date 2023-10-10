@@ -1,9 +1,13 @@
 import cn from "clsx";
 import styles from "./BalanceBlock.module.css";
-import { AddIcon, ArrTopIcon, ExportIcon } from "@/components/icons";
+import { AddIcon, ExportIcon } from "@/components/icons";
 import { Button } from "@/components/ui";
+import { useAppSelector } from "@/redux/store";
+import { user } from "@/redux/slices/userSlice";
 
 export const BalanceBlock = () => {
+  const { userData } = useAppSelector(user);
+
   return (
     <div className={cn("box", styles.wrapper)}>
       <div className={styles.header}>
@@ -13,13 +17,13 @@ export const BalanceBlock = () => {
       <div className={styles.content}>
         <div className={styles.balance}>
           <p className={styles.currentBalance}>
-            <span>~</span>$27,127.6
+            <span>~</span>${userData?.wallet?.balance.USDT || 0}
           </p>
 
-          <p className={styles.changeBalance}>
+          {/* <p className={styles.changeBalance}>
             <span>0.62%</span>
             <ArrTopIcon />
-          </p>
+          </p> */}
         </div>
 
         <div className={styles.contentBtns}>

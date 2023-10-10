@@ -11,3 +11,7 @@ export type Coin = {
 export interface CoinWithOrder extends Coin {
   order: number;
 }
+
+export type MyCoin = Pick<Coin, "slug" | "name" | "icon_url" | "id"> & {
+  balance: number;
+};

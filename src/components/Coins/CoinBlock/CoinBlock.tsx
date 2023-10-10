@@ -4,12 +4,12 @@ import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppSelector } from "@/redux/store";
 import { main } from "@/redux/slices/mainSlice";
-import { Coin, CoinWithOrder, PropsWithClassName } from "@/types";
+import { Coin, CoinWithOrder, MyCoin, PropsWithClassName } from "@/types";
 import cn from "clsx";
 
 export type Props = {
   type?: "my" | "general";
-  data: CoinWithOrder | Coin;
+  data: CoinWithOrder | Coin | MyCoin;
   draggable?: boolean;
   onDragStart?: (coin: CoinWithOrder, e?: DragEvent) => void;
   onDragLeave?: (e: DragEvent) => void;
@@ -17,7 +17,7 @@ export type Props = {
   onDragOver?: (e: DragEvent) => void;
   onDrop?: (e: DragEvent, coin: CoinWithOrder) => void;
 
-  changeLocation: (direction: "top" | "bottom", data: CoinWithOrder) => void;
+  changeLocation?: (direction: "top" | "bottom", data: CoinWithOrder) => void;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
@@ -40,7 +40,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   const { theme } = useAppSelector(main);
 
   useEffect(() => {
-    if (!data.graph.length || type === "my") return;
+    if (!("graph" in data) || type === "my") return;
 
     const draw = () => {
       const parentWidth = svgRef.current?.parentElement?.clientWidth || 400;
@@ -207,20 +207,22 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
-          <div
-            className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-            onClick={() => changeLocation("top", data as CoinWithOrder)}
-          >
-            <ArrTopIcon />
+        {changeLocation && (
+          <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
+            <div
+              className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+              onClick={() => changeLocation("top", data as CoinWithOrder)}
+            >
+              <ArrTopIcon />
+            </div>
+            <div
+              className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+              onClick={() => changeLocation("bottom", data as CoinWithOrder)}
+            >
+              <ArrTopIcon className="rotate-180" />
+            </div>
           </div>
-          <div
-            className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-            onClick={() => changeLocation("bottom", data as CoinWithOrder)}
-          >
-            <ArrTopIcon className="rotate-180" />
-          </div>
-        </div>
+        )}
       </div>
 
       {type === "general" && (
@@ -237,15 +239,18 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       )}
 
       <div className={styles.footer}>
-        <p>${data.rate.toFixed(1)}</p>
-        <div
-          className={cn(styles.changeCourse, {
-            [styles.decline]: data.change < 0 ? true : false,
-          })}
-        >
-          <span>{data.change.toFixed(2)}%</span>
-          <ArrTopIcon />
-        </div>
+        <Rate type={type} data={data} />
+        {"change" in data && (
+          <div
+            className={cn(styles.changeCourse, {
+              [styles.decline]:
+                "change" in data && data.change < 0 ? true : false,
+            })}
+          >
+            <span>{data.change.toFixed(2)}%</span>
+            <ArrTopIcon />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -269,4 +274,19 @@ const Tooltip = ({
       {data}
     </div>
   );
+};
+
+const Rate: FC<{ type: "my" | "general"; data: Coin | MyCoin }> = ({
+  type,
+  data,
+}) => {
+  if (type === "my" && "balance" in data) {
+    return <p>${data.balance}</p>;
+  }
+
+  if (type === "general" && "rate" in data) {
+    return <p>${data.rate.toFixed(2)}</p>;
+  }
+
+  return <p>$0</p>;
 };

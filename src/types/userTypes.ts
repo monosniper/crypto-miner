@@ -24,5 +24,5 @@ export type User = {
       WBTC: number;
       MATIC: number;
     };
-  };
+  } | null;
 };
