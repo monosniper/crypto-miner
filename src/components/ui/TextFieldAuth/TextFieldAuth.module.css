@@ -1,0 +1,12 @@
+.wrapper {
+  @apply w-full flex flex-col gap-1;
+  font-family: Inter, sans-serif;
+}
+
+.input {
+  @apply w-full px-3 py-2 border-b border-l-0 border-r-0 border-t-0 border-base-border-100 border-solid bg-transparent text-base text-base-content-100;
+}
+
+.error {
+  @apply text-red-500 text-xs inline-block ml-3;
+}

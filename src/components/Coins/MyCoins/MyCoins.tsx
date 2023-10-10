@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { MyCoin, PropsWithClassName } from "@/types";
 import cn from "clsx";
-import { Buy } from "@/components/ui";
+import { Buy, ShowMoreBtn } from "@/components/ui";
 import { CoinBlock, CoinSkelet } from "@/components";
 import { useAppSelector } from "@/redux/store";
 import { user } from "@/redux/slices/userSlice";
@@ -17,6 +17,7 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
     isFetching: allCoinsIsFetching,
   } = useGetCoinsQuery(null);
   const [isLoading, setLoading] = useState(true);
+  const [isMore, setMore] = useState(false);
 
   useEffect(() => {
     if (!userData?.wallet) return;
@@ -62,39 +63,59 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
   );
 
   return (
-    <div className={cn(className, "flex flex-wrap -m-2")}>
-      <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
-        <Buy title="Купить монеты" onClick={() => console.log("click")} />
+    <>
+      <div className={cn(className, "flex flex-wrap -m-2")}>
+        <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+          <Buy title="Купить монеты" onClick={() => console.log("click")} />
+        </div>
+
+        {loading ? (
+          <>
+            <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+              <CoinSkelet />
+            </div>
+            <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+              <CoinSkelet />
+            </div>
+            <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+              <CoinSkelet />
+            </div>
+
+            <div className="w-full xl:hidden sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+              <CoinSkelet />
+            </div>
+            <div className="w-full xl:hidden sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+              <CoinSkelet />
+            </div>
+          </>
+        ) : (
+          <>
+            {coins.length > 0 &&
+              coins
+                .slice(0, isMore ? 8 : undefined)
+                .filter((el) => {
+                  return el.balance > 0 && el.slug !== "USDT";
+                })
+                .map((el) => {
+                  return (
+                    <div
+                      key={el.id}
+                      className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2"
+                    >
+                      <CoinBlock type="my" data={el} />
+                    </div>
+                  );
+                })}
+          </>
+        )}
       </div>
 
-      {loading ? (
-        <>
-          <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
-            <CoinSkelet />
-          </div>
-          <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
-            <CoinSkelet />
-          </div>
-        </>
-      ) : (
-        <>
-          {coins.length > 0 &&
-            coins
-              .filter((el) => {
-                return el.balance > 0;
-              })
-              .map((el) => {
-                return (
-                  <div
-                    key={el.id}
-                    className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2"
-                  >
-                    <CoinBlock type="my" data={el} />
-                  </div>
-                );
-              })}
-        </>
-      )}
-    </div>
+      {coins.filter((el) => {
+        return el.balance > 0 && el.slug !== "USDT";
+      }).length > 7 &&
+        !isMore && (
+          <ShowMoreBtn className="mt-6" onClick={() => setMore(true)} />
+        )}
+    </>
   );
 };

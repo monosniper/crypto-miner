@@ -1,5 +1,5 @@
-import { ChangeEventHandler, MouseEventHandler } from "react";
-import styles from "./TextField.module.css";
+import { ChangeEventHandler } from "react";
+import styles from "./TextFieldAuth.module.css";
 import {
   Path,
   RegisterOptions,
@@ -18,14 +18,9 @@ type Props<T extends FieldValues> = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
   error?: string;
-
-  btn?: {
-    title: string;
-    onClick: MouseEventHandler<HTMLButtonElement>;
-  };
 };
 
-export const TextField = <T extends FieldValues>({
+export const TextFieldAuth = <T extends FieldValues>({
   className,
   type = "text",
   placeholder,
@@ -34,8 +29,7 @@ export const TextField = <T extends FieldValues>({
   options,
   onChange,
   value,
-
-  btn,
+  error,
 }: PropsWithClassName<Props<T>>) => {
   return (
     <div className={cn(className, styles.wrapper)}>
@@ -48,11 +42,7 @@ export const TextField = <T extends FieldValues>({
         {...methods?.register(registerName!, options)}
       />
 
-      {btn && (
-        <button className={styles.btn} type="button" onClick={btn.onClick}>
-          {btn.title}
-        </button>
-      )}
+      {error && <span className={styles.error}>{error}</span>}
     </div>
   );
 };

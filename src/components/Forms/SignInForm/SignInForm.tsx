@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import cn from "clsx";
 import { PropsWithClassName, SignInFormData } from "@/types";
-import { Button, TextField } from "@/components/ui";
+import { Button, TextFieldAuth } from "@/components/ui";
 import { useForm } from "react-hook-form";
 import { useLazyGetMeQuery } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
@@ -69,7 +69,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
         </p>
       )}
 
-      <TextField
+      <TextFieldAuth
         placeholder="Имя пользователя"
         methods={methods}
         registerName="username"
@@ -84,7 +84,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
         error={methods.formState.errors.username?.message}
       />
 
-      <TextField
+      <TextFieldAuth
         placeholder="Пароль"
         type="password"
         methods={methods}

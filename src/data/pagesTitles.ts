@@ -3,5 +3,6 @@ export const pagesTitles: {
 } = {
   "/main": "Главная",
   "/wallet": "Кошелёк",
+  "/wallet/withdrawal": "Вывод средств",
   "/mining": "Майнинг",
 };

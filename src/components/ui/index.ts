@@ -8,6 +8,9 @@ export * from "./Buttons/Buy/Buy";
 
 // INPUTS
 
+export * from "./TextFieldAuth/TextFieldAuth";
 export * from "./TextField/TextField";
 
 export * from "./Search/Search";
+
+export * from "./FieldWrapper/FieldWrapper";

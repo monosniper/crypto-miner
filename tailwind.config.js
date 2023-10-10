@@ -26,6 +26,7 @@ export default {
         "base-content-300": "#58667E",
 
         "base-border-100": "#E5E9EB",
+        "base-border-warning": "#FC0",
 
         "purple-1": "#443274",
         "purple-2": "#D0C0FC",
@@ -36,6 +37,7 @@ export default {
 
         primary: "#C1AAFF",
         success: "#34C759",
+        warning: "rgba(255, 204, 0, 0.10)",
       },
 
       dark: {
@@ -48,6 +50,7 @@ export default {
         "base-content-300": "#B6BFCF",
 
         "base-border-100": "#444E54",
+        "base-border-warning": "#8A710F",
 
         "purple-1": "#443274",
         "purple-2": "#D0C0FC",
@@ -58,6 +61,7 @@ export default {
 
         primary: "#31108C",
         success: "#47BC64",
+        warning: "rgba(138, 113, 15, 0.10)",
       },
     }),
   ],
