@@ -16,6 +16,8 @@ export type Props = {
   onDragEnd?: (e: DragEvent) => void;
   onDragOver?: (e: DragEvent) => void;
   onDrop?: (e: DragEvent, coin: CoinWithOrder) => void;
+
+  changeLocation: (direction: "top" | "bottom", data: CoinWithOrder) => void;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
@@ -28,6 +30,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   onDragEnd,
   onDragOver,
   onDrop,
+
+  changeLocation,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
@@ -193,13 +197,30 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       }}
     >
       <div className={styles.header}>
-        <div className={styles.coinIconWrapper}>
-          <img src={data.icon_url} alt={data.slug} />
+        <div className={styles.coinTitle}>
+          <div className={styles.coinIconWrapper}>
+            <img src={data.icon_url} alt={data.slug} />
+          </div>
+
+          <p>
+            {data.name}, {data.slug}
+          </p>
         </div>
 
-        <p>
-          {data.name}, {data.slug}
-        </p>
+        <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
+          <div
+            className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+            onClick={() => changeLocation("top", data as CoinWithOrder)}
+          >
+            <ArrTopIcon />
+          </div>
+          <div
+            className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+            onClick={() => changeLocation("bottom", data as CoinWithOrder)}
+          >
+            <ArrTopIcon className="rotate-180" />
+          </div>
+        </div>
       </div>
 
       {type === "general" && (

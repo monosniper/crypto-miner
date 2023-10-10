@@ -7,8 +7,12 @@
   @apply w-10 h-10 rounded-full min-w-[40px];
 }
 
+.inner {
+  @apply flex flex-col gap-4 w-full;
+}
+
 .content {
-  @apply flex flex-col gap-4;
+  @apply flex flex-col gap-2;
 }
 
 .header {

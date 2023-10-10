@@ -1,9 +1,15 @@
-import { ConversionsItem, Title } from "@/components";
+import { CoinSkelet, ConversionsItem, EmptyText, Title } from "@/components";
+import { useLoading } from "@/hooks";
+import { useGetConversionsQuery } from "@/redux/api/conversionsApi";
 import { Link } from "react-router-dom";
 
 export const Conversions = () => {
+  const { data, isLoading, isFetching } = useGetConversionsQuery(null);
+
+  const loading = useLoading(isLoading, isFetching);
+
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full h-full">
       <div className="flex justify-between items-center gap-4">
         <Title title="Конвертации" />
 
@@ -15,11 +21,24 @@ export const Conversions = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <ConversionsItem />
-        <ConversionsItem />
-        <ConversionsItem />
-        <ConversionsItem />
+      <div className="flex flex-col gap-4 flex-grow">
+        {loading ? (
+          <>
+            <CoinSkelet />
+            <CoinSkelet />
+            <CoinSkelet />
+          </>
+        ) : (
+          <>
+            {data && data.length > 0 ? (
+              data.map((el) => {
+                return <ConversionsItem key={el.id} data={el} />;
+              })
+            ) : (
+              <EmptyText text="Нет конвертаций" />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

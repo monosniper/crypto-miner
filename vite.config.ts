@@ -10,6 +10,10 @@ export default defineConfig({
     },
   },
 
+  server: {
+    host: true,
+  },
+
   plugins: [react()],
   mode: "development",
 });

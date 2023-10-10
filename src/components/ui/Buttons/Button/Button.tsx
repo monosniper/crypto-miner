@@ -10,6 +10,7 @@ type Props = {
   icon?: JSX.Element | string;
   title: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 };
 
 export const Button: FC<PropsWithClassName<Props>> = ({
@@ -20,6 +21,8 @@ export const Button: FC<PropsWithClassName<Props>> = ({
   icon,
   title = "",
   onClick,
+
+  disabled = false,
 }) => {
   return (
     <button
@@ -29,6 +32,7 @@ export const Button: FC<PropsWithClassName<Props>> = ({
       })}
       type={type}
       onClick={onClick}
+      disabled={disabled}
     >
       {icon && (
         <>

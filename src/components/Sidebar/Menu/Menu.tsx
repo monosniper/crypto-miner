@@ -13,6 +13,12 @@ import {
 import { MenuItem } from "./MenuItem/MenuItem";
 
 export const Menu = () => {
+  const logout = () => {
+    localStorage.removeItem("mainUserData");
+
+    document.location.reload();
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <MenuItem icon={<HomeIcon />} title="Главная" href="/main" />
@@ -52,7 +58,7 @@ export const Menu = () => {
             type="button"
             icon={<ExitIcon />}
             title="Выйти"
-            onClick={() => console.log("Выход")}
+            onClick={logout}
           />
         </div>
       </div>

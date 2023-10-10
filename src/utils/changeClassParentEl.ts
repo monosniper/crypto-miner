@@ -1,7 +1,7 @@
-import { DragEvent, ChangeEvent, MouseEvent } from "react";
+import { DragEvent, ChangeEvent, MouseEvent, TouchEvent } from "react";
 
 export const changeClassParentEl = (
-  e: DragEvent | ChangeEvent | MouseEvent,
+  e: DragEvent | ChangeEvent | MouseEvent | TouchEvent,
   action: "add" | "remove",
   classEl: string,
   containsClass?: string,

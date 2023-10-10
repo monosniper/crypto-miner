@@ -1,28 +1,39 @@
+import { FC } from "react";
 import { ArrTopIcon } from "@/components/icons";
 import styles from "./ConversionsItem.module.css";
+import { Conversion } from "@/types";
+import { formatRelativeDate } from "@/utils";
 
-export const ConversionsItem = () => {
+type Props = {
+  data: Conversion;
+};
+
+export const ConversionsItem: FC<Props> = ({ data }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <h4>Вывод средств</h4>
-        <p>только что</p>
+        <p>{formatRelativeDate(new Date(data.created_at))}</p>
       </div>
 
       <div className={styles.content}>
         <div className={styles.conversions}>
           <p>
-            1.053 <span>ETH</span>
+            {data.amount.from.toFixed(2)} <span>{data.coin.from}</span>
           </p>
 
-          <ArrTopIcon className="rotate-90 [&>path]:fill-purple-3" />
+          {data.amount.to !== undefined && data.amount.to !== null && (
+            <>
+              <ArrTopIcon className="rotate-90 [&>path]:fill-purple-3" />
 
-          <p>
-            1.053 <span>ETH</span>
-          </p>
+              <p>
+                {data.amount.to.toFixed(2)} <span>{data.coin.to}</span>
+              </p>
+            </>
+          )}
         </div>
 
-        <p>$1,682.46</p>
+        {/* <p>$1,682.46</p> */}
       </div>
     </div>
   );

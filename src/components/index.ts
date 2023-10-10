@@ -44,3 +44,5 @@ export * from "./Skelets/CoinSkelet/CoinSkelet";
 // FORMS
 
 export * from "./Forms/SignInForm/SignInForm";
+
+export * from "./EmptyText/EmptyText";
