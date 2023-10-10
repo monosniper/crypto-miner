@@ -16,3 +16,4 @@ export * from "./ExportIcon";
 export * from "./CartIcon";
 export * from "./SearchIcon";
 export * from "./FanIcon";
+export * from "./BookmarksIcon";

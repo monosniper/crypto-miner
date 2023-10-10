@@ -36,6 +36,8 @@ export * from "./Wallet/BalanceBlock/BalanceBlock";
 
 export * from "./Servers/Servers";
 export * from "./Servers/ServersItem/ServersItem";
+export * from "./Servers/ServersPlans/ServersPlans";
+export * from "./Servers/ServersPlans/ServersPlansItem/ServersPlansItem";
 
 // SKELETS
 

@@ -39,7 +39,7 @@ export const Menu = () => {
           <MenuItem
             icon={<LightingIcon />}
             title="Рабочие сервера"
-            href="/history"
+            href="/working-servers"
           />
         </div>
       </div>

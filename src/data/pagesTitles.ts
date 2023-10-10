@@ -5,4 +5,5 @@ export const pagesTitles: {
   "/wallet": "Кошелёк",
   "/wallet/withdrawal": "Вывод средств",
   "/mining": "Майнинг",
+  "/working-servers": "Рабочие сервера",
 };

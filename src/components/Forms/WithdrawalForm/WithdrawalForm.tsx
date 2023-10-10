@@ -1,4 +1,4 @@
-import { FieldWrapper, TextField } from "@/components/ui";
+import { Button, FieldWrapper, TextField } from "@/components/ui";
 import { PropsWithClassName, WithdrawalFormData } from "@/types";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -9,7 +9,7 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
 
   return (
     <form className={cn(className)}>
-      <div className="w-full flex flex-wrap -m-4">
+      <div className="flex flex-wrap -m-4">
         <FieldWrapper className="w-full md:w-1/2 p-4" title="Сумма, USDT">
           <TextField
             methods={methods}
@@ -22,6 +22,8 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
           <TextField methods={methods} registerName="wallet" />
         </FieldWrapper>
       </div>
+
+      <Button className="mt-8" type="submit" color="primary" title="Вывезти" />
     </form>
   );
 };

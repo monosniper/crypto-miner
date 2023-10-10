@@ -11,6 +11,8 @@ export default {
 
       backgroundImage: {
         "gradient-primary": "linear-gradient(90deg, #5B39B8 0%, #906BF5 100%)",
+        "base-gradient-100":
+          "linear-gradient(180deg, rgba(153, 115, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%)",
       },
     },
   },
