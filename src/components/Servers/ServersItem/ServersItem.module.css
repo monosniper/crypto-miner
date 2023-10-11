@@ -1,5 +1,5 @@
 .wrapper {
-  @apply p-4;
+  @apply p-4 w-full;
 }
 
 .header {
@@ -24,5 +24,5 @@
 }
 
 .title {
-  @apply text-base font-medium mt-4;
+  @apply text-base font-medium mt-4 text-left;
 }

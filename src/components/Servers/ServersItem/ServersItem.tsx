@@ -1,12 +1,29 @@
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import styles from "./ServersItem.module.css";
 import cn from "clsx";
 import { PropsWithClassName } from "@/types";
 import { BurgerIcon, FanIcon } from "@/components/icons";
 
-export const ServersItem: FC<PropsWithClassName> = ({ className }) => {
+type Props = {
+  type?: "div" | "button";
+  onClick?: MouseEventHandler<HTMLElement>;
+};
+
+export const ServersItem: FC<PropsWithClassName<Props>> = ({
+  className,
+  type = "div",
+  onClick,
+}) => {
+  const Tag = type;
+
   return (
-    <div className={cn(className, "box", styles.wrapper)}>
+    <Tag
+      className={cn(className, "box", styles.wrapper, {
+        "cursor-pointer hover:border hover:border-primary border border-transparent border-solid":
+          type === "button",
+      })}
+      onClick={onClick}
+    >
       <div className={styles.header}>
         <div className={styles.state}>
           <FanIcon />
@@ -20,6 +37,6 @@ export const ServersItem: FC<PropsWithClassName> = ({ className }) => {
       </div>
 
       <h5 className={styles.title}>Antminer S19 XP 141</h5>
-    </div>
+    </Tag>
   );
 };
