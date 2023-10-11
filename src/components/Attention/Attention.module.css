@@ -1,0 +1,8 @@
+.title {
+  @apply text-lg font-medium;
+}
+
+.content {
+  @apply flex flex-col gap-2 text-xs mt-8;
+  font-family: Inter, sans-serif;
+}

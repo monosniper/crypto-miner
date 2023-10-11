@@ -1,7 +1,8 @@
 import { ReactNode, FC, useEffect, useState } from "react";
 import { Header, Sidebar } from "@/components";
-import { useAppDispatch } from "@/redux/store";
-import { setOpenSidebar } from "@/redux/slices/main";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { setOpenSidebar } from "@/redux/slices/mainSlice";
+import { user } from "@/redux/slices/userSlice";
 
 type Props = {
   children: ReactNode;
@@ -12,6 +13,7 @@ export const PageLayout: FC<Props> = ({ children }) => {
     return window.innerWidth >= 1024 ? true : false;
   });
   const dispatch = useAppDispatch();
+  const { isAuth } = useAppSelector(user);
 
   useEffect(() => {
     const resizeListener = () => {
@@ -32,12 +34,18 @@ export const PageLayout: FC<Props> = ({ children }) => {
   }, [dispatch, isLaptop]);
 
   return (
-    <div>
-      <Sidebar isLaptop={isLaptop} />
-      <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20">
-        <Header />
-        <main className="flex flex-col">{children}</main>
-      </div>
-    </div>
+    <>
+      {isAuth ? (
+        <div>
+          <Sidebar isLaptop={isLaptop} />
+          <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20 pb-10">
+            <Header />
+            <main className="flex flex-col">{children}</main>
+          </div>
+        </div>
+      ) : (
+        <>{children}</>
+      )}
+    </>
   );
 };

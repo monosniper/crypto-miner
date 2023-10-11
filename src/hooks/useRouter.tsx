@@ -1,38 +1,112 @@
+import { ServerPage, WorkingServersPage } from "@/pages";
 import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-const { MainPage } = lazily(() => import("@/pages"));
+const { MainPage, WalletPage, MiningPage, SignInPage, WithdrawalPage } = lazily(
+  () => import("@/pages"),
+);
 
-export const useRouter = () => {
+export const useRouter = (isAuth: boolean) => {
   return (
-    <Routes>
-      <Route
-        path="/main"
-        element={
-          <Suspense>
-            <MainPage />
-          </Suspense>
-        }
-      />
+    <>
+      {isAuth ? (
+        <Routes>
+          <Route
+            path="/main"
+            element={
+              <Suspense>
+                <MainPage />
+              </Suspense>
+            }
+          />
 
-      <Route
-        index
-        element={
-          <Suspense>
-            <Navigate to="/main" />
-          </Suspense>
-        }
-      />
+          <Route
+            path="/wallet"
+            element={
+              <Suspense>
+                <WalletPage />
+              </Suspense>
+            }
+          />
 
-      <Route
-        path="/*"
-        element={
-          <Suspense>
-            <Navigate to="/main" />
-          </Suspense>
-        }
-      />
-    </Routes>
+          <Route
+            path="/wallet/withdrawal"
+            element={
+              <Suspense>
+                <WithdrawalPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/working-servers"
+            element={
+              <Suspense>
+                <WorkingServersPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/mining"
+            element={
+              <Suspense>
+                <MiningPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/server/:id"
+            element={
+              <Suspense>
+                <ServerPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            index
+            element={
+              <Suspense>
+                <Navigate to="/main" />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/*"
+            element={
+              <Suspense>
+                <Navigate to="/main" />
+              </Suspense>
+            }
+          />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/auth/signin" element={<SignInPage />} />
+
+          <Route
+            index
+            element={
+              <Suspense>
+                <Navigate to="/auth/signin" />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/*"
+            element={
+              <Suspense>
+                <Navigate to="/auth/signin" />
+              </Suspense>
+            }
+          />
+        </Routes>
+      )}
+    </>
   );
 };

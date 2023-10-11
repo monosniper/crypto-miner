@@ -1,0 +1,7 @@
+.beneficial {
+  @apply h-full bg-gradient-1 !border-purple-3 !border-[2px];
+}
+
+body[data-theme="dark"] .beneficial {
+  @apply !bg-gradient-1-dark;
+}

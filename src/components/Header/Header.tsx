@@ -1,30 +1,44 @@
-import { FC } from "react";
 import styles from "./Header.module.css";
-import { BurgerIcon, NotificationsIcon } from "@/components/icons";
+import { BurgerIcon, NotificationsIcon, PrevIcon } from "@/components/icons";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { main, setOpenSidebar } from "@/redux/slices/main";
+import { main, setOpenSidebar } from "@/redux/slices/mainSlice";
+import { Title } from "@/components";
+import { useLocation, useNavigate } from "react-router-dom";
+import { pagesTitles } from "@/data";
 
-type Props = {
-  title?: string;
-};
-
-export const Header: FC<Props> = ({ title = "Главная" }) => {
+export const Header = () => {
   const dispatch = useAppDispatch();
   const { isOpenSidebar } = useAppSelector(main);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <header className="flex items-center justify-between gap-6 py-6 lg:py-[30px]">
-      <h2 className="hidden lg:flex font-semibold text-2xl text-base-content-100 -tracking-[0.48px]">
-        {title}
-      </h2>
+    <header className={styles.header}>
+      {!location.pathname.includes("/server/") ? (
+        <Title
+          className="hidden lg:flex"
+          title={pagesTitles[location.pathname]}
+        />
+      ) : (
+        <button
+          className="flex items-center gap-4 font-semibold text-2xl"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <PrevIcon />
+          <span>Сервер</span>
+        </button>
+      )}
+
       <div
-        className="lg:hidden"
+        className={styles.burgerWrapper}
         onClick={() => dispatch(setOpenSidebar(!isOpenSidebar))}
       >
         <BurgerIcon width={30} height={30} />
       </div>
 
-      <div>
+      <div className="cursor-pointer">
         <NotificationsIcon />
       </div>
     </header>

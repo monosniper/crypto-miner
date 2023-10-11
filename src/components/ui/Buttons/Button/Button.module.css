@@ -1,0 +1,30 @@
+.btn {
+  @apply w-full sm:w-max px-6 py-2 rounded-full flex justify-center items-center gap-2 text-sm disabled:opacity-50;
+  font-family: Inter, sans-serif;
+}
+
+.btn img,
+.btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btn.small {
+  @apply px-3 py-1 rounded-lg text-xs;
+}
+
+.btn.big {
+  @apply px-8 py-3 text-lg;
+}
+
+.btn.standart {
+  @apply bg-base-content-100 text-white;
+}
+
+.btn.primary {
+  @apply bg-gradient-primary text-white;
+}
+
+body[data-theme="dark"] .btn.standart {
+  @apply bg-transparent border-[2px] border-white border-solid;
+}

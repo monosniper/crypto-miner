@@ -1,0 +1,56 @@
+import { User } from "@/types";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import CryptoJS from "crypto-js";
+
+export const userApi = createApi({
+  reducerPath: "userApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_API!}/`,
+
+    prepareHeaders: (headers) => {
+      const userData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
+
+      if (userData && userData.password) {
+        const bytesPassword = CryptoJS.AES.decrypt(
+          userData.password,
+          import.meta.env.VITE_CRYPT_KEY,
+        );
+        const password = bytesPassword.toString(CryptoJS.enc.Utf8);
+
+        const credentials = `${userData.email}:${password}`;
+        const encodedCredentials = btoa(credentials);
+
+        headers.set("Authorization", `Basic ${encodedCredentials}`);
+        return headers;
+      }
+    },
+  }),
+  endpoints: ({ query }) => ({
+    getMe: query<User, { username: string; password: string | number }>({
+      query(params) {
+        const credentials = `${params.username}:${params.password}`;
+
+        return {
+          url: "me",
+          method: "GET",
+          params,
+          headers: {
+            Authorization: `Basic ${btoa(credentials)}`,
+          },
+        };
+      },
+    }),
+
+    getWithdraws: query<any, null>({
+      query() {
+        return {
+          url: "withdraws",
+          method: "GET",
+        };
+      },
+    }),
+  }),
+});
+
+export const { useGetMeQuery, useLazyGetMeQuery, useGetWithdrawsQuery } =
+  userApi;

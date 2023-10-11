@@ -9,9 +9,25 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
+  font-family: "Work Sans", sans-serif;
 }
 
 body {
-  @apply text-sm font-normal leading-none bg-base-100;
-  font-family: "Work Sans", sans-serif;
+  @apply text-sm font-normal leading-none bg-base-100 text-base-content-100;
+}
+
+button,
+input,
+textarea {
+  outline: none;
+  border: none;
+}
+
+.box {
+  @apply bg-base-200 border border-base-border-100 rounded-xl;
+}
+
+.overCoin {
+  @apply bg-base-300;
 }

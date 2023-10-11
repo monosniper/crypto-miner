@@ -1,0 +1,16 @@
+.wrapper {
+  @apply flex flex-col;
+  font-family: Inter, sans-serif;
+}
+
+.wrapper p {
+  @apply inline-block;
+}
+
+.title {
+  @apply text-base text-base-content-300 mb-1;
+}
+
+.error {
+  @apply mt-1 text-xs text-red-500;
+}

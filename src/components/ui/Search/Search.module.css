@@ -1,0 +1,12 @@
+.wrapper {
+  @apply flex items-center gap-2 py-2 pr-2 w-full border-b border-base-border-100;
+  font-family: Inter, sans-serif;
+}
+
+.wrapper input {
+  @apply w-full placeholder:text-sm placeholder:text-base-content-100 bg-transparent text-base-content-100;
+}
+
+body[data-theme="dark"] .wrapper svg path {
+  @apply fill-white;
+}

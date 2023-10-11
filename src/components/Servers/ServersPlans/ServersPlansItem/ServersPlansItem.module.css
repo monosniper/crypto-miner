@@ -1,0 +1,55 @@
+.wrapper {
+  @apply bg-base-gradient-100 p-6;
+}
+
+.inner {
+  @apply flex flex-col justify-between gap-3 h-full;
+}
+
+.titleBlock {
+  @apply flex flex-col items-center gap-2 font-semibold;
+}
+
+.titleBlock img {
+  @apply w-5 h-5;
+}
+
+.titleBlock svg {
+  @apply w-5 h-5;
+}
+
+.titleBlock h3 {
+  @apply text-xl;
+}
+
+body[data-theme="dark"] .titleBlock h3 {
+  @apply text-base-content-200;
+}
+
+.titleBlock h4 {
+  @apply text-[28px] font-semibold leading-[22px] bg-clip-text bg-gradient-primary tracking-[-0.56px] text-transparent;
+}
+
+body[data-theme="dark"] .titleBlock h4 {
+  background-image: linear-gradient(0deg, #c1aaff 0%, #d7d1e9 100%);
+}
+
+.list {
+  @apply mt-6 pt-6 border-t !border-base-content-300 flex flex-col gap-4;
+}
+
+.listItem {
+  @apply flex items-center gap-2 text-sm;
+}
+
+.listItem img {
+  @apply w-5 h-5;
+}
+
+.listItem svg {
+  @apply w-5 h-5;
+}
+
+body[data-theme="dark"] .listItem svg path {
+  @apply fill-[rgba(208,192,252,1)];
+}
