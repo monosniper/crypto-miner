@@ -26,5 +26,5 @@
 }
 
 body[data-theme="dark"] .btn.standart {
-  @apply bg-transparent border-[2px] border-white;
+  @apply bg-transparent border-[2px] border-white border-solid;
 }

@@ -17,3 +17,7 @@ export * from "./CartIcon";
 export * from "./SearchIcon";
 export * from "./FanIcon";
 export * from "./BookmarksIcon";
+export * from "./CursorIcon";
+export * from "./ScalingIcon";
+export * from "./ChipIcon";
+export * from "./MessageIcon";

@@ -13,6 +13,11 @@ export default {
         "gradient-primary": "linear-gradient(90deg, #5B39B8 0%, #906BF5 100%)",
         "base-gradient-100":
           "linear-gradient(180deg, rgba(153, 115, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 100%)",
+
+        "gradient-1":
+          "linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #C1AAFF 100%)",
+        "gradient-1-dark":
+          "linear-gradient(180deg, rgba(92, 47, 215, 0.20) 0%, rgba(30, 31, 37, 0.00) 100%), linear-gradient(180deg, rgba(30, 31, 37, 0.00) 0%, #5C2FD7 100%)",
       },
     },
   },

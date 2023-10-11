@@ -1,24 +1,59 @@
-import { BookmarksIcon } from "@/components/icons";
+import { Button } from "@/components/ui";
 import { PropsWithClassName } from "@/types";
 import cn from "clsx";
 import { FC } from "react";
+import styles from "./ServersPlansItem.module.css";
 
-export const ServersPlansItem: FC<PropsWithClassName> = ({ className }) => {
+type Props = {
+  icon: JSX.Element | string;
+  title: string;
+  price: number;
+
+  list: { icon: JSX.Element | string; text: string }[];
+};
+
+export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
+  className,
+  icon = <></>,
+  title = "",
+  price = 0,
+  list = [],
+}) => {
   return (
-    <div className={cn(className, "box", "bg-base-gradient-100 p-6")}>
-      <div>
-        <BookmarksIcon />
+    <div className={cn(className, "box", styles.wrapper)}>
+      <div className={styles.inner}>
+        <div>
+          <div className={styles.titleBlock}>
+            {typeof icon === "string" ? (
+              <img src={icon} alt="server-plan" />
+            ) : (
+              icon
+            )}
 
-        <h3>Базовый</h3>
+            <h3>{title}</h3>
 
-        <h4>$1 000</h4>
-
-        <div className="mt-6 pt-6 border-t border-base-border-100 flex flex-col gap-4">
-          <div className="flex items-center gap-2">
-            <BookmarksIcon />
-
-            <p>Доступ к оборудованию</p>
+            <h4>${price}</h4>
           </div>
+
+          <div className={styles.list}>
+            {list.map((el, idx) => {
+              return (
+                <div key={idx} className={styles.listItem}>
+                  {el.icon === "string" ? (
+                    <img src={el.icon} alt="server-plan" />
+                  ) : (
+                    el.icon
+                  )}
+
+                  <p>{el.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-auto pt-8 flex justify-center">
+          <Button color="standart" title="Купить" />
         </div>
       </div>
     </div>

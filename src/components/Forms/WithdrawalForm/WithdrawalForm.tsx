@@ -23,7 +23,7 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
         </FieldWrapper>
       </div>
 
-      <Button className="mt-8" type="submit" color="primary" title="Вывезти" />
+      <Button className="mt-8" type="submit" color="primary" title="Вывести" />
     </form>
   );
 };
