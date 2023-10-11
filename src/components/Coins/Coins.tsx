@@ -22,12 +22,37 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
 
   useEffect(() => {
     if (!rows) return;
+    const coinsStorage: CoinWithOrder[] =
+      JSON.parse(localStorage.getItem("coins") || "[]") || [];
 
-    const coinsWithOrder = rows.map((el, idx) => {
-      return { ...el, order: idx + 1 };
-    });
+    if (coinsStorage.length > 0) {
+      const coinsWithOrder = [];
 
-    setList(coinsWithOrder);
+      for (let i = 0; i < coinsStorage.length; i++) {
+        const coinsStorageItem = coinsStorage[i];
+
+        for (let j = 0; j < rows.length; j++) {
+          const rowsItem = rows[j];
+
+          if (coinsStorageItem.id === rowsItem.id) {
+            const coinWithUpdateOrder = {
+              ...rowsItem,
+              order: coinsStorageItem.order,
+            };
+
+            coinsWithOrder.push(coinWithUpdateOrder);
+          }
+        }
+      }
+
+      setList(coinsWithOrder);
+    } else {
+      const coinsWithOrder = rows.map((el, idx) => {
+        return { ...el, order: idx + 1 };
+      });
+
+      setList(coinsWithOrder);
+    }
   }, [rows]);
 
   const dragStartHandler = (coin: CoinWithOrder) => {
@@ -97,6 +122,25 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
       return -1;
     }
   };
+
+  useEffect(() => {
+    if (!list) return;
+    const listWithoutOrders = list.map((el) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const newItem: any = { ...el };
+      delete newItem.order;
+
+      return newItem;
+    });
+
+    const rowsStringify = JSON.stringify(rows);
+
+    const listStringify = JSON.stringify(listWithoutOrders);
+
+    if (rowsStringify === listStringify) return;
+
+    localStorage.setItem("coins", JSON.stringify(list));
+  }, [list, rows]);
 
   return (
     <div className={cn(className, "flex flex-wrap -m-2")}>
