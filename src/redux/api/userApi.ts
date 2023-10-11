@@ -13,7 +13,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -33,10 +33,11 @@ export const userApi = createApi({
         return {
           url: "me",
           method: "GET",
-          params,
           headers: {
             Authorization: `Basic ${btoa(credentials)}`,
           },
+
+          params,
         };
       },
     }),

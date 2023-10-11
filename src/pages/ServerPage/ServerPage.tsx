@@ -10,7 +10,7 @@ export const ServerPage = () => {
   return (
     <div>
       <button
-        className="flex items-center gap-4 lg:hidden font-semibold text-2xl"
+        className="flex items-center gap-4 lg:hidden font-semibold text-2xl mb-6"
         onClick={() => {
           navigate(-1);
         }}

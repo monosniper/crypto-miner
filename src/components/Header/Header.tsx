@@ -21,7 +21,7 @@ export const Header = () => {
         />
       ) : (
         <button
-          className="flex items-center gap-4 font-semibold text-2xl"
+          className="flex items-center gap-4 font-semibold text-2xl hidden lg:flex"
           onClick={() => {
             navigate(-1);
           }}
