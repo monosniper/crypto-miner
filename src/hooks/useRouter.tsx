@@ -1,4 +1,4 @@
-import { WorkingServersPage } from "@/pages";
+import { ServerPage, WorkingServersPage } from "@/pages";
 import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -53,6 +53,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <MiningPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/server/:id"
+            element={
+              <Suspense>
+                <ServerPage />
               </Suspense>
             }
           />

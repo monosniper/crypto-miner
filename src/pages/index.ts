@@ -4,3 +4,4 @@ export * from "./MiningPage/MiningPage";
 export * from "./SignInPage/SignInPage";
 export * from "./WithdrawalPage/WithdrawalPage";
 export * from "./WorkingServersPage/WorkingServersPage";
+export * from "./ServerPage/ServerPage";

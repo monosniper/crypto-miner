@@ -3,7 +3,7 @@ import { FC } from "react";
 import cn from "clsx";
 
 type Props = {
-  title: string;
+  title: string | JSX.Element;
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 };
 
