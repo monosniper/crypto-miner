@@ -1,4 +1,4 @@
-import { User } from "@/types";
+import { Balance, User, Withdrawal } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -42,10 +42,19 @@ export const userApi = createApi({
       },
     }),
 
-    getWithdraws: query<any, null>({
+    getWallet: query<{ balance: Balance }, null>({
       query() {
         return {
-          url: "withdraws",
+          url: "me/wallet",
+          method: "GET",
+        };
+      },
+    }),
+
+    getWithdraws: query<Withdrawal[], null>({
+      query() {
+        return {
+          url: "me/withdraws",
           method: "GET",
         };
       },
@@ -53,5 +62,9 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetMeQuery, useLazyGetMeQuery, useGetWithdrawsQuery } =
-  userApi;
+export const {
+  useGetMeQuery,
+  useLazyGetMeQuery,
+  useGetWithdrawsQuery,
+  useGetWalletQuery,
+} = userApi;

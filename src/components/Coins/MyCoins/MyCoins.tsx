@@ -1,15 +1,22 @@
 import { FC, useState, useEffect } from "react";
-import { MyCoin, PropsWithClassName } from "@/types";
+import { Balance, MyCoin, PropsWithClassName } from "@/types";
 import cn from "clsx";
 import { Buy, ShowMoreBtn } from "@/components/ui";
 import { CoinBlock, CoinSkelet } from "@/components";
-import { useAppSelector } from "@/redux/store";
-import { user } from "@/redux/slices/userSlice";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useLoading } from "@/hooks";
+import { useNavigate } from "react-router-dom";
 
-export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
-  const { userData } = useAppSelector(user);
+type Props = {
+  coinsList?: { balance: Balance };
+  loading?: boolean;
+};
+
+export const MyCoins: FC<PropsWithClassName<Props>> = ({
+  className,
+  coinsList,
+  loading = false,
+}) => {
   const [coins, setCoins] = useState<MyCoin[]>([]);
   const {
     data: allCoins,
@@ -18,12 +25,13 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
   } = useGetCoinsQuery(null);
   const [isLoading, setLoading] = useState(true);
   const [isMore, setMore] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userData?.wallet) return;
+    if (!coinsList) return;
 
     const walletCoins: (string | number)[][] = Object.entries(
-      userData.wallet.balance,
+      coinsList.balance
     );
 
     const upgradeWalletCoins: MyCoin[] = [];
@@ -55,21 +63,21 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
     setCoins(upgradeWalletCoins);
 
     setLoading(false);
-  }, [userData, allCoins]);
+  }, [allCoins, coinsList]);
 
-  const loading = useLoading(
-    allCoinsIsLoading || isLoading,
-    allCoinsIsFetching,
+  const loadingCoins = useLoading(
+    allCoinsIsLoading || loading || isLoading,
+    allCoinsIsFetching
   );
 
   return (
     <>
       <div className={cn(className, "flex flex-wrap -m-2")}>
         <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
-          <Buy title="Купить монеты" onClick={() => console.log("click")} />
+          <Buy title="Купить монеты" onClick={() => navigate("/trading")} />
         </div>
 
-        {loading ? (
+        {loadingCoins ? (
           <>
             <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
               <CoinSkelet />
@@ -92,10 +100,8 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
           <>
             {coins.length > 0 &&
               coins
-                .slice(0, isMore ? 8 : undefined)
-                .filter((el) => {
-                  return el.balance > 0 && el.slug !== "USDT";
-                })
+                .sort((a, b) => b.balance - a.balance)
+                .slice(0, isMore ? undefined : 8)
                 .map((el) => {
                   return (
                     <div
@@ -110,12 +116,14 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
         )}
       </div>
 
-      {coins.filter((el) => {
-        return el.balance > 0 && el.slug !== "USDT";
-      }).length > 7 &&
-        !isMore && (
-          <ShowMoreBtn className="mt-6" onClick={() => setMore(true)} />
-        )}
+      {coins.length > 7 && (
+        <ShowMoreBtn
+          className="mt-6"
+          onClick={() => setMore((prev) => !prev)}
+          title={isMore ? "Свернуть" : "Показать больше"}
+          isOpen={isMore}
+        />
+      )}
     </>
   );
 };
