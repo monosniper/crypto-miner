@@ -31,3 +31,11 @@ textarea {
 .overCoin {
   @apply bg-base-300;
 }
+
+.prev-icon path {
+  @apply fill-black;
+}
+
+body[data-theme="dark"] .prev-icon path {
+  @apply fill-gray-2;
+}

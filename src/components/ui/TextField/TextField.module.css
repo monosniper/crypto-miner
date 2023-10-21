@@ -3,7 +3,7 @@
 }
 
 .input {
-  @apply w-full text-lg font-medium text-base-content-100;
+  @apply w-full text-lg font-medium text-base-content-100 bg-transparent;
 }
 
 .btn {

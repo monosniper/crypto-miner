@@ -33,7 +33,7 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
   const walletLoading = useLoading(isLoading, isFetching);
   const withdrawalLoading = useLoading(
     withdrawalIsLoading,
-    withdrawalIsFetching
+    withdrawalIsFetching,
   );
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
                 <>
                   {walletData && (
                     <p className={styles.currentBalance}>
-                      ${walletData.balance.USDT || 0}
+                      {walletData.balance.USDT || 0} USDT
                     </p>
                   )}
                 </>
@@ -78,7 +78,9 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
               ) : (
                 <>
                   {outputSum && (
-                    <p className={styles.currentBalance}>{outputSum || 0}</p>
+                    <p className={styles.currentBalance}>
+                      {outputSum || 0} USDT
+                    </p>
                   )}
                 </>
               )}

@@ -41,6 +41,7 @@ export default {
         "pink-1": "rgba(208, 192, 252, 1)",
         "blue-1": "#0B1C3F",
         "gray-1": "#A1A1AA",
+        "gray-2": "#5D636D",
 
         primary: "#C1AAFF",
         success: "#34C759",
@@ -65,6 +66,7 @@ export default {
         "pink-1": "rgba(208, 192, 252, 1)",
         "blue-1": "#0B1C3F",
         "gray-1": "#A1A1AA",
+        "gray-2": "#5D636D",
 
         primary: "#31108C",
         success: "#47BC64",

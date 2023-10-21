@@ -15,7 +15,7 @@ export const ServerPage = () => {
           navigate(-1);
         }}
       >
-        <PrevIcon />
+        <PrevIcon className="prev-icon" />
         <span>Сервер</span>
       </button>
 

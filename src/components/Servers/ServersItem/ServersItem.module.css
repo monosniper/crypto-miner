@@ -19,10 +19,6 @@
   @apply fill-success;
 }
 
-.menu {
-  @apply cursor-pointer;
-}
-
 .title {
   @apply text-base font-medium mt-4 text-left;
 }

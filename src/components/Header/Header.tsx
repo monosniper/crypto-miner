@@ -21,12 +21,12 @@ export const Header = () => {
         />
       ) : (
         <button
-          className="flex items-center gap-4 font-semibold text-2xl hidden lg:flex"
+          className="items-center gap-4 font-semibold text-2xl hidden lg:flex"
           onClick={() => {
             navigate(-1);
           }}
         >
-          <PrevIcon />
+          <PrevIcon className="prev-icon" />
           <span>Сервер</span>
         </button>
       )}

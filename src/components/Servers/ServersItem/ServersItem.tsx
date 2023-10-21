@@ -2,7 +2,7 @@ import { FC, MouseEventHandler } from "react";
 import styles from "./ServersItem.module.css";
 import cn from "clsx";
 import { PropsWithClassName } from "@/types";
-import { BurgerIcon, FanIcon } from "@/components/icons";
+import { FanIcon } from "@/components/icons";
 
 type Props = {
   type?: "div" | "button";
@@ -29,10 +29,6 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
           <FanIcon />
 
           <p>Работает</p>
-        </div>
-
-        <div className={styles.menu}>
-          <BurgerIcon />
         </div>
       </div>
 

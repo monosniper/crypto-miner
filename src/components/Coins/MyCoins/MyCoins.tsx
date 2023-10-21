@@ -31,7 +31,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
     if (!coinsList) return;
 
     const walletCoins: (string | number)[][] = Object.entries(
-      coinsList.balance
+      coinsList.balance,
     );
 
     const upgradeWalletCoins: MyCoin[] = [];
@@ -67,7 +67,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
 
   const loadingCoins = useLoading(
     allCoinsIsLoading || loading || isLoading,
-    allCoinsIsFetching
+    allCoinsIsFetching,
   );
 
   return (
