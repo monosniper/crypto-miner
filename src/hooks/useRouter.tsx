@@ -1,4 +1,3 @@
-import { ServerPage, WorkingServersPage } from "@/pages";
 import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -10,6 +9,9 @@ const {
   SignInPage,
   WithdrawalPage,
   TradingPage,
+  NftPage,
+  ServerPage,
+  WorkingServersPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -76,6 +78,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <TradingPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/nft-wallet"
+            element={
+              <Suspense>
+                <NftPage />
               </Suspense>
             }
           />
