@@ -4,6 +4,7 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 import mainReducer from "./slices/mainSlice";
 import userReducer from "./slices/userSlice";
+import modalsOpensReducer from "./slices/modalsOpensSlice";
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
 import { articlesApi } from "./api/articlesApi";
@@ -12,6 +13,7 @@ import { conversionsApi } from "./api/conversionsApi";
 export const rootReducer = combineReducers({
   main: mainReducer,
   user: userReducer,
+  modalsOpens: modalsOpensReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

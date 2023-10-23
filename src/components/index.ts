@@ -55,3 +55,9 @@ export * from "./Attention/Attention";
 
 export * from "./Nft/NftList/NftList";
 export * from "./Nft/NftItem/NftItem";
+
+//MODALS
+
+export * from "./Modals/ModalWrapper/ModalWrapper";
+export * from "./Modals/ModalWrapper/ModalWrapper";
+export * from "./Modals/NftWithdrawSuccessModal/NftWithdrawSuccessModal";

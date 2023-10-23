@@ -19,6 +19,10 @@ export default {
         "gradient-1-dark":
           "linear-gradient(180deg, rgba(92, 47, 215, 0.20) 0%, rgba(30, 31, 37, 0.00) 100%), linear-gradient(180deg, rgba(30, 31, 37, 0.00) 0%, #5C2FD7 100%)",
       },
+
+      fontFamily: {
+        inter: "Inter, sans-serif",
+      },
     },
   },
   plugins: [
