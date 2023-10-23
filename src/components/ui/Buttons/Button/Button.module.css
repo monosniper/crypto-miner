@@ -1,5 +1,5 @@
 .btn {
-  @apply w-full sm:w-max px-6 py-2 rounded-full flex justify-center items-center gap-2 text-sm disabled:opacity-50;
+  @apply w-full sm:w-max px-6 py-2 rounded-full flex justify-center items-center gap-2 text-sm disabled:opacity-50 ease-linear duration-200;
   font-family: Inter, sans-serif;
 }
 

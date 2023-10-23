@@ -38,3 +38,7 @@ textarea {
 body[data-theme="dark"] .prev-icon path {
   @apply fill-gray-2;
 }
+
+body[data-theme="dark"] .map-svg path {
+  @apply fill-[#58667E];
+}

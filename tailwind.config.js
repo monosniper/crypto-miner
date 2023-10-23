@@ -18,6 +18,8 @@ export default {
           "linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, #C1AAFF 100%)",
         "gradient-1-dark":
           "linear-gradient(180deg, rgba(92, 47, 215, 0.20) 0%, rgba(30, 31, 37, 0.00) 100%), linear-gradient(180deg, rgba(30, 31, 37, 0.00) 0%, #5C2FD7 100%)",
+        "gradient-2": "linear-gradient(90deg, #5B39B8 0%, #906BF5 100%)",
+        "gradient-2-dark": "linear-gradient(90deg, #361C7C 0%, #5927DD 100%)",
       },
 
       fontFamily: {

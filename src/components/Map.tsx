@@ -1,6 +1,6 @@
 export const Map = () => {
   return (
-    <svg className="w-full" fill="none" viewBox="0 0 1025 488">
+    <svg className="w-full map-svg" fill="none" viewBox="0 0 1025 488">
       <path
         d="M232.438 19.5764C232.438 20.6018 231.605 21.434 230.579 21.434C229.552 21.434 228.719 20.6018 228.719 19.5764C228.719 18.551 229.552 17.7188 230.579 17.7188C231.605 17.7188 232.438 18.551 232.438 19.5764Z"
         fill="#D0D5DD"
