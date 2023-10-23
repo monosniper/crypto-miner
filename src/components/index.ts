@@ -61,3 +61,5 @@ export * from "./Nft/NftItem/NftItem";
 export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/NftWithdrawSuccessModal/NftWithdrawSuccessModal";
+
+export * from "./Map";

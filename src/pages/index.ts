@@ -7,3 +7,4 @@ export * from "./WorkingServersPage/WorkingServersPage";
 export * from "./ServerPage/ServerPage";
 export * from "./TradingPage/TradingPage";
 export * from "./NftPage/NftPage";
+export * from "./PartnershipPage/PartnershipPage";

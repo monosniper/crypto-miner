@@ -52,7 +52,7 @@ export const Menu = () => {
           <MenuItem
             icon={<PartnerIcon />}
             title="Партнёрство"
-            href="/partner"
+            href="/partnership"
           />
           <MenuItem
             type="button"

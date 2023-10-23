@@ -12,6 +12,7 @@ const {
   NftPage,
   ServerPage,
   WorkingServersPage,
+  PartnershipPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -87,6 +88,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <NftPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/partnership"
+            element={
+              <Suspense>
+                <PartnershipPage />
               </Suspense>
             }
           />

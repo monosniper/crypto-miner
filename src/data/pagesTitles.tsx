@@ -7,4 +7,5 @@ export const pagesTitles: {
   "/mining": "Майнинг",
   "/working-servers": "Рабочие сервера",
   "/nft-wallet": "NFT Кошелёк",
+  "/partnership": "Партнёрство",
 };
