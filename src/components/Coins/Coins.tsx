@@ -97,22 +97,20 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     if (!list) return;
     const coinIdx = list.findIndex((el) => el.id === coin.id);
 
-    if (coinIdx > 0) {
-      const updatedList = [...list];
+    const updatedList = [...list];
 
-      const coinToMove = updatedList.splice(coinIdx, 1)[0];
-      updatedList.splice(
-        direction === "top" ? coinIdx - 1 : coinIdx + 1,
-        0,
-        coinToMove,
-      );
+    const coinToMove = updatedList.splice(coinIdx, 1)[0];
+    updatedList.splice(
+      direction === "top" ? coinIdx - 1 : coinIdx + 1,
+      0,
+      coinToMove,
+    );
 
-      updatedList.forEach((el, idx) => {
-        el.order = idx;
-      });
+    updatedList.forEach((el, idx) => {
+      el.order = idx;
+    });
 
-      setList(updatedList);
-    }
+    setList(updatedList);
   };
 
   const sortCoins = (coinOne: CoinWithOrder, coinTwo: CoinWithOrder) => {
@@ -172,6 +170,8 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
                     onDragOver={dragOverHandler}
                     onDrop={dropHandler}
                     changeLocation={changeLocation}
+                    idx={idx + 1}
+                    totalItems={list.length}
                   />
                 </div>
               );

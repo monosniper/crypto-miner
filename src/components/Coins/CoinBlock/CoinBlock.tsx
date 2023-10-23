@@ -16,6 +16,8 @@ export type Props = {
   onDragEnd?: (e: DragEvent) => void;
   onDragOver?: (e: DragEvent) => void;
   onDrop?: (e: DragEvent, coin: CoinWithOrder) => void;
+  idx?: number;
+  totalItems?: number;
 
   changeLocation?: (direction: "top" | "bottom", data: CoinWithOrder) => void;
 };
@@ -30,6 +32,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   onDragEnd,
   onDragOver,
   onDrop,
+  idx,
+  totalItems,
 
   changeLocation,
 }) => {
@@ -209,18 +213,23 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
         {changeLocation && (
           <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
-            <div
-              className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-              onClick={() => changeLocation("top", data as CoinWithOrder)}
-            >
-              <ArrTopIcon />
-            </div>
-            <div
-              className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-              onClick={() => changeLocation("bottom", data as CoinWithOrder)}
-            >
-              <ArrTopIcon className="rotate-180" />
-            </div>
+            {idx && idx > 1 ? (
+              <div
+                className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+                onClick={() => changeLocation("top", data as CoinWithOrder)}
+              >
+                <ArrTopIcon />
+              </div>
+            ) : null}
+
+            {idx && totalItems && idx !== totalItems ? (
+              <div
+                className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+                onClick={() => changeLocation("bottom", data as CoinWithOrder)}
+              >
+                <ArrTopIcon className="rotate-180" />
+              </div>
+            ) : null}
           </div>
         )}
       </div>
