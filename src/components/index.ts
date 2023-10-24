@@ -56,10 +56,16 @@ export * from "./Attention/Attention";
 export * from "./Nft/NftList/NftList";
 export * from "./Nft/NftItem/NftItem";
 
-//MODALS
+// MODALS
 
 export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/NftWithdrawSuccessModal/NftWithdrawSuccessModal";
 
 export * from "./Map";
+
+// TRADING
+
+export * from "./Trading/TradingChart/TradingChart";
+export * from "./Trading/TradingCoins/TradingCoins";
+export * from "./Trading/TradingOperation/TradingOperation";

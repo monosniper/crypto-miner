@@ -42,3 +42,15 @@ body[data-theme="dark"] .prev-icon path {
 body[data-theme="dark"] .map-svg path {
   @apply fill-[#58667E];
 }
+
+.trading-chart-scrollbar::-webkit-scrollbar {
+  height: 2px;
+  width: 100px;
+  border-radius: 20px;
+}
+.trading-chart-scrollbar::-webkit-scrollbar-track {
+  @apply bg-base-100;
+}
+.trading-chart-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-base-content-100 rounded-[20px];
+}

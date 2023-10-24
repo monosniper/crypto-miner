@@ -155,7 +155,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
           setHoveredData(null); // Сбрасываем данные при уходе с точки
         })
         .attr("fill", "#906BF5") // Цвет точки
-        .style("fill-opacity", 0.5);
+        .style("fill-opacity", 0);
     };
 
     draw();
