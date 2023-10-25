@@ -11,6 +11,8 @@ export * from "./Header/Header";
 export * from "./Sidebar/Menu/Menu";
 export * from "./Sidebar/Menu/MenuItem/MenuItem";
 export * from "./Sidebar/Sidebar";
+export * from "./Sidebar/Socials/Socials";
+export * from "./Sidebar/Socials/SocialsLink/SocialsLink";
 
 // COINS
 
@@ -25,8 +27,8 @@ export * from "./News/NewsItem/NewsItem";
 
 // CONVERSIONS
 
-export * from "./Conversions/Conversions";
-export * from "./Conversions/ConversionsItem/ConversionsItem";
+export * from "./Convertations/Convertations";
+export * from "./Convertations/ConvertationsItem/ConvertationsItem";
 
 // WALLET
 

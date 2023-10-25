@@ -1,4 +1,4 @@
-import { Balance, User, Withdrawal } from "@/types";
+import { Balance, Conversion, User, Withdrawal } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -25,6 +25,8 @@ export const userApi = createApi({
       }
     },
   }),
+
+  tagTypes: ["convertations"],
   endpoints: ({ query }) => ({
     getMe: query<User, { username: string; password: string | number }>({
       query(params) {
@@ -59,6 +61,34 @@ export const userApi = createApi({
         };
       },
     }),
+
+    getConvertations: query<Conversion[], null>({
+      query() {
+        const userData = JSON.parse(
+          localStorage.getItem("mainUserData") || "{}",
+        );
+
+        const bytesPassword = CryptoJS.AES.decrypt(
+          userData.password,
+          import.meta.env.VITE_CRYPT_KEY,
+        );
+        const password = bytesPassword.toString(CryptoJS.enc.Utf8);
+
+        const credentials = `${userData.email}:${password}`;
+        const encodedCredentials = btoa(credentials);
+
+        return {
+          url: "me/convertations",
+          method: "GET",
+
+          headers: {
+            Authorization: `Basic ${encodedCredentials}`,
+          },
+        };
+      },
+
+      providesTags: ["convertations"],
+    }),
   }),
 });
 
@@ -67,4 +97,5 @@ export const {
   useLazyGetMeQuery,
   useGetWithdrawsQuery,
   useGetWalletQuery,
+  useGetConvertationsQuery,
 } = userApi;

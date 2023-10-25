@@ -1,19 +1,21 @@
+import { useRef } from "react";
 import { Servers, ServersPlans, Title } from "@/components";
-import { ShowMoreBtn } from "@/components/ui";
 
 export const WorkingServersPage = () => {
+  const plansRef = useRef<HTMLDivElement>(null);
+
   return (
     <div>
       <Title className="flex lg:hidden pb-6" title="Доступные планы" />
 
-      <ServersPlans />
-
-      <div className="mt-16">
+      <div>
         <Title title="Задействованные сервера" />
 
-        <Servers className="mt-6" />
+        <Servers className="mt-6" plansRef={plansRef} />
+      </div>
 
-        <ShowMoreBtn className="mt-6" onClick={() => console.log("click")} />
+      <div className="mt-16" ref={plansRef}>
+        <ServersPlans />
       </div>
     </div>
   );

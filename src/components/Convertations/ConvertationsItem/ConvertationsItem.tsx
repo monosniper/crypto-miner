@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ArrTopIcon } from "@/components/icons";
-import styles from "./ConversionsItem.module.css";
+import styles from "./ConvertationsItem.module.css";
 import { Conversion } from "@/types";
 import { formatRelativeDate } from "@/utils";
 
@@ -8,7 +8,7 @@ type Props = {
   data: Conversion;
 };
 
-export const ConversionsItem: FC<Props> = ({ data }) => {
+export const ConvertationsItem: FC<Props> = ({ data }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>

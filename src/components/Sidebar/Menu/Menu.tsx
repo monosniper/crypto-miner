@@ -1,6 +1,5 @@
 import {
   ConverIcon,
-  HistoryIcon,
   HomeIcon,
   NftWalletIcon,
   WalletIcon,
@@ -35,7 +34,6 @@ export const Menu = () => {
             href="/nft-wallet"
           />
           <MenuItem icon={<MiningIcon />} title="Майнинг" href="/mining" />
-          <MenuItem icon={<HistoryIcon />} title="История" href="/history" />
           <MenuItem
             icon={<LightingIcon />}
             title="Рабочие сервера"

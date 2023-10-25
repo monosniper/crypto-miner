@@ -1,10 +1,10 @@
-import { CoinSkelet, ConversionsItem, EmptyText, Title } from "@/components";
+import { CoinSkelet, ConvertationsItem, EmptyText, Title } from "@/components";
 import { useLoading } from "@/hooks";
-import { useGetConversionsQuery } from "@/redux/api/conversionsApi";
+import { useGetConvertationsQuery } from "@/redux/api/userApi";
 import { Link } from "react-router-dom";
 
-export const Conversions = () => {
-  const { data, isLoading, isFetching } = useGetConversionsQuery(null);
+export const Convertations = () => {
+  const { data, isLoading, isFetching } = useGetConvertationsQuery(null);
 
   const loading = useLoading(isLoading, isFetching);
 
@@ -15,7 +15,7 @@ export const Conversions = () => {
 
         <Link
           className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100"
-          to="/"
+          to="/wallet"
         >
           Все конвертации
         </Link>
@@ -32,7 +32,7 @@ export const Conversions = () => {
           <>
             {data && data.length > 0 ? (
               data.map((el) => {
-                return <ConversionsItem key={el.id} data={el} />;
+                return <ConvertationsItem key={el.id} data={el} />;
               })
             ) : (
               <EmptyText text="Нет конвертаций" />

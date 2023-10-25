@@ -1,4 +1,4 @@
-import { Coins, Conversions, News, Title } from "@/components";
+import { Coins, Convertations, News, Title } from "@/components";
 import { useLoading } from "@/hooks";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 
@@ -19,7 +19,7 @@ export const MainPage = () => {
         </div>
 
         <div className="w-full md:w-1/2 p-6">
-          <Conversions />
+          <Convertations />
         </div>
       </div>
     </div>
