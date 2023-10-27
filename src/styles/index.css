@@ -54,3 +54,23 @@ body[data-theme="dark"] .map-svg path {
 .trading-chart-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-base-content-100 rounded-[20px];
 }
+.scrollbar-none::-webkit-scrollbar {
+  width: 0;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none {
+  overflow: -moz-scrollbars-none;
+}
+.scrollbar-menu::-webkit-scrollbar {
+  width: 1px;
+}
+.scrollbar-menu::-webkit-scrollbar-track {
+  @apply bg-base-200;
+}
+.scrollbar-menu::-webkit-scrollbar-thumb {
+  @apply bg-base-content-100;
+}

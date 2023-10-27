@@ -2,21 +2,26 @@ import { PropsWithClassName } from "@/types";
 import { FC, RefObject } from "react";
 import cn from "clsx";
 import { Buy } from "../ui";
-import { ServersItem } from "@/components";
+import { CoinSkelet, ServersItem } from "@/components";
 import { useNavigate } from "react-router-dom";
+import { Server } from "@/types";
 
 type Props = {
-  plansRef: RefObject<HTMLDivElement>;
+  plansRef?: RefObject<HTMLDivElement>;
+  servers?: Server[];
+  loading?: boolean;
 };
 
 export const Servers: FC<PropsWithClassName<Props>> = ({
   className,
   plansRef,
+  servers,
+  loading,
 }) => {
   const navigate = useNavigate();
 
   const buyServerHandler = () => {
-    if (!plansRef.current) return;
+    if (!plansRef || !plansRef.current) return;
 
     plansRef.current.scrollIntoView({
       behavior: "smooth",
@@ -30,21 +35,49 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
         <Buy title="Купить сервер" onClick={buyServerHandler} />
       </div>
 
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <ServersItem type="button" onClick={() => navigate("/server/asd")} />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <ServersItem type="button" onClick={() => navigate("/server/asd")} />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <ServersItem type="button" onClick={() => navigate("/server/asd")} />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <ServersItem type="button" onClick={() => navigate("/server/asd")} />
-      </div>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <ServersItem type="button" onClick={() => navigate("/server/asd")} />
-      </div>
+      {!loading ? (
+        <>
+          {servers &&
+            servers.map((el) => {
+              return (
+                <div
+                  key={el.id}
+                  className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
+                >
+                  <ServersItem
+                    type="button"
+                    onClick={() => navigate(`/server/${el.id}`)}
+                    data={el}
+                  />
+                </div>
+              );
+            })}
+        </>
+      ) : (
+        <>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+            <CoinSkelet />
+          </div>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+            <CoinSkelet />
+          </div>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+            <CoinSkelet />
+          </div>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+            <CoinSkelet />
+          </div>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+            <CoinSkelet />
+          </div>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2 lg:hidden xl:block">
+            <CoinSkelet />
+          </div>
+          <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2 lg:hidden xl:block">
+            <CoinSkelet />
+          </div>
+        </>
+      )}
     </div>
   );
 };

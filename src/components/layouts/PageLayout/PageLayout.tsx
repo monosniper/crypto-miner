@@ -1,5 +1,5 @@
 import { ReactNode, FC, useEffect, useState } from "react";
-import { Header, Sidebar } from "@/components";
+import { Header, RecentTransactions, Sidebar } from "@/components";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { setOpenSidebar } from "@/redux/slices/mainSlice";
 import { user } from "@/redux/slices/userSlice";
@@ -37,6 +37,7 @@ export const PageLayout: FC<Props> = ({ children }) => {
     <>
       {isAuth ? (
         <div>
+          <RecentTransactions />
           <Sidebar isLaptop={isLaptop} />
           <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20 pb-10">
             <Header />

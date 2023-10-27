@@ -8,6 +8,7 @@ import modalsOpensReducer from "./slices/modalsOpensSlice";
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
 import { articlesApi } from "./api/articlesApi";
+import { serversApi } from "./api/serversApi";
 
 export const rootReducer = combineReducers({
   main: mainReducer,
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [articlesApi.reducerPath]: articlesApi.reducer,
+  [serversApi.reducerPath]: serversApi.reducer,
 });
 
 export const store = configureStore({
@@ -26,6 +28,7 @@ export const store = configureStore({
       coinsApi.middleware,
       userApi.middleware,
       articlesApi.middleware,
+      serversApi.middleware,
     ]),
 });
 

@@ -1,7 +1,20 @@
 import { Coins, Servers, Title } from "@/components";
-import { Search, ShowMoreBtn } from "@/components/ui";
+import { Search } from "@/components/ui";
+import { useLoading } from "@/hooks";
+import { useGetMyServersQuery } from "@/redux/api/userApi";
 
 export const MiningPage = () => {
+  const {
+    data: serversList,
+    isLoading: serversListIsLoading,
+    isFetching: serversListIsFetching,
+  } = useGetMyServersQuery(null);
+
+  const serversListLoading = useLoading(
+    serversListIsLoading,
+    serversListIsFetching,
+  );
+
   return (
     <div>
       <Title className="flex lg:hidden pb-6" title="Майнинг" />
@@ -17,9 +30,11 @@ export const MiningPage = () => {
       <div className="mt-16">
         <Title title="Задействованные сервера" />
 
-        <Servers className="mt-6" />
-
-        <ShowMoreBtn className="mt-6" onClick={() => console.log("click")} />
+        <Servers
+          className="mt-6"
+          servers={serversList}
+          loading={serversListLoading}
+        />
       </div>
     </div>
   );

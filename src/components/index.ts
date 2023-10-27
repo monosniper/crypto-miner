@@ -71,3 +71,5 @@ export * from "./Map";
 export * from "./Trading/TradingChart/TradingChart";
 export * from "./Trading/TradingCoins/TradingCoins";
 export * from "./Trading/TradingOperation/TradingOperation";
+
+export * from "./RecentTransactions/RecentTransactions";
