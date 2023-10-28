@@ -1,13 +1,15 @@
+import { FC } from "react";
 import { CoinSkelet, ConvertationsItem, EmptyText, Title } from "@/components";
-import { useLoading } from "@/hooks";
-import { useGetConvertationsQuery } from "@/redux/api/userApi";
+import { Convertation } from "@/types";
 import { Link } from "react-router-dom";
 
-export const Convertations = () => {
-  const { data, isLoading, isFetching } = useGetConvertationsQuery(null);
+type Props = {
+  list?: Convertation[];
+  loading?: boolean;
+  classNameItem?: string;
+};
 
-  const loading = useLoading(isLoading, isFetching);
-
+export const Convertations: FC<Props> = ({ list, loading = false }) => {
   return (
     <div className="flex flex-col gap-6 w-full h-full">
       <div className="flex justify-between items-center gap-4">
@@ -30,8 +32,8 @@ export const Convertations = () => {
           </>
         ) : (
           <>
-            {data && data.length > 0 ? (
-              data.map((el) => {
+            {list && list.length > 0 ? (
+              list.map((el) => {
                 return <ConvertationsItem key={el.id} data={el} />;
               })
             ) : (

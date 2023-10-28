@@ -4,7 +4,7 @@ export * from "./coinsTypes";
 export * from "./authTypes";
 export * from "./newsTypes";
 export * from "./userTypes";
-export * from "./conversionsTypes";
+export * from "./convertationsTypes";
 export * from "./formsDataTypes";
 export * from "./modalsTypes";
 export * from "./serversTypes";

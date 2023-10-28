@@ -2,7 +2,7 @@ import Marquee from "react-fast-marquee";
 
 export const RecentTransactions = () => {
   return (
-    <Marquee className="w-screen py-1 px-2 border-b border-base-border-100 sticky top-0 bg-base-100 z-20 overflow-hidden">
+    <Marquee className="w-screen py-1 px-2 border-b border-base-border-100 !sticky !top-0 bg-base-100 z-20">
       <div className="flex items-center gap-2 px-4">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path

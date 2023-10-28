@@ -4,7 +4,7 @@ export const changeClassParentEl = (
   e: DragEvent | ChangeEvent | MouseEvent | TouchEvent,
   action: "add" | "remove",
   classEl: string,
-  containsClass?: string,
+  containsClass?: string
 ) => {
   if (!(e.target instanceof HTMLElement)) return;
 

@@ -1,0 +1,11 @@
+.btn {
+  @apply font-inter flex justify-center items-center py-2 px-8 border-solid border border-base-border-100 rounded-[32px] cursor-pointer text-base-content-100;
+}
+
+.active {
+  @apply bg-primary text-purple-1;
+}
+
+body[data-theme="dark"] .active {
+  @apply text-purple-2;
+}

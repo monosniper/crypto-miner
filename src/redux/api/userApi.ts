@@ -1,4 +1,4 @@
-import { Balance, Conversion, Server, User, Withdrawal } from "@/types";
+import { Balance, Convertation, Server, User, Withdrawal } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -62,7 +62,7 @@ export const userApi = createApi({
       },
     }),
 
-    getConvertations: query<Conversion[], null>({
+    getConvertations: query<Convertation[], null>({
       query() {
         return {
           url: "me/convertations",
