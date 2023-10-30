@@ -1,4 +1,4 @@
-import { DragEvent, FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { ArrTopIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
@@ -7,17 +7,15 @@ import { main } from "@/redux/slices/mainSlice";
 import { Coin, CoinWithOrder, MyCoin, PropsWithClassName } from "@/types";
 import cn from "clsx";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 export type Props = {
   type?: "my" | "general";
   data: CoinWithOrder | Coin | MyCoin;
-  draggable?: boolean;
-  onDragStart?: (coin: CoinWithOrder, e?: DragEvent) => void;
-  onDragLeave?: (e: DragEvent) => void;
-  onDragEnd?: (e: DragEvent) => void;
-  onDragOver?: (e: DragEvent) => void;
-  onDrop?: (e: DragEvent, coin: CoinWithOrder) => void;
   idx?: number;
   totalItems?: number;
+  draggable?: boolean;
 
   changeLocation?: (direction: "top" | "bottom", data: CoinWithOrder) => void;
 };
@@ -26,25 +24,27 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   className,
   type = "general",
   data,
-  draggable = false,
-  onDragStart,
-  onDragLeave,
-  onDragEnd,
-  onDragOver,
-  onDrop,
   idx,
   totalItems,
 
   changeLocation,
+  draggable = false,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: data.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   const { theme } = useAppSelector(main);
 
   useEffect(() => {
-    if (!("graph" in data) || type === "my") return;
+    if (!("graph" in data) || type === "my" || data.graph === null) return;
 
     const draw = () => {
       const parentWidth = svgRef.current?.parentElement?.clientWidth || 400;
@@ -168,98 +168,78 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   }, [data, theme, type]);
 
   return (
-    <div
-      className={cn(className, styles.wrapper, "draggableEl", {
-        [styles.my]: type === "my",
-        "cursor-grab": draggable,
-      })}
-      draggable={draggable}
-      onDragStart={(e) => {
-        if (onDragStart) {
-          onDragStart(data as CoinWithOrder, e);
-        }
-      }}
-      onDragLeave={(e) => {
-        if (onDragLeave) {
-          onDragLeave(e);
-        }
-      }}
-      onDragEnd={(e) => {
-        if (onDragEnd) {
-          onDragEnd(e);
-        }
-      }}
-      onDragOver={(e) => {
-        if (onDragOver) {
-          onDragOver(e);
-        }
-      }}
-      onDrop={(e) => {
-        if (onDrop) {
-          onDrop(e, data as CoinWithOrder);
-        }
-      }}
-    >
-      <div className={styles.header}>
-        <div className={styles.coinTitle}>
-          <div className={styles.coinIconWrapper}>
-            <img src={data.icon_url} alt={data.slug} />
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      <div
+        className={cn(className, styles.wrapper, "draggableEl", {
+          [styles.my]: type === "my",
+          "cursor-grab": draggable,
+        })}
+      >
+        <div className="coin-inner">
+          <div className={styles.header}>
+            <div className={styles.coinTitle}>
+              <div className={styles.coinIconWrapper}>
+                <img src={data.icon_url} alt={data.slug} />
+              </div>
+
+              <p>
+                {data.name}, {data.slug}
+              </p>
+            </div>
+
+            {changeLocation && (
+              <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
+                {idx && idx > 1 ? (
+                  <div
+                    className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+                    onClick={() => changeLocation("top", data as CoinWithOrder)}
+                  >
+                    <ArrTopIcon />
+                  </div>
+                ) : null}
+
+                {idx && totalItems && idx !== totalItems ? (
+                  <div
+                    className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
+                    onClick={() =>
+                      changeLocation("bottom", data as CoinWithOrder)
+                    }
+                  >
+                    <ArrTopIcon className="rotate-180" />
+                  </div>
+                ) : null}
+              </div>
+            )}
           </div>
 
-          <p>
-            {data.name}, {data.slug}
-          </p>
-        </div>
+          {type === "general" && "graph" in data && data.graph !== null && (
+            <div className={cn(styles.chart, "coin-chart")}>
+              {hoveredData && (
+                <Tooltip
+                  data={(hoveredData ? hoveredData.toFixed(6) : 0) + "$"}
+                  position={tooltipPosition}
+                />
+              )}
 
-        {changeLocation && (
-          <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
-            {idx && idx > 1 ? (
-              <div
-                className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-                onClick={() => changeLocation("top", data as CoinWithOrder)}
-              >
-                <ArrTopIcon />
-              </div>
-            ) : null}
-
-            {idx && totalItems && idx !== totalItems ? (
-              <div
-                className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-                onClick={() => changeLocation("bottom", data as CoinWithOrder)}
-              >
-                <ArrTopIcon className="rotate-180" />
-              </div>
-            ) : null}
-          </div>
-        )}
-      </div>
-
-      {type === "general" && (
-        <div className={styles.chart}>
-          {hoveredData && (
-            <Tooltip
-              data={hoveredData.toFixed(6) + "$"}
-              position={tooltipPosition}
-            />
+              <svg className="pointer-events-auto" ref={svgRef}></svg>
+            </div>
           )}
 
-          <svg ref={svgRef}></svg>
-        </div>
-      )}
-
-      <div className={styles.footer}>
-        <Rate type={type} data={data} />
-        {"change" in data && (
-          <div
-            className={cn(styles.changeCourse, {
-              [styles.decline]:
-                "change" in data && data.change < 0 ? true : false,
-            })}
-          >
-            <span>{data.change.toFixed(2)}%</span>
-            <ArrTopIcon />
+          <div className={styles.footer}>
+            <Rate type={type} data={data} />
+            {"change" in data && (
+              <div
+                className={cn(styles.changeCourse, {
+                  [styles.decline]:
+                    "change" in data && data.change < 0 ? true : false,
+                })}
+              >
+                <span>{data.change ? data.change.toFixed(2) : 0}%</span>
+                <ArrTopIcon />
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -294,7 +274,7 @@ const Rate: FC<{ type: "my" | "general"; data: Coin | MyCoin }> = ({
   }
 
   if (type === "general" && "rate" in data) {
-    return <p>${data.rate.toFixed(2)}</p>;
+    return <p>${data.rate ? data.rate.toFixed(2) : 0}</p>;
   }
 
   return <p>$0</p>;

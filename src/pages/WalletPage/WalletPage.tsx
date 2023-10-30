@@ -1,8 +1,6 @@
 import { BalanceBlock, History, MyCoins, Title } from "@/components";
 import { useLoading } from "@/hooks";
-import {
-  useGetWalletQuery,
-} from "@/redux/api/userApi";
+import { useGetWalletQuery } from "@/redux/api/userApi";
 
 export const WalletPage = () => {
   const {

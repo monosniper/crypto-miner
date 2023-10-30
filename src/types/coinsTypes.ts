@@ -1,5 +1,5 @@
 export type Coin = {
-  id: number;
+  id: number | string;
   name: string;
   slug: string;
   rate: number;

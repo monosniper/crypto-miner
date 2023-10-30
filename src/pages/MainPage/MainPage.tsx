@@ -20,7 +20,7 @@ export const MainPage = () => {
   const coinsLoading = useLoading(isLoading, isFetching);
   const convertationsLoading = useLoading(
     convertationsIsLoading,
-    convertationsIsFetching
+    convertationsIsFetching,
   );
   const articlesLoading = useLoading(articlesIsLoading, articlesIsFetching);
 

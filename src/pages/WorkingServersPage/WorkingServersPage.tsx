@@ -13,7 +13,7 @@ export const WorkingServersPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching
+    serversListIsFetching,
   );
 
   return (

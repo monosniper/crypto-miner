@@ -16,7 +16,7 @@ export const History = () => {
 
   const convertationsLoading = useLoading(
     convertationsIsLoading,
-    convertationsIsFetching
+    convertationsIsFetching,
   );
 
   return (
