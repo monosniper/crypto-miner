@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { Balance, MyCoin, PropsWithClassName } from "@/types";
+import { Balance, Coin, PropsWithClassName } from "@/types";
 import cn from "clsx";
 import { Buy, ShowMoreBtn } from "@/components/ui";
 import { CoinBlock, CoinSkelet } from "@/components";
@@ -17,7 +17,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   coinsList,
   loading = false,
 }) => {
-  const [coins, setCoins] = useState<MyCoin[]>([]);
+  const [coins, setCoins] = useState<Coin[]>([]);
   const {
     data: allCoins,
     isLoading: allCoinsIsLoading,
@@ -34,16 +34,19 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
       coinsList.balance,
     );
 
-    const upgradeWalletCoins: MyCoin[] = [];
+    const upgradeWalletCoins: Coin[] = [];
 
     if (allCoins) {
       for (let i = 0; i < allCoins.length; i++) {
-        const coin: MyCoin = {
+        const coin: Coin = {
           id: 0,
           slug: "",
           name: "",
           balance: 0,
           icon_url: "",
+          rate: 0,
+          change: 0,
+          graph: [],
         };
 
         for (let j = 0; j < walletCoins.length; j++) {
@@ -100,7 +103,13 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
           <>
             {coins.length > 0 &&
               coins
-                .sort((a, b) => b.balance - a.balance)
+                .sort((a, b) => {
+                  if (a.balance && b.balance) {
+                    return b.balance - a.balance;
+                  }
+
+                  return 1;
+                })
                 .slice(0, isMore ? undefined : 8)
                 .map((el) => {
                   return (

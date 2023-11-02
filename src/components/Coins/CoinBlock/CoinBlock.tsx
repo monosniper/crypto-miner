@@ -4,12 +4,7 @@ import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { main } from "@/redux/slices/mainSlice";
-import {
-  Coin,
-  CoinWithHideAndOrder,
-  MyCoin,
-  PropsWithClassName,
-} from "@/types";
+import { Coin, PropsWithClassName } from "@/types";
 import cn from "clsx";
 
 import { useSortable } from "@dnd-kit/sortable";
@@ -19,7 +14,7 @@ import { useOutside } from "@/hooks";
 
 export type Props = {
   type?: "my" | "general";
-  data: CoinWithHideAndOrder;
+  data: Coin;
   // idx?: number;
   // totalItems?: number;
   draggable?: boolean;
@@ -289,7 +284,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
           <div className={styles.footer}>
             <Rate type={type} data={data} />
-            {"change" in data && (
+            {"change" in data && type !== "my" && (
               <div
                 className={cn(styles.changeCourse, {
                   [styles.decline]:
@@ -327,10 +322,7 @@ const Tooltip = ({
   );
 };
 
-const Rate: FC<{ type: "my" | "general"; data: Coin | MyCoin }> = ({
-  type,
-  data,
-}) => {
+const Rate: FC<{ type: "my" | "general"; data: Coin }> = ({ type, data }) => {
   if (type === "my" && "balance" in data) {
     return <p>${data.balance}</p>;
   }

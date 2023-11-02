@@ -1,5 +1,5 @@
 import { CoinBlock, CoinSkelet } from "@/components";
-import { Coin, CoinWithHideAndOrder, PropsWithClassName } from "@/types";
+import { Coin, PropsWithClassName } from "@/types";
 import { FC, useEffect, useState } from "react";
 import cn from "clsx";
 import {
@@ -94,8 +94,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     if (!coinsList || !coinsPositions) return;
     const incomingList = coinsPositions.map((el) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const newItem: CoinWithHideAndOrder = { ...el };
-      delete newItem.order;
+      const newItem: Coin = { ...el };
       delete newItem.hide;
 
       return newItem;
@@ -107,7 +106,16 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
 
     if (listStringify === incomingListStringify) return;
 
-    setCoinsPositions(coinsList);
+    const newCoinsPositionsList = coinsList.map((el) => {
+      return { id: el.id, hide: el.hide };
+    });
+
+    const apiCoinsPositionsStr = JSON.stringify(coinsPositions);
+    const newCoinsPositionsListStr = JSON.stringify(newCoinsPositionsList);
+
+    if (apiCoinsPositionsStr !== newCoinsPositionsListStr) {
+      setCoinsPositions(newCoinsPositionsList);
+    }
   }, [coinsList, coinsPositions, setCoinsPositions]);
 
   function handleDragEnd(event: DragEndEvent) {

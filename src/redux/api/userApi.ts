@@ -1,11 +1,4 @@
-import {
-  Balance,
-  CoinWithHideAndOrder,
-  Convertation,
-  Server,
-  User,
-  Withdrawal,
-} from "@/types";
+import { Balance, Coin, Convertation, Server, User, Withdrawal } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -89,7 +82,10 @@ export const userApi = createApi({
       },
     }),
 
-    setCoinsPositions: mutation<{ success: boolean }, CoinWithHideAndOrder[]>({
+    setCoinsPositions: mutation<
+      { success: boolean },
+      { id: number; hide?: boolean }[]
+    >({
       query(body) {
         return {
           url: "me/coins",
@@ -99,10 +95,19 @@ export const userApi = createApi({
       },
     }),
 
-    getCoinsPositions: query<CoinWithHideAndOrder[], null>({
+    getCoinsPositions: query<Coin[], null>({
       query() {
         return {
           url: "me/coins",
+          method: "GET",
+        };
+      },
+    }),
+
+    getInvest: query<any, null>({
+      query() {
+        return {
+          url: "invest",
           method: "GET",
         };
       },
@@ -119,4 +124,5 @@ export const {
   useGetMyServersQuery,
   useSetCoinsPositionsMutation,
   useGetCoinsPositionsQuery,
+  useGetInvestQuery,
 } = userApi;

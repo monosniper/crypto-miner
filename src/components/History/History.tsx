@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { TabButton } from "@/components/ui";
-import { useGetConvertationsQuery } from "@/redux/api/userApi";
+import {
+  useGetConvertationsQuery,
+  useGetInvestQuery,
+} from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
+import { CoinSkelet, ConvertationsItem, EmptyText } from "..";
 
 type Tabs = "deposits" | "convertations" | "withdraw";
 
@@ -14,10 +18,18 @@ export const History = () => {
     isFetching: convertationsIsFetching,
   } = useGetConvertationsQuery(null);
 
+  const {
+    data: investData,
+    isLoading: investIsLoading,
+    isFetching: investIsFetching,
+  } = useGetInvestQuery(null);
+
   const convertationsLoading = useLoading(
     convertationsIsLoading,
     convertationsIsFetching,
   );
+
+  const investLoading = useLoading(investIsLoading, investIsFetching);
 
   return (
     <div>
@@ -50,7 +62,30 @@ export const History = () => {
         </div>
       </div>
 
-      <div></div>
+      {currentTab === "convertations" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-4">
+          {convertationsLoading ? (
+            <>
+              <CoinSkelet />
+              <CoinSkelet />
+              <CoinSkelet />
+            </>
+          ) : (
+            <>
+              {convertationsList && convertationsList.length > 0 ? (
+                convertationsList.map((el) => {
+                  return <ConvertationsItem key={el.id} data={el} />;
+                })
+              ) : (
+                <EmptyText
+                  className="col-span-1 md:col-span-2 lg:col-span-3"
+                  text="Нет конвертаций"
+                />
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,9 +1,9 @@
-import { CoinWithHideAndOrder } from "./../../types/coinsTypes";
+import { Coin } from "./../../types/coinsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/types";
 
 const initialState: {
-  coinsList?: CoinWithHideAndOrder[];
+  coinsList?: Coin[];
 } = {
   coinsList: undefined,
 };
@@ -12,10 +12,7 @@ export const coinsSlice = createSlice({
   name: "coins",
   initialState,
   reducers: {
-    setCoinsList: (
-      state,
-      action: PayloadAction<CoinWithHideAndOrder[] | undefined>,
-    ) => {
+    setCoinsList: (state, action: PayloadAction<Coin[] | undefined>) => {
       state.coinsList = action.payload;
     },
   },
