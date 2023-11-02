@@ -92,8 +92,8 @@ export const userApi = createApi({
     setCoinsPositions: mutation<{ success: boolean }, CoinWithHideAndOrder[]>({
       query(body) {
         return {
-          url: "me/coins/positions",
-          method: "POST",
+          url: "me/coins",
+          method: "PUT",
           body,
         };
       },
@@ -102,7 +102,7 @@ export const userApi = createApi({
     getCoinsPositions: query<CoinWithHideAndOrder[], null>({
       query() {
         return {
-          url: "me/coins/positions",
+          url: "me/coins",
           method: "GET",
         };
       },

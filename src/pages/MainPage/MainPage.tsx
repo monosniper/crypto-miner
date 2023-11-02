@@ -31,15 +31,17 @@ export const MainPage = () => {
 
   return (
     <div>
-      <Title className="flex lg:hidden pb-6" title="Главная" />
+      <div className="flex items-center justify-between gap-4">
+        <Title className="flex lg:hidden pb-6" title="Главная" />
 
-      <div className="flex justify-start mb-4">
-        <button
-          className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100 border-solid"
-          onClick={() => dispatch(setShowHideCoins(!showHideCoins))}
-        >
-          {showHideCoins ? "Не показывать скрытые" : "Показать скрытые"}
-        </button>
+        <div className="justify-start mb-4">
+          <button
+            className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100 border-solid"
+            onClick={() => dispatch(setShowHideCoins(!showHideCoins))}
+          >
+            {showHideCoins ? "Не показывать скрытые" : "Показать скрытые"}
+          </button>
+        </div>
       </div>
 
       <Coins rows={data} draggableItems={true} loading={coinsLoading} />

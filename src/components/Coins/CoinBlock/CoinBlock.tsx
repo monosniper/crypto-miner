@@ -15,6 +15,7 @@ import cn from "clsx";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
+import { useOutside } from "@/hooks";
 
 export type Props = {
   type?: "my" | "general";
@@ -46,6 +47,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   const [isOpenMenu, setOpenMenu] = useState(false);
   const dispatch = useAppDispatch();
   const { coinsList } = useAppSelector(coins);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -178,9 +180,13 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
     };
   }, [data, theme, type]);
 
+  useOutside(menuRef, () => setOpenMenu(false));
+
   return (
     <div
-      className="h-full flex flex-col"
+      className={cn("h-full flex flex-col", {
+        "relative z-50": active,
+      })}
       ref={setNodeRef}
       style={style}
       {...attributes}
@@ -230,7 +236,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
             )} */}
 
             {type === "general" && (
-              <div className="relative">
+              <div className="relative" ref={menuRef}>
                 <div
                   className="cursor-pointer pointer-events-auto"
                   onClick={() => setOpenMenu((prev) => !prev)}

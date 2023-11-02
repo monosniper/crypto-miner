@@ -10,7 +10,8 @@ const initialState: {
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
   language: (localStorage.getItem("language") as "rus" | "eng") || "rus",
   isOpenSidebar: false,
-  showHideCoins: false,
+  showHideCoins:
+    JSON.parse(localStorage.getItem("showHideCoins") || "false") || false,
 };
 
 export const mainSlice = createSlice({
@@ -35,6 +36,8 @@ export const mainSlice = createSlice({
 
     setShowHideCoins: (state, action: PayloadAction<boolean>) => {
       state.showHideCoins = action.payload;
+
+      localStorage.setItem("showHideCoins", JSON.stringify(action.payload));
     },
   },
 });
