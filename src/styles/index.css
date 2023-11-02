@@ -13,7 +13,7 @@
 }
 
 body {
-  @apply text-sm font-normal leading-none bg-base-100 text-base-content-100;
+  @apply text-sm font-normal leading-none bg-base-100 text-base-content-100 !overflow-x-hidden;
 }
 
 button,

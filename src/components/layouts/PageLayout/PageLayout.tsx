@@ -39,7 +39,7 @@ export const PageLayout: FC<Props> = ({ children }) => {
         <div>
           <RecentTransactions />
           <Sidebar isLaptop={isLaptop} />
-          <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20 pb-10">
+          <div className="flex flex-col px-6 lg:pl-[288px] lg:pr-20 pb-10 overflow-hidden">
             <Header />
             <main className="flex flex-col">{children}</main>
           </div>

@@ -1,40 +1,51 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { ArrTopIcon } from "../../icons";
+import { ArrTopIcon, MoreInfoIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { main } from "@/redux/slices/mainSlice";
-import { Coin, CoinWithOrder, MyCoin, PropsWithClassName } from "@/types";
+import {
+  Coin,
+  CoinWithHideAndOrder,
+  MyCoin,
+  PropsWithClassName,
+} from "@/types";
 import cn from "clsx";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
 
 export type Props = {
   type?: "my" | "general";
-  data: CoinWithOrder | Coin | MyCoin;
-  idx?: number;
-  totalItems?: number;
+  data: CoinWithHideAndOrder;
+  // idx?: number;
+  // totalItems?: number;
   draggable?: boolean;
+  active?: boolean;
 
-  changeLocation?: (direction: "top" | "bottom", data: CoinWithOrder) => void;
+  // changeLocation?: (direction: "top" | "bottom", data: CoinWithOrder) => void;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   className,
   type = "general",
   data,
-  idx,
-  totalItems,
+  // idx,
+  // totalItems,
 
-  changeLocation,
+  // changeLocation,
   draggable = false,
+  active = false,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: data.id });
+  const [isOpenMenu, setOpenMenu] = useState(false);
+  const dispatch = useAppDispatch();
+  const { coinsList } = useAppSelector(coins);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -168,14 +179,21 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   }, [data, theme, type]);
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      className="h-full flex flex-col"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <div
-        className={cn(className, styles.wrapper, "draggableEl", {
+        className={cn(className, styles.wrapper, {
           [styles.my]: type === "my",
           "cursor-grab": draggable,
+          "border-primary": active,
         })}
       >
-        <div className="coin-inner">
+        <div className="coin-inner h-full flex flex-col">
           <div className={styles.header}>
             <div className={styles.coinTitle}>
               <div className={styles.coinIconWrapper}>
@@ -187,7 +205,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
               </p>
             </div>
 
-            {changeLocation && (
+            {/* {changeLocation && (
               <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
                 {idx && idx > 1 ? (
                   <div
@@ -208,6 +226,44 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                     <ArrTopIcon className="rotate-180" />
                   </div>
                 ) : null}
+              </div>
+            )} */}
+
+            {type === "general" && (
+              <div className="relative">
+                <div
+                  className="cursor-pointer pointer-events-auto"
+                  onClick={() => setOpenMenu((prev) => !prev)}
+                >
+                  <MoreInfoIcon
+                    className="[&>g>circle]:fill-white"
+                    width={24}
+                    height={24}
+                  />
+                </div>
+
+                {isOpenMenu && (
+                  <div className="absolute top-full right-0 w-[100px] bg-base-300 text-base-content-100 text-xs rounded-md overflow-hidden z-10">
+                    <div
+                      className="flex items-center gap-1 hover:bg-primary/20 cursor-pointer px-2 py-1"
+                      onClick={() => {
+                        setOpenMenu(false);
+
+                        const updateList = coinsList?.map((coin) => {
+                          if (coin.id === data.id) {
+                            return { ...coin, hide: !data.hide };
+                          }
+
+                          return coin;
+                        });
+
+                        dispatch(setCoinsList(updateList));
+                      }}
+                    >
+                      {data.hide ? "Показывать" : "Скрыть"}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

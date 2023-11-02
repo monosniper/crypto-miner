@@ -1,5 +1,5 @@
 import { CoinBlock, CoinSkelet } from "@/components";
-import { Coin, CoinWithOrder, PropsWithClassName } from "@/types";
+import { Coin, CoinWithHideAndOrder, PropsWithClassName } from "@/types";
 import { FC, useEffect, useState } from "react";
 import cn from "clsx";
 import {
@@ -10,8 +10,17 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
+  MouseSensor,
+  DragStartEvent,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import {
+  useGetCoinsPositionsQuery,
+  useSetCoinsPositionsMutation,
+} from "@/redux/api/userApi";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
+import { main } from "@/redux/slices/mainSlice";
 
 type Props = {
   rows: Coin[] | undefined;
@@ -25,20 +34,37 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
   loading = false,
   draggableItems = false,
 }) => {
-  const [list, setList] = useState<CoinWithOrder[]>();
+  const { coinsList } = useAppSelector(coins);
+  const { showHideCoins } = useAppSelector(main);
   const skeletItems = Array(8).fill(0);
-  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 1,
+      },
+    }),
+    useSensor(TouchSensor),
+    useSensor(MouseSensor),
+  );
+  const [setCoinsPositions] = useSetCoinsPositionsMutation();
+  const {
+    data: coinsPositions,
+    isSuccess: coinsPositionsIsSuccess,
+    isLoading,
+    isFetching,
+  } = useGetCoinsPositionsQuery(null);
+  const dispatch = useAppDispatch();
+  const [activeCoinId, setActiveCoinId] = useState<number>();
 
   useEffect(() => {
-    if (!rows) return;
-    const coinsStorage: CoinWithOrder[] =
-      JSON.parse(localStorage.getItem("coins") || "[]") || [];
+    if (!rows || !coinsPositions) return;
 
-    if (coinsStorage.length > 0) {
-      const coinsWithOrder = [];
+    if (coinsPositions.length > 0) {
+      const coinsWithHide = [];
 
-      for (let i = 0; i < coinsStorage.length; i++) {
-        const coinsStorageItem = coinsStorage[i];
+      for (let i = 0; i < coinsPositions.length; i++) {
+        const coinsStorageItem = coinsPositions[i];
 
         for (let j = 0; j < rows.length; j++) {
           const rowsItem = rows[j];
@@ -46,85 +72,71 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
           if (coinsStorageItem.id === rowsItem.id) {
             const coinWithUpdateOrder = {
               ...rowsItem,
-              order: coinsStorageItem.order,
+              hide: coinsStorageItem.hide,
             };
 
-            coinsWithOrder.push(coinWithUpdateOrder);
+            coinsWithHide.push(coinWithUpdateOrder);
           }
         }
       }
 
-      setList(coinsWithOrder);
+      dispatch(setCoinsList(coinsWithHide));
     } else {
-      const coinsWithOrder = rows.map((el, idx) => {
-        return { ...el, order: idx + 1 };
+      const coinsWithOrder = rows.map((el) => {
+        return { ...el, hide: false };
       });
 
-      setList(coinsWithOrder);
+      dispatch(setCoinsList(coinsWithOrder));
     }
-  }, [rows]);
-
-  const changeLocation = (direction: "top" | "bottom", coin: CoinWithOrder) => {
-    if (!list) return;
-    const coinIdx = list.findIndex((el) => el.id === coin.id);
-
-    const updatedList = [...list];
-
-    const coinToMove = updatedList.splice(coinIdx, 1)[0];
-    updatedList.splice(
-      direction === "top" ? coinIdx - 1 : coinIdx + 1,
-      0,
-      coinToMove,
-    );
-
-    updatedList.forEach((el, idx) => {
-      el.order = idx;
-    });
-
-    setList(updatedList);
-  };
+  }, [coinsPositions, dispatch, rows]);
 
   useEffect(() => {
-    if (!list) return;
-    const listWithoutOrders = list.map((el) => {
+    if (!coinsList || !coinsPositions) return;
+    const incomingList = coinsPositions.map((el) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const newItem: any = { ...el };
+      const newItem: CoinWithHideAndOrder = { ...el };
       delete newItem.order;
+      delete newItem.hide;
 
       return newItem;
     });
 
-    const rowsStringify = JSON.stringify(rows);
+    const listStringify = JSON.stringify(coinsList);
 
-    const listStringify = JSON.stringify(listWithoutOrders);
+    const incomingListStringify = JSON.stringify(incomingList);
 
-    if (rowsStringify === listStringify) return;
+    if (listStringify === incomingListStringify) return;
 
-    localStorage.setItem("coins", JSON.stringify(list));
-  }, [list, rows]);
+    setCoinsPositions(coinsList);
+  }, [coinsList, coinsPositions, setCoinsPositions]);
 
   function handleDragEnd(event: DragEndEvent) {
-    if (!list) return;
+    if (!coinsList) return;
+    setActiveCoinId(undefined);
 
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      setList((prev) => {
-        if (!prev) return;
+      const list = coinsList;
 
-        const oldIndex = prev.findIndex((el) => el.id === active.id);
-        const newIndex = prev.findIndex((el) => el.id === over.id);
+      if (!list) return;
 
-        console.log(oldIndex, newIndex);
+      const oldIndex = list.findIndex((el) => el.id === active.id);
+      const newIndex = list.findIndex((el) => el.id === over.id);
 
-        return arrayMove(prev, oldIndex, newIndex);
-      });
+      const resList = arrayMove(list, oldIndex, newIndex);
+
+      return dispatch(setCoinsList(resList));
     }
   }
 
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveCoinId(event.active.id as number);
+  };
+
   return (
-    <div className={cn(className, "flex flex-wrap -m-2")}>
-      {loading ? (
+    <div className={cn(className, "flex flex-wrap items-stretch -m-2")}>
+      {loading || isLoading || isFetching ? (
         <>
           {skeletItems.map((_, idx) => {
             return (
@@ -136,26 +148,41 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
         </>
       ) : (
         <>
-          {list && (
+          {coinsList && coinsPositionsIsSuccess && (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
+              onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
             >
-              <SortableContext items={list}>
-                {list.map((el) => (
-                  <div
-                    key={el.id}
-                    className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
-                  >
-                    <CoinBlock
-                      key={el.id}
-                      data={el}
-                      changeLocation={changeLocation}
-                      draggable={draggableItems}
-                    />
-                  </div>
-                ))}
+              <SortableContext
+                items={coinsList.filter((el) => {
+                  if (showHideCoins) return el;
+
+                  return el.hide !== true;
+                })}
+              >
+                {coinsList
+                  .filter((el) => {
+                    if (showHideCoins) return el;
+
+                    return el.hide !== true;
+                  })
+                  .map((el) => {
+                    return (
+                      <div
+                        key={el.id}
+                        className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
+                      >
+                        <CoinBlock
+                          key={el.id}
+                          data={el}
+                          draggable={draggableItems}
+                          active={activeCoinId === el.id ? true : false}
+                        />
+                      </div>
+                    );
+                  })}
               </SortableContext>
             </DndContext>
           )}

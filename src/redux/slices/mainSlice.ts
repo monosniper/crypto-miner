@@ -5,10 +5,12 @@ const initialState: {
   theme: "light" | "dark";
   language: "rus" | "eng";
   isOpenSidebar: boolean;
+  showHideCoins: boolean;
 } = {
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
   language: (localStorage.getItem("language") as "rus" | "eng") || "rus",
   isOpenSidebar: false,
+  showHideCoins: false,
 };
 
 export const mainSlice = createSlice({
@@ -30,11 +32,16 @@ export const mainSlice = createSlice({
     setOpenSidebar: (state, action: PayloadAction<boolean>) => {
       state.isOpenSidebar = action.payload;
     },
+
+    setShowHideCoins: (state, action: PayloadAction<boolean>) => {
+      state.showHideCoins = action.payload;
+    },
   },
 });
 
 export default mainSlice.reducer;
 
-export const { setTheme, setLanguage, setOpenSidebar } = mainSlice.actions;
+export const { setTheme, setLanguage, setOpenSidebar, setShowHideCoins } =
+  mainSlice.actions;
 
 export const main = (state: RootState) => state.main;

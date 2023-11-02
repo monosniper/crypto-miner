@@ -1,4 +1,11 @@
-import { Balance, Convertation, Server, User, Withdrawal } from "@/types";
+import {
+  Balance,
+  CoinWithHideAndOrder,
+  Convertation,
+  Server,
+  User,
+  Withdrawal,
+} from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -26,8 +33,8 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["convertations"],
-  endpoints: ({ query }) => ({
+  tagTypes: ["convertations", "coins"],
+  endpoints: ({ query, mutation }) => ({
     getMe: query<User, { username: string; password: string | number }>({
       query(params) {
         const credentials = `${params.username}:${params.password}`;
@@ -81,6 +88,25 @@ export const userApi = createApi({
         };
       },
     }),
+
+    setCoinsPositions: mutation<{ success: boolean }, CoinWithHideAndOrder[]>({
+      query(body) {
+        return {
+          url: "me/coins/positions",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    getCoinsPositions: query<CoinWithHideAndOrder[], null>({
+      query() {
+        return {
+          url: "me/coins/positions",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -91,4 +117,6 @@ export const {
   useGetWalletQuery,
   useGetConvertationsQuery,
   useGetMyServersQuery,
+  useSetCoinsPositionsMutation,
+  useGetCoinsPositionsQuery,
 } = userApi;

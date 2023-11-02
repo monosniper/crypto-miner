@@ -9,7 +9,11 @@ export type Coin = {
 };
 
 export interface CoinWithOrder extends Coin {
-  order: number;
+  order?: number;
+}
+
+export interface CoinWithHideAndOrder extends CoinWithOrder {
+  hide?: boolean;
 }
 
 export type MyCoin = Pick<Coin, "slug" | "name" | "icon_url" | "id"> & {
