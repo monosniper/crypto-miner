@@ -1,16 +1,23 @@
 import { FC, useState, useEffect } from "react";
-import { MyCoin, PropsWithClassName } from "@/types";
+import { Balance, Coin, PropsWithClassName } from "@/types";
 import cn from "clsx";
 import { Buy, ShowMoreBtn } from "@/components/ui";
 import { CoinBlock, CoinSkelet } from "@/components";
-import { useAppSelector } from "@/redux/store";
-import { user } from "@/redux/slices/userSlice";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useLoading } from "@/hooks";
+import { useNavigate } from "react-router-dom";
 
-export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
-  const { userData } = useAppSelector(user);
-  const [coins, setCoins] = useState<MyCoin[]>([]);
+type Props = {
+  coinsList?: { balance: Balance };
+  loading?: boolean;
+};
+
+export const MyCoins: FC<PropsWithClassName<Props>> = ({
+  className,
+  coinsList,
+  loading = false,
+}) => {
+  const [coins, setCoins] = useState<Coin[]>([]);
   const {
     data: allCoins,
     isLoading: allCoinsIsLoading,
@@ -18,24 +25,50 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
   } = useGetCoinsQuery(null);
   const [isLoading, setLoading] = useState(true);
   const [isMore, setMore] = useState(false);
+  const navigate = useNavigate();
+  const [maxItems, setMaxItems] = useState<number>();
 
   useEffect(() => {
-    if (!userData?.wallet) return;
+    const resizeListener = () => {
+      if (
+        (window.innerWidth >= 640 && window.innerWidth < 768) ||
+        window.innerWidth >= 1280
+      ) {
+        setMaxItems(7);
+      }
+
+      if (window.innerWidth >= 768 && window.innerWidth < 1280) {
+        setMaxItems(8);
+      }
+    };
+
+    resizeListener();
+
+    window.addEventListener("resize", resizeListener);
+
+    return () => window.removeEventListener("resize", resizeListener);
+  }, []);
+
+  useEffect(() => {
+    if (!coinsList) return;
 
     const walletCoins: (string | number)[][] = Object.entries(
-      userData.wallet.balance,
+      coinsList.balance,
     );
 
-    const upgradeWalletCoins: MyCoin[] = [];
+    const upgradeWalletCoins: Coin[] = [];
 
     if (allCoins) {
       for (let i = 0; i < allCoins.length; i++) {
-        const coin: MyCoin = {
+        const coin: Coin = {
           id: 0,
           slug: "",
           name: "",
           balance: 0,
           icon_url: "",
+          rate: 0,
+          change: 0,
+          graph: [],
         };
 
         for (let j = 0; j < walletCoins.length; j++) {
@@ -55,10 +88,10 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
     setCoins(upgradeWalletCoins);
 
     setLoading(false);
-  }, [userData, allCoins]);
+  }, [allCoins, coinsList]);
 
-  const loading = useLoading(
-    allCoinsIsLoading || isLoading,
+  const loadingCoins = useLoading(
+    allCoinsIsLoading || loading || isLoading,
     allCoinsIsFetching,
   );
 
@@ -66,10 +99,10 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
     <>
       <div className={cn(className, "flex flex-wrap -m-2")}>
         <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
-          <Buy title="Купить монеты" onClick={() => console.log("click")} />
+          <Buy title="Купить монеты" onClick={() => navigate("/trading")} />
         </div>
 
-        {loading ? (
+        {loadingCoins ? (
           <>
             <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
               <CoinSkelet />
@@ -92,10 +125,14 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
           <>
             {coins.length > 0 &&
               coins
-                .slice(0, isMore ? 8 : undefined)
-                .filter((el) => {
-                  return el.balance > 0 && el.slug !== "USDT";
+                .sort((a, b) => {
+                  if (a.balance && b.balance) {
+                    return b.balance - a.balance;
+                  }
+
+                  return 1;
                 })
+                .slice(0, isMore ? undefined : maxItems)
                 .map((el) => {
                   return (
                     <div
@@ -110,12 +147,14 @@ export const MyCoins: FC<PropsWithClassName> = ({ className }) => {
         )}
       </div>
 
-      {coins.filter((el) => {
-        return el.balance > 0 && el.slug !== "USDT";
-      }).length > 7 &&
-        !isMore && (
-          <ShowMoreBtn className="mt-6" onClick={() => setMore(true)} />
-        )}
+      {maxItems && coins.length > maxItems - 1 && (
+        <ShowMoreBtn
+          className="mt-6"
+          onClick={() => setMore((prev) => !prev)}
+          title={isMore ? "Свернуть" : "Показать больше"}
+          isOpen={isMore}
+        />
+      )}
     </>
   );
 };

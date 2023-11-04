@@ -4,19 +4,23 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 import mainReducer from "./slices/mainSlice";
 import userReducer from "./slices/userSlice";
+import modalsOpensReducer from "./slices/modalsOpensSlice";
+import coinsReducer from "./slices/coinsSlice";
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
 import { articlesApi } from "./api/articlesApi";
-import { conversionsApi } from "./api/conversionsApi";
+import { serversApi } from "./api/serversApi";
 
 export const rootReducer = combineReducers({
   main: mainReducer,
   user: userReducer,
+  modalsOpens: modalsOpensReducer,
+  coins: coinsReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [articlesApi.reducerPath]: articlesApi.reducer,
-  [conversionsApi.reducerPath]: conversionsApi.reducer,
+  [serversApi.reducerPath]: serversApi.reducer,
 });
 
 export const store = configureStore({
@@ -26,7 +30,7 @@ export const store = configureStore({
       coinsApi.middleware,
       userApi.middleware,
       articlesApi.middleware,
-      conversionsApi.middleware,
+      serversApi.middleware,
     ]),
 });
 

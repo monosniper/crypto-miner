@@ -1,4 +1,4 @@
-export type Conversion = {
+export type Convertation = {
   id: number;
   coin: {
     from: string;

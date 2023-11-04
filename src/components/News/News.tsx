@@ -1,13 +1,14 @@
+import { FC } from "react";
 import { CoinSkelet, EmptyText, NewsItem, Title } from "@/components";
-import { useLoading } from "@/hooks";
-import { useGetArticlesQuery } from "@/redux/api/articlesApi";
+import { News as NewsTypes } from "@/types";
 import { Link } from "react-router-dom";
 
-export const News = () => {
-  const { data, isLoading, isFetching } = useGetArticlesQuery(null);
+type Props = {
+  list?: NewsTypes[];
+  loading?: boolean;
+};
 
-  const loading = useLoading(isLoading, isFetching);
-
+export const News: FC<Props> = ({ list, loading = false }) => {
   return (
     <div className="flex flex-col gap-6 w-full h-full">
       <div className="flex justify-between items-center gap-4">
@@ -34,9 +35,9 @@ export const News = () => {
           </>
         ) : (
           <>
-            {data && data.length > 0 ? (
+            {list && list.length > 0 ? (
               <>
-                {data.slice(0, 3).map((el) => {
+                {list.slice(0, 3).map((el) => {
                   return <NewsItem key={el.id} data={el} />;
                 })}
               </>

@@ -1,18 +1,20 @@
 import { FC, MouseEventHandler } from "react";
 import styles from "./ServersItem.module.css";
 import cn from "clsx";
-import { PropsWithClassName } from "@/types";
-import { BurgerIcon, FanIcon } from "@/components/icons";
+import { PropsWithClassName, Server, ServerStatuses } from "@/types";
+import { FanIcon } from "@/components/icons";
 
 type Props = {
   type?: "div" | "button";
   onClick?: MouseEventHandler<HTMLElement>;
+  data: Server;
 };
 
 export const ServersItem: FC<PropsWithClassName<Props>> = ({
   className,
   type = "div",
   onClick,
+  data,
 }) => {
   const Tag = type;
 
@@ -26,17 +28,17 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
     >
       <div className={styles.header}>
         <div className={styles.state}>
-          <FanIcon />
+          <FanIcon
+            className={cn({
+              "animate-spin": data.status === ServerStatuses.ACTIVE_STATUS,
+            })}
+          />
 
           <p>Работает</p>
         </div>
-
-        <div className={styles.menu}>
-          <BurgerIcon />
-        </div>
       </div>
 
-      <h5 className={styles.title}>Antminer S19 XP 141</h5>
+      <h5 className={styles.title}>{data.title}</h5>
     </Tag>
   );
 };

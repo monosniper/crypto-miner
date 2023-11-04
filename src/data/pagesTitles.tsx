@@ -6,4 +6,7 @@ export const pagesTitles: {
   "/wallet/withdrawal": "Вывод средств",
   "/mining": "Майнинг",
   "/working-servers": "Рабочие сервера",
+  "/nft-wallet": "NFT Кошелёк",
+  "/partnership": "Партнёрство",
+  "/trading": "Трейдинг",
 };

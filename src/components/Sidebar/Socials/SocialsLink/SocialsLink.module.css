@@ -1,0 +1,11 @@
+.link {
+  @apply w-4 h-4 cursor-pointer;
+}
+
+.link svg path {
+  @apply fill-base-content-300;
+}
+
+body[data-theme="dark"] .link svg path {
+  @apply fill-[#8590A3];
+}

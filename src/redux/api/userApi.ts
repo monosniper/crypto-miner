@@ -1,4 +1,12 @@
-import { User } from "@/types";
+import {
+  Balance,
+  Coin,
+  Convertation,
+  Nft,
+  Server,
+  User,
+  WithdrawsItem,
+} from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -13,7 +21,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY
+          import.meta.env.VITE_CRYPT_KEY,
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -25,7 +33,9 @@ export const userApi = createApi({
       }
     },
   }),
-  endpoints: ({ query }) => ({
+
+  tagTypes: ["convertations", "coins"],
+  endpoints: ({ query, mutation }) => ({
     getMe: query<User, { username: string; password: string | number }>({
       query(params) {
         const credentials = `${params.username}:${params.password}`;
@@ -42,16 +52,106 @@ export const userApi = createApi({
       },
     }),
 
-    getWithdraws: query<any, null>({
+    getWallet: query<{ balance: Balance }, null>({
       query() {
         return {
-          url: "withdraws",
+          url: "me/wallet",
           method: "GET",
+        };
+      },
+    }),
+
+    getWithdraws: query<WithdrawsItem[], null>({
+      query() {
+        return {
+          url: "me/withdraws",
+          method: "GET",
+        };
+      },
+    }),
+
+    getConvertations: query<Convertation[], null>({
+      query() {
+        return {
+          url: "me/convertations",
+          method: "GET",
+        };
+      },
+
+      providesTags: ["convertations"],
+    }),
+
+    getMyServers: query<Server[], null>({
+      query() {
+        return {
+          url: "me/servers",
+          method: "GET",
+        };
+      },
+    }),
+
+    setCoinsPositions: mutation<
+      { success: boolean },
+      { id: number; hide?: boolean }[]
+    >({
+      query(body) {
+        return {
+          url: "me/coins",
+          method: "PUT",
+          body,
+        };
+      },
+    }),
+
+    getCoinsPositions: query<Coin[], null>({
+      query() {
+        return {
+          url: "me/coins",
+          method: "GET",
+        };
+      },
+    }),
+
+    getInvest: query<any, null>({
+      query() {
+        return {
+          url: "invest",
+          method: "GET",
+        };
+      },
+    }),
+
+    getNft: query<Nft[], null>({
+      query() {
+        return {
+          url: "me/nft",
+          method: "GET",
+        };
+      },
+    }),
+
+    withdrawNft: mutation<any, { nft_id: number }>({
+      query(body) {
+        return {
+          url: "me/nft",
+          method: "PUT",
+          body,
         };
       },
     }),
   }),
 });
 
-export const { useGetMeQuery, useLazyGetMeQuery, useGetWithdrawsQuery } =
-  userApi;
+export const {
+  useGetMeQuery,
+  useLazyGetMeQuery,
+  useGetWithdrawsQuery,
+  useGetWalletQuery,
+  useGetConvertationsQuery,
+  useGetMyServersQuery,
+  useSetCoinsPositionsMutation,
+  useGetCoinsPositionsQuery,
+  useGetInvestQuery,
+  useGetNftQuery,
+  useWithdrawNftMutation,
+} = userApi;

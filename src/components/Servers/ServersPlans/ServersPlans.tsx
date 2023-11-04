@@ -6,7 +6,7 @@ import styles from "./ServersPlans.module.css";
 export const ServersPlans = () => {
   return (
     <div className="flex flex-wrap -m-2">
-      <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 p-2">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className="h-full"
           icon={<BookmarksIcon />}
@@ -16,7 +16,7 @@ export const ServersPlans = () => {
         />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 p-2">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className="h-full"
           icon={
@@ -33,7 +33,7 @@ export const ServersPlans = () => {
         />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 p-2">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className="h-full"
           icon={
@@ -50,7 +50,7 @@ export const ServersPlans = () => {
         />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 p-2">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className="h-full"
           icon={
@@ -67,7 +67,7 @@ export const ServersPlans = () => {
         />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 p-2">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className={styles.beneficial}
           icon={
@@ -84,7 +84,7 @@ export const ServersPlans = () => {
         />
       </div>
 
-      <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 p-2">
+      <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className="h-full"
           icon={

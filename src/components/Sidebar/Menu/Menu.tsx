@@ -1,6 +1,4 @@
 import {
-  ConverIcon,
-  HistoryIcon,
   HomeIcon,
   NftWalletIcon,
   WalletIcon,
@@ -27,7 +25,6 @@ export const Menu = () => {
         <h6 className="text-gray-1 text-xs uppercase">Кошелек</h6>
 
         <div className="flex flex-col gap-2 mt-2">
-          <MenuItem icon={<ConverIcon />} title="Конвертация" href="/convert" />
           <MenuItem icon={<WalletIcon />} title="Кошелек" href="/wallet" />
           <MenuItem
             icon={<NftWalletIcon />}
@@ -35,7 +32,6 @@ export const Menu = () => {
             href="/nft-wallet"
           />
           <MenuItem icon={<MiningIcon />} title="Майнинг" href="/mining" />
-          <MenuItem icon={<HistoryIcon />} title="История" href="/history" />
           <MenuItem
             icon={<LightingIcon />}
             title="Рабочие сервера"
@@ -52,7 +48,7 @@ export const Menu = () => {
           <MenuItem
             icon={<PartnerIcon />}
             title="Партнёрство"
-            href="/partner"
+            href="/partnership"
           />
           <MenuItem
             type="button"

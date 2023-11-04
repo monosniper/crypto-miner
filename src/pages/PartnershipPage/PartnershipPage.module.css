@@ -1,0 +1,15 @@
+.invest {
+  @apply p-6 bg-gradient-2 rounded-xl mt-6;
+}
+
+body[data-theme="dark"] .invest {
+  @apply bg-gradient-2-dark;
+}
+
+.investBtn {
+  @apply h-12 !bg-white !text-base-content-100;
+}
+
+body[data-theme="dark"] .investBtn {
+  @apply !bg-transparent !text-white;
+}

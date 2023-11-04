@@ -22,3 +22,6 @@ export * from "./ScalingIcon";
 export * from "./ChipIcon";
 export * from "./MessageIcon";
 export * from "./PrevIcon";
+export * from "./CloseIcon";
+export * from "./MoreInfoIcon";
+export * from "./MoveIcon";
