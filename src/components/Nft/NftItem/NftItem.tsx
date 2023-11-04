@@ -1,11 +1,16 @@
+import { FC } from "react";
 import { ExportIcon } from "@/components/icons";
 import { Button } from "@/components/ui";
 import styles from "./NftItem.module.css";
 import { useAppDispatch } from "@/redux/store";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
-import { NamesModals } from "@/types";
+import { NamesModals, Nft } from "@/types";
 
-export const NftItem = () => {
+type Props = {
+  data: Nft;
+};
+
+export const NftItem: FC<Props> = ({ data }) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -13,7 +18,7 @@ export const NftItem = () => {
       <div className="relative w-full">
         <img
           className="rounded-lg w-full h-full"
-          src="/images/nft-img.png"
+          src={data.image_url}
           alt="nft"
         />
 
@@ -32,7 +37,7 @@ export const NftItem = () => {
           }}
         />
       </div>
-      <p className="text-center py-4 font-semibold text-xl">40 BTC</p>
+      <p className="text-center py-4 font-semibold text-xl">{data.price} BTC</p>
     </div>
   );
 };

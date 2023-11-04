@@ -4,7 +4,7 @@ export const Socials = () => {
   return (
     <div className="flex flex-wrap gap-4 items-center">
       <SocialsLink
-        href="/"
+        href={import.meta.env.VITE_FACEBOOK || "#"}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clipPath="url(#clip0_410_21204)">
@@ -23,7 +23,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href="/"
+        href={import.meta.env.VITE_TELEGRAM || "#"}
         icon={
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
             <path
@@ -35,7 +35,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href="/"
+        href={import.meta.env.VITE_INSTAGRAM || "#"}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clipPath="url(#clip0_410_14578)">
@@ -54,7 +54,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href="/"
+        href={import.meta.env.VITE_H || "#"}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
@@ -66,7 +66,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href="/"
+        href={import.meta.env.VITE_TIK_TOK || "#"}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clipPath="url(#clip0_410_14582)">
@@ -90,7 +90,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href="/"
+        href={import.meta.env.VITE_YOUTUBE || "#"}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path

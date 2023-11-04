@@ -74,3 +74,7 @@ export * from "./Trading/TradingOperation/TradingOperation";
 
 export * from "./RecentTransactions/RecentTransactions";
 export * from "./History/History";
+
+// WITHDRAWS
+
+export * from "./WithdrawsItem/WithdrawsItem";

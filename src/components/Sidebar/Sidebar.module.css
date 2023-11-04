@@ -1,5 +1,5 @@
 .sidebar {
-  @apply w-64 py-6 fixed -left-[100vw] lg:left-0 top-[29px] bottom-0 h-[calc(100vh-29px)] text-primary bg-base-200 lg:bg-base-100 flex flex-col z-20 ease-linear duration-150 border-r border-base-border-100;
+  @apply w-64 py-6 fixed -left-[100vw] lg:left-0 top-0 lg:top-[29px] bottom-0 h-screen lg:h-[calc(100vh-29px)] text-primary bg-base-200 lg:bg-base-100 flex flex-col z-20 ease-linear duration-150 border-r border-base-border-100;
 }
 
 .sidebar.isOpen {

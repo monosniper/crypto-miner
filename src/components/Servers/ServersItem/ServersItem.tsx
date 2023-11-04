@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from "react";
 import styles from "./ServersItem.module.css";
 import cn from "clsx";
-import { PropsWithClassName, Server } from "@/types";
+import { PropsWithClassName, Server, ServerStatuses } from "@/types";
 import { FanIcon } from "@/components/icons";
 
 type Props = {
@@ -28,7 +28,11 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
     >
       <div className={styles.header}>
         <div className={styles.state}>
-          <FanIcon />
+          <FanIcon
+            className={cn({
+              "animate-spin": data.status === ServerStatuses.ACTIVE_STATUS,
+            })}
+          />
 
           <p>Работает</p>
         </div>

@@ -2,12 +2,17 @@ import { useState } from "react";
 import { TabButton } from "@/components/ui";
 import {
   useGetConvertationsQuery,
-  useGetInvestQuery,
+  useGetWithdrawsQuery,
 } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
-import { CoinSkelet, ConvertationsItem, EmptyText } from "..";
+import {
+  CoinSkelet,
+  ConvertationsItem,
+  EmptyText,
+  WithdrawsItem,
+} from "@/components";
 
-type Tabs = "deposits" | "convertations" | "withdraw";
+type Tabs = "deposits" | "convertations" | "withdraws";
 
 export const History = () => {
   const [currentTab, setCurrentTab] = useState<Tabs>("deposits");
@@ -16,20 +21,24 @@ export const History = () => {
     data: convertationsList,
     isLoading: convertationsIsLoading,
     isFetching: convertationsIsFetching,
-  } = useGetConvertationsQuery(null);
+  } = useGetConvertationsQuery(null, {
+    skip: currentTab !== "convertations",
+  });
 
   const {
-    data: investData,
-    isLoading: investIsLoading,
-    isFetching: investIsFetching,
-  } = useGetInvestQuery(null);
+    data: withdrawsList,
+    isLoading: withdrawsIsLoading,
+    isFetching: withdrawsIsFetching,
+  } = useGetWithdrawsQuery(null, {
+    skip: currentTab !== "withdraws",
+  });
 
   const convertationsLoading = useLoading(
     convertationsIsLoading,
     convertationsIsFetching,
   );
 
-  const investLoading = useLoading(investIsLoading, investIsFetching);
+  const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
 
   return (
     <div>
@@ -56,8 +65,8 @@ export const History = () => {
           <TabButton
             className="w-full"
             title="Выводы"
-            selected={currentTab === "withdraw"}
-            onClick={() => setCurrentTab("withdraw")}
+            selected={currentTab === "withdraws"}
+            onClick={() => setCurrentTab("withdraws")}
           />
         </div>
       </div>
@@ -80,6 +89,31 @@ export const History = () => {
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
                   text="Нет конвертаций"
+                />
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {currentTab === "withdraws" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-4">
+          {withdrawsLoading ? (
+            <>
+              <CoinSkelet />
+              <CoinSkelet />
+              <CoinSkelet />
+            </>
+          ) : (
+            <>
+              {withdrawsList && withdrawsList.length > 0 ? (
+                withdrawsList.map((el) => {
+                  return <WithdrawsItem key={el.id} data={el} />;
+                })
+              ) : (
+                <EmptyText
+                  className="col-span-1 md:col-span-2 lg:col-span-3"
+                  text="Нет выводов"
                 />
               )}
             </>

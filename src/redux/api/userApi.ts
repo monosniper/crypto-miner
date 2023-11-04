@@ -1,4 +1,12 @@
-import { Balance, Coin, Convertation, Server, User, Withdrawal } from "@/types";
+import {
+  Balance,
+  Coin,
+  Convertation,
+  Nft,
+  Server,
+  User,
+  WithdrawsItem,
+} from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -53,7 +61,7 @@ export const userApi = createApi({
       },
     }),
 
-    getWithdraws: query<Withdrawal[], null>({
+    getWithdraws: query<WithdrawsItem[], null>({
       query() {
         return {
           url: "me/withdraws",
@@ -112,6 +120,25 @@ export const userApi = createApi({
         };
       },
     }),
+
+    getNft: query<Nft[], null>({
+      query() {
+        return {
+          url: "me/nft",
+          method: "GET",
+        };
+      },
+    }),
+
+    withdrawNft: mutation<any, { nft_id: number }>({
+      query(body) {
+        return {
+          url: "me/nft",
+          method: "PUT",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -125,4 +152,6 @@ export const {
   useSetCoinsPositionsMutation,
   useGetCoinsPositionsQuery,
   useGetInvestQuery,
+  useGetNftQuery,
+  useWithdrawNftMutation,
 } = userApi;

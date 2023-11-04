@@ -1,18 +1,18 @@
 import { FC } from "react";
 import { ArrTopIcon } from "@/components/icons";
 import styles from "./ConvertationsItem.module.css";
-import { Conversion } from "@/types";
+import { Convertation } from "@/types";
 import { formatRelativeDate } from "@/utils";
 
 type Props = {
-  data: Conversion;
+  data: Convertation;
 };
 
 export const ConvertationsItem: FC<Props> = ({ data }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <h4>Вывод средств</h4>
+        <h4>Конвертация</h4>
         <p>{formatRelativeDate(new Date(data.created_at))}</p>
       </div>
 

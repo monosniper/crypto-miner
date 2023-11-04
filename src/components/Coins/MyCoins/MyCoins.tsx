@@ -26,6 +26,28 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   const [isLoading, setLoading] = useState(true);
   const [isMore, setMore] = useState(false);
   const navigate = useNavigate();
+  const [maxItems, setMaxItems] = useState<number>();
+
+  useEffect(() => {
+    const resizeListener = () => {
+      if (
+        (window.innerWidth >= 640 && window.innerWidth < 768) ||
+        window.innerWidth >= 1280
+      ) {
+        setMaxItems(7);
+      }
+
+      if (window.innerWidth >= 768 && window.innerWidth < 1280) {
+        setMaxItems(8);
+      }
+    };
+
+    resizeListener();
+
+    window.addEventListener("resize", resizeListener);
+
+    return () => window.removeEventListener("resize", resizeListener);
+  }, []);
 
   useEffect(() => {
     if (!coinsList) return;
@@ -110,7 +132,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
 
                   return 1;
                 })
-                .slice(0, isMore ? undefined : 8)
+                .slice(0, isMore ? undefined : maxItems)
                 .map((el) => {
                   return (
                     <div
@@ -125,7 +147,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
         )}
       </div>
 
-      {coins.length > 7 && (
+      {maxItems && coins.length > maxItems - 1 && (
         <ShowMoreBtn
           className="mt-6"
           onClick={() => setMore((prev) => !prev)}

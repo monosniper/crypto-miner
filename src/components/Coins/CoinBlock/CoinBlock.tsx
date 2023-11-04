@@ -162,6 +162,14 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
         .on("mouseout", () => {
           setHoveredData(null); // Сбрасываем данные при уходе с точки
         })
+        .on("touchstart", (event, d) => {
+          setHoveredData(d); // Сохраняем данные точки в состоянии при касании
+          const touch = event.touches[0];
+          setTooltipPosition({ x: touch.pageX, y: touch.pageY }); // Позиция tooltip при касании
+        })
+        .on("touchend", () => {
+          setHoveredData(null); // Сбрасываем данные при окончании касания
+        })
         .attr("fill", "#906BF5") // Цвет точки
         .style("fill-opacity", 0);
     };
@@ -176,6 +184,20 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   }, [data, theme, type]);
 
   useOutside(menuRef, () => setOpenMenu(false));
+
+  const hideCoinHandler = () => {
+    setOpenMenu(false);
+
+    const updateList = coinsList?.map((coin) => {
+      if (coin.id === data.id) {
+        return { ...coin, hide: !data.hide };
+      }
+
+      return coin;
+    });
+
+    dispatch(setCoinsList(updateList));
+  };
 
   return (
     <div
@@ -235,9 +257,10 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                 <div
                   className="cursor-pointer pointer-events-auto"
                   onClick={() => setOpenMenu((prev) => !prev)}
+                  onTouchStart={() => setOpenMenu((prev) => !prev)}
                 >
                   <MoreInfoIcon
-                    className="[&>g>circle]:fill-white"
+                    className="[&>g>circle]:fill-base-content-100"
                     width={24}
                     height={24}
                   />
@@ -247,19 +270,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                   <div className="absolute top-full right-0 w-[100px] bg-base-300 text-base-content-100 text-xs rounded-md overflow-hidden z-10">
                     <div
                       className="flex items-center gap-1 hover:bg-primary/20 cursor-pointer px-2 py-1"
-                      onClick={() => {
-                        setOpenMenu(false);
-
-                        const updateList = coinsList?.map((coin) => {
-                          if (coin.id === data.id) {
-                            return { ...coin, hide: !data.hide };
-                          }
-
-                          return coin;
-                        });
-
-                        dispatch(setCoinsList(updateList));
-                      }}
+                      onClick={hideCoinHandler}
+                      onTouchStart={hideCoinHandler}
                     >
                       {data.hide ? "Показывать" : "Скрыть"}
                     </div>

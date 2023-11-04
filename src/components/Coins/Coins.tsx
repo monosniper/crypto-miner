@@ -53,12 +53,14 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     isSuccess: coinsPositionsIsSuccess,
     isLoading,
     isFetching,
-  } = useGetCoinsPositionsQuery(null);
+  } = useGetCoinsPositionsQuery(null, {
+    skip: !draggableItems,
+  });
   const dispatch = useAppDispatch();
   const [activeCoinId, setActiveCoinId] = useState<number>();
 
   useEffect(() => {
-    if (!rows || !coinsPositions) return;
+    if (!rows || !coinsPositions || !draggableItems) return;
 
     if (coinsPositions.length > 0) {
       const coinsWithHide = [];
@@ -82,23 +84,25 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
 
       dispatch(setCoinsList(coinsWithHide));
     } else {
-      const coinsWithOrder = rows.map((el) => {
+      const coinsWithHide = rows.map((el) => {
         return { ...el, hide: false };
       });
 
-      dispatch(setCoinsList(coinsWithOrder));
+      dispatch(setCoinsList(coinsWithHide));
     }
-  }, [coinsPositions, dispatch, rows]);
+  }, [coinsPositions, dispatch, draggableItems, rows]);
 
   useEffect(() => {
-    if (!coinsList || !coinsPositions) return;
-    const incomingList = coinsPositions.map((el) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const newItem: Coin = { ...el };
-      delete newItem.hide;
+    if (!coinsList || !coinsPositions || !draggableItems) return;
+    const incomingList = Array.isArray(coinsPositions)
+      ? coinsPositions.map((el) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const newItem: Coin = { ...el };
+          delete newItem.hide;
 
-      return newItem;
-    });
+          return newItem;
+        })
+      : [];
 
     const listStringify = JSON.stringify(coinsList);
 
@@ -116,7 +120,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     if (apiCoinsPositionsStr !== newCoinsPositionsListStr) {
       setCoinsPositions(newCoinsPositionsList);
     }
-  }, [coinsList, coinsPositions, setCoinsPositions]);
+  }, [coinsList, coinsPositions, draggableItems, setCoinsPositions]);
 
   function handleDragEnd(event: DragEndEvent) {
     if (!coinsList) return;
@@ -156,7 +160,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
         </>
       ) : (
         <>
-          {coinsList && coinsPositionsIsSuccess && (
+          {coinsList && coinsPositionsIsSuccess && draggableItems && (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
