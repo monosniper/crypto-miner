@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { ArrTopIcon, MoreInfoIcon } from "../../icons";
+import { ArrTopIcon, MoreInfoIcon, MoveIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
@@ -253,30 +253,47 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
             )} */}
 
             {type === "general" && (
-              <div className="relative" ref={menuRef}>
-                <div
-                  className="cursor-pointer pointer-events-auto"
-                  onClick={() => setOpenMenu((prev) => !prev)}
-                  onTouchStart={() => setOpenMenu((prev) => !prev)}
-                >
-                  <MoreInfoIcon
-                    className="[&>g>circle]:fill-base-content-100"
-                    width={24}
-                    height={24}
-                  />
+              <div className="flex items-center gap-4">
+                <div className="relative" ref={menuRef}>
+                  <div
+                    className="cursor-pointer pointer-events-auto"
+                    onClick={() => setOpenMenu((prev) => !prev)}
+                    onTouchStart={() => setOpenMenu((prev) => !prev)}
+                  >
+                    <MoreInfoIcon
+                      className="[&>g>circle]:fill-base-content-100"
+                      width={24}
+                      height={24}
+                    />
+                  </div>
+
+                  {isOpenMenu && (
+                    <div className="absolute top-full right-0 w-[100px] bg-base-300 text-base-content-100 text-xs rounded-md overflow-hidden z-10">
+                      <div
+                        className="flex items-center gap-1 hover:bg-primary/20 cursor-pointer px-2 py-1"
+                        onClick={hideCoinHandler}
+                        onTouchStart={hideCoinHandler}
+                      >
+                        {data.hide ? "Показывать" : "Скрыть"}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {isOpenMenu && (
-                  <div className="absolute top-full right-0 w-[100px] bg-base-300 text-base-content-100 text-xs rounded-md overflow-hidden z-10">
-                    <div
-                      className="flex items-center gap-1 hover:bg-primary/20 cursor-pointer px-2 py-1"
-                      onClick={hideCoinHandler}
-                      onTouchStart={hideCoinHandler}
-                    >
-                      {data.hide ? "Показывать" : "Скрыть"}
-                    </div>
-                  </div>
-                )}
+                <div
+                  className={cn(
+                    "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200",
+                    {
+                      "!bg-base-300": active,
+                    },
+                  )}
+                >
+                  <MoveIcon
+                    className="[&>g>path]:stroke-base-content-100"
+                    width={18}
+                    height={18}
+                  />
+                </div>
               </div>
             )}
           </div>

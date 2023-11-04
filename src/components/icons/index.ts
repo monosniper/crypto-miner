@@ -24,3 +24,4 @@ export * from "./MessageIcon";
 export * from "./PrevIcon";
 export * from "./CloseIcon";
 export * from "./MoreInfoIcon";
+export * from "./MoveIcon";
