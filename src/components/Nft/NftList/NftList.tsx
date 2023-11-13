@@ -2,7 +2,7 @@ import { ShowMoreBtn } from "@/components/ui";
 import { NftItem } from "../NftItem/NftItem";
 import { useGetNftQuery } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
-import { CoinSkelet } from "@/components";
+import { CoinSkelet, EmptyText } from "@/components";
 import { useState } from "react";
 
 export const NftList = () => {
@@ -13,9 +13,9 @@ export const NftList = () => {
 
   return (
     <>
-      <div className="flex items-start flex-wrap -m-2">
+      <div className="flex flex-col flex-grow">
         {loading ? (
-          <>
+          <div className="flex flex-wrap -m-2">
             {skeletItems.map((_, idx) => {
               return (
                 <div
@@ -26,17 +26,28 @@ export const NftList = () => {
                 </div>
               );
             })}
-          </>
+          </div>
         ) : (
           <>
-            {list &&
-              list.map((el) => {
-                return (
-                  <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-                    <NftItem key={el.id} data={el} />
+            {list && (
+              <>
+                {list.length > 0 ? (
+                  <div className="flex flex-wrap -m-2">
+                    {list.map((el) => {
+                      return (
+                        <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+                          <NftItem key={el.id} data={el} />
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                ) : (
+                  <div className="flex flex-col flex-grow">
+                    <EmptyText text="Нет Nft" />
+                  </div>
+                )}
+              </>
+            )}
           </>
         )}
       </div>

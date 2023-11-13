@@ -3,17 +3,15 @@ import { NftWithdrawModal } from "@/components/Modals/NftWithdrawModal/NftWithdr
 
 export const NftPage = () => {
   return (
-    <>
-      <div>
+    <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow">
         <Title className="flex lg:hidden pb-6" title="NFT Кошелёк" />
 
-        <div>
-          <NftList />
-        </div>
+        <NftList />
       </div>
 
       <NftWithdrawModal />
       <NftWithdrawSuccessModal />
-    </>
+    </div>
   );
 };

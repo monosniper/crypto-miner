@@ -5,6 +5,7 @@ export type Coin = {
   rate: number;
   change: number;
   graph: number[];
+  graph_today: number[];
   icon_url: string;
 
   hide?: boolean;
