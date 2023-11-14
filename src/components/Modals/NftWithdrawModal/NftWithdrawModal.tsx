@@ -4,10 +4,12 @@ import { modalsOpens, setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { CloseIcon } from "@/components/icons";
 import { NamesModals } from "@/types";
 import { Button, FieldWrapper, TextField } from "@/components/ui";
+import { useTranslation } from "react-i18next";
 
 export const NftWithdrawModal = () => {
   const { isOpenNftWithdrawModal: isOpen } = useAppSelector(modalsOpens);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   return (
     <ModalWrapper isOpen={isOpen}>
@@ -40,27 +42,27 @@ export const NftWithdrawModal = () => {
           <div className="flex flex-col w-full">
             <div className=" flex justify-between items-center gap-4">
               <h4 className="text-2xl font-semibold -translate-y-1">
-                Введите адрес кошелька
+                {t("enter the wallet address")}
               </h4>
             </div>
 
             <p className="font-inter mt-4 text-base">Текст с информацией</p>
 
             <div className="mt-8">
-              <FieldWrapper title="Кошелёк">
-                <TextField placeholder="Введите кошелёк" />
+              <FieldWrapper title={t("wallet")}>
+                <TextField placeholder={t("enter your wallet")} />
               </FieldWrapper>
             </div>
 
             <div className="flex items-center gap-2 flex-wrap mt-auto pt-8">
               <Button
                 className="flex flex-grow basis-[200px] lg:basis-0 lg:flex-grow-0"
-                title="Отмена"
+                title={t("cancel")}
                 color="standart"
               />
               <Button
                 className="flex flex-grow basis-[200px] lg:basis-0 lg:flex-grow-0"
-                title="Вывести"
+                title={t("withdraw")}
                 color="primary"
               />
             </div>

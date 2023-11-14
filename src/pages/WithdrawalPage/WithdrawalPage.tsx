@@ -7,7 +7,7 @@ export const WithdrawalPage = () => {
 
   return (
     <div>
-      <Title className="flex lg:hidden pb-6" title="Вывод средств" />
+      <Title className="flex lg:hidden pb-6" title={t("withdrawal-of-funds")} />
 
       <BalanceBlock type="withdrawal" title={t("available-for-output")} />
 
