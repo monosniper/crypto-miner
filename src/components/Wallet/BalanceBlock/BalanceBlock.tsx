@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { useGetWalletQuery } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   type?: "wallet" | "withdrawal";
@@ -18,6 +19,7 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
   const { data: walletData, isLoading, isFetching } = useGetWalletQuery(null);
 
   const walletLoading = useLoading(isLoading, isFetching);
+  const { t } = useTranslation();
 
   return (
     <div className={cn("box", styles.wrapper)}>
@@ -47,10 +49,10 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
 
         {type === "wallet" && (
           <div className={styles.contentBtns}>
-            <Button icon={<AddIcon />} title="Пополнить" />
+            <Button icon={<AddIcon />} title={t("deposit")} />
             <Button
               icon={<ExportIcon />}
-              title="Вывести"
+              title={t("withdraw")}
               color="primary"
               onClick={() => navigate("/wallet/withdrawal")}
             />

@@ -11,6 +11,7 @@ import {
   EmptyText,
   WithdrawsItem,
 } from "@/components";
+import { useTranslation } from "react-i18next";
 
 type Tabs = "deposits" | "convertations" | "withdraws";
 
@@ -39,6 +40,7 @@ export const History = () => {
   );
 
   const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -46,7 +48,7 @@ export const History = () => {
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
-            title="Пополнения"
+            title={t("deposits")}
             selected={currentTab === "deposits"}
             onClick={() => setCurrentTab("deposits")}
           />
@@ -55,7 +57,7 @@ export const History = () => {
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
-            title="Конвертации"
+            title={t("conversions")}
             selected={currentTab === "convertations"}
             onClick={() => setCurrentTab("convertations")}
           />
@@ -64,7 +66,7 @@ export const History = () => {
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
-            title="Выводы"
+            title={t("withdraws")}
             selected={currentTab === "withdraws"}
             onClick={() => setCurrentTab("withdraws")}
           />

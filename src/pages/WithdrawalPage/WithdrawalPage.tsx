@@ -1,16 +1,19 @@
 import { Attention, BalanceBlock, Title, WithdrawalForm } from "@/components";
 import cn from "clsx";
+import { useTranslation } from "react-i18next";
 
 export const WithdrawalPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Title className="flex lg:hidden pb-6" title="Вывод средств" />
 
-      <BalanceBlock type="withdrawal" title="Доступно для вывода" />
+      <BalanceBlock type="withdrawal" title={t("available-for-output")} />
 
       <div className={cn("box", "p-6 mt-6")}>
         <div className="flex justify-between items-center gap-3 flex-wrap text-lg font-medium">
-          <h4>Введите сумму и адрес кошелька</h4>
+          <h4>{t("enter-the-amount-and-wallet-address")}</h4>
         </div>
 
         <WithdrawalForm className="mt-8" />
@@ -18,7 +21,7 @@ export const WithdrawalPage = () => {
 
       <Attention
         className="mt-6 p-6"
-        title="Обратите внимание"
+        title={t("pay-attention")}
         content={<AttentionContent />}
       />
     </div>
@@ -26,23 +29,25 @@ export const WithdrawalPage = () => {
 };
 
 const AttentionContent = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div>
         <p>
-          Доверяйте нашим надежным выплатам, которые производятся каждую
-          пятницу. Следующий платеж запланирован на:
+          {t(
+            "trust our reliable payments that are made every friday. The next payment is scheduled for",
+          )}
         </p>
         <ul className="ml-4 list-disc">
-          <li>Неделю 42, 2023 года — 13 октября.</li>
+          <li>{t("week 42, 2023 — October 13")}</li>
         </ul>
       </div>
 
       <p>
-        Наши выплаты всегда производятся в срок, поэтому вы можете быть уверены,
-        что получите свои деньги вовремя. Мы понимаем, что для вас важно
-        получать зарплату вовремя, поэтому мы делаем все возможное, чтобы
-        обеспечить своевременность и надежность наших выплат.
+        {t(
+          "our payments are always made on time, so you can be sure that you will receive your money on time. We understand that it is important for you to receive your salary on time, so we do everything possible to ensure the timeliness and reliability of our payments",
+        )}
       </p>
     </>
   );

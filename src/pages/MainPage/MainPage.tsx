@@ -5,11 +5,13 @@ import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useGetConvertationsQuery } from "@/redux/api/userApi";
 import { main, setShowHideCoins } from "@/redux/slices/mainSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useTranslation } from "react-i18next";
 
 export const MainPage = () => {
   const { data, isLoading, isFetching } = useGetCoinsQuery(null);
   const { showHideCoins } = useAppSelector(main);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const {
     data: convertationsList,
@@ -32,14 +34,14 @@ export const MainPage = () => {
   return (
     <div>
       <div className="flex items-center justify-between gap-4">
-        <Title className="flex lg:hidden pb-6" title="Главная" />
+        <Title className="flex lg:hidden pb-6" title={t("main")} />
 
         <div className="justify-start mb-4">
           <button
             className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100 border-solid"
             onClick={() => dispatch(setShowHideCoins(!showHideCoins))}
           >
-            {showHideCoins ? "Не показывать скрытые" : "Показать скрытые"}
+            {showHideCoins ? t("dont-show-hidden") : t("show-hidden")}
           </button>
         </div>
       </div>
