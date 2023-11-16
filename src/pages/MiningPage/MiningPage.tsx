@@ -21,15 +21,7 @@ export const MiningPage = () => {
     <div>
       <Title className="flex lg:hidden pb-6" title={t("mining")} />
 
-      <Search
-        placeholder={t("find a coin")}
-        value=""
-        onChange={() => console.log("asd")}
-      />
-
-      <Coins className="mt-6" rows={[]} />
-
-      <div className="mt-16">
+      <div>
         <Title title={t("servers involved")} />
 
         <Servers
@@ -37,6 +29,16 @@ export const MiningPage = () => {
           servers={serversList}
           loading={serversListLoading}
         />
+      </div>
+
+      <div className="mt-16">
+        <Search
+          placeholder={t("find a coin")}
+          value=""
+          onChange={() => console.log("asd")}
+        />
+
+        <Coins className="mt-6" rows={[]} />
       </div>
     </div>
   );

@@ -6,11 +6,19 @@ import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import { ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
+import { useGetServerByIdQuery } from "@/redux/api/serversApi";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { id } = useParams();
+  const { data } = useGetServerByIdQuery(
+    { id: Number(id) },
+    {
+      skip: !id,
+      refetchOnMountOrArgChange: true,
+    },
+  );
 
   return (
     <div>
@@ -31,10 +39,16 @@ export const ServerPage = () => {
 
         <div className="flex justify-between items-center gap-3 gap-y-6 flex-wrap mt-4">
           <div className="flex items-center gap-4">
-            <FanIcon width={32} height={32} />
+            <FanIcon
+              className={cn({
+                "animate-spin": data?.status === ServerStatuses.WORK_STATUS,
+              })}
+              width={32}
+              height={32}
+            />
 
             <p className="text-2xl font-semibold">
-              {t(getServerStatus(data.status as ServerStatuses))}
+              {t(getServerStatus(data?.status as ServerStatuses))}
             </p>
           </div>
 

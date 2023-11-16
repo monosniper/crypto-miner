@@ -36,7 +36,16 @@ export const serversApi = createApi({
         };
       },
     }),
+
+    getServerById: query<Server, { id: number }>({
+      query(params) {
+        return {
+          url: `servers/${params.id}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllServersQuery } = serversApi;
+export const { useGetAllServersQuery, useGetServerByIdQuery } = serversApi;

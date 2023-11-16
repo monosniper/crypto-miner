@@ -26,6 +26,7 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
       className={cn(className, "box", styles.wrapper, {
         "cursor-pointer hover:border hover:border-primary border border-transparent border-solid":
           type === "button",
+        "border !border-primary border-solid": data.isHot === 1,
       })}
       onClick={onClick}
     >
@@ -42,6 +43,10 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
       </div>
 
       <h5 className={styles.title}>{data.title}</h5>
+
+      {data.possibilities && (
+        <p className={styles.possibilities}>{data.possibilities.join(", ")}</p>
+      )}
     </Tag>
   );
 };
