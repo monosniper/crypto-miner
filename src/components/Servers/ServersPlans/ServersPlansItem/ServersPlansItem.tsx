@@ -3,6 +3,7 @@ import { PropsWithClassName } from "@/types";
 import cn from "clsx";
 import { FC } from "react";
 import styles from "./ServersPlansItem.module.css";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   icon: JSX.Element | string;
@@ -19,6 +20,8 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   price = 0,
   list = [],
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={cn(className, "box", styles.wrapper)}>
       <div className={styles.inner}>
@@ -45,7 +48,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
                     el.icon
                   )}
 
-                  <p>{el.text}</p>
+                  <p>{t(el.text)}</p>
                 </div>
               );
             })}
@@ -53,7 +56,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
         </div>
 
         <div className="mt-auto pt-8 flex justify-center">
-          <Button color="standart" title="Купить" />
+          <Button color="standart" title={t("buy")} />
         </div>
       </div>
     </div>

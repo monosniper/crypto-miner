@@ -3,6 +3,8 @@ import styles from "./ServersItem.module.css";
 import cn from "clsx";
 import { PropsWithClassName, Server, ServerStatuses } from "@/types";
 import { FanIcon } from "@/components/icons";
+import { useTranslation } from "react-i18next";
+import { getServerStatus } from "@/data";
 
 type Props = {
   type?: "div" | "button";
@@ -17,6 +19,7 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
   data,
 }) => {
   const Tag = type;
+  const { t } = useTranslation();
 
   return (
     <Tag
@@ -30,11 +33,11 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
         <div className={styles.state}>
           <FanIcon
             className={cn({
-              "animate-spin": data.status === ServerStatuses.ACTIVE_STATUS,
+              "animate-spin": data.status === ServerStatuses.WORK_STATUS,
             })}
           />
 
-          <p>Работает</p>
+          <p>{t(getServerStatus(data.status as ServerStatuses))}</p>
         </div>
       </div>
 

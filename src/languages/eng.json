@@ -44,5 +44,36 @@
   "our payments are always made on time, so you can be sure that you will receive your money on time. We understand that it is important for you to receive your salary on time, so we do everything possible to ensure the timeliness and reliability of our payments": "Our payments are always made on time, so you can be sure that you will receive your money on time. We understand that it is important for you to receive your salary on time, so we do everything possible to ensure the timeliness and reliability of our payments.",
   "enter the wallet address": "Enter the wallet address",
   "enter your wallet": "Enter your wallet",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "servers involved": "Servers involved",
+  "find a coin": "Find a coin",
+  "buy server": "Buy server",
+
+  "server in work": "In work",
+  "server active": "Paid",
+  "server not active": "Not paid",
+  "server reload": "Rebooting",
+
+  "restart": "Restart",
+  "server": "Server",
+  "status": "Status",
+
+  "basic-plan": "Basic",
+  "standard-plan": "Standard",
+  "professional-plan": "Professional",
+  "premium-plan": "Premium",
+  "profitable-plan": "Profitable plan",
+  "elite-plan": "Elite",
+
+  "buy": "Buy",
+
+  "access to equipment": "Access to equipment",
+  "ability to scale": "Ability to scale",
+  "access to the latest equipment": "Access to the latest equipment",
+  "round-the-clock support": "Round-the-clock support",
+  "exclusive conditions": "Exclusive conditions",
+
+  "invest": "Invest",
+  "enter the amount": "Enter the amount",
+  "enter invest": "Invest"
 }

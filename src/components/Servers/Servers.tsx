@@ -5,6 +5,7 @@ import { Buy } from "../ui";
 import { CoinSkelet, ServersItem } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { Server } from "@/types";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   plansRef?: RefObject<HTMLDivElement>;
@@ -19,6 +20,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
   loading,
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const buyServerHandler = () => {
     if (!plansRef || !plansRef.current) return;
@@ -32,7 +34,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
   return (
     <div className={cn(className, "flex flex-wrap -m-2")}>
       <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <Buy title="Купить сервер" onClick={buyServerHandler} />
+        <Buy title={t("buy server")} onClick={buyServerHandler} />
       </div>
 
       {!loading ? (

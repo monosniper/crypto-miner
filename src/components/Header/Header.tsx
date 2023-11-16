@@ -29,7 +29,7 @@ export const Header = () => {
           }}
         >
           <PrevIcon className="prev-icon" />
-          <span>Сервер</span>
+          <span>{t("server")}</span>
         </button>
       )}
 

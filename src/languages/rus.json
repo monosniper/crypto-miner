@@ -44,5 +44,36 @@
   "our payments are always made on time, so you can be sure that you will receive your money on time. We understand that it is important for you to receive your salary on time, so we do everything possible to ensure the timeliness and reliability of our payments": "Наши выплаты всегда производятся в срок, поэтому вы можете быть уверены, что получите свои деньги вовремя. Мы понимаем, что для вас важно получать зарплату вовремя, поэтому мы делаем все возможное, чтобы обеспечить своевременность и надежность наших выплат.",
   "enter the wallet address": "Введите адрес кошелька",
   "enter your wallet": "Введите кошелёк",
-  "cancel": "Отмена"
+  "cancel": "Отмена",
+  "servers involved": "Задействованные сервера",
+  "find a coin": "Найти монету",
+  "buy server": "Купить сервер",
+
+  "server in work": "В работе",
+  "server active": "Оплачен",
+  "server not active": "Не оплачен",
+  "server reload": "Перезагружается",
+
+  "restart": "Перезагрузить",
+  "server": "Сервер",
+  "status": "Статус",
+
+  "basic-plan": "Базовый",
+  "standard-plan": "Стандартный",
+  "professional-plan": "Профессиональный",
+  "premium-plan": "Премиум",
+  "profitable-plan": "Выгодный план",
+  "elite-plan": "Элитный",
+
+  "buy": "Купить",
+
+  "access to equipment": "Доступ к оборудованию",
+  "ability to scale": "Возможность масштабирования",
+  "access to the latest equipment": "Доступ к новейшему оборудованию",
+  "round-the-clock support": "Круглосуточная поддержка",
+  "exclusive conditions": "Эксклюзивные условия",
+
+  "invest": "Инвестируйте",
+  "enter the amount": "Введите сумму",
+  "enter invest": "Инвестировать"
 }
