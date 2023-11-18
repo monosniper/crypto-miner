@@ -15,22 +15,14 @@ import { useOutside } from "@/hooks";
 export type Props = {
   type?: "my" | "general";
   data: Coin;
-  // idx?: number;
-  // totalItems?: number;
   draggable?: boolean;
   active?: boolean;
-
-  // changeLocation?: (direction: "top" | "bottom", data: CoinWithOrder) => void;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   className,
   type = "general",
   data,
-  // idx,
-  // totalItems,
-
-  // changeLocation,
   draggable = false,
   active = false,
 }) => {
@@ -52,7 +44,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   const { theme } = useAppSelector(main);
 
   useEffect(() => {
-    if (!("graph" in data) || type === "my" || data.graph === null) return;
+    if (!("graph_today" in data) || type === "my" || data.graph_today === null)
+      return;
 
     const draw = () => {
       const parentWidth = svgRef.current?.parentElement?.clientWidth || 400;
@@ -60,8 +53,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       const width = parentWidth;
       const height = 50;
 
-      const maxValue = d3.max(data.graph) || 1;
-      const minValue = d3.min(data.graph) || 0;
+      const maxValue = d3.max(data.graph_today) || 1;
+      const minValue = d3.min(data.graph_today) || 0;
 
       // Очищаем предыдущий график, если он был
       d3.select(svgRef.current).selectAll("*").remove();
@@ -75,7 +68,10 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       // Создаем шкалу для x и y
       const xScale = d3
         .scaleLinear()
-        .domain([0, data.graph.length > 0 ? data.graph.length - 1 : 1]) // Изменили диапазон
+        .domain([
+          0,
+          data.graph_today.length > 0 ? data.graph_today.length - 1 : 1,
+        ]) // Изменили диапазон
         .range([10, width - 10]);
 
       const yScale = d3
@@ -116,7 +112,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       // Рисуем заливку с градиентом
       svg
         .append("path")
-        .datum(data.graph)
+        .datum(data.graph_today)
         .transition()
         .duration(500)
         .attr("fill", "url(#chartGradient)") // Используем градиент
@@ -132,7 +128,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       // Рисуем линию поверх заливки
       svg
         .append("path")
-        .datum(data.graph)
+        .datum(data.graph_today)
         .transition()
         .duration(200)
         .attr("fill", "none") // Нет заливки
@@ -142,7 +138,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
       svg
         .selectAll(".data-point")
-        .data(data.graph)
+        .data(data.graph_today)
         .enter()
         .append("circle")
         .attr("class", "data-point")
@@ -206,8 +202,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       })}
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
+      {...(window.innerWidth > 1024 ? attributes : {})}
+      {...(window.innerWidth > 1024 ? listeners : {})}
     >
       <div
         className={cn(className, styles.wrapper, {
@@ -227,30 +223,6 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                 {data.name}, {data.slug}
               </p>
             </div>
-
-            {/* {changeLocation && (
-              <div className="flex items-center gap-1 lg:hidden [&>div>svg>path]:fill-base-content-100">
-                {idx && idx > 1 ? (
-                  <div
-                    className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-                    onClick={() => changeLocation("top", data as CoinWithOrder)}
-                  >
-                    <ArrTopIcon />
-                  </div>
-                ) : null}
-
-                {idx && totalItems && idx !== totalItems ? (
-                  <div
-                    className="w-6 h-6 rounded-full flex justify-center items-center bg-base-300 cursor-pointer"
-                    onClick={() =>
-                      changeLocation("bottom", data as CoinWithOrder)
-                    }
-                  >
-                    <ArrTopIcon className="rotate-180" />
-                  </div>
-                ) : null}
-              </div>
-            )} */}
 
             {type === "general" && (
               <div className="flex items-center gap-4">
@@ -282,11 +254,13 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
                 <div
                   className={cn(
-                    "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200",
+                    "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200 touch-none",
                     {
                       "!bg-base-300": active,
                     },
                   )}
+                  {...(window.innerWidth < 1024 ? attributes : {})}
+                  {...(window.innerWidth < 1024 ? listeners : {})}
                 >
                   <MoveIcon
                     className="[&>g>path]:stroke-base-content-100"
@@ -298,18 +272,20 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
             )}
           </div>
 
-          {type === "general" && "graph" in data && data.graph !== null && (
-            <div className={cn(styles.chart, "coin-chart")}>
-              {hoveredData && (
-                <Tooltip
-                  data={(hoveredData ? hoveredData.toFixed(6) : 0) + "$"}
-                  position={tooltipPosition}
-                />
-              )}
+          {type === "general" &&
+            "graph_today" in data &&
+            data.graph_today !== null && (
+              <div className={cn(styles.chart, "coin-chart")}>
+                {hoveredData && (
+                  <Tooltip
+                    data={(hoveredData ? hoveredData.toFixed(6) : 0) + "$"}
+                    position={tooltipPosition}
+                  />
+                )}
 
-              <svg className="pointer-events-auto" ref={svgRef}></svg>
-            </div>
-          )}
+                <svg className="pointer-events-auto" ref={svgRef}></svg>
+              </div>
+            )}
 
           <div className={styles.footer}>
             <Rate type={type} data={data} />

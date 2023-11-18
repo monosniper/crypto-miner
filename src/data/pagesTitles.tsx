@@ -1,12 +1,12 @@
 export const pagesTitles: {
   [key: string]: string | JSX.Element;
 } = {
-  "/main": "Главная",
-  "/wallet": "Кошелёк",
-  "/wallet/withdrawal": "Вывод средств",
-  "/mining": "Майнинг",
-  "/working-servers": "Рабочие сервера",
-  "/nft-wallet": "NFT Кошелёк",
-  "/partnership": "Партнёрство",
-  "/trading": "Трейдинг",
+  "/main": "main",
+  "/wallet": "wallet",
+  "/wallet/withdrawal": "withdrawal-of-funds",
+  "/mining": "mining",
+  "/working-servers": "working-servers",
+  "/nft-wallet": "nft-wallet",
+  "/partnership": "partnership",
+  "/trading": "trading",
 };

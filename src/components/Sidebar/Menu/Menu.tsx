@@ -9,8 +9,11 @@ import {
   ExitIcon,
 } from "@/components/icons";
 import { MenuItem } from "./MenuItem/MenuItem";
+import { useTranslation } from "react-i18next";
 
 export const Menu = () => {
+  const { t } = useTranslation();
+
   const logout = () => {
     localStorage.removeItem("mainUserData");
 
@@ -19,41 +22,45 @@ export const Menu = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <MenuItem icon={<HomeIcon />} title="Главная" href="/main" />
+      <MenuItem icon={<HomeIcon />} title={t("main")} href="/main" />
 
       <div className="mt-4">
-        <h6 className="text-gray-1 text-xs uppercase">Кошелек</h6>
+        <h6 className="text-gray-1 text-xs uppercase">{t("wallet")}</h6>
 
         <div className="flex flex-col gap-2 mt-2">
-          <MenuItem icon={<WalletIcon />} title="Кошелек" href="/wallet" />
+          <MenuItem icon={<WalletIcon />} title={t("wallet")} href="/wallet" />
           <MenuItem
             icon={<NftWalletIcon />}
-            title="NFT-Кошелек"
+            title={t("nft-wallet")}
             href="/nft-wallet"
           />
-          <MenuItem icon={<MiningIcon />} title="Майнинг" href="/mining" />
+          <MenuItem icon={<MiningIcon />} title={t("mining")} href="/mining" />
           <MenuItem
             icon={<LightingIcon />}
-            title="Рабочие сервера"
+            title={t("working-servers")}
             href="/working-servers"
           />
         </div>
       </div>
 
       <div className="mt-4">
-        <h6 className="text-gray-1 text-xs uppercase">ПРОФИЛЬ</h6>
+        <h6 className="text-gray-1 text-xs uppercase">{t("profile")}</h6>
 
         <div className="flex flex-col gap-2 mt-2">
-          <MenuItem icon={<ProfileIcon />} title="Профиль" href="/profile" />
+          <MenuItem
+            icon={<ProfileIcon />}
+            title={t("profile")}
+            href="/profile"
+          />
           <MenuItem
             icon={<PartnerIcon />}
-            title="Партнёрство"
+            title={t("partnership")}
             href="/partnership"
           />
           <MenuItem
             type="button"
             icon={<ExitIcon />}
-            title="Выйти"
+            title={t("exit")}
             onClick={logout}
           />
         </div>

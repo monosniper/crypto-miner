@@ -2,6 +2,7 @@ import { Coins, Servers, Title } from "@/components";
 import { Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useGetMyServersQuery } from "@/redux/api/userApi";
+import { useTranslation } from "react-i18next";
 
 export const MiningPage = () => {
   const {
@@ -14,27 +15,30 @@ export const MiningPage = () => {
     serversListIsLoading,
     serversListIsFetching,
   );
+  const { t } = useTranslation();
 
   return (
     <div>
-      <Title className="flex lg:hidden pb-6" title="Майнинг" />
+      <Title className="flex lg:hidden pb-6" title={t("mining")} />
 
-      <Search
-        placeholder="Найти монету"
-        value=""
-        onChange={() => console.log("asd")}
-      />
-
-      <Coins className="mt-6" rows={[]} />
-
-      <div className="mt-16">
-        <Title title="Задействованные сервера" />
+      <div>
+        <Title title={t("servers involved")} />
 
         <Servers
           className="mt-6"
           servers={serversList}
           loading={serversListLoading}
         />
+      </div>
+
+      <div className="mt-16">
+        <Search
+          placeholder={t("find a coin")}
+          value=""
+          onChange={() => console.log("asd")}
+        />
+
+        <Coins className="mt-6" rows={[]} />
       </div>
     </div>
   );

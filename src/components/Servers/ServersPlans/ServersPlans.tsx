@@ -2,15 +2,18 @@ import { BookmarksIcon } from "@/components/icons";
 import { ServersPlansItem } from "./ServersPlansItem/ServersPlansItem";
 import { serversPlansListData } from "@/data";
 import styles from "./ServersPlans.module.css";
+import { useTranslation } from "react-i18next";
 
 export const ServersPlans = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-wrap -m-2">
       <div className="w-full md:w-1/2 lg:w-1/3 p-2">
         <ServersPlansItem
           className="h-full"
           icon={<BookmarksIcon />}
-          title="Базовый"
+          title={t("basic-plan")}
           price={1000}
           list={serversPlansListData.base}
         />
@@ -27,7 +30,7 @@ export const ServersPlans = () => {
               />
             </svg>
           }
-          title="Стандартный"
+          title={t("standart-plan")}
           price={2000}
           list={serversPlansListData.standart}
         />
@@ -44,7 +47,7 @@ export const ServersPlans = () => {
               />
             </svg>
           }
-          title="Профессиональный"
+          title={t("professional-plan")}
           price={5000}
           list={serversPlansListData.prof}
         />
@@ -61,7 +64,7 @@ export const ServersPlans = () => {
               />
             </svg>
           }
-          title="Премиум"
+          title={t("premium-plan")}
           price={1000}
           list={serversPlansListData.prof}
         />
@@ -78,7 +81,7 @@ export const ServersPlans = () => {
               />
             </svg>
           }
-          title="Выгодный план"
+          title={t("profitable-plan")}
           price={3000}
           list={serversPlansListData.beneficial}
         />
@@ -95,7 +98,7 @@ export const ServersPlans = () => {
               />
             </svg>
           }
-          title="Элитный"
+          title={t("elite-plan")}
           price={20000}
           list={serversPlansListData.elite}
         />

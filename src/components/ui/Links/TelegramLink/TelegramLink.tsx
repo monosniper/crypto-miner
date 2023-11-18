@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const TelegramLink = () => {
+  const { t } = useTranslation();
+
   return (
     <Link
       className="flex items-center gap-1 py-1 px-2 rounded-md border border-base-border-100 w-max text-base-content-100"
@@ -30,7 +33,7 @@ export const TelegramLink = () => {
         </defs>
       </svg>
 
-      <span>Поддержка 24/7</span>
+      <span>{t("support")} 24/7</span>
     </Link>
   );
 };

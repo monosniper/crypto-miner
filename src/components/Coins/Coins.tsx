@@ -17,6 +17,7 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import {
   useGetCoinsPositionsQuery,
   useSetCoinsPositionsMutation,
+  userApi,
 } from "@/redux/api/userApi";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
@@ -47,7 +48,8 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     useSensor(TouchSensor),
     useSensor(MouseSensor),
   );
-  const [setCoinsPositions] = useSetCoinsPositionsMutation();
+  const [setCoinsPositions, { isSuccess: isSuccessSetCoinsPositions }] =
+    useSetCoinsPositionsMutation();
   const {
     data: coinsPositions,
     isSuccess: coinsPositionsIsSuccess,
@@ -55,6 +57,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     isFetching,
   } = useGetCoinsPositionsQuery(null, {
     skip: !draggableItems,
+    refetchOnMountOrArgChange: true,
   });
   const dispatch = useAppDispatch();
   const [activeCoinId, setActiveCoinId] = useState<number>();
@@ -97,8 +100,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     const incomingList = Array.isArray(coinsPositions)
       ? coinsPositions.map((el) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const newItem: Coin = { ...el };
-          delete newItem.hide;
+          const newItem = { ...el };
 
           return newItem;
         })
@@ -145,6 +147,21 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
   const handleDragStart = (event: DragStartEvent) => {
     setActiveCoinId(event.active.id as number);
   };
+
+  useEffect(() => {
+    if (!isSuccessSetCoinsPositions || !coinsList) return;
+
+    const newCoinsPositionsList = coinsList.map((el) => {
+      return { id: el.id, hide: el.hide };
+    });
+
+    dispatch(
+      userApi.util.updateQueryData("getCoinsPositions", null, () => {
+        return newCoinsPositionsList;
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccessSetCoinsPositions]);
 
   return (
     <div className={cn(className, "flex flex-wrap items-stretch -m-2")}>

@@ -9,87 +9,87 @@ export const serversPlansListData = {
   base: [
     {
       icon: <CursorIcon />,
-      text: "Доступ к оборудованию",
+      text: "access to equipment",
     },
   ],
 
   standart: [
     {
       icon: <CursorIcon />,
-      text: "Доступ к оборудованию",
+      text: "access to equipment",
     },
     {
       icon: <ScalingIcon />,
-      text: "Возможность масштабирования",
+      text: "ability to scale",
     },
   ],
 
   prof: [
     {
       icon: <CursorIcon />,
-      text: "Доступ к оборудованию",
+      text: "access to equipment",
     },
     {
       icon: <ScalingIcon />,
-      text: "Возможность масштабирования",
+      text: "ability to scale",
     },
     {
       icon: <ChipIcon />,
-      text: "Доступ к новейшему оборудованию",
+      text: "access to the latest equipment",
     },
   ],
 
   premium: [
     {
       icon: <CursorIcon />,
-      text: "Доступ к оборудованию",
+      text: "access to equipment",
     },
     {
       icon: <ScalingIcon />,
-      text: "Возможность масштабирования",
+      text: "ability to scale",
     },
     {
       icon: <MessageIcon />,
-      text: "Круглосуточная поддержка",
+      text: "round-the-clock support",
     },
     {
       icon: <ChipIcon />,
-      text: "Доступ к новейшему оборудованию",
+      text: "access to the latest equipment",
     },
   ],
 
   beneficial: [
     {
       icon: <CursorIcon />,
-      text: "Доступ к оборудованию",
+      text: "access to equipment",
     },
     {
       icon: <ScalingIcon />,
-      text: "Возможность масштабирования",
+      text: "ability to scale",
     },
     {
       icon: <MessageIcon />,
-      text: "Круглосуточная поддержка",
+      text: "round-the-clock support",
     },
   ],
 
   elite: [
     {
       icon: <CursorIcon />,
-      text: "Доступ к оборудованию",
+      text: "access to equipment",
     },
     {
       icon: <ScalingIcon />,
-      text: "Возможность масштабирования",
+      text: "ability to scale",
     },
     {
       icon: <MessageIcon />,
-      text: "Круглосуточная поддержка",
+      text: "round-the-clock support",
     },
 
     {
       icon: <ChipIcon />,
-      text: "Доступ к новейшему оборудованию",
+      text: "access to the latest equipment",
     },
     {
       icon: (
@@ -113,7 +113,7 @@ export const serversPlansListData = {
         </svg>
       ),
 
-      text: "Эксклюзивные условия",
+      text: "exclusive conditions",
     },
   ],
 };

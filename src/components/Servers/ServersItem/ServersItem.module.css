@@ -20,5 +20,9 @@
 }
 
 .title {
-  @apply text-base font-medium mt-4 text-left;
+  @apply text-base font-medium pt-4 mt-auto text-left;
+}
+
+.possibilities {
+  @apply text-left text-sm mt-4;
 }

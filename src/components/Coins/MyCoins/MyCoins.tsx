@@ -6,6 +6,7 @@ import { CoinBlock, CoinSkelet } from "@/components";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useLoading } from "@/hooks";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   coinsList?: { balance: Balance };
@@ -27,6 +28,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   const [isMore, setMore] = useState(false);
   const navigate = useNavigate();
   const [maxItems, setMaxItems] = useState<number>();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const resizeListener = () => {
@@ -69,6 +71,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
           rate: 0,
           change: 0,
           graph: [],
+          graph_today: [],
         };
 
         for (let j = 0; j < walletCoins.length; j++) {
@@ -99,7 +102,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
     <>
       <div className={cn(className, "flex flex-wrap -m-2")}>
         <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
-          <Buy title="Купить монеты" onClick={() => navigate("/trading")} />
+          <Buy title={t("buy-coins")} onClick={() => navigate("/trading")} />
         </div>
 
         {loadingCoins ? (
@@ -151,7 +154,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
         <ShowMoreBtn
           className="mt-6"
           onClick={() => setMore((prev) => !prev)}
-          title={isMore ? "Свернуть" : "Показать больше"}
+          title={isMore ? t("roll-up") : t("show-more")}
           isOpen={isMore}
         />
       )}

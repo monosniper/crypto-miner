@@ -8,7 +8,6 @@ const {
   MiningPage,
   SignInPage,
   WithdrawalPage,
-  TradingPage,
   NftPage,
   ServerPage,
   WorkingServersPage,
@@ -74,14 +73,14 @@ export const useRouter = (isAuth: boolean) => {
             }
           />
 
-          <Route
+          {/* <Route
             path="/trading"
             element={
               <Suspense>
                 <TradingPage />
               </Suspense>
             }
-          />
+          /> */}
 
           <Route
             path="/nft-wallet"

@@ -9,6 +9,7 @@ import { useAppDispatch } from "@/redux/store";
 import { setAuth, setUserData } from "@/redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { useTranslation } from "react-i18next";
 
 export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<SignInFormData>();
@@ -16,10 +17,11 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
   const dispatch = useAppDispatch();
   const [password, setPassword] = useState<string>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const formHandler = ({ username, password }: SignInFormData) => {
+  const formHandler = ({ email, password }: SignInFormData) => {
     getMe({
-      username,
+      email,
       password,
     });
 
@@ -65,34 +67,37 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
     >
       {error && (
         <p className="text-red-500 text-sm text-center my-3">
-          Неверный логин или пароль
+          {t("invalid username or password")}
         </p>
       )}
 
       <TextFieldAuth
-        placeholder="Имя пользователя"
+        placeholder="Email"
         methods={methods}
-        registerName="username"
+        registerName="email"
         options={{
           required: {
             value: true,
-            message: "Введите имя",
+            message: t("enter email"),
           },
-
-          onChange: () => methods.clearErrors("username"),
+          pattern: {
+            value: /\S+@\S+\.\S+/,
+            message: t("enter the correct email"),
+          },
+          onChange: () => methods.clearErrors("email"),
         }}
-        error={methods.formState.errors.username?.message}
+        error={methods.formState.errors.email?.message}
       />
 
       <TextFieldAuth
-        placeholder="Пароль"
+        placeholder={t("password")}
         type="password"
         methods={methods}
         registerName="password"
         options={{
           required: {
             value: true,
-            message: "Введите пароль",
+            message: t("enter password"),
           },
 
           onChange: () => methods.clearErrors("password"),
@@ -104,7 +109,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
         className="w-full mt-4"
         type="submit"
         color="primary"
-        title={loading ? "Загрузка..." : "Вход"}
+        title={loading ? t("loading") : "Вход"}
         disabled={loading}
       />
     </form>

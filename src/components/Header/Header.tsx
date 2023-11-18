@@ -5,19 +5,21 @@ import { main, setOpenSidebar } from "@/redux/slices/mainSlice";
 import { Title } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pagesTitles } from "@/data";
+import { useTranslation } from "react-i18next";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
   const { isOpenSidebar } = useAppSelector(main);
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <header className={styles.header}>
       {!location.pathname.includes("/server/") ? (
         <Title
           className="hidden lg:flex"
-          title={pagesTitles[location.pathname]}
+          title={t(pagesTitles[location.pathname] as string)}
         />
       ) : (
         <button
@@ -27,7 +29,7 @@ export const Header = () => {
           }}
         >
           <PrevIcon className="prev-icon" />
-          <span>Сервер</span>
+          <span>{t("server")}</span>
         </button>
       )}
 

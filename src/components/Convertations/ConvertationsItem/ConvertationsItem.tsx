@@ -3,16 +3,19 @@ import { ArrTopIcon } from "@/components/icons";
 import styles from "./ConvertationsItem.module.css";
 import { Convertation } from "@/types";
 import { formatRelativeDate } from "@/utils";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   data: Convertation;
 };
 
 export const ConvertationsItem: FC<Props> = ({ data }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <h4>Конвертация</h4>
+        <h4>{t("conversion")}</h4>
         <p>{formatRelativeDate(new Date(data.created_at))}</p>
       </div>
 

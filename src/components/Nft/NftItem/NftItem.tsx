@@ -5,6 +5,8 @@ import styles from "./NftItem.module.css";
 import { useAppDispatch } from "@/redux/store";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { NamesModals, Nft } from "@/types";
+import { useTranslation } from "react-i18next";
+import { setWithdrawNftData } from "@/redux/slices/withdrawNftModalSlice";
 
 type Props = {
   data: Nft;
@@ -12,6 +14,7 @@ type Props = {
 
 export const NftItem: FC<Props> = ({ data }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.wrapper}>
@@ -24,7 +27,7 @@ export const NftItem: FC<Props> = ({ data }) => {
 
         <Button
           className={styles.btn}
-          title="Вывести"
+          title={t("withdraw")}
           color="standart"
           icon={<ExportIcon width={20} height={20} />}
           onClick={() => {
@@ -34,6 +37,8 @@ export const NftItem: FC<Props> = ({ data }) => {
                 isOpen: true,
               }),
             );
+
+            dispatch(setWithdrawNftData(data));
           }}
         />
       </div>

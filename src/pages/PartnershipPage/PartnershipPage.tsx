@@ -1,8 +1,11 @@
 import { Map, Title } from "@/components";
 import styles from "./PartnershipPage.module.css";
 import { Button, FieldWrapper, TextField } from "@/components/ui";
+import { useTranslation } from "react-i18next";
 
 export const PartnershipPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Title className="flex lg:hidden pb-6" title="Партнёрство" />
@@ -43,19 +46,19 @@ export const PartnershipPage = () => {
         </div>
 
         <div className="mt-16">
-          <Title title="Инвестируйте" />
+          <Title title={t("invest")} />
 
           <div className={styles.invest}>
             <Title
               className="text-lg text-white !font-medium"
-              title="Введите сумму"
+              title={t("enter the amount")}
               tag="h5"
             />
 
             <div className="flex flex-col sm:flex-row items-end gap-8">
               <FieldWrapper
                 className="mt-8 w-full [&>p]:first:!text-white"
-                title="Сумма, USDT"
+                title={`${t("amount")}, USDT`}
               >
                 <TextField className="h-12 bg-black/40 border border-[#444E54] [&>input]:!text-white" />
               </FieldWrapper>
@@ -63,7 +66,7 @@ export const PartnershipPage = () => {
               <Button
                 className={styles.investBtn}
                 color="standart"
-                title="Инвестировать"
+                title={t("enter invest")}
               />
             </div>
           </div>

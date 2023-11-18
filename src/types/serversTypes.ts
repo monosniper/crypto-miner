@@ -8,6 +8,7 @@ export type Server = {
   work_started_at: null | string;
   active_until: string;
   status: string;
+  possibilities: string[];
 };
 
 export enum ServerStatuses {

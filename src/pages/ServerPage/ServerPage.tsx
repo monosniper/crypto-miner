@@ -1,11 +1,26 @@
 import { Title } from "@/components";
 import { FanIcon, PrevIcon } from "@/components/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
 import { Button } from "@/components/ui";
+import { useTranslation } from "react-i18next";
+import { ServerStatuses } from "@/types";
+import { getServerStatus } from "@/data";
+import { useGetServerByIdQuery } from "@/redux/api/serversApi";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const { data, isLoading } = useGetServerByIdQuery(
+    { id: Number(id) },
+    {
+      skip: !id,
+      refetchOnMountOrArgChange: true,
+    },
+  );
+
+  console.log(getServerStatus(data?.status as ServerStatuses));
 
   return (
     <div>
@@ -16,22 +31,34 @@ export const ServerPage = () => {
         }}
       >
         <PrevIcon className="prev-icon" />
-        <span>Сервер</span>
+        <span>{t("server")}</span>
       </button>
 
-      <Title title="Antminer S19 XP 141" />
+      {!isLoading && data?.title ? (
+        <Title title={data.title} />
+      ) : (
+        <div className="w-20 h-2 rounded bg-base-200 animate-pulse"></div>
+      )}
 
       <div className={cn("box", "p-6 mt-6")}>
-        <h5>Статус</h5>
+        <h5>{t("status")}</h5>
 
         <div className="flex justify-between items-center gap-3 gap-y-6 flex-wrap mt-4">
           <div className="flex items-center gap-4">
-            <FanIcon width={32} height={32} />
+            <FanIcon
+              className={cn({
+                "animate-spin": data?.status === ServerStatuses.WORK_STATUS,
+              })}
+              width={32}
+              height={32}
+            />
 
-            <p className="text-2xl font-semibold">Активный</p>
+            <p className="text-2xl font-semibold">
+              {t(getServerStatus(data?.status as ServerStatuses))}
+            </p>
           </div>
 
-          <Button title="Перезапустить" />
+          <Button title={t("restart")} />
         </div>
       </div>
     </div>

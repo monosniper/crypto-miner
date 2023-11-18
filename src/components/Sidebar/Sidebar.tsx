@@ -12,7 +12,8 @@ import {
 import cn from "clsx";
 import { useOutside } from "@/hooks";
 import { Select, TelegramLink } from "@/components/ui";
-import { languagesData, themesData } from "@/data";
+import { languagesData } from "@/data";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   isLaptop: boolean;
@@ -22,6 +23,7 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
   const { isOpenSidebar, language, theme } = useAppSelector(main);
   const ref = useRef(null);
   const dispatch = useAppDispatch();
+  const { i18n, t } = useTranslation();
 
   useOutside(ref, () => dispatch(setOpenSidebar(false)));
 
@@ -56,35 +58,50 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
 
         <div className="mt-auto">
           <div className="flex flex-col gap-4 px-6">
-            <p className="text-xs text-base-content-300 uppercase">Контакты</p>
+            <p className="text-xs text-base-content-300 uppercase">
+              {t("contacts")}
+            </p>
 
             <TelegramLink />
           </div>
 
           <div className="flex flex-col gap-4 px-6 mt-4">
-            <p className="text-xs text-base-content-300">Наши соц.сети</p>
+            <p className="text-xs text-base-content-300">{t("our-socials")}</p>
 
             <Socials />
           </div>
 
           <div className="flex items-center gap-2 lg:gap-4 flex-wrap py-4 border-t border-b border-base-border-100 px-6 mt-4">
             <div className="flex flex-col gap-1">
-              <p className="text-xs text-base-content-300">Язык</p>
+              <p className="text-xs text-base-content-300">{t("language")}</p>
 
               <Select
                 list={languagesData}
                 value={language}
-                onChange={(value) =>
-                  dispatch(setLanguage(value as "rus" | "eng"))
-                }
+                onChange={(value) => {
+                  dispatch(setLanguage(value as "rus" | "eng"));
+                  i18n.changeLanguage(value);
+                }}
               />
             </div>
 
             <div className="flex flex-col gap-1">
-              <p className="text-xs text-base-content-300">Тема</p>
+              <p className="text-xs text-base-content-300">{t("theme")}</p>
 
               <Select
-                list={themesData}
+                list={[
+                  {
+                    value: "light",
+                    title: t("light"),
+                    icon: "/images/themes/light.png",
+                  },
+
+                  {
+                    value: "dark",
+                    title: t("dark"),
+                    icon: "/images/themes/dark.png",
+                  },
+                ]}
                 value={theme}
                 onChange={(value) =>
                   dispatch(setTheme(value as "light" | "dark"))

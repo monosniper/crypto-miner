@@ -5,7 +5,9 @@ export const SignInPage = () => {
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center">
       <div className={cn("box", "p-10 sm:p-14 mx-4")}>
-        <img className="mx-auto" src="/images/logo.svg" alt="logo" />
+        <h5 className="mx-auto w-max bg-gradient-3 bg-clip-text text-transparent text-3xl font-semibold">
+          Hogyx
+        </h5>
 
         <SignInForm className="mt-6" />
       </div>
