@@ -75,5 +75,11 @@
 
   "invest": "Invest",
   "enter the amount": "Enter the amount",
-  "enter invest": "Invest"
+  "enter invest": "Invest",
+  "invalid username or password": "Invalid username or password",
+  "enter email": "Enter the Email",
+  "enter the correct email": "Enter the correct email",
+  "password": "Password",
+  "enter password": "Enter the password",
+  "loading": "Loading..."
 }

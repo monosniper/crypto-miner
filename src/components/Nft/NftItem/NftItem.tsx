@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/redux/store";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { NamesModals, Nft } from "@/types";
 import { useTranslation } from "react-i18next";
+import { setWithdrawNftData } from "@/redux/slices/withdrawNftModalSlice";
 
 type Props = {
   data: Nft;
@@ -36,6 +37,8 @@ export const NftItem: FC<Props> = ({ data }) => {
                 isOpen: true,
               }),
             );
+
+            dispatch(setWithdrawNftData(data));
           }}
         />
       </div>

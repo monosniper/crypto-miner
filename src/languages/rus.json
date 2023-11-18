@@ -75,5 +75,11 @@
 
   "invest": "Инвестируйте",
   "enter the amount": "Введите сумму",
-  "enter invest": "Инвестировать"
+  "enter invest": "Инвестировать",
+  "invalid username or password": " Неверный логин или пароль",
+  "enter email": "Введите Email",
+  "enter the correct email": "Введите корректную почту",
+  "password": "Пароль",
+  "enter password": "Введите пароль",
+  "loading": "Загрузка..."
 }

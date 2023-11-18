@@ -12,13 +12,15 @@ export const ServerPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { id } = useParams();
-  const { data } = useGetServerByIdQuery(
+  const { data, isLoading } = useGetServerByIdQuery(
     { id: Number(id) },
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
     },
   );
+
+  console.log(getServerStatus(data?.status as ServerStatuses));
 
   return (
     <div>
@@ -32,7 +34,11 @@ export const ServerPage = () => {
         <span>{t("server")}</span>
       </button>
 
-      <Title title="Antminer S19 XP 141" />
+      {!isLoading && data?.title ? (
+        <Title title={data.title} />
+      ) : (
+        <div className="w-20 h-2 rounded bg-base-200 animate-pulse"></div>
+      )}
 
       <div className={cn("box", "p-6 mt-6")}>
         <h5>{t("status")}</h5>

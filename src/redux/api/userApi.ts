@@ -1,6 +1,5 @@
 import {
   Balance,
-  Coin,
   Convertation,
   Nft,
   Server,
@@ -36,9 +35,9 @@ export const userApi = createApi({
 
   tagTypes: ["convertations", "coins"],
   endpoints: ({ query, mutation }) => ({
-    getMe: query<User, { username: string; password: string | number }>({
+    getMe: query<User, { email: string; password: string | number }>({
       query(params) {
-        const credentials = `${params.username}:${params.password}`;
+        const credentials = `${params.email}:${params.password}`;
 
         return {
           url: "me",
@@ -103,7 +102,7 @@ export const userApi = createApi({
       },
     }),
 
-    getCoinsPositions: query<Coin[], null>({
+    getCoinsPositions: query<{ id: number; hide?: boolean }[], null>({
       query() {
         return {
           url: "me/coins",

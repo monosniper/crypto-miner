@@ -22,7 +22,11 @@ export const WorkingServersPage = () => {
     <div>
       <Title className="flex lg:hidden pb-6" title="Доступные планы" />
 
-      <div>
+      <div ref={plansRef}>
+        <ServersPlans />
+      </div>
+
+      <div className="mt-16">
         <Title title={t("servers involved")} />
 
         <Servers
@@ -31,10 +35,6 @@ export const WorkingServersPage = () => {
           servers={serversList}
           loading={serversListLoading}
         />
-      </div>
-
-      <div className="mt-16" ref={plansRef}>
-        <ServersPlans />
       </div>
     </div>
   );
