@@ -26,6 +26,7 @@ export default {
 
       fontFamily: {
         inter: "Inter, sans-serif",
+        droid: "Droid Sans, sans-serif",
       },
     },
   },

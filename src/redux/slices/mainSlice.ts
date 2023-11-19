@@ -6,12 +6,15 @@ const initialState: {
   language: "rus" | "eng";
   isOpenSidebar: boolean;
   showHideCoins: boolean;
+  showZeroMyCoins: boolean;
 } = {
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
   language: (localStorage.getItem("language") as "rus" | "eng") || "rus",
   isOpenSidebar: false,
   showHideCoins:
     JSON.parse(localStorage.getItem("showHideCoins") || "false") || false,
+  showZeroMyCoins:
+    JSON.parse(localStorage.getItem("showZeroMyCoins") || "false") || true,
 };
 
 export const mainSlice = createSlice({
@@ -39,12 +42,23 @@ export const mainSlice = createSlice({
 
       localStorage.setItem("showHideCoins", JSON.stringify(action.payload));
     },
+
+    setShowZeroMyCoins: (state, action: PayloadAction<boolean>) => {
+      state.showZeroMyCoins = action.payload;
+
+      localStorage.setItem("showZeroMyCoins", JSON.stringify(action.payload));
+    },
   },
 });
 
 export default mainSlice.reducer;
 
-export const { setTheme, setLanguage, setOpenSidebar, setShowHideCoins } =
-  mainSlice.actions;
+export const {
+  setTheme,
+  setLanguage,
+  setOpenSidebar,
+  setShowHideCoins,
+  setShowZeroMyCoins,
+} = mainSlice.actions;
 
 export const main = (state: RootState) => state.main;

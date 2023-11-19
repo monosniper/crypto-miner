@@ -59,7 +59,7 @@
   "status": "Статус",
 
   "basic-plan": "Базовый",
-  "standard-plan": "Стандартный",
+  "standart-plan": "Стандартный",
   "professional-plan": "Профессиональный",
   "premium-plan": "Премиум",
   "profitable-plan": "Выгодный план",
@@ -81,5 +81,11 @@
   "enter the correct email": "Введите корректную почту",
   "password": "Пароль",
   "enter password": "Введите пароль",
-  "loading": "Загрузка..."
+  "loading": "Загрузка...",
+  "coins can be dragged with the mouse": "Монеты можно перетаскивать с помощью мыши",
+  "failed": "Ошибка",
+  "pending": "Ожидание",
+  "success": "Успешно",
+  "hide zero coins": "Скрыть нулевые",
+  "show zero coins": "Показывать нулевые"
 }

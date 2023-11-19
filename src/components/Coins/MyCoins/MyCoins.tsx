@@ -81,6 +81,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
             coin.balance = Number(walletCoins[j][1]);
             coin.name = allCoins[i].name;
             coin.icon_url = allCoins[i].icon_url;
+            coin.rate = allCoins[i].rate;
           }
         }
 

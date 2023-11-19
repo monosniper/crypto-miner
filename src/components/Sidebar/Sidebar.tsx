@@ -45,7 +45,7 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
       >
         <div className={styles.header}>
           <Link
-            className="bg-gradient-3 bg-clip-text text-transparent text-3xl font-semibold"
+            className="bg-gradient-3 bg-clip-text text-transparent text-[34px] leading-10 font-semibold font-droid"
             to="/"
           >
             Hogyx
