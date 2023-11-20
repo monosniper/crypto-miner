@@ -21,7 +21,7 @@ const App = () => {
 
   const { data, error } = useGetMeQuery(
     {
-      username: mainUserData.email,
+      email: mainUserData.email,
       password: password || mainUserData.password,
     },
     {

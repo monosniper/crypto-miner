@@ -45,14 +45,14 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
       >
         <div className={styles.header}>
           <Link
-            className="bg-gradient-3 bg-clip-text text-transparent text-3xl font-semibold"
+            className="bg-gradient-3 bg-clip-text text-transparent text-[34px] leading-10 font-semibold font-droid"
             to="/"
           >
             Hogyx
           </Link>
         </div>
 
-        <div className="my-10 overflow-y-auto px-6 scrollbar-menu">
+        <div className="my-10 overflow-y-auto min-h-[50px] px-6 scrollbar-menu">
           <Menu />
         </div>
 

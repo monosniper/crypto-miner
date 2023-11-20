@@ -9,3 +9,4 @@ export * from "./formsDataTypes";
 export * from "./modalsTypes";
 export * from "./serversTypes";
 export * from "./nftTypes";
+export * from "./withdrawsTypes";

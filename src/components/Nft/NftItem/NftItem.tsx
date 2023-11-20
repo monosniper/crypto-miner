@@ -35,13 +35,14 @@ export const NftItem: FC<Props> = ({ data }) => {
               setOpenModal({
                 stateNameModal: NamesModals.isOpenNftWithdrawModal,
                 isOpen: true,
-              }),
+              })
             );
 
             dispatch(setWithdrawNftData(data));
           }}
         />
       </div>
+      <h3 className="text-center pt-4 font-semibold text-2xl">{data.name}</h3>
       <p className="text-center py-4 font-semibold text-xl">{data.price} BTC</p>
     </div>
   );

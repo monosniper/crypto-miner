@@ -288,6 +288,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
             )}
 
           <div className={styles.footer}>
+            {type === "my" && <p>${data.rate ? data.rate.toFixed(2) : 0}</p>}
             <Rate type={type} data={data} />
             {"change" in data && type !== "my" && (
               <div

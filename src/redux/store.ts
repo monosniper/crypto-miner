@@ -11,6 +11,7 @@ import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
 import { articlesApi } from "./api/articlesApi";
 import { serversApi } from "./api/serversApi";
+import { mainApi } from "./api/mainApi";
 
 export const rootReducer = combineReducers({
   main: mainReducer,
@@ -23,6 +24,7 @@ export const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [articlesApi.reducerPath]: articlesApi.reducer,
   [serversApi.reducerPath]: serversApi.reducer,
+  [mainApi.reducerPath]: mainApi.reducer,
 });
 
 export const store = configureStore({
@@ -33,6 +35,7 @@ export const store = configureStore({
       userApi.middleware,
       articlesApi.middleware,
       serversApi.middleware,
+      mainApi.middleware,
     ]),
 });
 

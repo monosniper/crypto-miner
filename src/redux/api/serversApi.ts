@@ -13,7 +13,7 @@ export const serversApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -45,7 +45,30 @@ export const serversApi = createApi({
         };
       },
     }),
+
+    getMyServers: query<Server[], null>({
+      query() {
+        return {
+          url: "me/servers",
+          method: "GET",
+        };
+      },
+    }),
+
+    getMyServerById: query<Server, { id: number }>({
+      query(params) {
+        return {
+          url: `me/servers/${params.id}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllServersQuery, useGetServerByIdQuery } = serversApi;
+export const {
+  useGetAllServersQuery,
+  useGetServerByIdQuery,
+  useGetMyServersQuery,
+  useGetMyServerByIdQuery,
+} = serversApi;
