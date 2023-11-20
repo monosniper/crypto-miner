@@ -41,7 +41,7 @@ const AttentionContent = () => {
       <div>
         <p>
           {t(
-            "trust our reliable payments that are made every friday. The next payment is scheduled for"
+            "trust our reliable payments that are made every friday. The next payment is scheduled for",
           )}
         </p>
         <ul className="ml-4 list-disc">
@@ -54,7 +54,7 @@ const AttentionContent = () => {
 
       <p>
         {t(
-          "our payments are always made on time, so you can be sure that you will receive your money on time. We understand that it is important for you to receive your salary on time, so we do everything possible to ensure the timeliness and reliability of our payments"
+          "our payments are always made on time, so you can be sure that you will receive your money on time. We understand that it is important for you to receive your salary on time, so we do everything possible to ensure the timeliness and reliability of our payments",
         )}
       </p>
     </>

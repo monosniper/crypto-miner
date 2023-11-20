@@ -10,4 +10,6 @@ export type Coin = {
 
   hide?: boolean;
   balance?: number;
+
+  money_balance?: number;
 };

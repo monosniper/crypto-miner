@@ -9,6 +9,7 @@ export type Server = {
   active_until: string;
   status: string;
   possibilities: string[];
+  icon_url?: string;
 };
 
 export enum ServerStatuses {

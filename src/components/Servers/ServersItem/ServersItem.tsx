@@ -43,10 +43,6 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
       </div>
 
       <h5 className={styles.title}>{data.title}</h5>
-
-      {data.possibilities && (
-        <p className={styles.possibilities}>{data.possibilities.join(", ")}</p>
-      )}
     </Tag>
   );
 };

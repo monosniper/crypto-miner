@@ -1,24 +1,23 @@
 import { Button } from "@/components/ui";
-import { PropsWithClassName } from "@/types";
+import { PropsWithClassName, Server } from "@/types";
 import cn from "clsx";
 import { FC } from "react";
 import styles from "./ServersPlansItem.module.css";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-  icon: JSX.Element | string;
-  title: string;
-  price: number;
+  // icon: JSX.Element | string;
+  // title: string;
+  // price: number;
 
-  list: { icon: JSX.Element | string; text: string }[];
+  // list: { icon: JSX.Element | string; text: string }[];
+
+  data: Server;
 };
 
 export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   className,
-  icon = <></>,
-  title = "",
-  price = 0,
-  list = [],
+  data,
 }) => {
   const { t } = useTranslation();
 
@@ -27,28 +26,18 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
       <div className={styles.inner}>
         <div>
           <div className={styles.titleBlock}>
-            {typeof icon === "string" ? (
-              <img src={icon} alt="server-plan" />
-            ) : (
-              icon
-            )}
+            <img src={data.icon_url} alt="server-plan" />
 
-            <h3>{title}</h3>
+            <h3>{data.title}</h3>
 
-            <h4>${price}</h4>
+            <h4>${data.price}</h4>
           </div>
 
           <div className={styles.list}>
-            {list.map((el, idx) => {
+            {data.possibilities.map((el, idx) => {
               return (
                 <div key={idx} className={styles.listItem}>
-                  {el.icon === "string" ? (
-                    <img src={el.icon} alt="server-plan" />
-                  ) : (
-                    el.icon
-                  )}
-
-                  <p>{t(el.text)}</p>
+                  <p>{el}</p>
                 </div>
               );
             })}

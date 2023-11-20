@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 type Tabs = "deposits" | "convertations" | "withdraws";
 
 export const History = () => {
-  const [currentTab, setCurrentTab] = useState<Tabs>("deposits");
+  const [currentTab, setCurrentTab] = useState<Tabs>("convertations");
 
   const {
     data: convertationsList,
@@ -48,18 +48,18 @@ export const History = () => {
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
-            title={t("deposits")}
-            selected={currentTab === "deposits"}
-            onClick={() => setCurrentTab("deposits")}
+            title={t("conversions")}
+            selected={currentTab === "convertations"}
+            onClick={() => setCurrentTab("convertations")}
           />
         </div>
 
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
-            title={t("conversions")}
-            selected={currentTab === "convertations"}
-            onClick={() => setCurrentTab("convertations")}
+            title={t("deposits")}
+            selected={currentTab === "deposits"}
+            onClick={() => setCurrentTab("deposits")}
           />
         </div>
 
