@@ -7,6 +7,8 @@ import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useLoading } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "@/redux/store";
+import { main } from "@/redux/slices/mainSlice";
 
 type Props = {
   coinsList?: { balance: Balance };
@@ -29,6 +31,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   const navigate = useNavigate();
   const [maxItems, setMaxItems] = useState<number>();
   const { t } = useTranslation();
+  const { showZeroMyCoins } = useAppSelector(main);
 
   useEffect(() => {
     const resizeListener = () => {
@@ -137,6 +140,11 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
                   return 1;
                 })
                 .slice(0, isMore ? undefined : maxItems)
+                .filter((el) => {
+                  if (showZeroMyCoins) return el;
+
+                  return el.balance !== 0;
+                })
                 .map((el) => {
                   return (
                     <div

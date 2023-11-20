@@ -1,4 +1,5 @@
 import { Attention, BalanceBlock, Title, WithdrawalForm } from "@/components";
+import { useDate } from "@/hooks";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
 
@@ -30,6 +31,7 @@ export const WithdrawalPage = () => {
 
 const AttentionContent = () => {
   const { t } = useTranslation();
+  const { getDateNextDayWeek, formattedDateStr } = useDate();
 
   return (
     <>
@@ -40,7 +42,7 @@ const AttentionContent = () => {
           )}
         </p>
         <ul className="ml-4 list-disc">
-          <li>{t("week 42, 2023 — October 13")}</li>
+          <li>{formattedDateStr(getDateNextDayWeek(5))}</li>
         </ul>
       </div>
 
