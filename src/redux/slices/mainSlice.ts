@@ -7,6 +7,7 @@ const initialState: {
   isOpenSidebar: boolean;
   showHideCoins: boolean;
   showZeroMyCoins: boolean;
+  goToBlock?: string;
 } = {
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
   language: (localStorage.getItem("language") as "rus" | "eng") || "rus",
@@ -48,6 +49,10 @@ export const mainSlice = createSlice({
 
       localStorage.setItem("showZeroMyCoins", JSON.stringify(action.payload));
     },
+
+    setGoToBlock: (state, action: PayloadAction<string | undefined>) => {
+      state.goToBlock = action.payload;
+    },
   },
 });
 
@@ -59,6 +64,7 @@ export const {
   setOpenSidebar,
   setShowHideCoins,
   setShowZeroMyCoins,
+  setGoToBlock,
 } = mainSlice.actions;
 
 export const main = (state: RootState) => state.main;

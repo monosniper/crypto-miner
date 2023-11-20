@@ -6,21 +6,19 @@ import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import { ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
-import { useGetServerByIdQuery } from "@/redux/api/serversApi";
+import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { id } = useParams();
-  const { data, isLoading } = useGetServerByIdQuery(
+  const { data, isLoading } = useGetMyServerByIdQuery(
     { id: Number(id) },
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    },
+    }
   );
-
-  console.log(getServerStatus(data?.status as ServerStatuses));
 
   return (
     <div>

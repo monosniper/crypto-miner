@@ -2,7 +2,6 @@ import {
   Balance,
   Convertation,
   Nft,
-  Server,
   User,
   WithdrawsItem,
 } from "@/types";
@@ -20,7 +19,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -78,15 +77,6 @@ export const userApi = createApi({
       },
 
       providesTags: ["convertations"],
-    }),
-
-    getMyServers: query<Server[], null>({
-      query() {
-        return {
-          url: "me/servers",
-          method: "GET",
-        };
-      },
     }),
 
     setCoinsPositions: mutation<
@@ -147,7 +137,6 @@ export const {
   useGetWithdrawsQuery,
   useGetWalletQuery,
   useGetConvertationsQuery,
-  useGetMyServersQuery,
   useSetCoinsPositionsMutation,
   useGetCoinsPositionsQuery,
   useGetInvestQuery,

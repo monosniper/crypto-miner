@@ -1,9 +1,14 @@
 import { BalanceBlock, History, MyCoins, Title } from "@/components";
 import { useLoading } from "@/hooks";
 import { useGetWalletQuery } from "@/redux/api/userApi";
-import { main, setShowZeroMyCoins } from "@/redux/slices/mainSlice";
+import {
+  main,
+  setGoToBlock,
+  setShowZeroMyCoins,
+} from "@/redux/slices/mainSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useTranslation } from "react-i18next";
+import { useRef, useEffect } from "react";
 
 export const WalletPage = () => {
   const {
@@ -11,11 +16,23 @@ export const WalletPage = () => {
     isLoading: walletIsLoading,
     isFetching: walletIsFetching,
   } = useGetWalletQuery(null);
+  const historyRef = useRef<HTMLDivElement>(null);
 
   const walletLoading = useLoading(walletIsLoading, walletIsFetching);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { showZeroMyCoins } = useAppSelector(main);
+  const { showZeroMyCoins, goToBlock } = useAppSelector(main);
+
+  useEffect(() => {
+    if (goToBlock === "history" && historyRef.current) {
+      historyRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      dispatch(setGoToBlock(undefined));
+    }
+  }, [goToBlock, historyRef, dispatch]);
 
   return (
     <div>
@@ -44,7 +61,7 @@ export const WalletPage = () => {
         />
       </div>
 
-      <div className="mt-16">
+      <div className="mt-16" ref={historyRef}>
         <Title title={t("history")} />
 
         <History />

@@ -1,7 +1,7 @@
 import { Coins, Servers, Title } from "@/components";
 import { Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
-import { useGetMyServersQuery } from "@/redux/api/userApi";
+import { useGetMyServersQuery } from "@/redux/api/serversApi";
 import { useTranslation } from "react-i18next";
 
 export const MiningPage = () => {
@@ -13,7 +13,7 @@ export const MiningPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching,
+    serversListIsFetching
   );
   const { t } = useTranslation();
 

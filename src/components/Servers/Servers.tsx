@@ -3,7 +3,7 @@ import { FC, RefObject } from "react";
 import cn from "clsx";
 import { Buy } from "../ui";
 import { CoinSkelet, ServersItem } from "@/components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Server } from "@/types";
 import { useTranslation } from "react-i18next";
 
@@ -21,8 +21,13 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const location = useLocation();
 
   const buyServerHandler = () => {
+    if (!location.pathname.includes("/working-servers")) {
+      navigate("/working-servers");
+    }
+
     if (!plansRef || !plansRef.current) return;
 
     plansRef.current.scrollIntoView({
@@ -33,9 +38,11 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
 
   return (
     <div className={cn(className, "flex flex-wrap -m-2")}>
-      <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
-        <Buy title={t("buy server")} onClick={buyServerHandler} />
-      </div>
+      {!location.pathname.includes("/working-servers") && (
+        <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+          <Buy title={t("buy server")} onClick={buyServerHandler} />
+        </div>
+      )}
 
       {!loading ? (
         <>

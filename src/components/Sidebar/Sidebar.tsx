@@ -52,7 +52,7 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
           </Link>
         </div>
 
-        <div className="my-10 overflow-y-auto px-6 scrollbar-menu">
+        <div className="my-10 overflow-y-auto min-h-[50px] px-6 scrollbar-menu">
           <Menu />
         </div>
 

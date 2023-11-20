@@ -21,7 +21,7 @@ export const NftWithdrawModal = () => {
       setOpenModal({
         stateNameModal: NamesModals.isOpenNftWithdrawModal,
         isOpen: false,
-      }),
+      })
     );
 
     dispatch(setWithdrawNftData(undefined));
@@ -55,7 +55,11 @@ export const NftWithdrawModal = () => {
               </h4>
             </div>
 
-            <p className="font-inter mt-4 text-base">Текст с информацией</p>
+            <p className="font-inter mt-4 text-base">
+              {t(
+                "all conclusions are carried out every Friday at 18:00 Moscow time"
+              )}
+            </p>
 
             <div className="mt-8">
               <FieldWrapper title={t("wallet")}>
