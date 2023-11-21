@@ -11,3 +11,12 @@ export type SelectItemWithIcon = {
   value: string;
   icon?: JSX.Element | string;
 };
+
+export type Settings = {
+  telegram?: string;
+  youtube?: string;
+  facebook?: string;
+  instagram?: string;
+  tiktok?: string;
+  withdraw_fee?: string;
+};
