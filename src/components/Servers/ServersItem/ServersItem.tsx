@@ -7,27 +7,34 @@ import { useTranslation } from "react-i18next";
 import { getServerStatus } from "@/data";
 
 type Props = {
-  type?: "div" | "button";
+  type?: "mining" | "standart";
   onClick?: MouseEventHandler<HTMLElement>;
   data: Server;
+  selected?: boolean;
+  disabled?: boolean;
 };
 
 export const ServersItem: FC<PropsWithClassName<Props>> = ({
   className,
-  type = "div",
+  type = "standart",
   onClick,
   data,
+  selected,
+  disabled = false,
 }) => {
-  const Tag = type;
   const { t } = useTranslation();
 
   return (
-    <Tag
-      className={cn(className, "box", styles.wrapper, {
-        "cursor-pointer hover:border hover:border-primary border border-transparent border-solid":
-          type === "button",
-        "border !border-primary border-solid": data.isHot === 1,
-      })}
+    <div
+      className={cn(
+        className,
+        "box cursor-pointer border border-transparent border-solid relative overflow-hidden",
+        styles.wrapper,
+        {
+          "hover:border hover:border-primary": type === "standart",
+          "border !border-primary border-solid": selected,
+        },
+      )}
       onClick={onClick}
     >
       <div className={styles.header}>
@@ -43,6 +50,10 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
       </div>
 
       <h5 className={styles.title}>{data.title}</h5>
-    </Tag>
+
+      {disabled && (
+        <div className="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-black/50 cursor-not-allowed"></div>
+      )}
+    </div>
   );
 };

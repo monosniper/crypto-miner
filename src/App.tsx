@@ -6,6 +6,7 @@ import { PageLayout } from "./components/layouts";
 import { setUserData, user } from "./redux/slices/userSlice";
 import { useGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -49,6 +50,8 @@ const App = () => {
   return (
     <div>
       <PageLayout>{useRouter(isAuth)}</PageLayout>
+
+      <ToastContainer />
     </div>
   );
 };

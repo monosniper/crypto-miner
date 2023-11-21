@@ -37,7 +37,11 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
             {data.possibilities.map((el, idx) => {
               return (
                 <div key={idx} className={styles.listItem}>
-                  <p>{el}</p>
+                  {el.icon_url && (
+                    <img src={el.icon_url} alt="poss" width={20} height={20} />
+                  )}
+
+                  <p>{el.name}</p>
                 </div>
               );
             })}

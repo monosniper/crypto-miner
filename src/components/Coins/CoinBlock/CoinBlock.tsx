@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState, MouseEventHandler } from "react";
 import { ArrTopIcon, MoreInfoIcon, MoveIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
@@ -13,10 +13,11 @@ import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
 import { useOutside } from "@/hooks";
 
 export type Props = {
-  type?: "my" | "general";
+  type?: "my" | "general" | "mining";
   data: Coin;
   draggable?: boolean;
   active?: boolean;
+  onClick?: MouseEventHandler<HTMLElement>;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
@@ -25,6 +26,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   data,
   draggable = false,
   active = false,
+  onClick,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
@@ -204,6 +206,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
       style={style}
       {...(window.innerWidth > 1024 ? attributes : {})}
       {...(window.innerWidth > 1024 ? listeners : {})}
+      onClick={onClick}
     >
       <div
         className={cn(className, styles.wrapper, {
@@ -330,7 +333,10 @@ const Tooltip = ({
   );
 };
 
-const Rate: FC<{ type: "my" | "general"; data: Coin }> = ({ type, data }) => {
+const Rate: FC<{ type: "my" | "general" | "mining"; data: Coin }> = ({
+  type,
+  data,
+}) => {
   if (type === "my" && "balance" in data) {
     return <p>${data.balance}</p>;
   }

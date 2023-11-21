@@ -88,5 +88,6 @@
   "success": "Успешно",
   "hide zero coins": "Скрыть нулевые",
   "show zero coins": "Показывать нулевые",
-  "all conclusions are carried out every Friday at 18:00 Moscow time": "Все выводы осуществляются каждую пятницу в 18:00 по МСК"
+  "all conclusions are carried out every Friday at 18:00 Moscow time": "Все выводы осуществляются каждую пятницу в 18:00 по МСК",
+  "select servers": "Выберите сервера"
 }

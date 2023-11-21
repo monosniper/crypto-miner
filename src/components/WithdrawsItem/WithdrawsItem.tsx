@@ -1,7 +1,11 @@
 import { FC } from "react";
-import { WithdrawsItem as WithdrawsItemTypes } from "@/types";
+import {
+  WithdrawalStatuses,
+  WithdrawsItem as WithdrawsItemTypes,
+} from "@/types";
 import { formatRelativeDate } from "@/utils";
 import { useTranslation } from "react-i18next";
+import cn from "clsx";
 
 type Props = {
   data: WithdrawsItemTypes;
@@ -9,10 +13,15 @@ type Props = {
 
 export const WithdrawsItem: FC<Props> = ({ data }) => {
   const { t } = useTranslation();
-
   return (
-    <div className="box p-4">
-      <p>{t("asd")}</p>
+    <div
+      className={cn("box p-4", {
+        "bg-red-200": data.status === WithdrawalStatuses.FAILED,
+        "bg-yellow-200": data.status === WithdrawalStatuses.PENDING,
+        "bg-green-200": data.status === WithdrawalStatuses.SUCCESS,
+      })}
+    >
+      <h4 className="text-sm">{t(data.status)}</h4>
 
       <div className="flex items-center justify-between mt-4">
         <p className="text-lg font-medium">

@@ -10,6 +10,7 @@ export const ServersPlans = () => {
     data: serversList,
     isLoading: serversIsLoading,
     isFetching: serversIsFetching,
+    isError: serversIsError,
   } = useGetAllServersQuery(null);
   const [skeletItems] = useState(Array(6).fill(0));
 
@@ -19,18 +20,20 @@ export const ServersPlans = () => {
     <div className="flex flex-wrap -m-2">
       {!loading ? (
         <>
-          {serversList && serversList.length > 0 ? (
+          {serversList &&
+            serversList.length > 0 &&
             serversList.map((el) => {
               return (
-                <div className="w-full md:w-1/2 lg:w-1/3 p-2">
+                <div className="w-full md:w-1/2 lg:w-1/3 p-2" key={el.id}>
                   <ServersPlansItem
                     className={el.isHot ? styles.beneficial : "h-full"}
                     data={el}
                   />
                 </div>
               );
-            })
-          ) : (
+            })}
+
+          {(serversIsError || !serversList || serversList.length === 0) && (
             <div className="flex flex-col flex-grow">
               <EmptyText text="Нет получилось получить данные" />
             </div>
