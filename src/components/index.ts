@@ -49,6 +49,7 @@ export * from "./Skelets/CoinSkelet/CoinSkelet";
 
 export * from "./Forms/SignInForm/SignInForm";
 export * from "./Forms/WithdrawalForm/WithdrawalForm";
+export * from "./Forms/WithdrawNftForm/WithdrawNftForm";
 
 export * from "./EmptyText/EmptyText";
 export * from "./Attention/Attention";

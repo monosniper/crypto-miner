@@ -25,3 +25,4 @@ export * from "./PrevIcon";
 export * from "./CloseIcon";
 export * from "./MoreInfoIcon";
 export * from "./MoveIcon";
+export * from "./LightIcon";

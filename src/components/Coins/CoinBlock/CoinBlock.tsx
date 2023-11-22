@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState, MouseEventHandler } from "react";
-import { ArrTopIcon, MoreInfoIcon, MoveIcon } from "../../icons";
+import { ArrTopIcon, LightIcon, MoreInfoIcon, MoveIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
@@ -11,6 +11,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
 import { useOutside } from "@/hooks";
+import { useTranslation } from "react-i18next";
 
 export type Props = {
   type?: "my" | "general" | "mining";
@@ -39,6 +40,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   const dispatch = useAppDispatch();
   const { coinsList } = useAppSelector(coins);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -274,6 +276,16 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                     height={18}
                   />
                 </div>
+              </div>
+            )}
+
+            {type === "mining" && Boolean(data.hardLoad) && (
+              <div
+                data-tooltip-id="light"
+                data-tooltip-content={t("high load")}
+                data-tooltip-place="top"
+              >
+                <LightIcon width={16} height={16} />
               </div>
             )}
           </div>

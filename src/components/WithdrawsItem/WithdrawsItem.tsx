@@ -16,9 +16,9 @@ export const WithdrawsItem: FC<Props> = ({ data }) => {
   return (
     <div
       className={cn("box p-4", {
-        "bg-red-200": data.status === WithdrawalStatuses.FAILED,
-        "bg-yellow-200": data.status === WithdrawalStatuses.PENDING,
-        "bg-green-200": data.status === WithdrawalStatuses.SUCCESS,
+        "!bg-red-100": data.status === WithdrawalStatuses.FAILED,
+        "!bg-yellow-100": data.status === WithdrawalStatuses.PENDING,
+        "!bg-green-100": data.status === WithdrawalStatuses.SUCCESS,
       })}
     >
       <h4 className="text-sm">{t(data.status)}</h4>

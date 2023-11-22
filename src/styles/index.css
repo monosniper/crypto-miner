@@ -76,3 +76,7 @@ body[data-theme="dark"] .map-svg path {
 .scrollbar-menu::-webkit-scrollbar-thumb {
   @apply bg-base-content-100;
 }
+
+.react-tooltip {
+  @apply !bg-primary;
+}

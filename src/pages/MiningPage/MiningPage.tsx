@@ -51,11 +51,12 @@ export const MiningPage = () => {
             <div className="flex flex-wrap -m-2">
               {coins
                 .filter((el) => {
-                  if (!searchValue || !el.name) return el;
+                  if (!searchValue || !el.name || !el.slug) return el;
 
-                  return el.name
-                    .toLowerCase()
-                    .includes(searchValue.toLowerCase());
+                  return (
+                    el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    el.slug.toLowerCase().includes(searchValue.toLowerCase())
+                  );
                 })
                 .map((el) => {
                   return (

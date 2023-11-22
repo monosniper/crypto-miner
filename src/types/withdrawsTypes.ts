@@ -10,3 +10,12 @@ export type WithdrawsItem = {
   created_at: Date;
   status: WithdrawalStatuses;
 };
+
+export type WithdrawsBody = {
+  wallet?: string;
+  amount?: number;
+  user_id?: number;
+
+  type?: "nft";
+  nft_id?: number;
+};

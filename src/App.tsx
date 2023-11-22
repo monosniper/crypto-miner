@@ -7,6 +7,7 @@ import { setUserData, user } from "./redux/slices/userSlice";
 import { useGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
 import { ToastContainer } from "react-toastify";
+import { Tooltip } from "react-tooltip";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -48,10 +49,23 @@ const App = () => {
   }, [dispatch, error]);
 
   return (
-    <div>
+    <div className="relative">
       <PageLayout>{useRouter(isAuth)}</PageLayout>
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={theme === "light" ? "light" : "dark"}
+      />
+
+      <Tooltip id="light" />
     </div>
   );
 };
