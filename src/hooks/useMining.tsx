@@ -1,9 +1,13 @@
-import { mining, setSelectedServers } from "@/redux/slices/miningSlice";
+import {
+  mining,
+  setSelectedCoins,
+  setSelectedServers,
+} from "@/redux/slices/miningSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { Server } from "@/types";
+import { Coin, Server } from "@/types";
 
 export const useMining = () => {
-  const { selectedServers } = useAppSelector(mining);
+  const { selectedServers, selectedCoins } = useAppSelector(mining);
   const dispatch = useAppDispatch();
 
   const toggleServerSelection = (server: Server) => {
@@ -12,8 +16,28 @@ export const useMining = () => {
     if (!foundServer) {
       return dispatch(setSelectedServers([...selectedServers, server]));
     } else {
+      dispatch(
+        setSelectedCoins(
+          selectedCoins.filter(
+            (coinEl) => !server.coins?.some((el) => el.id === coinEl.id),
+          ),
+        ),
+      );
+
       return dispatch(
         setSelectedServers(selectedServers.filter((el) => el.id !== server.id)),
+      );
+    }
+  };
+
+  const toggleCoinSelection = (coin: Coin) => {
+    const foundCoins = selectedCoins.find((el) => coin.id === el.id);
+
+    if (!foundCoins) {
+      return dispatch(setSelectedCoins([...selectedCoins, coin]));
+    } else {
+      return dispatch(
+        setSelectedCoins(selectedCoins.filter((el) => el.id !== coin.id)),
       );
     }
   };
@@ -42,6 +66,7 @@ export const useMining = () => {
 
   return {
     toggleServerSelection,
+    toggleCoinSelection,
     checkIdentityType,
     coins: coins(),
   };

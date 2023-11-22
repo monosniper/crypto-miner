@@ -18,6 +18,7 @@ export type Props = {
   draggable?: boolean;
   active?: boolean;
   onClick?: MouseEventHandler<HTMLElement>;
+  selected?: boolean;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
@@ -27,6 +28,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   draggable = false,
   active = false,
   onClick,
+  selected = false,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
@@ -199,7 +201,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
   return (
     <div
-      className={cn("h-full flex flex-col", {
+      className={cn("h-full flex flex-col overflow-hidden", {
         "relative z-50": active,
       })}
       ref={setNodeRef}
@@ -213,6 +215,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
           [styles.my]: type === "my",
           "cursor-grab": draggable,
           "border-primary": active,
+          "border border-primary border-solid": selected,
         })}
       >
         <div className="coin-inner h-full flex flex-col">
@@ -341,7 +344,7 @@ const Rate: FC<{ type: "my" | "general" | "mining"; data: Coin }> = ({
     return <p>${data.balance}</p>;
   }
 
-  if (type === "general" && "rate" in data) {
+  if ((type === "general" && "rate" in data) || type === "mining") {
     return <p>${data.rate ? data.rate.toFixed(2) : 0}</p>;
   }
 
