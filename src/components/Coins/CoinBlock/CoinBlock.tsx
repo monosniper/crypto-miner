@@ -1,5 +1,5 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { ArrTopIcon, MoreInfoIcon, MoveIcon } from "../../icons";
+import { FC, useEffect, useRef, useState, MouseEventHandler } from "react";
+import { ArrTopIcon, LightIcon, MoreInfoIcon, MoveIcon } from "../../icons";
 import styles from "./CoinBlock.module.css";
 import * as d3 from "d3";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
@@ -11,12 +11,15 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { coins, setCoinsList } from "@/redux/slices/coinsSlice";
 import { useOutside } from "@/hooks";
+import { useTranslation } from "react-i18next";
 
 export type Props = {
-  type?: "my" | "general";
+  type?: "my" | "general" | "mining";
   data: Coin;
   draggable?: boolean;
   active?: boolean;
+  onClick?: MouseEventHandler<HTMLElement>;
+  selected?: boolean;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
@@ -25,6 +28,8 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   data,
   draggable = false,
   active = false,
+  onClick,
+  selected = false,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
@@ -35,6 +40,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   const dispatch = useAppDispatch();
   const { coinsList } = useAppSelector(coins);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -197,19 +203,21 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
   return (
     <div
-      className={cn("h-full flex flex-col", {
+      className={cn("h-full flex flex-col overflow-hidden", {
         "relative z-50": active,
       })}
       ref={setNodeRef}
       style={style}
       {...(window.innerWidth > 1024 ? attributes : {})}
       {...(window.innerWidth > 1024 ? listeners : {})}
+      onClick={onClick}
     >
       <div
         className={cn(className, styles.wrapper, {
           [styles.my]: type === "my",
           "cursor-grab": draggable,
           "border-primary": active,
+          "border border-primary border-solid": selected,
         })}
       >
         <div className="coin-inner h-full flex flex-col">
@@ -270,6 +278,16 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                 </div>
               </div>
             )}
+
+            {type === "mining" && Boolean(data.hardLoad) && (
+              <div
+                data-tooltip-id="light"
+                data-tooltip-content={t("high load")}
+                data-tooltip-place="top"
+              >
+                <LightIcon width={16} height={16} />
+              </div>
+            )}
           </div>
 
           {type === "general" &&
@@ -288,8 +306,10 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
             )}
 
           <div className={styles.footer}>
-            {type === "my" && <p>${data.rate ? data.rate.toFixed(2) : 0}</p>}
             <Rate type={type} data={data} />
+
+            {type === "my" && <p>{data.money_balance}</p>}
+
             {"change" in data && type !== "my" && (
               <div
                 className={cn(styles.changeCourse, {
@@ -328,12 +348,15 @@ const Tooltip = ({
   );
 };
 
-const Rate: FC<{ type: "my" | "general"; data: Coin }> = ({ type, data }) => {
+const Rate: FC<{ type: "my" | "general" | "mining"; data: Coin }> = ({
+  type,
+  data,
+}) => {
   if (type === "my" && "balance" in data) {
     return <p>${data.balance}</p>;
   }
 
-  if (type === "general" && "rate" in data) {
+  if ((type === "general" && "rate" in data) || type === "mining") {
     return <p>${data.rate ? data.rate.toFixed(2) : 0}</p>;
   }
 

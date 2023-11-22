@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Servers, ServersPlans, Title } from "@/components";
 import { useLoading } from "@/hooks";
 import { useTranslation } from "react-i18next";
-import { useGetAllServersQuery } from "@/redux/api/serversApi";
+import { useGetMyServersQuery } from "@/redux/api/serversApi";
 
 export const WorkingServersPage = () => {
   const plansRef = useRef<HTMLDivElement>(null);
@@ -10,11 +10,11 @@ export const WorkingServersPage = () => {
     data: serversList,
     isLoading: serversListIsLoading,
     isFetching: serversListIsFetching,
-  } = useGetAllServersQuery(null);
+  } = useGetMyServersQuery(null);
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching
+    serversListIsFetching,
   );
   const { t } = useTranslation();
 

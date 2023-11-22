@@ -28,9 +28,3 @@ export type Balance = {
 export type BalanceRes = {
   balance: Balance | null;
 };
-
-export type WithdrawsItem = {
-  amount: number;
-  created_at: Date;
-  id: number;
-};

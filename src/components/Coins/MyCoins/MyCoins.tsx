@@ -75,6 +75,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
           change: 0,
           graph: [],
           graph_today: [],
+          money_balance: 0,
         };
 
         for (let j = 0; j < walletCoins.length; j++) {
@@ -85,6 +86,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
             coin.name = allCoins[i].name;
             coin.icon_url = allCoins[i].icon_url;
             coin.rate = allCoins[i].rate;
+            coin.money_balance = walletCoins[1][1] as unknown as number;
           }
         }
 

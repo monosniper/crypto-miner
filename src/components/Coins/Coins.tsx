@@ -165,7 +165,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
 
   return (
     <div className={cn(className, "flex flex-wrap items-stretch -m-2")}>
-      {loading || isLoading || isFetching ? (
+      {!rows && (loading || isLoading || isFetching) ? (
         <>
           {skeletItems.map((_, idx) => {
             return (

@@ -1,3 +1,12 @@
+import { Coin } from "@/types";
+
+export type Possibility = {
+  id: number;
+  name: string;
+  slug: string | null;
+  icon_url: string;
+};
+
 export type Server = {
   id: number;
   title: string;
@@ -8,7 +17,12 @@ export type Server = {
   work_started_at: null | string;
   active_until: string;
   status: string;
-  possibilities: string[];
+  possibilities: Possibility[];
+  icon_url?: string;
+  coins?: Coin[];
+  server_user_name?: null | string;
+  logs?: null;
+  type?: ServerTypes;
 };
 
 export enum ServerStatuses {
@@ -16,4 +30,13 @@ export enum ServerStatuses {
   ACTIVE_STATUS = "active",
   NOT_ACTIVE_STATUS = "not active",
   RELOAD_STATUS = "reload",
+}
+
+export enum ServerTypes {
+  STANDART = "standart",
+  FREE = "free",
+  PRO = "pro",
+  PREMIUM = "premium",
+  ELITE = "elite",
+  MAX = "max",
 }

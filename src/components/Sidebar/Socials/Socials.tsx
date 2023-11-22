@@ -1,10 +1,13 @@
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 import { SocialsLink } from "./SocialsLink/SocialsLink";
 
 export const Socials = () => {
+  const { data } = useGetSettingsQuery(null);
+
   return (
     <div className="flex flex-wrap gap-4 items-center">
       <SocialsLink
-        href={import.meta.env.VITE_FACEBOOK || "#"}
+        href={import.meta.env.VITE_FACEBOOK || data?.facebook}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clipPath="url(#clip0_410_21204)">
@@ -23,7 +26,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href={import.meta.env.VITE_TELEGRAM || "#"}
+        href={import.meta.env.VITE_TELEGRAM || data?.telegram}
         icon={
           <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
             <path
@@ -35,7 +38,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href={import.meta.env.VITE_INSTAGRAM || "#"}
+        href={import.meta.env.VITE_INSTAGRAM || data?.instagram}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clipPath="url(#clip0_410_14578)">
@@ -53,7 +56,7 @@ export const Socials = () => {
         }
       />
 
-      <SocialsLink
+      {/* <SocialsLink
         href={import.meta.env.VITE_H || "#"}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -63,10 +66,10 @@ export const Socials = () => {
             />
           </svg>
         }
-      />
+      /> */}
 
       <SocialsLink
-        href={import.meta.env.VITE_TIK_TOK || "#"}
+        href={import.meta.env.VITE_TIK_TOK || data?.tiktok}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clipPath="url(#clip0_410_14582)">
@@ -90,7 +93,7 @@ export const Socials = () => {
       />
 
       <SocialsLink
-        href={import.meta.env.VITE_YOUTUBE || "#"}
+        href={import.meta.env.VITE_YOUTUBE || data?.youtube}
         icon={
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path

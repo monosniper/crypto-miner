@@ -7,6 +7,8 @@ import userReducer from "./slices/userSlice";
 import modalsOpensReducer from "./slices/modalsOpensSlice";
 import coinsReducer from "./slices/coinsSlice";
 import withdrawNftReducer from "./slices/withdrawNftModalSlice";
+import miningReducer from "./slices/miningSlice";
+
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
 import { articlesApi } from "./api/articlesApi";
@@ -19,6 +21,7 @@ export const rootReducer = combineReducers({
   modalsOpens: modalsOpensReducer,
   coins: coinsReducer,
   withdrawNftModal: withdrawNftReducer,
+  mining: miningReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

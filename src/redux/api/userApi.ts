@@ -3,6 +3,7 @@ import {
   Convertation,
   Nft,
   User,
+  WithdrawsBody,
   WithdrawsItem,
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -19,7 +20,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY
+          import.meta.env.VITE_CRYPT_KEY,
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -50,7 +51,7 @@ export const userApi = createApi({
       },
     }),
 
-    getWallet: query<{ balance: Balance }, null>({
+    getWallet: query<{ balance: Balance; nfts: Nft[] }, null>({
       query() {
         return {
           url: "me/wallet",
@@ -101,33 +102,24 @@ export const userApi = createApi({
       },
     }),
 
-    getInvest: query<any, null>({
-      query() {
-        return {
-          url: "invest",
-          method: "GET",
-        };
-      },
-    }),
-
-    getNft: query<Nft[], null>({
-      query() {
-        return {
-          url: "me/nft",
-          method: "GET",
-        };
-      },
-    }),
-
-    withdrawNft: mutation<any, { nft_id: number }>({
+    withdraws: mutation<any, WithdrawsBody>({
       query(body) {
         return {
-          url: "me/nft",
-          method: "PUT",
+          url: "me/withdraws",
+          method: "POST",
           body,
         };
       },
     }),
+
+    // getInvest: query<any, null>({
+    //   query() {
+    //     return {
+    //       url: "invest",
+    //       method: "GET",
+    //     };
+    //   },
+    // }),
   }),
 });
 
@@ -139,7 +131,5 @@ export const {
   useGetConvertationsQuery,
   useSetCoinsPositionsMutation,
   useGetCoinsPositionsQuery,
-  useGetInvestQuery,
-  useGetNftQuery,
-  useWithdrawNftMutation,
+  useWithdrawsMutation,
 } = userApi;

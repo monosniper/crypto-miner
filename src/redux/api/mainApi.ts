@@ -1,3 +1,4 @@
+import { Settings } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const mainApi = createApi({
@@ -7,7 +8,7 @@ export const mainApi = createApi({
   }),
 
   endpoints: ({ query }) => ({
-    getSettings: query<any, null>({
+    getSettings: query<Settings, null>({
       query() {
         return {
           url: "settings",

@@ -27,14 +27,13 @@
   "conversion": "Conversion",
   "balance": "Balance",
   "deposit": "Deposit",
-  "withdraw ": "Withdraw",
   "my-coins": "My coins",
   "history": "History",
   "buy-coins": "Buy coins",
   "roll-up": "Roll up",
   "show-more": "Show more",
   "deposits": "Deposits",
-  "withdraws": "Withdraws",
+  "withdraw": "Withdraw",
   "available-for-output": "Available for output",
   "enter-the-amount-and-wallet-address": "Enter the amount and wallet address",
   "amount": "Amount",
@@ -88,5 +87,7 @@
   "success": "Success",
   "hide zero coins": "Hide null",
   "show zero coins": "Show null",
-  "all conclusions are carried out every Friday at 18:00 Moscow time": "All conclusions are carried out every Friday at 18:00 Moscow time"
+  "all conclusions are carried out every Friday at 18:00 Moscow time": "All conclusions are carried out every Friday at 18:00 Moscow time",
+  "select servers": "Select servers",
+  "high load": "High load"
 }

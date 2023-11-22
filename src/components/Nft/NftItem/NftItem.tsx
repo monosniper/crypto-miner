@@ -35,7 +35,7 @@ export const NftItem: FC<Props> = ({ data }) => {
               setOpenModal({
                 stateNameModal: NamesModals.isOpenNftWithdrawModal,
                 isOpen: true,
-              })
+              }),
             );
 
             dispatch(setWithdrawNftData(data));
