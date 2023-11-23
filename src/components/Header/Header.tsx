@@ -2,10 +2,11 @@ import styles from "./Header.module.css";
 import { BurgerIcon, NotificationsIcon, PrevIcon } from "@/components/icons";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { main, setOpenSidebar } from "@/redux/slices/mainSlice";
-import { Title } from "@/components";
+import { Notifications, Title } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pagesTitles } from "@/data";
 import { useTranslation } from "react-i18next";
+import { useRef, useState } from "react";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,8 @@ export const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [isOpenNotifications, setIsOpenNotifications] = useState(false);
+  const notificationsBtnRef = useRef<HTMLDivElement>(null);
 
   return (
     <header className={styles.header}>
@@ -40,8 +43,21 @@ export const Header = () => {
         <BurgerIcon width={30} height={30} />
       </div>
 
-      <div className="cursor-pointer">
-        <NotificationsIcon />
+      <div className="relative">
+        <div
+          className="cursor-pointer"
+          onClick={() => setIsOpenNotifications((prev) => !prev)}
+          ref={notificationsBtnRef}
+        >
+          <NotificationsIcon className="pointer-events-none" />
+        </div>
+
+        {isOpenNotifications && (
+          <Notifications
+            setOpen={setIsOpenNotifications}
+            openBtnRef={notificationsBtnRef}
+          />
+        )}
       </div>
     </header>
   );

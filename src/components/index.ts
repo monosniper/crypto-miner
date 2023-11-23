@@ -1,6 +1,7 @@
 // GENERAL
 
 export * from "./Title/Title";
+export * from "./Map";
 
 // HEADER
 
@@ -44,6 +45,7 @@ export * from "./Servers/ServersPlans/ServersPlansItem/ServersPlansItem";
 // SKELETS
 
 export * from "./Skelets/CoinSkelet/CoinSkelet";
+export * from "./Skelets/NotificationSkelet/NotificationSkelet";
 
 // FORMS
 
@@ -65,8 +67,6 @@ export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/NftWithdrawSuccessModal/NftWithdrawSuccessModal";
 
-export * from "./Map";
-
 // TRADING
 
 export * from "./Trading/TradingChart/TradingChart";
@@ -79,3 +79,8 @@ export * from "./History/History";
 // WITHDRAWS
 
 export * from "./WithdrawsItem/WithdrawsItem";
+
+// NOTIFICATIONS
+
+export * from "./Notifications/Notifications";
+export * from "./Notifications/NotificationsItem/NotificationsItem";

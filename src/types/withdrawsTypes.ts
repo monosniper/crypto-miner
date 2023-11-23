@@ -16,6 +16,6 @@ export type WithdrawsBody = {
   amount?: number;
   user_id?: number;
 
-  type?: "nft";
+  type?: "nft" | "coin";
   nft_id?: number;
 };

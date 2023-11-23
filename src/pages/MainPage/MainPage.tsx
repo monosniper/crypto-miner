@@ -54,7 +54,11 @@ export const MainPage = () => {
         {t("coins can be dragged with the mouse")}
       </p>
 
-      <Coins rows={data} draggableItems={true} loading={coinsLoading} />
+      <Coins
+        rows={data}
+        draggableItems={true}
+        loading={data ? false : coinsLoading}
+      />
 
       <div className="flex flex-wrap mt-16 -m-6">
         <div className="w-full md:w-1/2 p-6">
@@ -68,7 +72,7 @@ export const MainPage = () => {
           <Convertations
             list={
               convertationsList
-                ? convertationsList.slice(0, 3)
+                ? convertationsList.data.slice(0, 3)
                 : convertationsList
             }
             loading={convertationsLoading}

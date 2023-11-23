@@ -89,5 +89,17 @@
   "show zero coins": "Show null",
   "all conclusions are carried out every Friday at 18:00 Moscow time": "All conclusions are carried out every Friday at 18:00 Moscow time",
   "select servers": "Select servers",
-  "high load": "High load"
+  "high load": "High load",
+  "show all": "Show all",
+  "no alerts": "No alerts",
+  "couldn't get alerts": "Couldn't get alerts",
+  "more detailed": "More detailed",
+  "withdrawal request requested": "Withdrawal request requested",
+  "fill in all the fields": "Fill in all the fields!",
+  "your balance is zero": "Your balance is zero",
+  "done": "Done",
+  "good": "Good",
+  "output added to the queue": "Output added to the queue",
+  "mistake": "Mistake",
+  "try again later": "Try again later"
 }

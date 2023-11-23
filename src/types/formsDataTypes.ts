@@ -1,4 +1,4 @@
 export type WithdrawalFormData = {
-  sum: number;
-  wallet: number;
+  amount: number;
+  wallet: string;
 };

@@ -2,6 +2,7 @@ import {
   Balance,
   Convertation,
   Nft,
+  Notification,
   User,
   WithdrawsBody,
   WithdrawsItem,
@@ -69,7 +70,7 @@ export const userApi = createApi({
       },
     }),
 
-    getConvertations: query<Convertation[], null>({
+    getConvertations: query<{ data: Convertation[] }, null>({
       query() {
         return {
           url: "me/convertations",
@@ -105,7 +106,7 @@ export const userApi = createApi({
     withdraws: mutation<any, WithdrawsBody>({
       query(body) {
         return {
-          url: "me/withdraws",
+          url: "withdraws",
           method: "POST",
           body,
         };
@@ -120,6 +121,15 @@ export const userApi = createApi({
     //     };
     //   },
     // }),
+
+    getNotifications: query<{ data: Notification[] }, null>({
+      query() {
+        return {
+          url: "me/notifications",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -132,4 +142,5 @@ export const {
   useSetCoinsPositionsMutation,
   useGetCoinsPositionsQuery,
   useWithdrawsMutation,
+  useGetNotificationsQuery,
 } = userApi;

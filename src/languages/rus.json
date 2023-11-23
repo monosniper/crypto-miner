@@ -91,5 +91,17 @@
   "all conclusions are carried out every Friday at 18:00 Moscow time": "Все выводы осуществляются каждую пятницу в 18:00 по МСК",
   "select servers": "Выберите сервера",
 
-  "high load": "Высокая нагрузка"
+  "high load": "Высокая нагрузка",
+  "show all": "Показать все",
+  "no alerts": "Нет оповещений",
+  "couldn't get alerts": "Не получилось получить оповещения",
+  "more detailed": "Подробнее",
+  "withdrawal request requested": "Запрос на вывод средств запрошен",
+  "fill in all the fields": "Заполните все поля!",
+  "your balance is zero": "Ваш баланс равен нулю",
+  "done": "Готово",
+  "good": "Хорошо",
+  "output added to the queue": "Вывод добавлен в очередь",
+  "mistake": "Ошибка",
+  "try again later": "Попробуйте позже"
 }

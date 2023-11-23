@@ -1,0 +1,7 @@
+.wrapper {
+  @apply absolute top-[calc(100%+20px)] right-0 rounded-xl w-[calc(100vw-72px)] sm:w-[500px] max-w-[500px] p-6 bg-base-300/90 z-10 min-h-[200px];
+}
+
+.list {
+  @apply flex flex-col;
+}

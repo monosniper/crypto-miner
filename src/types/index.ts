@@ -10,3 +10,4 @@ export * from "./modalsTypes";
 export * from "./serversTypes";
 export * from "./nftTypes";
 export * from "./withdrawsTypes";
+export * from "./notificationsTypes";
