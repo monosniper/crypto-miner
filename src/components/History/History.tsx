@@ -83,8 +83,8 @@ export const History = () => {
             </>
           ) : (
             <>
-              {convertationsList && convertationsList.length > 0 ? (
-                convertationsList.map((el) => {
+              {convertationsList && convertationsList.data.length > 0 ? (
+                convertationsList.data.map((el) => {
                   return <ConvertationsItem key={el.id} data={el} />;
                 })
               ) : (

@@ -89,5 +89,9 @@
   "show zero coins": "Show null",
   "all conclusions are carried out every Friday at 18:00 Moscow time": "All conclusions are carried out every Friday at 18:00 Moscow time",
   "select servers": "Select servers",
-  "high load": "High load"
+  "high load": "High load",
+  "show all": "Show all",
+  "no alerts": "No alerts",
+  "couldn't get alerts": "Couldn't get alerts",
+  "more detailed": "More detailed"
 }

@@ -1,0 +1,33 @@
+.wrapper {
+  @apply flex gap-5 bg-transparent hover:bg-base-200/30 p-4 rounded-xl ease-linear duration-200 animate-pulse w-full;
+}
+
+.avatar {
+  @apply w-10 h-10 rounded-xl bg-base-100 min-w-[40px];
+}
+
+.content {
+  @apply flex flex-col gap-2 w-full;
+}
+
+.contentHeader {
+  @apply flex items-center justify-between;
+}
+
+.contentHeader h4,
+.contentHeader a,
+.content p {
+  @apply h-1.5 rounded bg-base-200;
+}
+
+.contentHeader h4 {
+  @apply w-20;
+}
+
+.contentHeader a {
+  @apply w-10;
+}
+
+.content p {
+  @apply w-full;
+}

@@ -91,5 +91,9 @@
   "all conclusions are carried out every Friday at 18:00 Moscow time": "Все выводы осуществляются каждую пятницу в 18:00 по МСК",
   "select servers": "Выберите сервера",
 
-  "high load": "Высокая нагрузка"
+  "high load": "Высокая нагрузка",
+  "show all": "Показать все",
+  "no alerts": "Нет оповещений",
+  "couldn't get alerts": "Не получилось получить оповещения",
+  "more detailed": "Подробнее"
 }

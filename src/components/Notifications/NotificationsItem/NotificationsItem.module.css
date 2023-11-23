@@ -1,0 +1,27 @@
+.wrapper {
+  @apply flex gap-5 bg-transparent hover:bg-base-200/20 p-4 rounded-xl ease-linear duration-200 w-full;
+}
+
+.avatar {
+  @apply w-10 h-10 rounded-xl bg-base-100 min-w-[40px];
+}
+
+.content {
+  @apply flex flex-col gap-2 w-full;
+}
+
+.contentHeader {
+  @apply flex items-center justify-between;
+}
+
+.contentHeader h4 {
+  @apply font-semibold;
+}
+
+.contentHeader a {
+  @apply font-semibold;
+}
+
+.content p {
+  @apply leading-normal;
+}
