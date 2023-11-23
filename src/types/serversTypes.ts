@@ -7,6 +7,16 @@ export type Possibility = {
   icon_url: string;
 };
 
+export type Log = {
+  created_at: number;
+  text: string;
+};
+
+export type Logs = {
+  server: Log[];
+  miner: Log[];
+};
+
 export type Server = {
   id: number;
   title: string;
@@ -21,7 +31,7 @@ export type Server = {
   icon_url?: string;
   coins?: Coin[];
   server_user_name?: null | string;
-  logs?: null;
+  logs?: null | Logs;
   type?: ServerTypes;
 };
 
