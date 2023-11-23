@@ -4,10 +4,12 @@ import { modalsOpens, setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { CloseIcon } from "@/components/icons";
 import { NamesModals } from "@/types";
 import { Button } from "@/components/ui";
+import { useTranslation } from "react-i18next";
 
 export const NftWithdrawSuccessModal = () => {
   const { isOpenNftWithdrawSuccessModal: isOpen } = useAppSelector(modalsOpens);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   return (
     <ModalWrapper isOpen={isOpen}>
@@ -34,18 +36,18 @@ export const NftWithdrawSuccessModal = () => {
           <div className="flex flex-col w-full">
             <div className=" flex justify-between items-center gap-4">
               <h4 className="text-2xl font-semibold -translate-y-1">
-                🤘 Готово!
+                🤘 {t("done")}!
               </h4>
             </div>
 
             <p className="font-inter mt-4 text-base">
-              Текст с информацией о том, что NFT успешно выведена.
+              {t("output added to the queue")}
             </p>
 
             <div className="flex items-center gap-2 flex-wrap mt-auto pt-8">
               <Button
                 className="min-[450px]:!w-max"
-                title="Хорошо"
+                title={t("good")}
                 color="primary"
               />
             </div>

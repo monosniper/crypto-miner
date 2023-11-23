@@ -16,7 +16,13 @@ type Props = {
 export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
   const navigate = useNavigate();
 
-  const { data: walletData, isLoading, isFetching } = useGetWalletQuery(null);
+  const {
+    data: walletData,
+    isLoading,
+    isFetching,
+  } = useGetWalletQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const walletLoading = useLoading(isLoading, isFetching);
   const { t } = useTranslation();

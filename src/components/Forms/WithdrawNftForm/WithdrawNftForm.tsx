@@ -1,8 +1,10 @@
 import { Button, FieldWrapper, TextField } from "@/components/ui";
 import { useWithdrawsMutation } from "@/redux/api/userApi";
+import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { withdrawNftModal } from "@/redux/slices/withdrawNftModalSlice";
-import { useAppSelector } from "@/redux/store";
-import { FC, MouseEventHandler } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { NamesModals } from "@/types";
+import { FC, MouseEventHandler, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -18,8 +20,10 @@ type FormData = {
 export const WithdrawNftForm: FC<Props> = ({ cancelOnClick }) => {
   const { t } = useTranslation();
   const methods = useForm<FormData>();
-  const [withdrawNft] = useWithdrawsMutation();
+  const [withdrawNft, { isSuccess, isError, isLoading }] =
+    useWithdrawsMutation();
   const { nftData } = useAppSelector(withdrawNftModal);
+  const dispatch = useAppDispatch();
 
   const formHandler = (data: FormData) => {
     if (!data.wallet) {
@@ -34,6 +38,30 @@ export const WithdrawNftForm: FC<Props> = ({ cancelOnClick }) => {
       nft_id: nftData.id,
     });
   };
+
+  useEffect(() => {
+    if (!isError) return;
+
+    toast.error(t("mistake") + ". " + t("try again later"));
+  }, [isError, t]);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    dispatch(
+      setOpenModal({
+        stateNameModal: NamesModals.isOpenNftWithdrawModal,
+        isOpen: false,
+      }),
+    );
+
+    dispatch(
+      setOpenModal({
+        stateNameModal: NamesModals.isOpenNftWithdrawSuccessModal,
+        isOpen: true,
+      }),
+    );
+  }, [isSuccess, dispatch]);
 
   return (
     <form
@@ -70,7 +98,8 @@ export const WithdrawNftForm: FC<Props> = ({ cancelOnClick }) => {
         <Button
           type="submit"
           className="flex flex-grow basis-[200px] lg:basis-0 lg:flex-grow-0"
-          title={t("withdraw")}
+          title={isLoading ? t("loading") : t("withdraw")}
+          disabled={isLoading}
           color="primary"
         />
       </div>

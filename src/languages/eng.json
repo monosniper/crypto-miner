@@ -93,5 +93,13 @@
   "show all": "Show all",
   "no alerts": "No alerts",
   "couldn't get alerts": "Couldn't get alerts",
-  "more detailed": "More detailed"
+  "more detailed": "More detailed",
+  "withdrawal request requested": "Withdrawal request requested",
+  "fill in all the fields": "Fill in all the fields!",
+  "your balance is zero": "Your balance is zero",
+  "done": "Done",
+  "good": "Good",
+  "output added to the queue": "Output added to the queue",
+  "mistake": "Mistake",
+  "try again later": "Try again later"
 }
