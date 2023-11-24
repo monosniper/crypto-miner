@@ -108,8 +108,8 @@ export const History = () => {
             </>
           ) : (
             <>
-              {withdrawsList && withdrawsList.length > 0 ? (
-                withdrawsList.map((el) => {
+              {withdrawsList && withdrawsList.data.length > 0 ? (
+                withdrawsList.data.map((el) => {
                   return <WithdrawsItem key={el.id} data={el} />;
                 })
               ) : (

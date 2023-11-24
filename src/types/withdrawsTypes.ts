@@ -1,3 +1,5 @@
+import { Nft } from ".";
+
 export enum WithdrawalStatuses {
   FAILED = "failed",
   PENDING = "pending",
@@ -9,6 +11,8 @@ export type WithdrawsItem = {
   amount: number;
   created_at: Date;
   status: WithdrawalStatuses;
+  nft?: null | Nft;
+  type?: "nft" | "coin";
 };
 
 export type WithdrawsBody = {

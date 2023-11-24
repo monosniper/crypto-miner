@@ -46,6 +46,8 @@ export const Notifications: FC<Props> = ({ setOpen, openBtnRef }) => {
 
   return (
     <div className={styles.wrapper} ref={ref}>
+      <h6 className={styles.title}>{t("notifications")}</h6>
+
       {!loading ? (
         <>
           {notifications?.data && notifications.data.length > 0 && (

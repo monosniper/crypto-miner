@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
+import styles from "./ServerPage.module.css";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -39,17 +40,31 @@ export const ServerPage = () => {
       )}
 
       <div className={cn("box", "p-6 mt-6")}>
-        <h5>{t("status")}</h5>
+        <div className="flex justify-between items-center">
+          <h5>{t("status")}</h5>
+
+          {data?.server_user_name && (
+            <h6 className="font-semibold text-xl">{data.server_user_name}</h6>
+          )}
+        </div>
 
         <div className="flex justify-between items-center gap-3 gap-y-6 flex-wrap mt-4">
           <div className="flex items-center gap-4">
-            <FanIcon
-              className={cn({
-                "animate-spin": data?.status === ServerStatuses.WORK_STATUS,
+            <div
+              className={cn(styles.state, {
+                [styles.notActive]:
+                  data?.status === ServerStatuses.NOT_ACTIVE_STATUS,
+                [styles.reload]: data?.status === ServerStatuses.RELOAD_STATUS,
               })}
-              width={32}
-              height={32}
-            />
+            >
+              <FanIcon
+                className={cn({
+                  "animate-spin": data?.status === ServerStatuses.WORK_STATUS,
+                })}
+                width={32}
+                height={32}
+              />
+            </div>
 
             <p className="text-2xl font-semibold">
               {t(getServerStatus(data?.status as ServerStatuses))}

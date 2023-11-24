@@ -26,3 +26,4 @@ export * from "./CloseIcon";
 export * from "./MoreInfoIcon";
 export * from "./MoveIcon";
 export * from "./LightIcon";
+export * from "./LogoIcon";

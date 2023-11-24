@@ -61,7 +61,7 @@ export const userApi = createApi({
       },
     }),
 
-    getWithdraws: query<WithdrawsItem[], null>({
+    getWithdraws: query<{ data: WithdrawsItem[] }, null>({
       query() {
         return {
           url: "me/withdraws",
