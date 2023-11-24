@@ -40,7 +40,13 @@ export const ServerPage = () => {
       )}
 
       <div className={cn("box", "p-6 mt-6")}>
-        <h5>{t("status")}</h5>
+        <div className="flex justify-between items-center">
+          <h5>{t("status")}</h5>
+
+          {data?.server_user_name && (
+            <h6 className="font-semibold text-xl">{data.server_user_name}</h6>
+          )}
+        </div>
 
         <div className="flex justify-between items-center gap-3 gap-y-6 flex-wrap mt-4">
           <div className="flex items-center gap-4">
