@@ -104,5 +104,7 @@
   "output added to the queue": "Вывод добавлен в очередь",
   "mistake": "Ошибка",
   "try again later": "Попробуйте позже",
-  "no data available": "Нет данных"
+  "no data available": "Нет данных",
+
+  "notifications": "Оповещения"
 }

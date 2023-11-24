@@ -3,5 +3,9 @@
 }
 
 .list {
-  @apply flex flex-col;
+  @apply flex flex-col mt-2;
+}
+
+.title {
+  @apply font-semibold text-xl;
 }
