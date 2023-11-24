@@ -1,4 +1,4 @@
-import { Title } from "@/components";
+import { Logs, Title } from "@/components";
 import { FanIcon, PrevIcon } from "@/components/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
@@ -58,6 +58,10 @@ export const ServerPage = () => {
 
           <Button title={t("restart")} />
         </div>
+      </div>
+
+      <div className="mt-6">
+        <Logs logs={data?.logs} loading={isLoading} />
       </div>
     </div>
   );
