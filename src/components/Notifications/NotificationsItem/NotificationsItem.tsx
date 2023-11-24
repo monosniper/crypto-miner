@@ -1,6 +1,7 @@
 import { Notification } from "@/types";
 import styles from "./NotificationsItem.module.css";
 import { FC } from "react";
+import { LogoIcon } from "@/components/icons";
 
 type Props = {
   data: Notification;
@@ -9,7 +10,9 @@ type Props = {
 export const NotificationsItem: FC<Props> = ({ data }) => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.avatar}></div>
+      <div className={styles.avatar}>
+        <LogoIcon />
+      </div>
 
       <div className={styles.content}>
         <div className={styles.contentHeader}>

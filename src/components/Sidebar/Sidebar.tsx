@@ -14,6 +14,7 @@ import { useOutside } from "@/hooks";
 import { Select, TelegramLink } from "@/components/ui";
 import { languagesData } from "@/data";
 import { useTranslation } from "react-i18next";
+import { LogoIcon } from "../icons";
 
 type Props = {
   isLaptop: boolean;
@@ -45,9 +46,10 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
       >
         <div className={styles.header}>
           <Link
-            className="bg-gradient-3 bg-clip-text text-transparent text-[34px] leading-10 font-semibold font-droid"
+            className="bg-gradient-3 bg-clip-text text-transparent text-[34px] leading-10 font-semibold font-droid flex items-center gap-2"
             to="/"
           >
+            <LogoIcon />
             Hogyx
           </Link>
         </div>

@@ -19,6 +19,14 @@
   @apply fill-success;
 }
 
+.state.notActive svg path {
+  @apply fill-red-500;
+}
+
+.state.reload svg path {
+  @apply fill-gray-1;
+}
+
 .title {
   @apply text-base font-medium pt-4 mt-auto text-left;
 }

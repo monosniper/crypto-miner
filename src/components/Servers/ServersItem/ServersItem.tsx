@@ -38,7 +38,13 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
       onClick={onClick}
     >
       <div className={styles.header}>
-        <div className={styles.state}>
+        <div
+          className={cn(styles.state, {
+            [styles.notActive]:
+              data.status === ServerStatuses.NOT_ACTIVE_STATUS,
+            [styles.reload]: data.status === ServerStatuses.RELOAD_STATUS,
+          })}
+        >
           <FanIcon
             className={cn({
               "animate-spin": data.status === ServerStatuses.WORK_STATUS,
@@ -48,6 +54,10 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
           <p>{t(getServerStatus(data.status as ServerStatuses))}</p>
         </div>
       </div>
+
+      {data.server_user_name && (
+        <h4 className={styles.title}>{data.server_user_name}</h4>
+      )}
 
       <h5 className={styles.title}>{data.title}</h5>
 

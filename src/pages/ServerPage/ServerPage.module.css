@@ -1,0 +1,11 @@
+.state svg path {
+  @apply fill-success;
+}
+
+.state.notActive svg path {
+  @apply fill-red-500;
+}
+
+.state.reload svg path {
+  @apply fill-gray-1;
+}
