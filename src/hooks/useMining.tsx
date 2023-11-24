@@ -13,6 +13,8 @@ export const useMining = () => {
   const toggleServerSelection = (server: Server) => {
     const foundServer = selectedServers.find((el) => server.id === el.id);
 
+    if (selectedServers[0] && selectedServers[0].type !== server.type) return;
+
     if (!foundServer) {
       return dispatch(setSelectedServers([...selectedServers, server]));
     } else {
