@@ -8,9 +8,11 @@ import {
   RefObject,
   SetStateAction,
   useRef,
+  useState,
 } from "react";
 import { useLoading, useOutside } from "@/hooks";
 import { useTranslation } from "react-i18next";
+import cn from "clsx";
 
 type Props = {
   setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -26,6 +28,7 @@ export const Notifications: FC<Props> = ({ setOpen, openBtnRef }) => {
   } = useGetNotificationsQuery(null);
   const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const [showAll, setShowAll] = useState(false);
 
   useOutside(ref, (e: MouseEvent<HTMLDivElement>) => {
     if (!setOpen) return;
@@ -46,10 +49,16 @@ export const Notifications: FC<Props> = ({ setOpen, openBtnRef }) => {
       {!loading ? (
         <>
           {notifications?.data && notifications.data.length > 0 && (
-            <div className={styles.list}>
-              {notifications?.data.map((el) => {
-                return <NotificationsItem key={el.id} data={el} />;
+            <div
+              className={cn(styles.list, {
+                "overflow-y-auto max-h-[375px]": showAll,
               })}
+            >
+              {notifications?.data
+                .slice(0, showAll ? undefined : 5)
+                .map((el) => {
+                  return <NotificationsItem key={el.id} data={el} />;
+                })}
             </div>
           )}
 
@@ -72,6 +81,15 @@ export const Notifications: FC<Props> = ({ setOpen, openBtnRef }) => {
           <NotificationSkelet />
           <NotificationSkelet />
           <NotificationSkelet />
+        </div>
+      )}
+
+      {notifications && notifications.data.length > 5 && (
+        <div
+          className="text-center cursor-pointer"
+          onClick={() => setShowAll((prev) => !prev)}
+        >
+          {showAll ? t("roll-up") : t("show all")}
         </div>
       )}
     </div>
