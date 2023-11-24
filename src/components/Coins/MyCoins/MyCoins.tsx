@@ -76,6 +76,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
           graph: [],
           graph_today: [],
           money_balance: 0,
+          hardLoad: 0,
         };
 
         for (let j = 0; j < walletCoins.length; j++) {
