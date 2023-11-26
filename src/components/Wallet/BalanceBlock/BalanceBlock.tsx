@@ -41,7 +41,7 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
             <>
               {walletData && (
                 <p className={styles.currentBalance}>
-                  {walletData.balance.USDT || 0} USDT
+                  {walletData.data.balance.USDT || 0} USDT
                 </p>
               )}
             </>

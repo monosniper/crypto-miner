@@ -28,7 +28,7 @@ export const serversApi = createApi({
 
   tagTypes: ["convertations"],
   endpoints: ({ query }) => ({
-    getAllServers: query<Server[], null>({
+    getAllServers: query<{ data: Server[] }, null>({
       query() {
         return {
           url: "servers",
@@ -37,7 +37,7 @@ export const serversApi = createApi({
       },
     }),
 
-    getServerById: query<Server, { id: number }>({
+    getServerById: query<{ data: Server }, { id: number }>({
       query(params) {
         return {
           url: `servers/${params.id}`,
@@ -46,7 +46,7 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServers: query<Server[], null>({
+    getMyServers: query<{ data: Server[] }, null>({
       query() {
         return {
           url: "me/servers",
@@ -55,7 +55,7 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServerById: query<Server, { id: number }>({
+    getMyServerById: query<{ data: Server }, { id: number }>({
       query(params) {
         return {
           url: `me/servers/${params.id}`,

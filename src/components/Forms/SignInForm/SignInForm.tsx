@@ -34,7 +34,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
     if (!data) return;
 
     if (password) {
-      dispatch(setUserData(data));
+      dispatch(setUserData(data.data));
 
       const hashedPassword = CryptoJS.AES.encrypt(
         password,
@@ -42,7 +42,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
       ).toString();
 
       const mainUserData = {
-        email: data.email,
+        email: data.data.email,
         password: hashedPassword,
       };
 

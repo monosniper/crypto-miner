@@ -56,7 +56,7 @@ export const WalletPage = () => {
 
         <MyCoins
           className="mt-6"
-          coinsList={walletData}
+          coinsList={walletData?.data}
           loading={walletLoading}
         />
       </div>

@@ -34,9 +34,9 @@ export const NftList = () => {
           </div>
         ) : (
           <>
-            {wallet && wallet.nfts.length > 0 && (
+            {wallet && wallet.data.nfts.length > 0 && (
               <div className="flex flex-wrap -m-2">
-                {wallet.nfts.map((el) => {
+                {wallet.data.nfts.map((el) => {
                   return (
                     <div
                       className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
@@ -55,7 +55,7 @@ export const NftList = () => {
               </div>
             )}
 
-            {!isError && (!wallet || wallet.nfts.length === 0) && (
+            {!isError && (!wallet || wallet.data.nfts.length === 0) && (
               <div className="flex flex-col flex-grow">
                 <EmptyText text="Нет Nft" />
               </div>
@@ -63,7 +63,7 @@ export const NftList = () => {
           </>
         )}
       </div>
-      {wallet && wallet.nfts.length > 8 && (
+      {wallet && wallet.data.nfts.length > 8 && (
         <ShowMoreBtn className="mt-6" onClick={() => console.log("click")} />
       )}
     </>

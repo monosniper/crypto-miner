@@ -22,7 +22,7 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
       return toast.warning(t("fill in all the fields"));
     }
 
-    if (walletData.balance.USDT === 0) {
+    if (walletData.data.balance.USDT === 0) {
       return toast.error(t("your balance is zero"));
     }
 

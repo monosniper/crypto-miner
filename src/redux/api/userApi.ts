@@ -36,7 +36,7 @@ export const userApi = createApi({
 
   tagTypes: ["convertations", "coins"],
   endpoints: ({ query, mutation }) => ({
-    getMe: query<User, { email: string; password: string | number }>({
+    getMe: query<{ data: User }, { email: string; password: string | number }>({
       query(params) {
         const credentials = `${params.email}:${params.password}`;
 
@@ -52,7 +52,7 @@ export const userApi = createApi({
       },
     }),
 
-    getWallet: query<{ balance: Balance; nfts: Nft[] }, null>({
+    getWallet: query<{ data: { balance: Balance; nfts: Nft[] } }, null>({
       query() {
         return {
           url: "me/wallet",
