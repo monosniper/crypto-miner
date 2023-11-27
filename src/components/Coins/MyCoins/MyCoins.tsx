@@ -64,7 +64,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
     const upgradeWalletCoins: Coin[] = [];
 
     if (allCoins) {
-      for (let i = 0; i < allCoins.length; i++) {
+      for (let i = 0; i < allCoins.data.length; i++) {
         const coin: Coin = {
           id: 0,
           slug: "",
@@ -80,13 +80,13 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
         };
 
         for (let j = 0; j < walletCoins.length; j++) {
-          if (allCoins[i].slug === walletCoins[j][0]) {
-            coin.id = allCoins[i].id;
+          if (allCoins.data[i].slug === walletCoins[j][0]) {
+            coin.id = allCoins.data[i].id;
             coin.slug = walletCoins[j][0].toString();
             coin.balance = Number(walletCoins[j][1]);
-            coin.name = allCoins[i].name;
-            coin.icon_url = allCoins[i].icon_url;
-            coin.rate = allCoins[i].rate;
+            coin.name = allCoins.data[i].name;
+            coin.icon_url = allCoins.data[i].icon_url;
+            coin.rate = allCoins.data[i].rate;
             coin.money_balance = walletCoins[1][1] as unknown as number;
           }
         }

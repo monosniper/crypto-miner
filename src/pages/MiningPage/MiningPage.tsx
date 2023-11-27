@@ -33,7 +33,7 @@ export const MiningPage = () => {
 
         <Servers
           className="mt-6"
-          servers={serversList}
+          servers={serversList?.data}
           loading={serversListLoading}
           type="mining"
         />

@@ -9,7 +9,7 @@ export const articlesApi = createApi({
 
   tagTypes: ["articles"],
   endpoints: ({ query }) => ({
-    getArticles: query<News[], null>({
+    getArticles: query<{ data: News[] }, null>({
       query() {
         return {
           url: "",

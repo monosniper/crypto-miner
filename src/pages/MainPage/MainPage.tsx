@@ -55,7 +55,7 @@ export const MainPage = () => {
       </p>
 
       <Coins
-        rows={data}
+        rows={data?.data}
         draggableItems={true}
         loading={data ? false : coinsLoading}
       />
@@ -63,7 +63,7 @@ export const MainPage = () => {
       <div className="flex flex-wrap mt-16 -m-6">
         <div className="w-full md:w-1/2 p-6">
           <News
-            list={articlesList ? articlesList.slice(0, 3) : articlesList}
+            list={articlesList ? articlesList.data.slice(0, 3) : undefined}
             loading={articlesLoading}
           />
         </div>

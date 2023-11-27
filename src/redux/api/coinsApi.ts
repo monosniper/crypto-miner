@@ -7,7 +7,7 @@ export const coinsApi = createApi({
     baseUrl: `${import.meta.env.VITE_API!}/coins`,
   }),
   endpoints: ({ query }) => ({
-    getCoins: query<Coin[], null>({
+    getCoins: query<{ data: Coin[] }, null>({
       query() {
         return {
           url: "",

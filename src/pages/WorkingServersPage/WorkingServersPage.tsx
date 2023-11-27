@@ -32,7 +32,7 @@ export const WorkingServersPage = () => {
         <Servers
           className="mt-6"
           plansRef={plansRef}
-          servers={serversList}
+          servers={serversList?.data}
           loading={serversListLoading}
         />
       </div>

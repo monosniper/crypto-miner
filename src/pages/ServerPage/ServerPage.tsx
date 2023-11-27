@@ -33,8 +33,8 @@ export const ServerPage = () => {
         <span>{t("server")}</span>
       </button>
 
-      {!isLoading && data?.title ? (
-        <Title title={data.title} />
+      {!isLoading && data?.data.title ? (
+        <Title title={data.data.title} />
       ) : (
         <div className="w-20 h-2 rounded bg-base-200 animate-pulse"></div>
       )}
@@ -43,8 +43,10 @@ export const ServerPage = () => {
         <div className="flex justify-between items-center">
           <h5>{t("status")}</h5>
 
-          {data?.server_user_name && (
-            <h6 className="font-semibold text-xl">{data.server_user_name}</h6>
+          {data?.data.server_user_name && (
+            <h6 className="font-semibold text-xl">
+              {data.data.server_user_name}
+            </h6>
           )}
         </div>
 
@@ -53,13 +55,15 @@ export const ServerPage = () => {
             <div
               className={cn(styles.state, {
                 [styles.notActive]:
-                  data?.status === ServerStatuses.NOT_ACTIVE_STATUS,
-                [styles.reload]: data?.status === ServerStatuses.RELOAD_STATUS,
+                  data?.data.status === ServerStatuses.NOT_ACTIVE_STATUS,
+                [styles.reload]:
+                  data?.data.status === ServerStatuses.RELOAD_STATUS,
               })}
             >
               <FanIcon
                 className={cn({
-                  "animate-spin": data?.status === ServerStatuses.WORK_STATUS,
+                  "animate-spin":
+                    data?.data.status === ServerStatuses.WORK_STATUS,
                 })}
                 width={32}
                 height={32}
@@ -67,7 +71,7 @@ export const ServerPage = () => {
             </div>
 
             <p className="text-2xl font-semibold">
-              {t(getServerStatus(data?.status as ServerStatuses))}
+              {t(getServerStatus(data?.data.status as ServerStatuses))}
             </p>
           </div>
 
@@ -76,7 +80,7 @@ export const ServerPage = () => {
       </div>
 
       <div className="mt-6">
-        <LogsBlock logs={data?.logs} loading={isLoading} />
+        <LogsBlock logs={data?.data.logs} loading={isLoading} />
       </div>
     </div>
   );

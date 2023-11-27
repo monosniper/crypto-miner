@@ -15,7 +15,7 @@ export const WithdrawsItem: FC<Props> = ({ data }) => {
   const { t } = useTranslation();
   return (
     <div
-      className={cn("box p-4", {
+      className={cn("box p-4 text-black", {
         "!bg-red-100": data.status === WithdrawalStatuses.FAILED,
         "!bg-yellow-100": data.status === WithdrawalStatuses.PENDING,
         "!bg-green-100": data.status === WithdrawalStatuses.SUCCESS,
@@ -25,10 +25,10 @@ export const WithdrawsItem: FC<Props> = ({ data }) => {
 
       <div className="flex items-center justify-between mt-4">
         <p className="text-lg font-medium">
-          {data.amount} <span className="text-base-content-300">USDT</span>
+          {data.amount} <span className="text-black">USDT</span>
         </p>
 
-        <p className="text-xs text-base-content-300">
+        <p className="text-xs text-black">
           {formatRelativeDate(new Date(data.created_at))}
         </p>
       </div>
