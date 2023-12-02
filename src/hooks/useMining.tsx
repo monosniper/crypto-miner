@@ -5,6 +5,8 @@ import {
 } from "@/redux/slices/miningSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { Coin, Server } from "@/types";
+import { useEffect } from "react";
+import { socket } from "@/core/socket";
 
 export const useMining = () => {
   const { selectedServers, selectedCoins } = useAppSelector(mining);
@@ -66,10 +68,13 @@ export const useMining = () => {
     return coins;
   };
 
+  const startMiner = () => {};
+
   return {
     toggleServerSelection,
     toggleCoinSelection,
     checkIdentityType,
     coins: coins(),
+    startMiner,
   };
 };

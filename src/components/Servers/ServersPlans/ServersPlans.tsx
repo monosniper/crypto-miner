@@ -21,8 +21,8 @@ export const ServersPlans = () => {
       {!loading ? (
         <>
           {serversList &&
-            serversList.length > 0 &&
-            serversList.map((el) => {
+            serversList.data?.length > 0 &&
+            serversList.data.map((el) => {
               return (
                 <div className="w-full md:w-1/2 lg:w-1/3 p-2" key={el.id}>
                   <ServersPlansItem
@@ -33,7 +33,9 @@ export const ServersPlans = () => {
               );
             })}
 
-          {(serversIsError || !serversList || serversList.length === 0) && (
+          {(serversIsError ||
+            !serversList ||
+            serversList.data.length === 0) && (
             <div className="flex flex-col flex-grow">
               <EmptyText text="Нет получилось получить данные" />
             </div>

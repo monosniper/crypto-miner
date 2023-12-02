@@ -1,7 +1,11 @@
+import { CoinPosition } from ".";
+
 export type User = {
   id: number;
   name: string;
   email: string;
+  token: string;
+  coin_positions: CoinPosition[];
 };
 
 export type Balance = {

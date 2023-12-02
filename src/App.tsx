@@ -8,6 +8,7 @@ import { useGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
 import { ToastContainer } from "react-toastify";
 import { Tooltip } from "react-tooltip";
+import socket from "./core/socket";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -39,7 +40,9 @@ const App = () => {
   useEffect(() => {
     if (!data) return;
 
-    dispatch(setUserData(data));
+    const { data: user } = data;
+
+    dispatch(setUserData(user));
   }, [data, dispatch]);
 
   useEffect(() => {
@@ -47,6 +50,12 @@ const App = () => {
 
     localStorage.removeItem("mainUserData");
   }, [dispatch, error]);
+
+  useEffect(() => {
+    socket.on("connection", (data) => {
+      console.log(data);
+    });
+  }, []);
 
   return (
     <div className="relative">

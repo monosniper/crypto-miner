@@ -1,5 +1,5 @@
 import { CoinBlock, EmptyText, Servers, Title } from "@/components";
-import { Search } from "@/components/ui";
+import { Button, Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useMining } from "@/hooks/useMining";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
@@ -20,7 +20,7 @@ export const MiningPage = () => {
     serversListIsFetching,
   );
   const { t } = useTranslation();
-  const { coins, toggleCoinSelection } = useMining();
+  const { coins, toggleCoinSelection, startMiner } = useMining();
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
 
@@ -78,6 +78,13 @@ export const MiningPage = () => {
                   );
                 })}
             </div>
+
+            <Button
+              className="mx-auto mt-6 min-w-[150px]"
+              title={t("start")}
+              color="primary"
+              onClick={startMiner}
+            />
           </div>
         )}
 

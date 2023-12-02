@@ -1,4 +1,4 @@
-import { PropsWithClassName } from "@/types";
+import { PropsWithClassName, ServerStatuses } from "@/types";
 import { FC, RefObject } from "react";
 import cn from "clsx";
 import { Buy } from "../ui";
@@ -64,7 +64,11 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                       >
                         <ServersItem
                           type={type}
-                          onClick={() => toggleServerSelection(el)}
+                          onClick={() => {
+                            if (el.status === ServerStatuses.ACTIVE_STATUS) {
+                              toggleServerSelection(el);
+                            }
+                          }}
                           data={el}
                           selected={
                             selectedServers.find(
@@ -73,7 +77,10 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                               ? true
                               : false
                           }
-                          disabled={!checkIdentityType(el)}
+                          disabled={
+                            !checkIdentityType(el) ||
+                            el.status !== ServerStatuses.ACTIVE_STATUS
+                          }
                         />
                       </div>
                     );
