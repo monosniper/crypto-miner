@@ -106,5 +106,7 @@
 
   "notifications": "Notifications",
 
-  "start": "Start"
+  "start": "Start",
+
+  "failed to start mining": "Failed to start mining"
 }

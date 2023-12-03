@@ -1,0 +1,31 @@
+import { Coin, Server } from ".";
+
+export type StartMinerSocketData = {
+  message: string;
+  data: {
+    session_id: number;
+  };
+};
+
+export type ServerLog = {
+  coin: string;
+  text: string;
+  contrast: string;
+  timestamp: string;
+};
+
+export type Found = {
+  id: string;
+  type: string;
+  amount: number;
+  timestamp: string;
+};
+
+export type Session = {
+  data: {
+    id: number;
+    coins: Coin[];
+    founds: Found[];
+    servers: Server[];
+  };
+};

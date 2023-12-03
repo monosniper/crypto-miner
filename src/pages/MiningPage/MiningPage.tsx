@@ -1,4 +1,4 @@
-import { CoinBlock, EmptyText, Servers, Title } from "@/components";
+import { CoinBlock, EmptyText, LogsBlock, Servers, Title } from "@/components";
 import { Button, Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useMining } from "@/hooks/useMining";
@@ -20,7 +20,8 @@ export const MiningPage = () => {
     serversListIsFetching,
   );
   const { t } = useTranslation();
-  const { coins, toggleCoinSelection, startMiner } = useMining();
+  const { coins, toggleCoinSelection, startMiner, sessionData, loading } =
+    useMining();
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
 
@@ -68,7 +69,7 @@ export const MiningPage = () => {
                         data={el}
                         type="mining"
                         selected={
-                          selectedCoins.find((coin) => el.id === coin.id)
+                          selectedCoins.find((coin) => el.id === coin)
                             ? true
                             : false
                         }
@@ -81,9 +82,10 @@ export const MiningPage = () => {
 
             <Button
               className="mx-auto mt-6 min-w-[150px]"
-              title={t("start")}
+              title={!loading ? t("start") : t("loading")}
               color="primary"
               onClick={startMiner}
+              disabled={loading}
             />
           </div>
         )}
@@ -94,6 +96,12 @@ export const MiningPage = () => {
           </div>
         )}
       </div>
+
+      {coins.length > 0 && (
+        <div className="mt-16">
+          <LogsBlock session={sessionData} />
+        </div>
+      )}
     </div>
   );
 };

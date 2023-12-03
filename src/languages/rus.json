@@ -108,5 +108,7 @@
 
   "notifications": "Оповещения",
 
-  "start": "Старт"
+  "start": "Старт",
+
+  "failed to start mining": "Не удалось начать майнинг"
 }

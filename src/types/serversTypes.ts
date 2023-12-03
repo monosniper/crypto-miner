@@ -1,20 +1,10 @@
-import { Coin } from "@/types";
+import { Coin, ServerLog } from "@/types";
 
 export type Possibility = {
   id: number;
   name: string;
   slug: string | null;
   icon_url: string;
-};
-
-export type Log = {
-  created_at: number;
-  text: string;
-};
-
-export type Logs = {
-  server: Log[];
-  miner: Log[];
 };
 
 export enum ServerStatuses {
@@ -47,8 +37,9 @@ export type Server = {
   icon_url?: string;
   coins?: Coin[];
   server_user_name?: null | string;
-  logs?: null | Logs;
+  logs?: null | ServerLog[];
   type?: ServerTypes;
+  server?: Server;
 };
 
 export type SelectedServer = Pick<Server, "id" | "type" | "coins">;

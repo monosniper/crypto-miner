@@ -18,5 +18,3 @@ export type CoinPosition = {
   id: number;
   hide: boolean;
 };
-
-export type SelectedCoin = Pick<Coin, "id">;
