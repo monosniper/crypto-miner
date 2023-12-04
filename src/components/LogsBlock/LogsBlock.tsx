@@ -1,16 +1,16 @@
 import { FC } from "react";
 import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
-import { useMining } from "@/hooks/useMining";
+import { ServerLog } from "@/types";
 
 type Props = {
   type?: "mining" | "server";
   loading?: boolean;
+  left?: ServerLog[];
 };
 
-export const LogsBlock: FC<Props> = ({ type = "mining", loading }) => {
+export const LogsBlock: FC<Props> = ({ type = "mining", loading, left }) => {
   const { t } = useTranslation();
-  const { serversAllLogs } = useMining();
 
   return (
     <div className="flex flex-wrap -m-3">
@@ -21,14 +21,14 @@ export const LogsBlock: FC<Props> = ({ type = "mining", loading }) => {
               <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
                 {!loading && (
                   <>
-                    {serversAllLogs.length === 0 ? (
+                    {!left || left.length === 0 ? (
                       <EmptyText
                         className="text-gray-1"
                         text={t("no data available")}
                       />
                     ) : (
                       <>
-                        {serversAllLogs.map((el, idx) => {
+                        {left.map((el, idx) => {
                           return (
                             <p key={idx}>
                               <span className="text-yellow-500">
@@ -53,14 +53,14 @@ export const LogsBlock: FC<Props> = ({ type = "mining", loading }) => {
               <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
                 {!loading && (
                   <>
-                    {serversAllLogs.length === 0 ? (
+                    {!left || left.length === 0 ? (
                       <EmptyText
                         className="text-gray-1"
                         text={t("no data available")}
                       />
                     ) : (
                       <>
-                        {serversAllLogs.map((el, idx) => {
+                        {left.map((el, idx) => {
                           return (
                             <p key={idx}>
                               <span className="text-yellow-500">

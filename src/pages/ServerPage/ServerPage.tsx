@@ -4,10 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
 import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
-import { ServerStatuses } from "@/types";
+import { ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
+import { useMining } from "@/hooks/useMining";
+import { useAppSelector } from "@/redux/store";
+import { user } from "@/redux/slices/userSlice";
+import { useState, useEffect } from "react";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -18,8 +22,27 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    },
+    }
   );
+  const { sessionData } = useMining();
+  const { userData } = useAppSelector(user);
+  const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
+
+  useEffect(() => {
+    if ((!sessionData && !userData?.session) || !id) return;
+
+    const servers = sessionData?.data.servers || userData?.session.servers;
+
+    if (!servers) return;
+
+    const foundServer = servers.find((el) => el.id === Number(id));
+
+    if (!foundServer) return;
+
+    if (foundServer.logs) {
+      setServerLogs(foundServer.logs);
+    }
+  }, [id, sessionData, userData?.session]);
 
   return (
     <div>
@@ -80,7 +103,7 @@ export const ServerPage = () => {
       </div>
 
       <div className="mt-6">
-        <LogsBlock logs={data?.data.logs} loading={isLoading} />
+        <LogsBlock loading={isLoading} left={serverLogs} />
       </div>
     </div>
   );

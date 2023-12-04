@@ -31,7 +31,7 @@ export const useMining = () => {
 
     const userSelectedServers = userData.session.servers.map((el) => {
       const foundServer = serversList?.data.find(
-        (server) => server.id === el.id,
+        (server) => server.id === el.id
       );
 
       if (!foundServer) return el;
@@ -97,13 +97,13 @@ export const useMining = () => {
       dispatch(
         setSelectedCoins(
           selectedCoins.filter(
-            (coinEl) => !server.coins?.some((el) => el.id === coinEl),
-          ),
-        ),
+            (coinEl) => !server.coins?.some((el) => el.id === coinEl)
+          )
+        )
       );
 
       return dispatch(
-        setSelectedServers(selectedServers.filter((el) => el.id !== server.id)),
+        setSelectedServers(selectedServers.filter((el) => el.id !== server.id))
       );
     }
   };
@@ -115,7 +115,7 @@ export const useMining = () => {
       return dispatch(setSelectedCoins([...selectedCoins, coin.id]));
     } else {
       return dispatch(
-        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id)),
+        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id))
       );
     }
   };
