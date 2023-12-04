@@ -110,5 +110,6 @@
 
   "failed to start mining": "Failed to start mining",
 
-  "at work": "At work"
+  "at work": "At work",
+  "select coins": "Select coins"
 }

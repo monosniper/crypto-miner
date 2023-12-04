@@ -17,49 +17,67 @@ export const LogsBlock: FC<Props> = ({ type = "mining", loading }) => {
       {type === "mining" && (
         <>
           <div className="w-full md:w-1/2 p-3">
-            <div className="box w-full p-4 h-[150px] overflow-y-auto flex flex-col gap-1 scrollbar-none">
-              {!loading && (
-                <>
-                  {serversAllLogs.length === 0 ? (
-                    <EmptyText
-                      className="text-gray-1"
-                      text={t("no data available")}
-                    />
-                  ) : (
-                    <>
-                      {serversAllLogs.map((el, idx) => {
-                        return (
-                          <p key={idx}>
-                            <span className="text-yellow-500">{el.coin}</span>{" "}
-                            {el.text}{" "}
-                            <span className="text-purple-2">{el.contrast}</span>
-                          </p>
-                        );
-                      })}
-                    </>
-                  )}
-                </>
-              )}
+            <div className="box w-full p-4 h-[150px] overflow-hidden">
+              <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
+                {!loading && (
+                  <>
+                    {serversAllLogs.length === 0 ? (
+                      <EmptyText
+                        className="text-gray-1"
+                        text={t("no data available")}
+                      />
+                    ) : (
+                      <>
+                        {serversAllLogs.map((el, idx) => {
+                          return (
+                            <p key={idx}>
+                              <span className="text-yellow-500">
+                                [{el.coin}]
+                              </span>{" "}
+                              {el.text}{" "}
+                              <span className="text-purple-2">
+                                {el.contrast}
+                              </span>
+                            </p>
+                          );
+                        })}
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
           <div className="w-full md:w-1/2 p-3">
-            <div className="box w-full p-4 h-[150px] overflow-y-auto flex flex-col gap-1 scrollbar-none">
-              {!loading && (
-                <>
-                  {serversAllLogs.length === 0 ? (
-                    <EmptyText
-                      className="text-gray-1"
-                      text={t("no data available")}
-                    />
-                  ) : (
-                    <>
-                      {serversAllLogs.map((el, idx) => {
-                        return <p key={idx}></p>;
-                      })}
-                    </>
-                  )}
-                </>
-              )}
+            <div className="box w-full p-4 h-[150px] overflow-hidden">
+              <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
+                {!loading && (
+                  <>
+                    {serversAllLogs.length === 0 ? (
+                      <EmptyText
+                        className="text-gray-1"
+                        text={t("no data available")}
+                      />
+                    ) : (
+                      <>
+                        {serversAllLogs.map((el, idx) => {
+                          return (
+                            <p key={idx}>
+                              <span className="text-yellow-500">
+                                [{el.coin}]
+                              </span>{" "}
+                              {el.text}{" "}
+                              <span className="text-purple-2">
+                                {el.contrast}
+                              </span>
+                            </p>
+                          );
+                        })}
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </>

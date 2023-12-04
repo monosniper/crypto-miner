@@ -16,7 +16,7 @@ export type ServerLog = {
 
 export type Found = {
   id: string;
-  type: string;
+  type: "coin" | "nft";
   amount: number;
   timestamp: string;
 };

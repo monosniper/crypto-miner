@@ -143,6 +143,10 @@ export const useMining = () => {
   };
 
   const startMiner = () => {
+    if (selectedCoins.length === 0) {
+      return toast.warning(t("select coins"));
+    }
+
     setLoading(true);
 
     const servers = selectedServers.map((el) => el.id);

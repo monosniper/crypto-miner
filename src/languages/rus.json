@@ -112,5 +112,6 @@
 
   "failed to start mining": "Не удалось начать майнинг",
 
-  "at work": "В работе"
+  "at work": "В работе",
+  "select coins": "Выберите монеты"
 }
