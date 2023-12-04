@@ -22,10 +22,12 @@ export type Found = {
 };
 
 export type Session = {
-  data: {
-    id: number;
-    coins: Coin[];
-    founds: Found[];
-    servers: Server[];
-  };
+  data: SessionData;
+};
+
+export type SessionData = {
+  id: number;
+  coins: Coin[];
+  founds: Found[];
+  servers: Server[];
 };

@@ -108,5 +108,7 @@
 
   "start": "Start",
 
-  "failed to start mining": "Failed to start mining"
+  "failed to start mining": "Failed to start mining",
+
+  "at work": "At work"
 }

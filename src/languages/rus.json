@@ -110,5 +110,7 @@
 
   "start": "Старт",
 
-  "failed to start mining": "Не удалось начать майнинг"
+  "failed to start mining": "Не удалось начать майнинг",
+
+  "at work": "В работе"
 }

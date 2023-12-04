@@ -1,4 +1,4 @@
-import { CoinPosition } from ".";
+import { CoinPosition, SessionData } from ".";
 
 export type User = {
   id: number;
@@ -6,6 +6,7 @@ export type User = {
   email: string;
   token: string;
   coin_positions: CoinPosition[];
+  session: SessionData;
 };
 
 export type Balance = {

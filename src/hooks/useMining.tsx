@@ -1,10 +1,12 @@
 import socket from "@/core/socket";
 import { useLazyGetSessionQuery } from "@/redux/api/miningApi";
+import { useGetMyServersQuery } from "@/redux/api/serversApi";
 import {
   mining,
   setSelectedCoins,
   setSelectedServers,
 } from "@/redux/slices/miningSlice";
+import { user } from "@/redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { Coin, Server, ServerLog, StartMinerSocketData } from "@/types";
 import { useEffect, useState } from "react";
@@ -21,18 +23,62 @@ export const useMining = () => {
   ] = useLazyGetSessionQuery();
   const { t } = useTranslation();
   const [serversAllLogs, setServersAllLogs] = useState<ServerLog[]>([]);
+  const { userData } = useAppSelector(user);
+  const { data: serversList } = useGetMyServersQuery(null);
 
   useEffect(() => {
-    if (!sessionData) return;
+    if (!userData?.session) return;
 
-    const { servers } = sessionData.data;
+    const userSelectedServers = userData.session.servers.map((el) => {
+      const foundServer = serversList?.data.find(
+        (server) => server.id === el.id,
+      );
 
-    for (let i = 0; i < servers.length; i++) {
-      const server = servers[i];
+      if (!foundServer) return el;
 
-      console.log(server);
-    }
-  }, [sessionData]);
+      return {
+        id: el.id,
+        type: foundServer.type,
+        coins: foundServer.coins,
+      };
+    });
+
+    const userSelectedCoins = userData?.session.coins.map((el) => el.id);
+
+    dispatch(setSelectedServers(userSelectedServers));
+    dispatch(setSelectedCoins(userSelectedCoins));
+  }, [dispatch, serversList?.data, userData]);
+
+  useEffect(() => {
+    const servers = sessionData?.data.servers || userData?.session?.servers;
+
+    if (!servers) return;
+
+    const interval = setInterval(() => {
+      const logs: ServerLog[] = [];
+
+      for (let i = 0; i < servers.length; i++) {
+        const server = servers[i];
+
+        if (!server.logs) return;
+
+        for (let j = 0; j < server.logs.length; j++) {
+          const log = server.logs[j];
+
+          const logDate = new Date(log.timestamp);
+          const currentDate = new Date();
+
+          if (currentDate > logDate) {
+            logs.push(log);
+          }
+        }
+      }
+
+      setServersAllLogs(logs);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [sessionData, userData?.session]);
 
   const toggleServerSelection = (server: Server) => {
     const foundServer = selectedServers.find((el) => server.id === el.id);
@@ -146,5 +192,6 @@ export const useMining = () => {
     loading: loading || sessionIsLoading,
     sessionData,
     sessionError,
+    serversAllLogs,
   };
 };
