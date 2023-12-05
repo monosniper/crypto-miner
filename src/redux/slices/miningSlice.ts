@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Coin, RootState, Server } from "@/types";
+import { RootState, SelectedServer } from "@/types";
 
 const initialState: {
-  selectedServers: Server[];
-  selectedCoins: Coin[];
+  selectedServers: SelectedServer[];
+  selectedCoins: number[];
 } = {
   selectedServers: [],
   selectedCoins: [],
@@ -13,11 +13,11 @@ export const miningSlice = createSlice({
   name: "mining",
   initialState,
   reducers: {
-    setSelectedServers: (state, action: PayloadAction<Server[]>) => {
+    setSelectedServers: (state, action: PayloadAction<SelectedServer[]>) => {
       state.selectedServers = action.payload;
     },
 
-    setSelectedCoins: (state, action: PayloadAction<Coin[]>) => {
+    setSelectedCoins: (state, action: PayloadAction<number[]>) => {
       state.selectedCoins = action.payload;
     },
   },

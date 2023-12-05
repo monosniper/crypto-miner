@@ -106,5 +106,12 @@
   "try again later": "Попробуйте позже",
   "no data available": "Нет данных",
 
-  "notifications": "Оповещения"
+  "notifications": "Оповещения",
+
+  "start": "Старт",
+
+  "failed to start mining": "Не удалось начать майнинг",
+
+  "at work": "В работе",
+  "select coins": "Выберите монеты"
 }

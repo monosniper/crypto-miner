@@ -10,6 +10,7 @@ import { setAuth, setUserData } from "@/redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<SignInFormData>();
@@ -41,12 +42,16 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
         import.meta.env.VITE_CRYPT_KEY,
       ).toString();
 
+      const token = data.data.token;
+
       const mainUserData = {
         email: data.data.email,
         password: hashedPassword,
       };
 
       localStorage.setItem("mainUserData", JSON.stringify(mainUserData));
+
+      Cookies.set("token", token);
 
       dispatch(setAuth(true));
 

@@ -4,10 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
 import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
-import { ServerStatuses } from "@/types";
+import { Found, ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
+import { useMining } from "@/hooks/useMining";
+import { useAppSelector } from "@/redux/store";
+import { user } from "@/redux/slices/userSlice";
+import { useState, useEffect } from "react";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -20,6 +24,60 @@ export const ServerPage = () => {
       refetchOnMountOrArgChange: true,
     },
   );
+  const { sessionData } = useMining();
+  const { userData } = useAppSelector(user);
+  const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
+  const [serverFounds, setServerFounds] = useState<Found[]>([]);
+
+  useEffect(() => {
+    if ((!sessionData && !userData?.session) || !id) return;
+
+    const servers = sessionData?.data.servers || userData?.session.servers;
+
+    if (!servers) return;
+
+    const foundServer = servers.find((el) => el.id === Number(id));
+
+    if (!foundServer) return;
+
+    const interval = setInterval(() => {
+      if (foundServer.logs) {
+        const logs: ServerLog[] = [];
+
+        for (let j = 0; j < foundServer.logs.length; j++) {
+          const log = foundServer.logs[j];
+
+          const logDate = new Date(log.timestamp);
+          const currentDate = new Date();
+
+          if (currentDate > logDate) {
+            logs.push(log);
+          }
+        }
+
+        setServerLogs(logs);
+      }
+
+      if (foundServer.founds) {
+        const founds: Found[] = [];
+
+        for (let j = 0; j < foundServer.founds.length; j++) {
+          const log = foundServer.founds[j];
+
+          const logDate = new Date(log.timestamp);
+          const currentDate = new Date();
+
+          if (currentDate > logDate) {
+            founds.push(log);
+          }
+        }
+
+        setServerFounds(founds);
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [id, sessionData, userData?.session]);
 
   return (
     <div>
@@ -80,7 +138,7 @@ export const ServerPage = () => {
       </div>
 
       <div className="mt-6">
-        <LogsBlock logs={data?.data.logs} loading={isLoading} />
+        <LogsBlock loading={isLoading} left={serverLogs} right={serverFounds} />
       </div>
     </div>
   );

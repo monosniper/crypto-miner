@@ -13,3 +13,8 @@ export type Coin = {
   hardLoad: number;
   money_balance?: number;
 };
+
+export type CoinPosition = {
+  id: number;
+  hide: boolean;
+};

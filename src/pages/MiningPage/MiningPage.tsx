@@ -1,9 +1,10 @@
-import { CoinBlock, EmptyText, Servers, Title } from "@/components";
-import { Search } from "@/components/ui";
+import { CoinBlock, EmptyText, LogsBlock, Servers, Title } from "@/components";
+import { Button, Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useMining } from "@/hooks/useMining";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
 import { mining } from "@/redux/slices/miningSlice";
+import { user } from "@/redux/slices/userSlice";
 import { useAppSelector } from "@/redux/store";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,9 +21,18 @@ export const MiningPage = () => {
     serversListIsFetching,
   );
   const { t } = useTranslation();
-  const { coins, toggleCoinSelection } = useMining();
+  const {
+    coins,
+    toggleCoinSelection,
+    startMiner,
+    loading,
+    sessionData,
+    serversAllLogs,
+    serversAllFounds,
+  } = useMining();
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
+  const { userData } = useAppSelector(user);
 
   return (
     <div className="flex flex-col flex-grow">
@@ -46,7 +56,7 @@ export const MiningPage = () => {
           onChange={(e) => setSearchValue(e.target.value)}
         />
 
-        {coins.length > 0 && (
+        {(coins.length > 0 || userData?.session) && (
           <div className="mt-6">
             <div className="flex flex-wrap -m-2">
               {coins
@@ -68,25 +78,51 @@ export const MiningPage = () => {
                         data={el}
                         type="mining"
                         selected={
-                          selectedCoins.find((coin) => el.id === coin.id)
+                          selectedCoins.find((coin) => el.id === coin)
                             ? true
                             : false
                         }
-                        onClick={() => toggleCoinSelection(el)}
+                        onClick={() => {
+                          if (!userData?.session && !sessionData) {
+                            toggleCoinSelection(el);
+                          }
+                        }}
                       />
                     </div>
                   );
                 })}
             </div>
+
+            <Button
+              className="mx-auto mt-6 min-w-[150px]"
+              title={
+                userData?.session || sessionData
+                  ? t("at work")
+                  : !loading
+                  ? t("start")
+                  : t("loading")
+              }
+              color="primary"
+              onClick={startMiner}
+              disabled={userData?.session || sessionData ? true : loading}
+            />
           </div>
         )}
 
-        {coins.length === 0 && selectedServers.length === 0 && (
-          <div className="flex flex-col flex-grow">
-            <EmptyText text={t("select servers")} />
-          </div>
-        )}
+        {coins.length === 0 &&
+          selectedServers.length === 0 &&
+          !userData?.session && (
+            <div className="flex flex-col flex-grow">
+              <EmptyText text={t("select servers")} />
+            </div>
+          )}
       </div>
+
+      {(coins.length > 0 || userData?.session) && (
+        <div className="mt-16">
+          <LogsBlock left={serversAllLogs} right={serversAllFounds} />
+        </div>
+      )}
     </div>
   );
 };

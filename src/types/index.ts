@@ -11,3 +11,4 @@ export * from "./serversTypes";
 export * from "./nftTypes";
 export * from "./withdrawsTypes";
 export * from "./notificationsTypes";
+export * from "./miningTypes";

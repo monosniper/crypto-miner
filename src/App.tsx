@@ -39,7 +39,9 @@ const App = () => {
   useEffect(() => {
     if (!data) return;
 
-    dispatch(setUserData(data));
+    const { data: user } = data;
+
+    dispatch(setUserData(user));
   }, [data, dispatch]);
 
   useEffect(() => {

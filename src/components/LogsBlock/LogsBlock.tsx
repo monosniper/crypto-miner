@@ -1,56 +1,72 @@
-import { Logs as LogsType } from "@/types";
 import { FC } from "react";
 import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
+import { Found, ServerLog } from "@/types";
 
 type Props = {
-  logs?: LogsType | null;
   loading?: boolean;
+  left?: ServerLog[];
+  right?: Found[];
 };
 
-export const LogsBlock: FC<Props> = ({ logs, loading }) => {
+export const LogsBlock: FC<Props> = ({ loading, left, right }) => {
   const { t } = useTranslation();
 
   return (
     <div className="flex flex-wrap -m-3">
       <div className="w-full md:w-1/2 p-3">
-        <div className="box w-full p-4 min-h-[150px] flex flex-col gap-1">
-          {!loading && (
-            <>
-              {!logs || !logs.server ? (
-                <EmptyText
-                  className="text-gray-1"
-                  text={t("no data available")}
-                />
-              ) : (
-                <>
-                  {logs.server.map((el, idx) => {
-                    return <p key={idx}>{el.text}</p>;
-                  })}
-                </>
-              )}
-            </>
-          )}
+        <div className="box w-full p-4 h-[150px] overflow-hidden">
+          <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
+            {!loading && (
+              <>
+                {!left || left.length === 0 ? (
+                  <EmptyText
+                    className="text-gray-1"
+                    text={t("no data available")}
+                  />
+                ) : (
+                  <>
+                    {left.map((el, idx) => {
+                      return (
+                        <p key={idx}>
+                          <span className="text-yellow-500">[{el.coin}]</span>{" "}
+                          {el.text}{" "}
+                          <span className="text-purple-2">{el.contrast}</span>
+                        </p>
+                      );
+                    })}
+                  </>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
       <div className="w-full md:w-1/2 p-3">
-        <div className="box w-full p-4 min-h-[150px] flex flex-col gap-1">
-          {!loading && (
-            <>
-              {!logs || !logs.miner ? (
-                <EmptyText
-                  className="text-gray-1"
-                  text={t("no data available")}
-                />
-              ) : (
-                <>
-                  {logs.miner.map((el, idx) => {
-                    return <p key={idx}>{el.text}</p>;
-                  })}
-                </>
-              )}
-            </>
-          )}
+        <div className="box w-full p-4 h-[150px] overflow-hidden">
+          <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
+            {!loading && (
+              <>
+                {!right || right.length === 0 ? (
+                  <EmptyText
+                    className="text-gray-1"
+                    text={t("no data available")}
+                  />
+                ) : (
+                  <>
+                    {right.map((el, idx) => {
+                      return (
+                        <p key={idx}>
+                          <span className="text-yellow-500">[{el.id}]</span>{" "}
+                          <span className="text-purple-2">{el.amount}</span>
+                        </p>
+                      );
+                    })}
+                  </>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

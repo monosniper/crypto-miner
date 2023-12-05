@@ -104,5 +104,12 @@
   "try again later": "Try again later",
   "no data available": "No data available",
 
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+
+  "start": "Start",
+
+  "failed to start mining": "Failed to start mining",
+
+  "at work": "At work",
+  "select coins": "Select coins"
 }
