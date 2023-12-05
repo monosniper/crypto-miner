@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
 import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
-import { ServerLog, ServerStatuses } from "@/types";
+import { Found, ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
@@ -22,11 +22,12 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    }
+    },
   );
   const { sessionData } = useMining();
   const { userData } = useAppSelector(user);
   const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
+  const [serverFounds, setServerFounds] = useState<Found[]>([]);
 
   useEffect(() => {
     if ((!sessionData && !userData?.session) || !id) return;
@@ -41,6 +42,10 @@ export const ServerPage = () => {
 
     if (foundServer.logs) {
       setServerLogs(foundServer.logs);
+    }
+
+    if (foundServer.founds) {
+      setServerFounds(foundServer.founds);
     }
   }, [id, sessionData, userData?.session]);
 
@@ -103,7 +108,7 @@ export const ServerPage = () => {
       </div>
 
       <div className="mt-6">
-        <LogsBlock loading={isLoading} left={serverLogs} />
+        <LogsBlock loading={isLoading} left={serverLogs} right={serverFounds} />
       </div>
     </div>
   );

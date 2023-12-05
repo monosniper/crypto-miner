@@ -18,7 +18,7 @@ export const MiningPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching
+    serversListIsFetching,
   );
   const { t } = useTranslation();
   const {
@@ -28,6 +28,7 @@ export const MiningPage = () => {
     loading,
     sessionData,
     serversAllLogs,
+    serversAllFounds,
   } = useMining();
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
@@ -119,7 +120,7 @@ export const MiningPage = () => {
 
       {(coins.length > 0 || userData?.session) && (
         <div className="mt-16">
-          <LogsBlock left={serversAllLogs} />
+          <LogsBlock left={serversAllLogs} right={serversAllFounds} />
         </div>
       )}
     </div>

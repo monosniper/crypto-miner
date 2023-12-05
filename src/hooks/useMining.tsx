@@ -8,7 +8,7 @@ import {
 } from "@/redux/slices/miningSlice";
 import { user } from "@/redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { Coin, Server, ServerLog, StartMinerSocketData } from "@/types";
+import { Coin, Found, Server, ServerLog, StartMinerSocketData } from "@/types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -23,6 +23,7 @@ export const useMining = () => {
   ] = useLazyGetSessionQuery();
   const { t } = useTranslation();
   const [serversAllLogs, setServersAllLogs] = useState<ServerLog[]>([]);
+  const [serversAllFounds, setServersAllFounds] = useState<Found[]>([]);
   const { userData } = useAppSelector(user);
   const { data: serversList } = useGetMyServersQuery(null);
 
@@ -31,7 +32,7 @@ export const useMining = () => {
 
     const userSelectedServers = userData.session.servers.map((el) => {
       const foundServer = serversList?.data.find(
-        (server) => server.id === el.id
+        (server) => server.id === el.id,
       );
 
       if (!foundServer) return el;
@@ -56,29 +57,48 @@ export const useMining = () => {
 
     const interval = setInterval(() => {
       const logs: ServerLog[] = [];
+      const founds: Found[] = [];
 
-      for (let i = 0; i < servers.length; i++) {
-        const server = servers[i];
+      if (serversAllLogs.length !== servers.length) {
+        for (let i = 0; i < servers.length; i++) {
+          const server = servers[i];
 
-        if (!server.logs) return;
+          if (!server.logs && !server.founds) return;
 
-        for (let j = 0; j < server.logs.length; j++) {
-          const log = server.logs[j];
+          if (server.logs) {
+            for (let j = 0; j < server.logs.length; j++) {
+              const log = server.logs[j];
 
-          const logDate = new Date(log.timestamp);
-          const currentDate = new Date();
+              const logDate = new Date(log.timestamp);
+              const currentDate = new Date();
 
-          if (currentDate > logDate) {
-            logs.push(log);
+              if (currentDate > logDate) {
+                logs.push(log);
+              }
+            }
+          }
+
+          if (server.founds) {
+            for (let j = 0; j < server.founds.length; j++) {
+              const log = server.founds[j];
+
+              const logDate = new Date(log.timestamp);
+              const currentDate = new Date();
+
+              if (currentDate > logDate) {
+                founds.push(log);
+              }
+            }
           }
         }
       }
 
       setServersAllLogs(logs);
+      setServersAllFounds(founds);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [sessionData, userData?.session]);
+  }, [serversAllLogs.length, sessionData, userData?.session]);
 
   const toggleServerSelection = (server: Server) => {
     const foundServer = selectedServers.find((el) => server.id === el.id);
@@ -97,13 +117,13 @@ export const useMining = () => {
       dispatch(
         setSelectedCoins(
           selectedCoins.filter(
-            (coinEl) => !server.coins?.some((el) => el.id === coinEl)
-          )
-        )
+            (coinEl) => !server.coins?.some((el) => el.id === coinEl),
+          ),
+        ),
       );
 
       return dispatch(
-        setSelectedServers(selectedServers.filter((el) => el.id !== server.id))
+        setSelectedServers(selectedServers.filter((el) => el.id !== server.id)),
       );
     }
   };
@@ -115,7 +135,7 @@ export const useMining = () => {
       return dispatch(setSelectedCoins([...selectedCoins, coin.id]));
     } else {
       return dispatch(
-        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id))
+        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id)),
       );
     }
   };
@@ -197,5 +217,6 @@ export const useMining = () => {
     sessionData,
     sessionError,
     serversAllLogs,
+    serversAllFounds,
   };
 };

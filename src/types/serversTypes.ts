@@ -1,4 +1,4 @@
-import { Coin, ServerLog } from "@/types";
+import { Coin, ServerLog, Found } from "@/types";
 
 export type Possibility = {
   id: number;
@@ -38,6 +38,7 @@ export type Server = {
   coins?: Coin[];
   server_user_name?: null | string;
   logs?: null | ServerLog[];
+  founds?: null | Found[];
   type?: ServerTypes;
   server?: Server;
 };
