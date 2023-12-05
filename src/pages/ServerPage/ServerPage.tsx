@@ -40,13 +40,43 @@ export const ServerPage = () => {
 
     if (!foundServer) return;
 
-    if (foundServer.logs) {
-      setServerLogs(foundServer.logs);
-    }
+    const interval = setInterval(() => {
+      if (foundServer.logs) {
+        const logs: ServerLog[] = [];
 
-    if (foundServer.founds) {
-      setServerFounds(foundServer.founds);
-    }
+        for (let j = 0; j < foundServer.logs.length; j++) {
+          const log = foundServer.logs[j];
+
+          const logDate = new Date(log.timestamp);
+          const currentDate = new Date();
+
+          if (currentDate > logDate) {
+            logs.push(log);
+          }
+        }
+
+        setServerLogs(logs);
+      }
+
+      if (foundServer.founds) {
+        const founds: Found[] = [];
+
+        for (let j = 0; j < foundServer.founds.length; j++) {
+          const log = foundServer.founds[j];
+
+          const logDate = new Date(log.timestamp);
+          const currentDate = new Date();
+
+          if (currentDate > logDate) {
+            founds.push(log);
+          }
+        }
+
+        setServerFounds(founds);
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, [id, sessionData, userData?.session]);
 
   return (
