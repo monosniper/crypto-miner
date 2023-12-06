@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useRef, useEffect } from "react";
 import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
 import { Found, ServerLog } from "@/types";
@@ -11,12 +11,29 @@ type Props = {
 
 export const LogsBlock: FC<Props> = ({ loading, left, right }) => {
   const { t } = useTranslation();
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!leftRef.current) return;
+
+    leftRef.current.scrollTo(0, leftRef.current.scrollHeight);
+  }, [left]);
+
+  useEffect(() => {
+    if (!rightRef.current) return;
+
+    rightRef.current.scrollTo(0, rightRef.current.scrollHeight);
+  }, [right]);
 
   return (
     <div className="flex flex-wrap -m-3">
       <div className="w-full md:w-1/2 p-3">
         <div className="box w-full p-4 h-[150px] overflow-hidden">
-          <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
+          <div
+            className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1"
+            ref={leftRef}
+          >
             {!loading && (
               <>
                 {!left || left.length === 0 ? (
@@ -44,7 +61,10 @@ export const LogsBlock: FC<Props> = ({ loading, left, right }) => {
       </div>
       <div className="w-full md:w-1/2 p-3">
         <div className="box w-full p-4 h-[150px] overflow-hidden">
-          <div className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1">
+          <div
+            className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1"
+            ref={rightRef}
+          >
             {!loading && (
               <>
                 {!right || right.length === 0 ? (
