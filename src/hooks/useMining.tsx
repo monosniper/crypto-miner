@@ -181,7 +181,9 @@ export const useMining = () => {
       };
 
       socket.send(JSON.stringify(dataToSend));
-    } else {
+    }
+
+    if (socket?.readyState === WebSocket.CLOSED) {
       setLoading(false);
 
       toast.error(t("mistake"));
