@@ -8,8 +8,8 @@ import { useGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
 import { ToastContainer } from "react-toastify";
 import { Tooltip } from "react-tooltip";
+import socket from "@/core/socket";
 import Cookies from "js-cookie";
-import socket from "./core/socket";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -19,7 +19,7 @@ const App = () => {
   const bytesPassword =
     CryptoJS.AES.decrypt(
       mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY,
+      import.meta.env.VITE_CRYPT_KEY
     ) || undefined;
   const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
 
@@ -30,7 +30,7 @@ const App = () => {
     },
     {
       skip: Boolean(userData) || !isAuth,
-    },
+    }
   );
   const dispatch = useAppDispatch();
 
