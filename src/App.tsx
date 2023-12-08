@@ -50,14 +50,13 @@ const App = () => {
     if (!error) return;
 
     localStorage.removeItem("mainUserData");
+    Cookies.remove("token");
   }, [dispatch, error]);
 
   useEffect(() => {
-    if (Cookies.get("token")) {
-      socket?.addEventListener("open", () => {
-        console.log("socket connected");
-      });
-    }
+    socket?.addEventListener("open", () => {
+      console.log("socket connected");
+    });
   }, []);
 
   return (
