@@ -29,9 +29,9 @@ export const LogsBlock: FC<Props> = ({ loading, left, right }) => {
   return (
     <div className="flex flex-wrap -m-3">
       <div className="w-full md:w-1/2 p-3">
-        <div className="box w-full p-4 h-[150px] overflow-hidden">
+        <div className="box w-full p-4 h-[250px] overflow-hidden">
           <div
-            className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1"
+            className="overflow-y-auto h-[calc(250px-32px)]  scrollbar-none flex flex-col gap-1"
             ref={leftRef}
           >
             {!loading && (
@@ -60,9 +60,9 @@ export const LogsBlock: FC<Props> = ({ loading, left, right }) => {
         </div>
       </div>
       <div className="w-full md:w-1/2 p-3">
-        <div className="box w-full p-4 h-[150px] overflow-hidden">
+        <div className="box w-full p-4 h-[250px] overflow-hidden">
           <div
-            className="overflow-y-auto h-[calc(150px-32px)]  scrollbar-none flex flex-col gap-1"
+            className="overflow-y-auto h-[calc(250px-32px)]  scrollbar-none flex flex-col gap-1"
             ref={rightRef}
           >
             {!loading && (
