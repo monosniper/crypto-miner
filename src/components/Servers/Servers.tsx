@@ -59,6 +59,15 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
             <>
               {type === "mining"
                 ? servers.map((el) => {
+                    const foundSelectedServer = selectedServers.find(
+                      (item) => item.id === el.id,
+                    );
+                    const inWork =
+                      Boolean(
+                        foundSelectedServer &&
+                          (userData?.session || sessionData),
+                      ) || false;
+
                     return (
                       <div
                         key={el.id}
@@ -87,6 +96,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                             !checkIdentityType(el) ||
                             el.status !== ServerStatuses.ACTIVE_STATUS
                           }
+                          inWork={inWork}
                         />
                       </div>
                     );

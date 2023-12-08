@@ -9,12 +9,14 @@ import {
 } from "@/components/icons";
 import { MenuItem } from "./MenuItem/MenuItem";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 export const Menu = () => {
   const { t } = useTranslation();
 
   const logout = () => {
     localStorage.removeItem("mainUserData");
+    Cookies.remove("token");
 
     document.location.reload();
   };

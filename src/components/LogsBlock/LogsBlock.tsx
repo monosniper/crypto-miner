@@ -78,7 +78,12 @@ export const LogsBlock: FC<Props> = ({ loading, left, right }) => {
                       return (
                         <p key={idx}>
                           <span className="text-yellow-500">[{el.id}]</span>{" "}
-                          <span className="text-purple-2">{el.amount}</span>
+                          <span className="text-purple-2">
+                            <span className="text-base-content-100">
+                              Found:{" "}
+                            </span>
+                            {el.amount || 0}
+                          </span>
                         </p>
                       );
                     })}

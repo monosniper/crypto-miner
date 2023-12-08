@@ -7,10 +7,10 @@ export const useLoading = (isLoading: boolean, isFetching?: boolean) => {
     let timeout: ReturnType<typeof setTimeout>;
     if (isFetching !== undefined) {
       if (isFetching || isLoading) setLoading(true);
-      else timeout = setTimeout(() => setLoading(false), 200);
+      else timeout = setTimeout(() => setLoading(false), 0);
     } else {
       if (isLoading) setLoading(true);
-      else timeout = setTimeout(() => setLoading(false), 200);
+      else timeout = setTimeout(() => setLoading(false), 0);
     }
     return () => clearTimeout(timeout);
   }, [isFetching, isLoading]);

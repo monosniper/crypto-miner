@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useLazyGetMeQuery } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
 import { useAppDispatch } from "@/redux/store";
-import { setAuth, setUserData } from "@/redux/slices/userSlice";
+import { setUserData } from "@/redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { useTranslation } from "react-i18next";
@@ -53,9 +53,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       Cookies.set("token", token);
 
-      dispatch(setAuth(true));
-
-      navigate("/main");
+      document.location.reload();
     }
   }, [data, dispatch, navigate, password]);
 

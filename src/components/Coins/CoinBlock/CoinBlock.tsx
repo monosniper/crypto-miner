@@ -20,6 +20,7 @@ export type Props = {
   active?: boolean;
   onClick?: MouseEventHandler<HTMLElement>;
   selected?: boolean;
+  inWork?: boolean;
 };
 
 export const CoinBlock: FC<PropsWithClassName<Props>> = ({
@@ -30,6 +31,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   active = false,
   onClick,
   selected = false,
+  inWork = false,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [hoveredData, setHoveredData] = useState<number | null>(null);
@@ -179,7 +181,6 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
     draw();
     window.addEventListener("resize", draw);
 
-    // Убираем обработчик события при размонтировании компонента
     return () => {
       window.removeEventListener("resize", draw);
     };
@@ -202,125 +203,134 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
   };
 
   return (
-    <div
-      className={cn("h-full flex flex-col overflow-hidden", {
-        "relative z-50": active,
-      })}
-      ref={setNodeRef}
-      style={style}
-      {...(window.innerWidth > 1024 ? attributes : {})}
-      {...(window.innerWidth > 1024 ? listeners : {})}
-      onClick={onClick}
-    >
+    <div className="relative">
       <div
-        className={cn(className, styles.wrapper, {
-          [styles.my]: type === "my",
-          "cursor-grab": draggable,
-          "border-primary": active,
-          "border border-primary border-solid": selected,
+        className={cn({
+          "box-in-work absolute -left-[1px] right-0 -top-[1px] w-[calc(100%+2px)] h-[calc(100%+2px)] bottom-0 rounded-xl -z-[1]":
+            inWork,
         })}
+      ></div>
+
+      <div
+        className={cn("h-full flex flex-col overflow-hidden", {
+          "relative z-50": active,
+        })}
+        ref={setNodeRef}
+        style={style}
+        {...(window.innerWidth > 1024 ? attributes : {})}
+        {...(window.innerWidth > 1024 ? listeners : {})}
+        onClick={onClick}
       >
-        <div className="coin-inner h-full flex flex-col">
-          <div className={styles.header}>
-            <div className={styles.coinTitle}>
-              <div className={styles.coinIconWrapper}>
-                <img src={data.icon_url} alt={data.slug} />
+        <div
+          className={cn(className, styles.wrapper, {
+            [styles.my]: type === "my",
+            "cursor-grab": draggable,
+            "border-primary": active,
+            "border border-primary border-solid": selected,
+          })}
+        >
+          <div className="coin-inner h-full flex flex-col">
+            <div className={styles.header}>
+              <div className={styles.coinTitle}>
+                <div className={styles.coinIconWrapper}>
+                  <img src={data.icon_url} alt={data.slug} />
+                </div>
+
+                <p>
+                  {data.name}, {data.slug}
+                </p>
               </div>
 
-              <p>
-                {data.name}, {data.slug}
-              </p>
-            </div>
+              {type === "general" && (
+                <div className="flex items-center gap-4">
+                  <div className="relative" ref={menuRef}>
+                    <div
+                      className="cursor-pointer pointer-events-auto"
+                      onClick={() => setOpenMenu((prev) => !prev)}
+                      onTouchStart={() => setOpenMenu((prev) => !prev)}
+                    >
+                      <MoreInfoIcon
+                        className="[&>g>circle]:fill-base-content-100"
+                        width={24}
+                        height={24}
+                      />
+                    </div>
 
-            {type === "general" && (
-              <div className="flex items-center gap-4">
-                <div className="relative" ref={menuRef}>
-                  <div
-                    className="cursor-pointer pointer-events-auto"
-                    onClick={() => setOpenMenu((prev) => !prev)}
-                    onTouchStart={() => setOpenMenu((prev) => !prev)}
-                  >
-                    <MoreInfoIcon
-                      className="[&>g>circle]:fill-base-content-100"
-                      width={24}
-                      height={24}
-                    />
+                    {isOpenMenu && (
+                      <div className="absolute top-full right-0 w-[100px] bg-base-300 text-base-content-100 text-xs rounded-md overflow-hidden z-10">
+                        <div
+                          className="flex items-center gap-1 hover:bg-primary/20 cursor-pointer px-2 py-1"
+                          onClick={hideCoinHandler}
+                          onTouchStart={hideCoinHandler}
+                        >
+                          {data.hide ? "Показывать" : "Скрыть"}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
-                  {isOpenMenu && (
-                    <div className="absolute top-full right-0 w-[100px] bg-base-300 text-base-content-100 text-xs rounded-md overflow-hidden z-10">
-                      <div
-                        className="flex items-center gap-1 hover:bg-primary/20 cursor-pointer px-2 py-1"
-                        onClick={hideCoinHandler}
-                        onTouchStart={hideCoinHandler}
-                      >
-                        {data.hide ? "Показывать" : "Скрыть"}
-                      </div>
-                    </div>
-                  )}
+                  <div
+                    className={cn(
+                      "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200 touch-none",
+                      {
+                        "!bg-base-300": active,
+                      },
+                    )}
+                    {...(window.innerWidth < 1024 ? attributes : {})}
+                    {...(window.innerWidth < 1024 ? listeners : {})}
+                  >
+                    <MoveIcon
+                      className="[&>g>path]:stroke-base-content-100"
+                      width={18}
+                      height={18}
+                    />
+                  </div>
                 </div>
+              )}
 
+              {type === "mining" && Boolean(data.hardLoad) && (
                 <div
-                  className={cn(
-                    "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200 touch-none",
-                    {
-                      "!bg-base-300": active,
-                    },
-                  )}
-                  {...(window.innerWidth < 1024 ? attributes : {})}
-                  {...(window.innerWidth < 1024 ? listeners : {})}
+                  data-tooltip-id="light"
+                  data-tooltip-content={t("high load")}
+                  data-tooltip-place="top"
                 >
-                  <MoveIcon
-                    className="[&>g>path]:stroke-base-content-100"
-                    width={18}
-                    height={18}
-                  />
+                  <LightIcon width={16} height={16} />
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
-            {type === "mining" && Boolean(data.hardLoad) && (
-              <div
-                data-tooltip-id="light"
-                data-tooltip-content={t("high load")}
-                data-tooltip-place="top"
-              >
-                <LightIcon width={16} height={16} />
-              </div>
-            )}
-          </div>
+            {type === "general" &&
+              "graph_today" in data &&
+              data.graph_today !== null && (
+                <div className={cn(styles.chart, "coin-chart")}>
+                  {hoveredData && (
+                    <Tooltip
+                      data={(hoveredData ? hoveredData.toFixed(6) : 0) + "$"}
+                      position={tooltipPosition}
+                    />
+                  )}
 
-          {type === "general" &&
-            "graph_today" in data &&
-            data.graph_today !== null && (
-              <div className={cn(styles.chart, "coin-chart")}>
-                {hoveredData && (
-                  <Tooltip
-                    data={(hoveredData ? hoveredData.toFixed(6) : 0) + "$"}
-                    position={tooltipPosition}
-                  />
-                )}
+                  <svg className="pointer-events-auto" ref={svgRef}></svg>
+                </div>
+              )}
 
-                <svg className="pointer-events-auto" ref={svgRef}></svg>
-              </div>
-            )}
+            <div className={styles.footer}>
+              <Rate type={type} data={data} />
 
-          <div className={styles.footer}>
-            <Rate type={type} data={data} />
+              {type === "my" && <p>{data.money_balance}</p>}
 
-            {type === "my" && <p>{data.money_balance}</p>}
-
-            {"change" in data && type !== "my" && (
-              <div
-                className={cn(styles.changeCourse, {
-                  [styles.decline]:
-                    "change" in data && data.change < 0 ? true : false,
-                })}
-              >
-                <span>{data.change ? data.change.toFixed(2) : 0}%</span>
-                <ArrTopIcon />
-              </div>
-            )}
+              {"change" in data && type !== "my" && (
+                <div
+                  className={cn(styles.changeCourse, {
+                    [styles.decline]:
+                      "change" in data && data.change < 0 ? true : false,
+                  })}
+                >
+                  <span>{data.change ? data.change.toFixed(2) : 0}%</span>
+                  <ArrTopIcon />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

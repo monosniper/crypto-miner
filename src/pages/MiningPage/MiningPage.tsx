@@ -3,11 +3,13 @@ import { Button, Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useMining } from "@/hooks/useMining";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
+import { useGetMeQuery } from "@/redux/api/userApi";
 import { mining } from "@/redux/slices/miningSlice";
 import { user } from "@/redux/slices/userSlice";
 import { useAppSelector } from "@/redux/store";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import CryptoJS from "crypto-js";
 
 export const MiningPage = () => {
   const {
@@ -33,6 +35,24 @@ export const MiningPage = () => {
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
   const { userData } = useAppSelector(user);
+  const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
+
+  const bytesPassword =
+    CryptoJS.AES.decrypt(
+      mainUserData.password || "",
+      import.meta.env.VITE_CRYPT_KEY,
+    ) || undefined;
+  const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
+
+  useGetMeQuery(
+    {
+      email: mainUserData.email,
+      password: password || mainUserData.password,
+    },
+    {
+      skip: Boolean(userData) || Boolean(sessionData),
+    },
+  );
 
   return (
     <div className="flex flex-col flex-grow">
@@ -69,6 +89,14 @@ export const MiningPage = () => {
                   );
                 })
                 .map((el) => {
+                  const foundSelectedCoin = selectedCoins.find(
+                    (item) => item === el.id,
+                  );
+                  const inWork =
+                    Boolean(
+                      foundSelectedCoin && (userData?.session || sessionData),
+                    ) || false;
+
                   return (
                     <div
                       key={el.id}
@@ -87,6 +115,7 @@ export const MiningPage = () => {
                             toggleCoinSelection(el);
                           }
                         }}
+                        inWork={inWork}
                       />
                     </div>
                   );

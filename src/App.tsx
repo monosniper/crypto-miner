@@ -8,6 +8,8 @@ import { useGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
 import { ToastContainer } from "react-toastify";
 import { Tooltip } from "react-tooltip";
+import Cookies from "js-cookie";
+import socket from "./core/socket";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -48,7 +50,14 @@ const App = () => {
     if (!error) return;
 
     localStorage.removeItem("mainUserData");
+    Cookies.remove("token");
   }, [dispatch, error]);
+
+  useEffect(() => {
+    socket?.addEventListener("open", () => {
+      console.log("socket connected");
+    });
+  }, []);
 
   return (
     <div className="relative">
