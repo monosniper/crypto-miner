@@ -30,4 +30,14 @@ export type SessionData = {
   coins: Coin[];
   founds: Found[];
   servers: Server[];
+  logs: Log[];
+  end_at: Date;
+  created_at: Date;
+};
+
+export type Log = {
+  text: string;
+  type: "miner" | "servers";
+  contrast: string | null;
+  timestamp: string;
 };

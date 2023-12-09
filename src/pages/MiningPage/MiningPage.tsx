@@ -10,6 +10,7 @@ import { useAppSelector } from "@/redux/store";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CryptoJS from "crypto-js";
+import { formatDate } from "@/utils";
 
 export const MiningPage = () => {
   const {
@@ -31,6 +32,8 @@ export const MiningPage = () => {
     sessionData,
     serversAllLogs,
     serversAllFounds,
+    sessionMinerLogs,
+    sessionServersLogs,
   } = useMining();
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
@@ -149,7 +152,26 @@ export const MiningPage = () => {
 
       {(coins.length > 0 || userData?.session) && (
         <div className="mt-16">
-          <LogsBlock left={serversAllLogs} right={serversAllFounds} />
+          {((sessionData && sessionData.data.end_at) ||
+            (userData?.session && userData?.session.end_at)) && (
+            <p className="mb-6">
+              Примерное время завершения сессии:{"  "}
+              <span className="text-purple-2">
+                {sessionData && formatDate(new Date(sessionData.data.end_at))}
+
+                {userData?.session &&
+                  !sessionData &&
+                  formatDate(new Date(userData.session.end_at))}
+              </span>
+            </p>
+          )}
+
+          <LogsBlock
+            left={serversAllLogs}
+            right={serversAllFounds}
+            leftTwo={sessionMinerLogs}
+            rightTwo={sessionServersLogs}
+          />
         </div>
       )}
     </div>
