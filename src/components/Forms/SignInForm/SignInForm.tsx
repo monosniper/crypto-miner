@@ -39,7 +39,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       const hashedPassword = CryptoJS.AES.encrypt(
         password,
-        import.meta.env.VITE_CRYPT_KEY,
+        import.meta.env.VITE_CRYPT_KEY
       ).toString();
 
       const token = data.data.token;
