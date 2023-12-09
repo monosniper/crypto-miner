@@ -8,7 +8,14 @@ import {
 } from "@/redux/slices/miningSlice";
 import { user } from "@/redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { Coin, Found, Server, ServerLog, StartMinerSocketData } from "@/types";
+import {
+  Coin,
+  Found,
+  Log,
+  Server,
+  ServerLog,
+  StartMinerSocketData,
+} from "@/types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -24,6 +31,8 @@ export const useMining = () => {
   const { t } = useTranslation();
   const [serversAllLogs, setServersAllLogs] = useState<ServerLog[]>([]);
   const [serversAllFounds, setServersAllFounds] = useState<Found[]>([]);
+  const [sessionServersLogs, setSessionServersLogs] = useState<Log[]>([]);
+  const [sessionMinerLogs, setSessionMinerLogs] = useState<Log[]>([]);
   const { userData } = useAppSelector(user);
   const { data: serversList } = useGetMyServersQuery(null);
 
@@ -52,42 +61,62 @@ export const useMining = () => {
 
   useEffect(() => {
     const servers = sessionData?.data.servers || userData?.session?.servers;
+    const sessionLogs = sessionData?.data.logs || userData?.session?.logs;
 
     if (!servers) return;
 
     const interval = setInterval(() => {
       const logs: ServerLog[] = [];
       const founds: Found[] = [];
+      const currentDate = new Date();
 
-      if (serversAllLogs.length !== servers.length) {
-        for (let i = 0; i < servers.length; i++) {
-          const server = servers[i];
+      for (let i = 0; i < servers.length; i++) {
+        const server = servers[i];
 
-          if (!server.logs && !server.founds) return;
+        if (!server.logs && !server.founds) return;
 
-          if (server.logs) {
-            for (let j = 0; j < server.logs.length; j++) {
-              const log = server.logs[j];
+        if (server.logs) {
+          for (let j = 0; j < server.logs.length; j++) {
+            const log = server.logs[j];
 
-              const logDate = new Date(log.timestamp);
-              const currentDate = new Date();
+            const logDate = new Date(log.timestamp);
 
-              if (currentDate > logDate) {
-                logs.push(log);
-              }
+            if (currentDate.getTime() > logDate.getTime()) {
+              logs.push(log);
             }
           }
+        }
 
-          if (server.founds) {
-            for (let j = 0; j < server.founds.length; j++) {
-              const log = server.founds[j];
+        if (server.founds) {
+          for (let j = 0; j < server.founds.length; j++) {
+            const log = server.founds[j];
 
-              const logDate = new Date(log.timestamp);
-              const currentDate = new Date();
+            const logDate = new Date(log.timestamp);
 
-              if (currentDate > logDate) {
-                founds.push(log);
-              }
+            if (currentDate.getTime() > logDate.getTime()) {
+              founds.push(log);
+            }
+          }
+        }
+      }
+
+      if (
+        sessionLogs &&
+        sessionMinerLogs.length + sessionServersLogs.length !==
+          sessionLogs.length
+      ) {
+        for (let i = 0; i < sessionLogs.length; i++) {
+          const log = sessionLogs[i];
+
+          const logDate = new Date(log.timestamp);
+
+          if (currentDate.getTime() > logDate.getTime()) {
+            if (log.type === "miner") {
+              setSessionMinerLogs((prev) => [...prev, log]);
+            }
+
+            if (log.type === "servers") {
+              setSessionServersLogs((prev) => [...prev, log]);
             }
           }
         }
@@ -95,10 +124,16 @@ export const useMining = () => {
 
       setServersAllLogs(logs);
       setServersAllFounds(founds);
-    }, 2000);
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [serversAllLogs.length, sessionData, userData?.session]);
+  }, [
+    serversAllLogs.length,
+    sessionData,
+    sessionMinerLogs.length,
+    sessionServersLogs.length,
+    userData?.session,
+  ]);
 
   const toggleServerSelection = (server: Server) => {
     const foundServer = selectedServers.find((el) => server.id === el.id);
@@ -224,5 +259,7 @@ export const useMining = () => {
     sessionError,
     serversAllLogs,
     serversAllFounds,
+    sessionMinerLogs,
+    sessionServersLogs,
   };
 };
