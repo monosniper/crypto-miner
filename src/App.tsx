@@ -19,7 +19,7 @@ const App = () => {
   const bytesPassword =
     CryptoJS.AES.decrypt(
       mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY
+      import.meta.env.VITE_CRYPT_KEY,
     ) || undefined;
   const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
 
@@ -30,7 +30,7 @@ const App = () => {
     },
     {
       skip: Boolean(userData) || !isAuth,
-    }
+    },
   );
   const dispatch = useAppDispatch();
 
