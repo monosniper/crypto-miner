@@ -53,7 +53,7 @@ export const LogsBlock: FC<Props> = ({
       <div className="w-full md:w-1/4 p-3">
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
-            className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
+            className="overflow-y-auto h-[calc(390px-32px)]  scrollbar-none flex flex-col gap-1"
             ref={leftRef}
           >
             {!loading && (
