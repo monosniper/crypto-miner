@@ -36,7 +36,7 @@ export type Server = {
   possibilities: Possibility[];
   icon_url?: string;
   coins?: Coin[];
-  server_user_name?: null | string;
+  name?: string;
   logs?: null | ServerLog[];
   founds?: null | Found[];
   type?: ServerTypes;

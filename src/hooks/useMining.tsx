@@ -48,8 +48,8 @@ export const useMining = () => {
 
       return {
         id: el.id,
-        type: foundServer.type,
-        coins: foundServer.coins,
+        type: foundServer.server?.type,
+        coins: foundServer.server?.coins,
       };
     });
 
@@ -138,12 +138,13 @@ export const useMining = () => {
   const toggleServerSelection = (server: Server) => {
     const foundServer = selectedServers.find((el) => server.id === el.id);
 
-    if (selectedServers[0] && selectedServers[0].type !== server.type) return;
+    if (selectedServers[0] && selectedServers[0].type !== server.server?.type)
+      return;
 
     const filteredServer = {
       id: server.id,
-      type: server.type,
-      coins: server.coins,
+      type: server.server?.type,
+      coins: server.server?.coins,
     };
 
     if (!foundServer) {
@@ -152,7 +153,7 @@ export const useMining = () => {
       dispatch(
         setSelectedCoins(
           selectedCoins.filter(
-            (coinEl) => !server.coins?.some((el) => el.id === coinEl),
+            (coinEl) => !server?.server?.coins?.some((el) => el.id === coinEl),
           ),
         ),
       );
@@ -176,9 +177,9 @@ export const useMining = () => {
   };
 
   const checkIdentityType = (server: Server) => {
-    if (!server.type || selectedServers.length === 0) return true;
+    if (!server.server?.type || selectedServers.length === 0) return true;
 
-    const res = server.type === selectedServers[0].type ? true : false;
+    const res = server.server?.type === selectedServers[0].type ? true : false;
 
     return res;
   };
@@ -231,6 +232,8 @@ export const useMining = () => {
     const {
       data: { session_id },
     } = data;
+
+    console.log(data);
 
     getSession({ id: session_id });
 
