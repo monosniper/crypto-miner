@@ -95,6 +95,8 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     }
   }, [coinsPositions, dispatch, draggableItems, rows]);
 
+  useEffect(() => {}, [coinsList]);
+
   useEffect(() => {
     if (!coinsList || !coinsPositions || !draggableItems) return;
     const incomingList = Array.isArray(coinsPositions)

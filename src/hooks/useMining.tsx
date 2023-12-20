@@ -233,11 +233,7 @@ export const useMining = () => {
       data: { session_id },
     } = data;
 
-    console.log(data);
-
     getSession({ id: session_id });
-
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -250,6 +246,12 @@ export const useMining = () => {
 
     toast.error(t("failed to start mining"));
   }, [sessionError, t]);
+
+  useEffect(() => {
+    if (!sessionData) return;
+
+    setLoading(false);
+  }, [sessionData]);
 
   return {
     toggleServerSelection,

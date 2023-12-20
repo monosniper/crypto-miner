@@ -2,10 +2,12 @@ import { Coin } from "./../../types/coinsTypes";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/types";
 
+const coinsFromStorage = localStorage.getItem("main-coins");
+
 const initialState: {
   coinsList?: Coin[];
 } = {
-  coinsList: undefined,
+  coinsList: coinsFromStorage ? JSON.parse(coinsFromStorage) : undefined,
 };
 
 export const coinsSlice = createSlice({

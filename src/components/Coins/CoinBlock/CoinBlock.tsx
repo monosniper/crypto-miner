@@ -326,8 +326,14 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                       "change" in data && data.change < 0 ? true : false,
                   })}
                 >
-                  <span>{data.change ? data.change.toFixed(2) : 0}%</span>
-                  <ArrTopIcon />
+                  <span
+                    className={cn({
+                      "!text-base-content-100": data.change === 0,
+                    })}
+                  >
+                    {data.change ? data.change.toFixed(2) : 0}%
+                  </span>
+                  {data.change !== 0 && <ArrTopIcon />}
                 </div>
               )}
             </div>

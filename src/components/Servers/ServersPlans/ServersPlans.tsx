@@ -4,6 +4,7 @@ import { useGetAllServersQuery } from "@/redux/api/serversApi";
 import { useLoading } from "@/hooks";
 import { useState } from "react";
 import { CoinSkelet, EmptyText } from "@/components";
+import { ServerTypes } from "@/types";
 
 export const ServersPlans = () => {
   const {
@@ -16,13 +17,25 @@ export const ServersPlans = () => {
 
   const loading = useLoading(serversIsLoading, serversIsFetching);
 
+  const sortedServersList = serversList?.data
+    ?.map((el) => el)
+    .sort((a, b) => {
+      if (a.type === ServerTypes.FREE) {
+        return -1;
+      }
+      if (b.type === ServerTypes.FREE) {
+        return 1;
+      }
+      return 0;
+    });
+
   return (
     <div className="flex flex-wrap -m-2">
       {!loading ? (
         <>
-          {serversList &&
-            serversList.data?.length > 0 &&
-            serversList.data.map((el) => {
+          {sortedServersList &&
+            sortedServersList.length > 0 &&
+            sortedServersList.map((el) => {
               return (
                 <div className="w-full md:w-1/2 lg:w-1/3 p-2" key={el.id}>
                   <ServersPlansItem
