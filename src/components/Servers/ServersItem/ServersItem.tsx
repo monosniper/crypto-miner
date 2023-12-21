@@ -64,11 +64,9 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
           </div>
         </div>
 
-        {data.server_user_name && (
-          <h4 className={styles.title}>{data.server_user_name}</h4>
-        )}
+        {data.name && <h4 className={styles.title}>{data.name}</h4>}
 
-        <h5 className={styles.title}>{data.title}</h5>
+        <h5 className={styles.title}>{data.server?.title}</h5>
 
         {disabled && (
           <div className="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-black/30 cursor-not-allowed"></div>

@@ -43,7 +43,7 @@ export const NftItem: FC<Props> = ({ data }) => {
         />
       </div>
       <h3 className="text-center pt-4 font-semibold text-2xl">{data.name}</h3>
-      <p className="text-center py-4 font-semibold text-xl">{data.price} BTC</p>
+      <p className="text-center py-4 font-semibold text-xl">{data.price} TON</p>
     </div>
   );
 };
