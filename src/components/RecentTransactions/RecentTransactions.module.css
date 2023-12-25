@@ -1,0 +1,19 @@
+.changeCourse {
+  @apply flex items-center gap-1 text-success;
+}
+
+.changeCourse svg path {
+  @apply fill-success;
+}
+
+.changeCourse.decline {
+  @apply text-red-500;
+}
+
+.changeCourse.decline svg {
+  @apply rotate-180;
+}
+
+.changeCourse.decline svg path {
+  @apply fill-red-500;
+}

@@ -27,7 +27,7 @@ export const WorkingServersPage = () => {
       </div>
 
       <div className="mt-16">
-        <Title title={t("servers involved")} />
+        <Title title={t("your servers")} />
 
         <Servers
           className="mt-6"

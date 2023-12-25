@@ -232,9 +232,11 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
           <div className="coin-inner h-full flex flex-col">
             <div className={styles.header}>
               <div className={styles.coinTitle}>
-                <div className={styles.coinIconWrapper}>
-                  <img src={data.icon_url} alt={data.slug} />
-                </div>
+                <img
+                  className={styles.coinIcon}
+                  src={data.icon_url}
+                  alt={data.slug}
+                />
 
                 <p>
                   {data.name}, {data.slug}
@@ -353,7 +355,7 @@ const Tooltip = ({
 }) => {
   return (
     <div
-      className="text-base-content-100 bg-base-100 border-base-border-100 rounded-md p-1 absolute"
+      className="text-base-content-100 bg-base-100 border-base-border-100 rounded-md p-1 fixed"
       style={{
         left: position.x - 20 + "px",
         top: position.y - 35 + "px",
