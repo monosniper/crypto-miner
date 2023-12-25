@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui";
 import { PropsWithClassName, Server } from "@/types";
 import cn from "clsx";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styles from "./ServersPlansItem.module.css";
 import { useTranslation } from "react-i18next";
+import { useBuyServerMutation } from "@/redux/api/userApi";
+import { toast } from "react-toastify";
 
 type Props = {
   // icon: JSX.Element | string;
@@ -20,6 +22,27 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   data,
 }) => {
   const { t } = useTranslation();
+  const [buy, { data: buyServerData, error }] = useBuyServerMutation();
+
+  useEffect(() => {
+    if (!buyServerData) return;
+
+    if (buyServerData.success) {
+      toast.success("success");
+    } else {
+      toast.error(t("mistake"));
+    }
+
+    if (buyServerData.url) {
+      window.location.href = buyServerData.url;
+    }
+  }, [buyServerData, t]);
+
+  useEffect(() => {
+    if (!error) return;
+
+    toast.error(t("mistake"));
+  }, [error, t]);
 
   return (
     <div className={cn(className, "box", styles.wrapper)}>
@@ -49,7 +72,13 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
         </div>
 
         <div className="mt-auto pt-8 flex justify-center">
-          <Button color="standart" title={t("buy")} />
+          <Button
+            color="standart"
+            title={t("buy")}
+            onClick={() => {
+              buy({ server_id: data.id });
+            }}
+          />
         </div>
       </div>
     </div>

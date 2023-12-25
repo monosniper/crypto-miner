@@ -2,9 +2,41 @@ import { Map, Title } from "@/components";
 import styles from "./PartnershipPage.module.css";
 import { Button, FieldWrapper, TextField } from "@/components/ui";
 import { useTranslation } from "react-i18next";
+import { usePartnershipMutation } from "@/redux/api/userApi";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 export const PartnershipPage = () => {
   const { t } = useTranslation();
+  const methods = useForm<{ amount: number }>();
+  const [partnership, { data, error }] = usePartnershipMutation();
+
+  useEffect(() => {
+    if (!data) return;
+
+    if (data.success) {
+      toast.success(t("success"));
+    } else {
+      toast.error(t("mistake"));
+    }
+
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  }, [data, t]);
+
+  useEffect(() => {
+    if (!error) return;
+
+    toast.error(t("mistake"));
+  }, [data?.success, error, t]);
+
+  const formHandler = (data: { amount: number }) => {
+    if (!data.amount) return;
+
+    partnership({ amount: data.amount });
+  };
 
   return (
     <div>
@@ -55,20 +87,32 @@ export const PartnershipPage = () => {
               tag="h5"
             />
 
-            <div className="flex flex-col sm:flex-row items-end gap-8">
+            <form
+              className="flex flex-col sm:flex-row items-end gap-8"
+              onSubmit={methods.handleSubmit(formHandler)}
+            >
               <FieldWrapper
                 className="mt-8 w-full [&>p]:first:!text-white"
                 title={`${t("amount")}, USDT`}
               >
-                <TextField className="h-12 bg-black/40 border border-[#444E54] [&>input]:!text-white" />
+                <TextField
+                  className="h-12 bg-black/40 border border-[#444E54] [&>input]:!text-white"
+                  methods={methods}
+                  registerName="amount"
+                  options={{
+                    required: true,
+                    valueAsNumber: true,
+                  }}
+                />
               </FieldWrapper>
 
               <Button
                 className={styles.investBtn}
                 color="standart"
                 title={t("enter invest")}
+                type="submit"
               />
-            </div>
+            </form>
           </div>
         </div>
       </div>

@@ -130,6 +130,42 @@ export const userApi = createApi({
         };
       },
     }),
+
+    replenishment: mutation<
+      { success: boolean; error?: string; url?: string },
+      { amount: number }
+    >({
+      query() {
+        return {
+          url: "me/replenishments",
+          method: "POST",
+        };
+      },
+    }),
+
+    buyServer: mutation<
+      { success: boolean; error?: string; url?: string },
+      { server_id: number }
+    >({
+      query() {
+        return {
+          url: "me/servers",
+          method: "POST",
+        };
+      },
+    }),
+
+    partnership: mutation<
+      { success: boolean; error?: string; url?: string },
+      { amount: number }
+    >({
+      query() {
+        return {
+          url: "me/donate",
+          method: "POST",
+        };
+      },
+    }),
   }),
 });
 
@@ -143,4 +179,7 @@ export const {
   useGetCoinsPositionsQuery,
   useWithdrawsMutation,
   useGetNotificationsQuery,
+  useReplenishmentMutation,
+  useBuyServerMutation,
+  usePartnershipMutation,
 } = userApi;

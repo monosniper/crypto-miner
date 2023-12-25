@@ -55,7 +55,11 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
 
         {type === "wallet" && (
           <div className={styles.contentBtns}>
-            <Button icon={<AddIcon />} title={t("deposit")} />
+            <Button
+              icon={<AddIcon />}
+              title={t("deposit")}
+              onClick={() => navigate("/wallet/replenishment")}
+            />
             <Button
               icon={<ExportIcon />}
               title={t("withdraw")}
