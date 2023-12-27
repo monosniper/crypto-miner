@@ -22,19 +22,18 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   data,
 }) => {
   const { t } = useTranslation();
-  const [buy, { data: buyServerData, error }] = useBuyServerMutation();
+  const [buy, { data: buyServerData, error, isLoading }] =
+    useBuyServerMutation();
 
   useEffect(() => {
     if (!buyServerData) return;
 
-    if (buyServerData.success) {
-      toast.success("success");
-    } else {
+    if (!buyServerData.url || buyServerData.success === false) {
       toast.error(t("mistake"));
     }
 
     if (buyServerData.url) {
-      window.location.href = buyServerData.url;
+      window.open(buyServerData.url, "_blank");
     }
   }, [buyServerData, t]);
 
@@ -74,7 +73,8 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
         <div className="mt-auto pt-8 flex justify-center">
           <Button
             color="standart"
-            title={t("buy")}
+            title={isLoading ? t("loading") : t("buy")}
+            disabled={isLoading}
             onClick={() => {
               buy({ server_id: data.id });
             }}

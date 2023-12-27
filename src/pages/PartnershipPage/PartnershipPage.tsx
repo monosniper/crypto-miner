@@ -10,19 +10,17 @@ import { useForm } from "react-hook-form";
 export const PartnershipPage = () => {
   const { t } = useTranslation();
   const methods = useForm<{ amount: number }>();
-  const [partnership, { data, error }] = usePartnershipMutation();
+  const [partnership, { data, error, isLoading }] = usePartnershipMutation();
 
   useEffect(() => {
     if (!data) return;
 
-    if (data.success) {
-      toast.success(t("success"));
-    } else {
+    if (!data.url || data.success === false) {
       toast.error(t("mistake"));
     }
 
     if (data.url) {
-      window.location.href = data.url;
+      window.open(data.url, "_blank");
     }
   }, [data, t]);
 
@@ -109,7 +107,8 @@ export const PartnershipPage = () => {
               <Button
                 className={styles.investBtn}
                 color="standart"
-                title={t("enter invest")}
+                disabled={isLoading}
+                title={isLoading ? t("loading") : t("enter invest")}
                 type="submit"
               />
             </form>

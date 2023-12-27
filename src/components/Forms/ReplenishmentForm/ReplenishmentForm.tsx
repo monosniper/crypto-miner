@@ -10,7 +10,8 @@ import { toast } from "react-toastify";
 export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<ReplenishmentFormData>();
   const { t } = useTranslation();
-  const [replenishment, { data, isError }] = useReplenishmentMutation();
+  const [replenishment, { data, isError, isLoading }] =
+    useReplenishmentMutation();
 
   const formHandler = (data: ReplenishmentFormData) => {
     if (!data.amount) {
@@ -25,14 +26,12 @@ export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
   useEffect(() => {
     if (!data) return;
 
-    if (data.success) {
-      toast.success(t("success"));
-    } else {
+    if (!data.url || data.success === false) {
       toast.error(t("mistake"));
     }
 
     if (data.url) {
-      window.location.href = data.url;
+      window.open(data.url, "_blank");
     }
   }, [data, t]);
 
@@ -68,7 +67,8 @@ export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
         className="mt-8"
         type="submit"
         color="primary"
-        title={t("deposit")}
+        disabled={isLoading}
+        title={isLoading ? t("loading") : t("deposit")}
       />
     </form>
   );

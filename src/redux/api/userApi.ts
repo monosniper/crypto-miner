@@ -21,7 +21,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -135,10 +135,11 @@ export const userApi = createApi({
       { success: boolean; error?: string; url?: string },
       { amount: number }
     >({
-      query() {
+      query(body) {
         return {
           url: "me/replenishments",
           method: "POST",
+          body,
         };
       },
     }),
@@ -147,10 +148,11 @@ export const userApi = createApi({
       { success: boolean; error?: string; url?: string },
       { server_id: number }
     >({
-      query() {
+      query(body) {
         return {
           url: "me/servers",
           method: "POST",
+          body,
         };
       },
     }),
@@ -159,10 +161,11 @@ export const userApi = createApi({
       { success: boolean; error?: string; url?: string },
       { amount: number }
     >({
-      query() {
+      query(body) {
         return {
           url: "me/donate",
           method: "POST",
+          body,
         };
       },
     }),
