@@ -120,5 +120,7 @@
   "there are no deposits": "Нет пополнений",
   "waiting": "Ожидание",
   "your balance will be updated within an hour": "Ваш баланс будет обновлен в течение часа",
-  "your server list will be updated within an hour": "Ваш список серверов будет обновлен в течение часа"
+  "your server list will be updated within an hour": "Ваш список серверов будет обновлен в течение часа",
+  "there are no conclusions": "Нет выводов",
+  "there are no conversions": "Нет конвертаций"
 }

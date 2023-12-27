@@ -105,7 +105,7 @@ export const History = () => {
               ) : (
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
-                  text="Нет конвертаций"
+                  text={t("there are no conversions")}
                 />
               )}
             </>
@@ -130,7 +130,7 @@ export const History = () => {
               ) : (
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
-                  text="Нет выводов"
+                  text={t("there are no conclusions")}
                 />
               )}
             </>
