@@ -1,17 +1,25 @@
 import { Button, FieldWrapper, TextField } from "@/components/ui";
-import { PropsWithClassName, ReplenishmentFormData } from "@/types";
+import {
+  NamesModals,
+  PropsWithClassName,
+  ReplenishmentFormData,
+} from "@/types";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
 import { useReplenishmentMutation } from "@/redux/api/userApi";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/store";
+import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
+import { setText, setTitle } from "@/redux/slices/successModal";
 
 export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<ReplenishmentFormData>();
   const { t } = useTranslation();
   const [replenishment, { data, isError, isLoading }] =
     useReplenishmentMutation();
+  const dispatch = useAppDispatch();
 
   const formHandler = (data: ReplenishmentFormData) => {
     if (!data.amount) {
@@ -28,12 +36,22 @@ export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
 
     if (!data.url || data.success === false) {
       toast.error(t("mistake"));
+    } else {
+      dispatch(
+        setOpenModal({
+          stateNameModal: NamesModals.isOpenSuccessModal,
+          isOpen: true,
+        }),
+      );
+
+      dispatch(setTitle(t("success")));
+      dispatch(setText(t("your balance will be updated within an hour")));
     }
 
     if (data.url) {
       window.open(data.url, "_blank");
     }
-  }, [data, t]);
+  }, [data, dispatch, t]);
 
   useEffect(() => {
     if (!isError) return;

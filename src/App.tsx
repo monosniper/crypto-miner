@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import socket from "@/core/socket";
 import Cookies from "js-cookie";
+import { SuccessModal } from "./components";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -77,6 +78,8 @@ const App = () => {
       />
 
       <Tooltip id="light" />
+
+      <SuccessModal />
     </div>
   );
 };

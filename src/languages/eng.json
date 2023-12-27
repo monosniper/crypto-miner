@@ -116,5 +116,7 @@
   "replenishment": "Replenishment",
   "minimum amount": "Minimum amount",
   "there are no deposits": "There are no deposits",
-  "waiting": "Waiting"
+  "waiting": "Waiting",
+  "your balance will be updated within an hour": "Your balance will be updated within an hour",
+  "your server list will be updated within an hour": "Your server list will be updated within an hour"
 }
