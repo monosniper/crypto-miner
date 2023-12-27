@@ -3,6 +3,7 @@ import {
   Convertation,
   Nft,
   Notification,
+  ReplenishmentItem,
   User,
   WithdrawsBody,
   WithdrawsItem,
@@ -21,7 +22,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY
+          import.meta.env.VITE_CRYPT_KEY,
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -144,6 +145,15 @@ export const userApi = createApi({
       },
     }),
 
+    getReplenishment: query<{ data: ReplenishmentItem[] }, null>({
+      query() {
+        return {
+          url: "me/replenishments",
+          method: "GET",
+        };
+      },
+    }),
+
     buyServer: mutation<
       { success: boolean; error?: string; url?: string },
       { server_id: number }
@@ -185,4 +195,5 @@ export const {
   useReplenishmentMutation,
   useBuyServerMutation,
   usePartnershipMutation,
+  useGetReplenishmentQuery,
 } = userApi;

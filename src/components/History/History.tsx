@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TabButton } from "@/components/ui";
 import {
   useGetConvertationsQuery,
+  useGetReplenishmentQuery,
   useGetWithdrawsQuery,
 } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
@@ -9,6 +10,7 @@ import {
   CoinSkelet,
   ConvertationsItem,
   EmptyText,
+  ReplenishmentItem,
   WithdrawsItem,
 } from "@/components";
 import { useTranslation } from "react-i18next";
@@ -17,6 +19,7 @@ type Tabs = "deposits" | "convertations" | "withdraws";
 
 export const History = () => {
   const [currentTab, setCurrentTab] = useState<Tabs>("convertations");
+  const { t } = useTranslation();
 
   const {
     data: convertationsList,
@@ -34,13 +37,25 @@ export const History = () => {
     skip: currentTab !== "withdraws",
   });
 
+  const {
+    data: replenishmentList,
+    isLoading: replenishmentIsLoading,
+    isFetching: replenishmentIsFetching,
+  } = useGetReplenishmentQuery(null, {
+    skip: currentTab !== "deposits",
+  });
+
   const convertationsLoading = useLoading(
     convertationsIsLoading,
     convertationsIsFetching,
   );
 
   const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
-  const { t } = useTranslation();
+
+  const replenishmentLoading = useLoading(
+    replenishmentIsLoading,
+    replenishmentIsFetching,
+  );
 
   return (
     <div>
@@ -116,6 +131,31 @@ export const History = () => {
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
                   text="Нет выводов"
+                />
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {currentTab === "deposits" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-4">
+          {replenishmentLoading ? (
+            <>
+              <CoinSkelet />
+              <CoinSkelet />
+              <CoinSkelet />
+            </>
+          ) : (
+            <>
+              {replenishmentList && replenishmentList.data.length > 0 ? (
+                replenishmentList.data.map((el) => {
+                  return <ReplenishmentItem key={el.id} data={el} />;
+                })
+              ) : (
+                <EmptyText
+                  className="col-span-1 md:col-span-2 lg:col-span-3"
+                  text={t("there are no deposits")}
                 />
               )}
             </>

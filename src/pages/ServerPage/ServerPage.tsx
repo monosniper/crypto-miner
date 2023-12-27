@@ -22,7 +22,7 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    }
+    },
   );
   const { sessionData } = useMining();
   const { userData } = useAppSelector(user);

@@ -5,6 +5,7 @@ export type PropsWithClassName<P = unknown> = P & {
 export type PropsWithSize<P = unknown> = P & {
   width?: number;
   height?: number;
+  color?: string;
 };
 
 export type SelectItemWithIcon = {

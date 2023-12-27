@@ -116,5 +116,7 @@
   "select coins": "Выберите монеты",
   "your servers": "Ваши сервера",
   "replenishment": "Пополнение",
-  "minimum amount": "Минимальная сумма"
+  "minimum amount": "Минимальная сумма",
+  "there are no deposits": "Нет пополнений",
+  "waiting": "Ожидание"
 }

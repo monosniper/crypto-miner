@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<WithdrawalFormData>();
   const { t } = useTranslation();
-  const [withdraw, { isSuccess, isError }] = useWithdrawsMutation();
+  const [withdraw, { isSuccess, isError, isLoading }] = useWithdrawsMutation();
   const { data: walletData } = useGetWalletQuery(null, {
     refetchOnMountOrArgChange: true,
   });
@@ -84,7 +84,8 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
         className="mt-8"
         type="submit"
         color="primary"
-        title={t("withdraw")}
+        title={isLoading ? t("loading") : t("withdraw")}
+        disabled={isLoading}
       />
     </form>
   );

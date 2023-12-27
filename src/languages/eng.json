@@ -114,5 +114,7 @@
   "select coins": "Select coins",
   "your servers": "Your servers",
   "replenishment": "Replenishment",
-  "minimum amount": "Minimum amount"
+  "minimum amount": "Minimum amount",
+  "there are no deposits": "There are no deposits",
+  "waiting": "Waiting"
 }
