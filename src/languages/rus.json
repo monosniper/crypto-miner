@@ -113,5 +113,14 @@
   "failed to start mining": "Не удалось начать майнинг",
 
   "at work": "В работе",
-  "select coins": "Выберите монеты"
+  "select coins": "Выберите монеты",
+  "your servers": "Ваши сервера",
+  "replenishment": "Пополнение",
+  "minimum amount": "Минимальная сумма",
+  "there are no deposits": "Нет пополнений",
+  "waiting": "Ожидание",
+  "your balance will be updated within an hour": "Ваш баланс будет обновлен в течение часа",
+  "your server list will be updated within an hour": "Ваш список серверов будет обновлен в течение часа",
+  "there are no conclusions": "Нет выводов",
+  "there are no conversions": "Нет конвертаций"
 }

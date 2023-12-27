@@ -238,6 +238,10 @@ export const useMining = () => {
 
   useEffect(() => {
     socket?.addEventListener("message", handleSocketMessage);
+
+    return () => {
+      socket?.removeEventListener("message", handleSocketMessage);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

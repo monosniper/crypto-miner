@@ -4,6 +4,7 @@ export const pagesTitles: {
   "/main": "main",
   "/wallet": "wallet",
   "/wallet/withdrawal": "withdrawal-of-funds",
+  "/wallet/replenishment": "replenishment",
   "/mining": "mining",
   "/working-servers": "working-servers",
   "/nft-wallet": "nft-wallet",

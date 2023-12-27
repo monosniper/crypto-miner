@@ -232,9 +232,11 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
           <div className="coin-inner h-full flex flex-col">
             <div className={styles.header}>
               <div className={styles.coinTitle}>
-                <div className={styles.coinIconWrapper}>
-                  <img src={data.icon_url} alt={data.slug} />
-                </div>
+                <img
+                  className={styles.coinIcon}
+                  src={data.icon_url}
+                  alt={data.slug}
+                />
 
                 <p>
                   {data.name}, {data.slug}
@@ -315,9 +317,13 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
               )}
 
             <div className={styles.footer}>
-              <Rate type={type} data={data} />
+              {type === "my" && <p>${data.balance}</p>}
 
-              {type === "my" && <p>{data.money_balance}</p>}
+              {type !== "my" && <Rate type={type} data={data} />}
+
+              {type === "my" && (
+                <p>{(Number(data.balance) / Number(data.rate))?.toFixed(2)}</p>
+              )}
 
               {"change" in data && type !== "my" && (
                 <div
@@ -353,7 +359,7 @@ const Tooltip = ({
 }) => {
   return (
     <div
-      className="text-base-content-100 bg-base-100 border-base-border-100 rounded-md p-1 absolute"
+      className="text-base-content-100 bg-base-100 border-base-border-100 rounded-md p-1 fixed"
       style={{
         left: position.x - 20 + "px",
         top: position.y - 35 + "px",
@@ -369,7 +375,7 @@ const Rate: FC<{ type: "my" | "general" | "mining"; data: Coin }> = ({
   data,
 }) => {
   if (type === "my" && "balance" in data) {
-    return <p>${data.balance}</p>;
+    return <p>${(Number(data.balance) / Number(data.rate))?.toFixed(2)}</p>;
   }
 
   if ((type === "general" && "rate" in data) || type === "mining") {

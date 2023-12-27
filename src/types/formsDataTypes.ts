@@ -2,3 +2,7 @@ export type WithdrawalFormData = {
   amount: number;
   wallet: string;
 };
+
+export type ReplenishmentFormData = {
+  amount: number;
+};

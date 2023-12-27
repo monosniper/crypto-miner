@@ -2,7 +2,7 @@ import { LogsBlock, Title } from "@/components";
 import { FanIcon, PrevIcon } from "@/components/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
-import { Button } from "@/components/ui";
+// import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import { Found, ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
@@ -101,10 +101,8 @@ export const ServerPage = () => {
         <div className="flex justify-between items-center">
           <h5>{t("status")}</h5>
 
-          {data?.data.server_user_name && (
-            <h6 className="font-semibold text-xl">
-              {data.data.server_user_name}
-            </h6>
+          {data?.data.name && (
+            <h6 className="font-semibold text-xl">{data.data.name}</h6>
           )}
         </div>
 
@@ -133,7 +131,7 @@ export const ServerPage = () => {
             </p>
           </div>
 
-          <Button title={t("restart")} />
+          {/* <Button title={t("restart")} /> */}
         </div>
       </div>
 

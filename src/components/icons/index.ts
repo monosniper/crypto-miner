@@ -27,3 +27,5 @@ export * from "./MoreInfoIcon";
 export * from "./MoveIcon";
 export * from "./LightIcon";
 export * from "./LogoIcon";
+export * from "./CheckIcon";
+export * from "./TimeIcon";

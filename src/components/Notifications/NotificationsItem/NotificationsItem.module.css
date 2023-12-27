@@ -3,7 +3,7 @@
 }
 
 .avatar {
-  @apply w-10 h-10 rounded-xl bg-base-100 min-w-[40px];
+  @apply w-10 h-10 rounded-xl min-w-[40px];
 }
 
 .content {

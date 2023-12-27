@@ -111,5 +111,14 @@
   "failed to start mining": "Failed to start mining",
 
   "at work": "At work",
-  "select coins": "Select coins"
+  "select coins": "Select coins",
+  "your servers": "Your servers",
+  "replenishment": "Replenishment",
+  "minimum amount": "Minimum amount",
+  "there are no deposits": "There are no deposits",
+  "waiting": "Waiting",
+  "your balance will be updated within an hour": "Your balance will be updated within an hour",
+  "your server list will be updated within an hour": "Your server list will be updated within an hour",
+  "there are no conclusions": "There are no conclusions",
+  "there are no conversions": "There are no conversions"
 }

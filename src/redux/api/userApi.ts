@@ -3,6 +3,7 @@ import {
   Convertation,
   Nft,
   Notification,
+  ReplenishmentItem,
   User,
   WithdrawsBody,
   WithdrawsItem,
@@ -130,6 +131,54 @@ export const userApi = createApi({
         };
       },
     }),
+
+    replenishment: mutation<
+      { success: boolean; error?: string; url?: string },
+      { amount: number }
+    >({
+      query(body) {
+        return {
+          url: "me/replenishments",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    getReplenishment: query<{ data: ReplenishmentItem[] }, null>({
+      query() {
+        return {
+          url: "me/replenishments",
+          method: "GET",
+        };
+      },
+    }),
+
+    buyServer: mutation<
+      { success: boolean; error?: string; url?: string },
+      { server_id: number }
+    >({
+      query(body) {
+        return {
+          url: "me/servers",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    partnership: mutation<
+      { success: boolean; error?: string; url?: string },
+      { amount: number }
+    >({
+      query(body) {
+        return {
+          url: "me/donate",
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -143,4 +192,8 @@ export const {
   useGetCoinsPositionsQuery,
   useWithdrawsMutation,
   useGetNotificationsQuery,
+  useReplenishmentMutation,
+  useBuyServerMutation,
+  usePartnershipMutation,
+  useGetReplenishmentQuery,
 } = userApi;

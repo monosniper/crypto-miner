@@ -105,6 +105,8 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
     allCoinsIsFetching,
   );
 
+  console.log(coins);
+
   return (
     <>
       <div className={cn(className, "flex flex-wrap -m-2")}>

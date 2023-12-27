@@ -1,9 +1,14 @@
 import { Button } from "@/components/ui";
-import { PropsWithClassName, Server } from "@/types";
+import { NamesModals, PropsWithClassName, Server } from "@/types";
 import cn from "clsx";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styles from "./ServersPlansItem.module.css";
 import { useTranslation } from "react-i18next";
+import { useBuyServerMutation } from "@/redux/api/userApi";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/store";
+import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
+import { setText, setTitle } from "@/redux/slices/successModal";
 
 type Props = {
   // icon: JSX.Element | string;
@@ -20,6 +25,37 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   data,
 }) => {
   const { t } = useTranslation();
+  const [buy, { data: buyServerData, error, isLoading }] =
+    useBuyServerMutation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!buyServerData) return;
+
+    if (!buyServerData.url || buyServerData.success === false) {
+      toast.error(t("mistake"));
+    } else {
+      dispatch(
+        setOpenModal({
+          stateNameModal: NamesModals.isOpenSuccessModal,
+          isOpen: true,
+        }),
+      );
+
+      dispatch(setTitle(t("success")));
+      dispatch(setText(t("your server list will be updated within an hour")));
+    }
+
+    if (buyServerData.url) {
+      window.open(buyServerData.url, "_blank");
+    }
+  }, [buyServerData, dispatch, t]);
+
+  useEffect(() => {
+    if (!error) return;
+
+    toast.error(t("mistake"));
+  }, [error, t]);
 
   return (
     <div className={cn(className, "box", styles.wrapper)}>
@@ -49,7 +85,14 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
         </div>
 
         <div className="mt-auto pt-8 flex justify-center">
-          <Button color="standart" title={t("buy")} />
+          <Button
+            color="standart"
+            title={isLoading ? t("loading") : t("buy")}
+            disabled={isLoading}
+            onClick={() => {
+              buy({ server_id: data.id });
+            }}
+          />
         </div>
       </div>
     </div>

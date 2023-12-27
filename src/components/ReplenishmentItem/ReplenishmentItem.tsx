@@ -1,27 +1,27 @@
-import { FC } from "react";
 import {
-  WithdrawalStatuses,
-  WithdrawsItem as WithdrawsItemTypes,
+  ReplenishmentItem as ReplenishmentItemTypes,
+  ReplenishmentStatuses,
 } from "@/types";
-import { formatRelativeDate } from "@/utils";
-import { useTranslation } from "react-i18next";
+import { FC } from "react";
 import cn from "clsx";
+import { useTranslation } from "react-i18next";
 import { CheckIcon, CloseIcon, TimeIcon } from "../icons";
 
 type Props = {
-  data: WithdrawsItemTypes;
+  data: ReplenishmentItemTypes;
 };
 
-export const WithdrawsItem: FC<Props> = ({ data }) => {
+export const ReplenishmentItem: FC<Props> = ({ data }) => {
   const { t } = useTranslation();
+
   return (
     <div className={cn("box p-4 text-base-content-100")}>
       <div className="flex items-center gap-2">
-        {data.status === WithdrawalStatuses.FAILED && (
+        {data.status === ReplenishmentStatuses.FAILED && (
           <CloseIcon className="[&>path]:fill-red-500" width={20} height={20} />
         )}
 
-        {data.status === WithdrawalStatuses.SUCCESS && (
+        {data.status === ReplenishmentStatuses.SUCCESS && (
           <CheckIcon
             className="[&>g>path]:stroke-success"
             width={20}
@@ -29,7 +29,7 @@ export const WithdrawsItem: FC<Props> = ({ data }) => {
           />
         )}
 
-        {data.status === WithdrawalStatuses.PENDING && (
+        {data.status === ReplenishmentStatuses.WAITING && (
           <TimeIcon
             className="[&>g>path]:stroke-yellow-500 [&>g>circle]:stroke-yellow-500"
             width={20}
@@ -45,9 +45,7 @@ export const WithdrawsItem: FC<Props> = ({ data }) => {
           {data.amount} <span className="text-base-content-100">USDT</span>
         </p>
 
-        <p className="text-xs text-base-content-100">
-          {formatRelativeDate(new Date(data.created_at))}
-        </p>
+        <p className="text-xs text-base-content-100"></p>
       </div>
     </div>
   );

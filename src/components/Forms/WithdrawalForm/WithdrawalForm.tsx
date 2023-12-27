@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<WithdrawalFormData>();
   const { t } = useTranslation();
-  const [withdraw, { isSuccess, isError }] = useWithdrawsMutation();
+  const [withdraw, { isSuccess, isError, isLoading }] = useWithdrawsMutation();
   const { data: walletData } = useGetWalletQuery(null, {
     refetchOnMountOrArgChange: true,
   });
@@ -42,7 +42,7 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
   useEffect(() => {
     if (!isError) return;
 
-    toast.error(t("withdrawal request requested"));
+    toast.error(t("mistake"));
   }, [isError, t]);
 
   return (
@@ -54,6 +54,11 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
         <FieldWrapper
           className="w-full md:w-1/2 p-4"
           title={`${t("amount")}, USDT`}
+          error={
+            methods.formState.errors.amount
+              ? methods.formState.errors.amount.message + "-" + "100 usdt"
+              : undefined
+          }
         >
           <TextField
             type="number"
@@ -62,6 +67,10 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
             btn={{ title: "Все", onClick: () => console.log("click") }}
             options={{
               valueAsNumber: true,
+              min: {
+                value: 100,
+                message: t("minimum amount"),
+              },
             }}
           />
         </FieldWrapper>
@@ -75,7 +84,8 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
         className="mt-8"
         type="submit"
         color="primary"
-        title={t("withdraw")}
+        title={isLoading ? t("loading") : t("withdraw")}
+        disabled={isLoading}
       />
     </form>
   );

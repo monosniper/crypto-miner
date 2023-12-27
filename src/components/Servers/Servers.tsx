@@ -109,7 +109,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                       >
                         <ServersItem
                           type={type}
-                          onClick={() => navigate(`/server/${el.server?.id}`)}
+                          onClick={() => navigate(`/server/${el.id}`)}
                           data={el}
                         />
                       </div>
