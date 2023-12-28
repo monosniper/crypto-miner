@@ -1,14 +1,11 @@
 import { Button } from "@/components/ui";
-import { NamesModals, PropsWithClassName, Server } from "@/types";
+import { PropsWithClassName, Server } from "@/types";
 import cn from "clsx";
 import { FC, useEffect } from "react";
 import styles from "./ServersPlansItem.module.css";
 import { useTranslation } from "react-i18next";
 import { useBuyServerMutation } from "@/redux/api/userApi";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "@/redux/store";
-import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
-import { setText, setTitle } from "@/redux/slices/successModal";
 
 type Props = {
   // icon: JSX.Element | string;
@@ -27,29 +24,18 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   const { t } = useTranslation();
   const [buy, { data: buyServerData, error, isLoading }] =
     useBuyServerMutation();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!buyServerData) return;
 
     if (!buyServerData.url || buyServerData.success === false) {
       toast.error(t("mistake"));
-    } else {
-      dispatch(
-        setOpenModal({
-          stateNameModal: NamesModals.isOpenSuccessModal,
-          isOpen: true,
-        }),
-      );
-
-      dispatch(setTitle(t("success")));
-      dispatch(setText(t("your server list will be updated within an hour")));
     }
 
     if (buyServerData.url) {
-      window.open(buyServerData.url, "_blank");
+      document.location.href = buyServerData.url;
     }
-  }, [buyServerData, dispatch, t]);
+  }, [buyServerData, t]);
 
   useEffect(() => {
     if (!error) return;

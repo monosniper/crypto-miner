@@ -20,7 +20,7 @@ export const PartnershipPage = () => {
     }
 
     if (data.url) {
-      window.open(data.url, "_blank");
+      document.location.href = data.url;
     }
   }, [data, t]);
 
