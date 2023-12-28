@@ -6,6 +6,7 @@ import styles from "./ServersPlansItem.module.css";
 import { useTranslation } from "react-i18next";
 import { useBuyServerMutation } from "@/redux/api/userApi";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/store";
 
 type Props = {
   // icon: JSX.Element | string;
@@ -24,6 +25,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   const { t } = useTranslation();
   const [buy, { data: buyServerData, error, isLoading }] =
     useBuyServerMutation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!buyServerData) return;
@@ -35,7 +37,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
     if (buyServerData.url) {
       document.location.href = buyServerData.url;
     }
-  }, [buyServerData, t]);
+  }, [buyServerData, dispatch, t]);
 
   useEffect(() => {
     if (!error) return;

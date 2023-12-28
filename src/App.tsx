@@ -27,13 +27,33 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (type === "server_exists") {
+      dispatch(
+        setOpenModal({
+          stateNameModal: NamesModals.isOpenSuccessModal,
+          isOpen: true,
+        })
+      );
+
+      dispatch(setTitle(t("success")));
+      dispatch(
+        setText(
+          t(
+            "you already have this server, the maximum number of servers of this type is 1"
+          )
+        )
+      );
+
+      return;
+    }
+
     if (success && type) {
       if (type === "balance") {
         dispatch(
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -45,7 +65,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -57,7 +77,7 @@ const App = () => {
   const bytesPassword =
     CryptoJS.AES.decrypt(
       mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY,
+      import.meta.env.VITE_CRYPT_KEY
     ) || undefined;
   const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
 
@@ -68,7 +88,7 @@ const App = () => {
     },
     {
       skip: Boolean(userData) || !isAuth,
-    },
+    }
   );
 
   useEffect(() => {

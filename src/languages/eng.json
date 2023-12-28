@@ -120,5 +120,6 @@
   "your balance will be updated within an hour": "Your balance will be updated within an hour",
   "your server list will be updated within an hour": "Your server list will be updated within an hour",
   "there are no conclusions": "There are no conclusions",
-  "there are no conversions": "There are no conversions"
+  "there are no conversions": "There are no conversions",
+  "you already have this server, the maximum number of servers of this type is 1": "You already have this server, the maximum number of servers of this type is 1"
 }
