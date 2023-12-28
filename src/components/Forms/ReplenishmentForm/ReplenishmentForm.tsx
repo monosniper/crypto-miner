@@ -65,7 +65,7 @@ export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
             options={{
               valueAsNumber: true,
               min: {
-                value: 100,
+                value: 50,
                 message: t("minimum amount") + "-" + "50 usdt",
               },
             }}
