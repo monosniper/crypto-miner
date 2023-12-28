@@ -35,13 +35,14 @@ export const useMining = () => {
   const [sessionMinerLogs, setSessionMinerLogs] = useState<Log[]>([]);
   const { userData } = useAppSelector(user);
   const { data: serversList } = useGetMyServersQuery(null);
+  const [finish, setFinish] = useState(false);
 
   useEffect(() => {
     if (!userData?.session) return;
 
     const userSelectedServers = userData.session.servers.map((el) => {
       const foundServer = serversList?.data.find(
-        (server) => server.id === el.id,
+        (server) => server.id === el.id
       );
 
       if (!foundServer) return el;
@@ -122,17 +123,30 @@ export const useMining = () => {
         }
       }
 
+      if (
+        logs.length === serversAllLogs.length &&
+        founds.length === serversAllFounds.length
+      ) {
+        return setFinish(true);
+      }
+
       setServersAllLogs(logs);
       setServersAllFounds(founds);
     }, 1000);
 
+    if (finish) return () => clearInterval(interval);
+
     return () => clearInterval(interval);
   }, [
+    finish,
+    serversAllFounds.length,
     serversAllLogs.length,
-    sessionData,
+    sessionData?.data.logs,
+    sessionData?.data.servers,
     sessionMinerLogs.length,
     sessionServersLogs.length,
-    userData?.session,
+    userData?.session?.logs,
+    userData?.session?.servers,
   ]);
 
   const toggleServerSelection = (server: Server) => {
@@ -153,13 +167,13 @@ export const useMining = () => {
       dispatch(
         setSelectedCoins(
           selectedCoins.filter(
-            (coinEl) => !server?.server?.coins?.some((el) => el.id === coinEl),
-          ),
-        ),
+            (coinEl) => !server?.server?.coins?.some((el) => el.id === coinEl)
+          )
+        )
       );
 
       return dispatch(
-        setSelectedServers(selectedServers.filter((el) => el.id !== server.id)),
+        setSelectedServers(selectedServers.filter((el) => el.id !== server.id))
       );
     }
   };
@@ -171,7 +185,7 @@ export const useMining = () => {
       return dispatch(setSelectedCoins([...selectedCoins, coin.id]));
     } else {
       return dispatch(
-        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id)),
+        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id))
       );
     }
   };
@@ -257,6 +271,13 @@ export const useMining = () => {
     setLoading(false);
   }, [sessionData]);
 
+  useEffect(() => {
+    if (!finish) return;
+
+    dispatch(setSelectedServers([]));
+    dispatch(setSelectedCoins([]));
+  }, [dispatch, finish]);
+
   return {
     toggleServerSelection,
     toggleCoinSelection,
@@ -270,5 +291,6 @@ export const useMining = () => {
     serversAllFounds,
     sessionMinerLogs,
     sessionServersLogs,
+    finish,
   };
 };
