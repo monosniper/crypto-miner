@@ -1,9 +1,5 @@
 import { Button, FieldWrapper, TextField } from "@/components/ui";
-import {
-  NamesModals,
-  PropsWithClassName,
-  ReplenishmentFormData,
-} from "@/types";
+import { PropsWithClassName, ReplenishmentFormData } from "@/types";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import cn from "clsx";
@@ -11,8 +7,6 @@ import { useTranslation } from "react-i18next";
 import { useReplenishmentMutation } from "@/redux/api/userApi";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@/redux/store";
-import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
-import { setText, setTitle } from "@/redux/slices/successModal";
 
 export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
   const methods = useForm<ReplenishmentFormData>();
@@ -36,20 +30,10 @@ export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
 
     if (!data.url || data.success === false) {
       toast.error(t("mistake"));
-    } else {
-      dispatch(
-        setOpenModal({
-          stateNameModal: NamesModals.isOpenSuccessModal,
-          isOpen: true,
-        }),
-      );
-
-      dispatch(setTitle(t("success")));
-      dispatch(setText(t("your balance will be updated within an hour")));
     }
 
     if (data.url) {
-      window.open(data.url, "_blank");
+      document.location.href = data.url;
     }
   }, [data, dispatch, t]);
 
@@ -68,14 +52,22 @@ export const ReplenishmentForm: FC<PropsWithClassName> = ({ className }) => {
         <FieldWrapper
           className="w-full md:w-1/2 p-4"
           title={`${t("amount")}, USDT`}
+          error={
+            methods.formState.errors.amount
+              ? methods.formState.errors.amount.message
+              : undefined
+          }
         >
           <TextField
             type="number"
             methods={methods}
             registerName="amount"
-            btn={{ title: "Все", onClick: () => console.log("click") }}
             options={{
               valueAsNumber: true,
+              min: {
+                value: 100,
+                message: t("minimum amount") + "-" + "50 usdt",
+              },
             }}
           />
         </FieldWrapper>

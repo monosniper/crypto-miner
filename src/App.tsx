@@ -11,11 +11,48 @@ import { Tooltip } from "react-tooltip";
 import socket from "@/core/socket";
 import Cookies from "js-cookie";
 import { SuccessModal } from "./components";
+import { setOpenModal } from "./redux/slices/modalsOpensSlice";
+import { setText, setTitle } from "./redux/slices/successModal";
+import { NamesModals } from "./types";
+import { useTranslation } from "react-i18next";
 
 const App = () => {
   const { theme } = useAppSelector(main);
   const { isAuth, userData } = useAppSelector(user);
   const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
+  const urlParams = new URLSearchParams(window.location.search);
+  const success = urlParams.get("success");
+  const type = urlParams.get("type");
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (success && type) {
+      if (type === "balance") {
+        dispatch(
+          setOpenModal({
+            stateNameModal: NamesModals.isOpenSuccessModal,
+            isOpen: true,
+          }),
+        );
+
+        dispatch(setTitle(t("success")));
+        dispatch(setText(t("your balance will be updated within an hour")));
+      }
+
+      if (type === "server") {
+        dispatch(
+          setOpenModal({
+            stateNameModal: NamesModals.isOpenSuccessModal,
+            isOpen: true,
+          }),
+        );
+
+        dispatch(setTitle(t("success")));
+        dispatch(setText(t("your server list will be updated within an hour")));
+      }
+    }
+  }, [dispatch, success, t, type]);
 
   const bytesPassword =
     CryptoJS.AES.decrypt(
@@ -33,7 +70,6 @@ const App = () => {
       skip: Boolean(userData) || !isAuth,
     },
   );
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);

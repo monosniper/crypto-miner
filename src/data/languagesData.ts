@@ -8,6 +8,6 @@ export const languagesData = [
   {
     value: "eng",
     title: "English",
-    icon: "/images/languages/rus.png",
+    icon: "/images/languages/eng.png",
   },
 ];

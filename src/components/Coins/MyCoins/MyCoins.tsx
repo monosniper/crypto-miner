@@ -1,11 +1,10 @@
 import { FC, useState, useEffect } from "react";
 import { Balance, Coin, PropsWithClassName } from "@/types";
 import cn from "clsx";
-import { Buy, ShowMoreBtn } from "@/components/ui";
+import { ShowMoreBtn } from "@/components/ui";
 import { CoinBlock, CoinSkelet } from "@/components";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useLoading } from "@/hooks";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "@/redux/store";
 import { main } from "@/redux/slices/mainSlice";
@@ -28,7 +27,6 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   } = useGetCoinsQuery(null);
   const [isLoading, setLoading] = useState(true);
   const [isMore, setMore] = useState(false);
-  const navigate = useNavigate();
   const [maxItems, setMaxItems] = useState<number>();
   const { t } = useTranslation();
   const { showZeroMyCoins } = useAppSelector(main);
@@ -110,9 +108,9 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   return (
     <>
       <div className={cn(className, "flex flex-wrap -m-2")}>
-        <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
+        {/* <div className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-2">
           <Buy title={t("buy-coins")} onClick={() => navigate("/trading")} />
-        </div>
+        </div> */}
 
         {loadingCoins ? (
           <>
