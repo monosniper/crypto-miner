@@ -21,7 +21,7 @@ export const MiningPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching
+    serversListIsFetching,
   );
   const { t } = useTranslation();
   const {
@@ -34,7 +34,6 @@ export const MiningPage = () => {
     serversAllFounds,
     sessionMinerLogs,
     sessionServersLogs,
-    finish,
   } = useMining();
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
@@ -44,7 +43,7 @@ export const MiningPage = () => {
   const bytesPassword =
     CryptoJS.AES.decrypt(
       mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY
+      import.meta.env.VITE_CRYPT_KEY,
     ) || undefined;
   const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
 
@@ -55,7 +54,7 @@ export const MiningPage = () => {
     },
     {
       skip: Boolean(userData) || Boolean(sessionData),
-    }
+    },
   );
 
   return (
@@ -94,11 +93,11 @@ export const MiningPage = () => {
                 })
                 .map((el) => {
                   const foundSelectedCoin = selectedCoins.find(
-                    (item) => item === el.id
+                    (item) => item === el.id,
                   );
                   const inWork =
                     Boolean(
-                      foundSelectedCoin && (userData?.session || sessionData)
+                      foundSelectedCoin && (userData?.session || sessionData),
                     ) || false;
 
                   return (
@@ -137,13 +136,7 @@ export const MiningPage = () => {
               }
               color="primary"
               onClick={startMiner}
-              disabled={
-                !finish
-                  ? userData?.session || sessionData
-                    ? true
-                    : loading
-                  : false
-              }
+              disabled={userData?.session || sessionData ? true : loading}
             />
           </div>
         )}
