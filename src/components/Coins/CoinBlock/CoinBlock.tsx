@@ -317,13 +317,13 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
               )}
 
             <div className={styles.footer}>
-              {type === "my" && <p>${data.balance}</p>}
+              {type === "my" && (
+                <p>${(Number(data.balance) * Number(data.rate))?.toFixed(2)}</p>
+              )}
 
               {type !== "my" && <Rate type={type} data={data} />}
 
-              {type === "my" && (
-                <p>{(Number(data.balance) / Number(data.rate))?.toFixed(2)}</p>
-              )}
+              {type === "my" && <p>{data.balance?.toFixed(2)}</p>}
 
               {"change" in data && type !== "my" && (
                 <div
@@ -375,7 +375,7 @@ const Rate: FC<{ type: "my" | "general" | "mining"; data: Coin }> = ({
   data,
 }) => {
   if (type === "my" && "balance" in data) {
-    return <p>${(Number(data.balance) / Number(data.rate))?.toFixed(2)}</p>;
+    return <p>${(Number(data.balance) * Number(data.rate))?.toFixed(2)}</p>;
   }
 
   if ((type === "general" && "rate" in data) || type === "mining") {

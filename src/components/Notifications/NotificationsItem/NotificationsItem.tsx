@@ -31,7 +31,9 @@ export const NotificationsItem: FC<Props> = ({ data }) => {
 
         <p>{data.content}</p>
 
-        <span className="text-base-content-100/60">{formatDate(new Date(data.created_at))}</span>
+        <span className="text-base-content-100/60">
+          {formatDate(new Date(data.created_at))}
+        </span>
       </div>
     </div>
   );

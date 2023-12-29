@@ -20,7 +20,7 @@ export const SuccessModal = () => {
       setOpenModal({
         stateNameModal: NamesModals.isOpenSuccessModal,
         isOpen: false,
-      })
+      }),
     );
 
     dispatch(setTitle(undefined));

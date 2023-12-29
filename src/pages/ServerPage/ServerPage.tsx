@@ -12,6 +12,7 @@ import { useMining } from "@/hooks/useMining";
 import { useAppSelector } from "@/redux/store";
 import { user } from "@/redux/slices/userSlice";
 import { useState, useEffect } from "react";
+import { useGetWalletQuery } from "@/redux/api/userApi";
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -28,6 +29,9 @@ export const ServerPage = () => {
   const { userData } = useAppSelector(user);
   const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
   const [serverFounds, setServerFounds] = useState<Found[]>([]);
+  const { data: walletData } = useGetWalletQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
 
   useEffect(() => {
     if ((!sessionData && !userData?.session) || !id) return;
@@ -98,7 +102,7 @@ export const ServerPage = () => {
       )}
 
       <div className={cn("box", "p-6 mt-6")}>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-start flex-wrap gap-4 flex-col-reverse min-[500px]:items-center min-[500px]:flex-row">
           <h5>{t("status")}</h5>
 
           {data?.data.name && (
@@ -107,27 +111,36 @@ export const ServerPage = () => {
         </div>
 
         <div className="flex justify-between items-center gap-3 gap-y-6 flex-wrap mt-4">
-          <div className="flex items-center gap-4">
-            <div
-              className={cn(styles.state, {
-                [styles.notActive]:
-                  data?.data.status === ServerStatuses.NOT_ACTIVE_STATUS,
-                [styles.reload]:
-                  data?.data.status === ServerStatuses.RELOAD_STATUS,
-              })}
-            >
-              <FanIcon
-                className={cn({
-                  "animate-spin":
-                    data?.data.status === ServerStatuses.WORK_STATUS,
+          <div className="flex items-center gap-4 w-full justify-between flex-wrap">
+            <div className="flex items-center gap-4">
+              <div
+                className={cn(styles.state, {
+                  [styles.notActive]:
+                    data?.data.status === ServerStatuses.NOT_ACTIVE_STATUS,
+                  [styles.reload]:
+                    data?.data.status === ServerStatuses.RELOAD_STATUS,
                 })}
-                width={32}
-                height={32}
-              />
+              >
+                <FanIcon
+                  className={cn({
+                    "animate-spin":
+                      data?.data.status === ServerStatuses.WORK_STATUS,
+                  })}
+                  width={32}
+                  height={32}
+                />
+              </div>
+
+              <p className="text-2xl font-semibold">
+                {t(getServerStatus(data?.data.status as ServerStatuses))}
+              </p>
             </div>
 
-            <p className="text-2xl font-semibold">
-              {t(getServerStatus(data?.data.status as ServerStatuses))}
+            <p>
+              Баланс:{" "}
+              <span className="font-semibold text-base">
+                {walletData?.data.balance.USDT} USDT
+              </span>
             </p>
           </div>
 
