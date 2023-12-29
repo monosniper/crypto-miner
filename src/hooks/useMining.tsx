@@ -35,7 +35,6 @@ export const useMining = () => {
   const [sessionMinerLogs, setSessionMinerLogs] = useState<Log[]>([]);
   const { userData } = useAppSelector(user);
   const { data: serversList } = useGetMyServersQuery(null);
-  const [finish, setFinish] = useState(false);
 
   useEffect(() => {
     if (!userData?.session) return;
@@ -123,22 +122,12 @@ export const useMining = () => {
         }
       }
 
-      if (
-        logs.length === serversAllLogs.length &&
-        founds.length === serversAllFounds.length
-      ) {
-        return setFinish(true);
-      }
-
       setServersAllLogs(logs);
       setServersAllFounds(founds);
     }, 1000);
 
-    if (finish) return () => clearInterval(interval);
-
     return () => clearInterval(interval);
   }, [
-    finish,
     serversAllFounds.length,
     serversAllLogs.length,
     sessionData?.data.logs,
@@ -271,13 +260,6 @@ export const useMining = () => {
     setLoading(false);
   }, [sessionData]);
 
-  useEffect(() => {
-    if (!finish) return;
-
-    dispatch(setSelectedServers([]));
-    dispatch(setSelectedCoins([]));
-  }, [dispatch, finish]);
-
   return {
     toggleServerSelection,
     toggleCoinSelection,
@@ -291,6 +273,5 @@ export const useMining = () => {
     serversAllFounds,
     sessionMinerLogs,
     sessionServersLogs,
-    finish,
   };
 };

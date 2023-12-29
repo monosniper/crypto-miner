@@ -12,13 +12,15 @@ export const SuccessModal = () => {
   const { title, text } = useAppSelector(successModal);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const urlParams = new URLSearchParams(window.location.search);
+  const type = urlParams.get("type");
 
   const close = () => {
     dispatch(
       setOpenModal({
         stateNameModal: NamesModals.isOpenSuccessModal,
         isOpen: false,
-      }),
+      })
     );
 
     dispatch(setTitle(undefined));
@@ -43,7 +45,7 @@ export const SuccessModal = () => {
           <div className="flex flex-col w-full">
             <div className=" flex justify-between items-center gap-4">
               <h4 className="text-2xl font-semibold -translate-y-1">
-                🤘 {title}
+                {type !== "server_exists" && "🤘"} {title}
               </h4>
             </div>
 

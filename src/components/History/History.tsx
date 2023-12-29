@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { TabButton } from "@/components/ui";
 import {
-  useGetConvertationsQuery,
   useGetReplenishmentQuery,
   useGetWithdrawsQuery,
 } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
 import {
   CoinSkelet,
-  ConvertationsItem,
   EmptyText,
   ReplenishmentItem,
   WithdrawsItem,
@@ -18,16 +16,16 @@ import { useTranslation } from "react-i18next";
 type Tabs = "deposits" | "convertations" | "withdraws";
 
 export const History = () => {
-  const [currentTab, setCurrentTab] = useState<Tabs>("convertations");
+  const [currentTab, setCurrentTab] = useState<Tabs>("deposits");
   const { t } = useTranslation();
 
-  const {
-    data: convertationsList,
-    isLoading: convertationsIsLoading,
-    isFetching: convertationsIsFetching,
-  } = useGetConvertationsQuery(null, {
-    skip: currentTab !== "convertations",
-  });
+  // const {
+  //   data: convertationsList,
+  //   isLoading: convertationsIsLoading,
+  //   isFetching: convertationsIsFetching,
+  // } = useGetConvertationsQuery(null, {
+  //   skip: currentTab !== "convertations",
+  // });
 
   const {
     data: withdrawsList,
@@ -45,10 +43,10 @@ export const History = () => {
     skip: currentTab !== "deposits",
   });
 
-  const convertationsLoading = useLoading(
-    convertationsIsLoading,
-    convertationsIsFetching,
-  );
+  // const convertationsLoading = useLoading(
+  //   convertationsIsLoading,
+  //   convertationsIsFetching,
+  // );
 
   const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
 
@@ -60,14 +58,14 @@ export const History = () => {
   return (
     <div>
       <div className="flex items-center -m-2 flex-wrap mt-6">
-        <div className="p-2 w-full sm:w-1/3 md:w-max">
+        {/* <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
             title={t("conversions")}
             selected={currentTab === "convertations"}
             onClick={() => setCurrentTab("convertations")}
           />
-        </div>
+        </div> */}
 
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
@@ -88,7 +86,7 @@ export const History = () => {
         </div>
       </div>
 
-      {currentTab === "convertations" && (
+      {/* {currentTab === "convertations" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-4">
           {convertationsLoading ? (
             <>
@@ -111,7 +109,7 @@ export const History = () => {
             </>
           )}
         </div>
-      )}
+      )} */}
 
       {currentTab === "withdraws" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-4">

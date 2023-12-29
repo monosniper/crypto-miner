@@ -123,5 +123,6 @@
   "your server list will be updated within an hour": "Ваш список серверов будет обновлен в течение часа",
   "there are no conclusions": "Нет выводов",
   "there are no conversions": "Нет конвертаций",
-  "you already have this server, the maximum number of servers of this type is 1": "У вас уже есть данный сервер, максимальное количество серверов данного типа: 1"
+  "you already have this server, the maximum number of servers of this type is 1": "У вас уже есть данный сервер, максимальное количество серверов данного типа: 1",
+  "attention": "Внимание"
 }

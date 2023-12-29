@@ -91,8 +91,8 @@ export const ServerPage = () => {
         <span>{t("server")}</span>
       </button>
 
-      {!isLoading && data?.data.title ? (
-        <Title title={data.data.title} />
+      {!isLoading && data?.data.server?.title ? (
+        <Title title={data.data.server.title} />
       ) : (
         <div className="w-20 h-2 rounded bg-base-200 animate-pulse"></div>
       )}

@@ -35,7 +35,7 @@ const App = () => {
         })
       );
 
-      dispatch(setTitle(t("success")));
+      dispatch(setTitle(t("attention") + "!"));
       dispatch(
         setText(
           t(
