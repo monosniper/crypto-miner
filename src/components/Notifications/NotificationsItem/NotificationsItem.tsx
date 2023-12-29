@@ -2,6 +2,7 @@ import { Notification } from "@/types";
 import styles from "./NotificationsItem.module.css";
 import { FC } from "react";
 import { LogoIcon } from "@/components/icons";
+import { formatDate } from "@/utils";
 
 type Props = {
   data: Notification;
@@ -29,6 +30,8 @@ export const NotificationsItem: FC<Props> = ({ data }) => {
         </div>
 
         <p>{data.content}</p>
+
+        <span className="text-base-content-100/60">{formatDate(new Date(data.created_at))}</span>
       </div>
     </div>
   );
