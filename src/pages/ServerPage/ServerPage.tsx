@@ -29,8 +29,6 @@ export const ServerPage = () => {
   const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
   const [serverFounds, setServerFounds] = useState<Found[]>([]);
 
-  console.log(data);
-
   useEffect(() => {
     if ((!sessionData && !userData?.session) || !id) return;
 
