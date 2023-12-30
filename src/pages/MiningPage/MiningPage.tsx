@@ -21,7 +21,7 @@ export const MiningPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching,
+    serversListIsFetching
   );
   const { t } = useTranslation();
   const {
@@ -43,7 +43,7 @@ export const MiningPage = () => {
   const bytesPassword =
     CryptoJS.AES.decrypt(
       mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY,
+      import.meta.env.VITE_CRYPT_KEY
     ) || undefined;
   const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
 
@@ -54,7 +54,7 @@ export const MiningPage = () => {
     },
     {
       skip: Boolean(userData) || Boolean(sessionData),
-    },
+    }
   );
 
   return (
@@ -93,11 +93,11 @@ export const MiningPage = () => {
                 })
                 .map((el) => {
                   const foundSelectedCoin = selectedCoins.find(
-                    (item) => item === el.id,
+                    (item) => item === el.id
                   );
                   const inWork =
                     Boolean(
-                      foundSelectedCoin && (userData?.session || sessionData),
+                      foundSelectedCoin && (userData?.session || sessionData)
                     ) || false;
 
                   return (
@@ -152,19 +152,30 @@ export const MiningPage = () => {
 
       {(coins.length > 0 || userData?.session) && (
         <div className="mt-16">
-          {((sessionData && sessionData.data.end_at) ||
-            (userData?.session && userData?.session.end_at)) && (
-            <p className="mb-6">
-              Примерное время завершения сессии:{"  "}
-              <span className="text-purple-2">
-                {sessionData && formatDate(new Date(sessionData.data.end_at))}
+          <div className="flex items-center justify-between gap-4 flex-wrap mb-6">
+            {((sessionData && sessionData.data.end_at) ||
+              (userData?.session && userData?.session.end_at)) && (
+              <p>
+                Примерное время завершения сессии:{"  "}
+                <span className="text-purple-2">
+                  {sessionData && formatDate(new Date(sessionData.data.end_at))}
 
-                {userData?.session &&
-                  !sessionData &&
-                  formatDate(new Date(userData.session.end_at))}
-              </span>
-            </p>
-          )}
+                  {userData?.session &&
+                    !sessionData &&
+                    formatDate(new Date(userData.session.end_at))}
+                </span>
+              </p>
+            )}
+
+            {((sessionData && sessionData.data.end_at) ||
+              (userData?.session && userData?.session.end_at)) && (
+              <p className="text-gray-1">
+                {t(
+                  "the server is mining. After the time expires, the money will be credited to the wallet section"
+                )}
+              </p>
+            )}
+          </div>
 
           <LogsBlock
             left={serversAllLogs}

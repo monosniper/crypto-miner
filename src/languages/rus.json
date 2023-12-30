@@ -124,5 +124,7 @@
   "there are no conclusions": "Нет выводов",
   "there are no conversions": "Нет конвертаций",
   "you already have this server, the maximum number of servers of this type is 1": "У вас уже есть данный сервер, максимальное количество серверов данного типа: 1",
-  "attention": "Внимание"
+  "attention": "Внимание",
+  "the server is mining. After the time expires, the money will be credited to the wallet section": "Сервер майнит. По истечении времени деньги будут зачислены в раздел кошелек",
+  "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm": "Сервера одного и того же плана можно запускать одновременно, это даст многократный буст к фарму."
 }

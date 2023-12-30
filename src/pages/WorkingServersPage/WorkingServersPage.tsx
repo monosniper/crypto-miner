@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Servers, ServersPlans, Title } from "@/components";
+import { Attention, Servers, ServersPlans, Title } from "@/components";
 import { useLoading } from "@/hooks";
 import { useTranslation } from "react-i18next";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
@@ -14,7 +14,7 @@ export const WorkingServersPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching,
+    serversListIsFetching
   );
   const { t } = useTranslation();
 
@@ -22,7 +22,13 @@ export const WorkingServersPage = () => {
     <div>
       <Title className="flex lg:hidden pb-6" title="Доступные планы" />
 
-      <div ref={plansRef}>
+      <Attention
+        className="p-6"
+        title={t("pay-attention")}
+        content={<AttentionContent />}
+      />
+
+      <div className="mt-16" ref={plansRef}>
         <ServersPlans />
       </div>
 
@@ -37,5 +43,21 @@ export const WorkingServersPage = () => {
         />
       </div>
     </div>
+  );
+};
+
+const AttentionContent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div>
+        <p>
+          {t(
+            "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
+          )}
+        </p>
+      </div>
+    </>
   );
 };
