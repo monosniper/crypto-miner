@@ -9,6 +9,7 @@ import coinsReducer from "./slices/coinsSlice";
 import withdrawNftReducer from "./slices/withdrawNftModalSlice";
 import miningReducer from "./slices/miningSlice";
 import successModalReducer from "./slices/successModal";
+import infoModalReducer from "./slices/infoModalSlice";
 
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers({
   withdrawNftModal: withdrawNftReducer,
   mining: miningReducer,
   successModal: successModalReducer,
+  infoModal: infoModalReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

@@ -69,6 +69,7 @@ export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/NftWithdrawSuccessModal/NftWithdrawSuccessModal";
 export * from "./Modals/SuccessModal/SuccessModal";
+export * from "./Modals/InfoModal/InfoModal";
 
 // TRADING
 
