@@ -10,12 +10,14 @@ type InitialState = {
   isOpenNftWithdrawModal: boolean;
   isOpenNftWithdrawSuccessModal: boolean;
   isOpenSuccessModal: boolean;
+  isOpenInfoModal: boolean;
 };
 
 const initialState: InitialState = {
   isOpenNftWithdrawModal: false,
   isOpenNftWithdrawSuccessModal: false,
   isOpenSuccessModal: false,
+  isOpenInfoModal: false,
 };
 
 export const modalsOpensSlice = createSlice({
