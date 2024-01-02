@@ -3,18 +3,21 @@ import styles from "./NewsItem.module.css";
 import cn from "clsx";
 import { News } from "@/types";
 import { FC } from "react";
+import { LogoIcon } from "@/components/icons";
 
 type Props = {
   data: News;
 };
 
 export const NewsItem: FC<Props> = ({ data }) => {
-  const contentObj = { __html: data.content };
+  const maxContentLength = 200; // Установите максимальную длину контента по вашему усмотрению
+  const truncatedContent = data.content.slice(0, maxContentLength);
+  const contentObj = { __html: truncatedContent + "..." };
 
   return (
     <div className={styles.wrapper}>
       <div className="flex gap-4 items-center">
-        <img className={styles.avatar} src="/images/avatar.png" alt="avatar" />
+        <LogoIcon />
         <h4 className={cn(styles.title, "375:hidden")}>{data.title}</h4>
       </div>
 

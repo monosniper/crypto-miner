@@ -19,3 +19,7 @@ export * from "./FieldWrapper/FieldWrapper";
 // LINKS
 
 export * from "./Links/TelegramLink/TelegramLink";
+
+// BADGES
+
+export * from "./Badges/MainBadge/MainBadge";

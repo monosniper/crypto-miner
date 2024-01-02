@@ -50,7 +50,7 @@ export const LogsBlock: FC<Props> = ({
 
   return (
     <div className="flex flex-wrap -m-3">
-      <div className="w-full md:w-1/4 p-3">
+      <div className="w-full sm:flex-1 p-3">
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(390px-32px)]  scrollbar-none flex flex-col gap-1"
@@ -81,7 +81,7 @@ export const LogsBlock: FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/4 p-3">
+      <div className="w-full sm:flex-1 p-3">
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
@@ -117,75 +117,79 @@ export const LogsBlock: FC<Props> = ({
         </div>
       </div>
 
-      <div className="w-full md:w-1/4 p-3">
-        <div className="box w-full p-4 h-[375px] overflow-hidden">
-          <div
-            className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
-            ref={leftTwoRef}
-          >
-            {!loading && (
-              <>
-                {!leftTwo || leftTwo.length === 0 ? (
-                  <EmptyText
-                    className="text-gray-1"
-                    text={t("no data available")}
-                  />
-                ) : (
-                  <>
-                    {leftTwo.map((el, idx) => {
-                      return (
-                        <p key={idx}>
-                          <span className="text-purple-2">
-                            <span className="text-base-content-100">
-                              {el.text}
-                            </span>{" "}
-                            {el.contrast && el.contrast}
-                          </span>
-                        </p>
-                      );
-                    })}
-                  </>
-                )}
-              </>
-            )}
+      {leftTwo && (
+        <div className="w-full flex-1 p-3">
+          <div className="box w-full p-4 h-[375px] overflow-hidden">
+            <div
+              className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
+              ref={leftTwoRef}
+            >
+              {!loading && (
+                <>
+                  {!leftTwo || leftTwo.length === 0 ? (
+                    <EmptyText
+                      className="text-gray-1"
+                      text={t("no data available")}
+                    />
+                  ) : (
+                    <>
+                      {leftTwo.map((el, idx) => {
+                        return (
+                          <p key={idx}>
+                            <span className="text-purple-2">
+                              <span className="text-base-content-100">
+                                {el.text}
+                              </span>{" "}
+                              {el.contrast && el.contrast}
+                            </span>
+                          </p>
+                        );
+                      })}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="w-full md:w-1/4 p-3">
-        <div className="box w-full p-4 h-[375px] overflow-hidden">
-          <div
-            className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
-            ref={rightTwoRef}
-          >
-            {!loading && (
-              <>
-                {!rightTwo || rightTwo.length === 0 ? (
-                  <EmptyText
-                    className="text-gray-1"
-                    text={t("no data available")}
-                  />
-                ) : (
-                  <>
-                    {rightTwo.map((el, idx) => {
-                      return (
-                        <p key={idx}>
-                          <span className="text-purple-2">
-                            <span className="text-base-content-100">
-                              {el.text}
-                            </span>{" "}
-                            {el.contrast && el.contrast}
-                          </span>
-                        </p>
-                      );
-                    })}
-                  </>
-                )}
-              </>
-            )}
+      {rightTwo && (
+        <div className="w-full flex-1 p-3">
+          <div className="box w-full p-4 h-[375px] overflow-hidden">
+            <div
+              className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
+              ref={rightTwoRef}
+            >
+              {!loading && (
+                <>
+                  {!rightTwo || rightTwo.length === 0 ? (
+                    <EmptyText
+                      className="text-gray-1"
+                      text={t("no data available")}
+                    />
+                  ) : (
+                    <>
+                      {rightTwo.map((el, idx) => {
+                        return (
+                          <p key={idx}>
+                            <span className="text-purple-2">
+                              <span className="text-base-content-100">
+                                {el.text}
+                              </span>{" "}
+                              {el.contrast && el.contrast}
+                            </span>
+                          </p>
+                        );
+                      })}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
