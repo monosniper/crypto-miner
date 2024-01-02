@@ -1,6 +1,6 @@
 import cn from "clsx";
 import styles from "./BalanceBlock.module.css";
-import { AddIcon, ExportIcon } from "@/components/icons";
+import { AddIcon, ConverIcon, ExportIcon } from "@/components/icons";
 import { Button } from "@/components/ui";
 import { useNavigate } from "react-router-dom";
 import { FC } from "react";
@@ -59,6 +59,11 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
               icon={<AddIcon />}
               title={t("deposit")}
               onClick={() => navigate("/wallet/replenishment")}
+            />
+            <Button
+              icon={<ConverIcon className="[&>path]:fill-base-content-300" />}
+              title={t("conversion")}
+              onClick={() => console.log("click")}
             />
             <Button
               icon={<ExportIcon />}

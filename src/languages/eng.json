@@ -124,5 +124,8 @@
   "you already have this server, the maximum number of servers of this type is 1": "You already have this server, the maximum number of servers of this type is 1",
   "attention": "Attention",
   "the server is mining. After the time expires, the money will be credited to the wallet section": "The server is mining. After the time expires, the money will be credited to the wallet section",
-  "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm": "Servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
+  "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm": "Servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+  "transfer": "Transfer",
+  "referral system": "Referral system",
+  "privacy policy": "Privacy policy"
 }

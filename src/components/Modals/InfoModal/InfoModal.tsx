@@ -18,7 +18,7 @@ export const InfoModal = () => {
       setOpenModal({
         stateNameModal: NamesModals.isOpenInfoModal,
         isOpen: false,
-      })
+      }),
     );
 
     dispatch(setTitle(undefined));
