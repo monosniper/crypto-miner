@@ -181,12 +181,25 @@ export const userApi = createApi({
     }),
 
     convertation: mutation<
-      null,
+      { success: boolean },
       { coin_from_id: number; coin_to_id: number; amount: number }
     >({
       query(body) {
         return {
           url: "me/convertations",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    transfer: mutation<
+      { success: boolean },
+      { username: string; amount: number }
+    >({
+      query(body) {
+        return {
+          url: "me/transfer",
           method: "POST",
           body,
         };
@@ -210,4 +223,5 @@ export const {
   usePartnershipMutation,
   useGetReplenishmentQuery,
   useConvertationMutation,
+  useTransferMutation,
 } = userApi;

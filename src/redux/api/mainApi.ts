@@ -7,7 +7,7 @@ export const mainApi = createApi({
     baseUrl: `${import.meta.env.VITE_API!}/`,
   }),
 
-  endpoints: ({ query }) => ({
+  endpoints: ({ query, mutation }) => ({
     getSettings: query<Settings, null>({
       query() {
         return {
@@ -16,7 +16,17 @@ export const mainApi = createApi({
         };
       },
     }),
+
+    checkUsername: mutation<{ success: boolean }, { username: string }>({
+      query(body) {
+        return {
+          url: "check-username",
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetSettingsQuery } = mainApi;
+export const { useGetSettingsQuery, useCheckUsernameMutation } = mainApi;

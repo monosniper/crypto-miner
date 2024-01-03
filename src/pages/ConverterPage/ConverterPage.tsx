@@ -17,7 +17,9 @@ export const ConverterPage = () => {
     useConvertationMutation();
   const { data: coins } = useGetCoinsQuery(null);
   const { data: settings } = useGetSettingsQuery(null);
-  const { data: walletData } = useGetWalletQuery(null);
+  const { data: walletData } = useGetWalletQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
   const methods = useForm<{ amount: number; amountTwo: number }>();
   const [fromCoinId, setFromCoinId] = useState<number>();
   const [toCoinId, setToCoinId] = useState<number>();
