@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+import { useOutside } from "@/hooks";
+import { FC, useRef, useState } from "react";
 
 type Props = {
   value?: number;
@@ -11,9 +12,12 @@ type Props = {
 
 export const TextFieldSelect: FC<Props> = ({ value, onClickItem, list }) => {
   const [isOpen, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useOutside(ref, () => setOpen(false));
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <p
         className="cursor-pointer hover:text-primary"
         onClick={() => setOpen((prev) => !prev)}

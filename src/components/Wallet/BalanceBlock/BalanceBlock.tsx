@@ -63,7 +63,7 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
             <Button
               icon={<ConverIcon className="[&>path]:fill-base-content-300" />}
               title={t("conversion")}
-              onClick={() => console.log("click")}
+              onClick={() => navigate("/converter")}
             />
             <Button
               icon={<ExportIcon />}

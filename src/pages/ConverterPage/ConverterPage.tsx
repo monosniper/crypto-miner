@@ -89,7 +89,7 @@ export const ConverterPage = () => {
 
       <div className="box p-6">
         <form onSubmit={methods.handleSubmit(formHandler)} noValidate>
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 items-start">
+          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 items-start">
             <TextField
               type="number"
               placeholder={t("enter the amount")}
