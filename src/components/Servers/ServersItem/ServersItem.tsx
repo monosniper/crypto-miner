@@ -13,6 +13,10 @@ type Props = {
   selected?: boolean;
   disabled?: boolean;
   inWork?: boolean;
+  tooltip?: {
+    value: boolean;
+    title: string;
+  };
 };
 
 export const ServersItem: FC<PropsWithClassName<Props>> = ({
@@ -23,11 +27,17 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
   selected,
   disabled = false,
   inWork = false,
+  tooltip,
 }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      data-tooltip-id={tooltip?.value ? "mining-server" : undefined}
+      data-tooltip-content={tooltip?.title}
+      data-tooltip-place="top"
+    >
       <div
         className={cn({
           "box-in-work absolute -left-[1px] right-0 -top-[1px] w-[calc(100%+2px)] h-[calc(100%+2px)] bottom-0 rounded-xl":

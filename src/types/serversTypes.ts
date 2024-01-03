@@ -41,6 +41,7 @@ export type Server = {
   founds?: null | Found[];
   type?: ServerTypes;
   server?: Server;
+  last_work_at?: string;
 };
 
 export type SelectedServer = Pick<Server, "id" | "type" | "coins">;

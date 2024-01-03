@@ -1,7 +1,8 @@
-import { Coins, News, Title } from "@/components";
+import { Coins, Convertations, News, Title } from "@/components";
 import { useLoading } from "@/hooks";
 import { useGetArticlesQuery } from "@/redux/api/articlesApi";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
+import { useGetConvertationsQuery } from "@/redux/api/userApi";
 import { main, setShowHideCoins } from "@/redux/slices/mainSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useTranslation } from "react-i18next";
@@ -12,11 +13,11 @@ export const MainPage = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  // const {
-  //   data: convertationsList,
-  //   isLoading: convertationsIsLoading,
-  //   isFetching: convertationsIsFetching,
-  // } = useGetConvertationsQuery(null);
+  const {
+    data: convertationsList,
+    isLoading: convertationsIsLoading,
+    isFetching: convertationsIsFetching,
+  } = useGetConvertationsQuery(null);
   const {
     data: articlesList,
     isLoading: articlesIsLoading,
@@ -24,10 +25,10 @@ export const MainPage = () => {
   } = useGetArticlesQuery(null);
 
   const coinsLoading = useLoading(isLoading, isFetching);
-  // const convertationsLoading = useLoading(
-  //   convertationsIsLoading,
-  //   convertationsIsFetching
-  // );
+  const convertationsLoading = useLoading(
+    convertationsIsLoading,
+    convertationsIsFetching,
+  );
   const articlesLoading = useLoading(articlesIsLoading, articlesIsFetching);
 
   return (
@@ -67,7 +68,7 @@ export const MainPage = () => {
           />
         </div>
 
-        {/* <div className="w-full md:w-1/2 p-6">
+        <div className="w-full md:w-1/2 p-6">
           <Convertations
             list={
               convertationsList
@@ -76,7 +77,7 @@ export const MainPage = () => {
             }
             loading={convertationsLoading}
           />
-        </div> */}
+        </div>
       </div>
     </div>
   );

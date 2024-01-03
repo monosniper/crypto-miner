@@ -141,5 +141,6 @@
   "has received your funds": "получил Ваши средства",
   "taking into account the commission": "С учётом комиссии",
   "there is no such user": "Такого пользователя не существует",
-  "the user is being verified": "Происходит проверка пользователя"
+  "the user is being verified": "Происходит проверка пользователя",
+  "the server was launched less than 24 hours ago": "Сервер был запущен менее 24ч назад"
 }
