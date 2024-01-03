@@ -127,5 +127,11 @@
   "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm": "Servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
   "transfer": "Transfer",
   "referral system": "Referral system",
-  "privacy policy": "Privacy policy"
+  "privacy policy": "Privacy policy",
+  "number of referrals": "Number of referrals",
+  "the number of deposits": "The number of deposits",
+  "the percentage received": "The percentage received",
+  "the text has been copied": "The text has been copied",
+  "convert": "Convert",
+  "insufficient funds": "Insufficient funds"
 }

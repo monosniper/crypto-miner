@@ -2,6 +2,7 @@ import { FC, useRef, useEffect } from "react";
 import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
 import { Found, Log, ServerLog } from "@/types";
+import cn from "clsx";
 
 type Props = {
   loading?: boolean;
@@ -50,7 +51,12 @@ export const LogsBlock: FC<Props> = ({
 
   return (
     <div className="flex flex-wrap -m-3">
-      <div className="w-full sm:flex-1 p-3">
+      <div
+        className={cn("w-1/2 p-3", {
+          "sm:w-1/4": leftTwo || rightTwo,
+          "sm:w-1/2": !leftTwo || !rightTwo,
+        })}
+      >
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(390px-32px)]  scrollbar-none flex flex-col gap-1"
@@ -81,7 +87,12 @@ export const LogsBlock: FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="w-full sm:flex-1 p-3">
+      <div
+        className={cn("w-1/2 p-3", {
+          "sm:w-1/4": leftTwo || rightTwo,
+          "sm:w-1/2": !leftTwo || !rightTwo,
+        })}
+      >
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
@@ -118,7 +129,12 @@ export const LogsBlock: FC<Props> = ({
       </div>
 
       {leftTwo && (
-        <div className="w-full flex-1 p-3">
+        <div
+          className={cn("w-1/2 p-3", {
+            "sm:w-1/4": left || right,
+            "sm:w-1/2": !left || !right,
+          })}
+        >
           <div className="box w-full p-4 h-[375px] overflow-hidden">
             <div
               className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
@@ -155,7 +171,12 @@ export const LogsBlock: FC<Props> = ({
       )}
 
       {rightTwo && (
-        <div className="w-full flex-1 p-3">
+        <div
+          className={cn("w-1/2 p-3", {
+            "sm:w-1/4": left || right,
+            "sm:w-1/2": !left || !right,
+          })}
+        >
           <div className="box w-full p-4 h-[375px] overflow-hidden">
             <div
               className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"

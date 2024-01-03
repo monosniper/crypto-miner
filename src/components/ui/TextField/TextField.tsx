@@ -18,11 +18,14 @@ type Props<T extends FieldValues> = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
   error?: string;
+  readOnly?: boolean;
 
   btn?: {
     title: string;
     onClick: MouseEventHandler<HTMLButtonElement>;
   };
+
+  rightBlock?: JSX.Element;
 };
 
 export const TextField = <T extends FieldValues>({
@@ -34,6 +37,8 @@ export const TextField = <T extends FieldValues>({
   options,
   onChange,
   value,
+  readOnly,
+  rightBlock,
 
   btn,
 }: PropsWithClassName<Props<T>>) => {
@@ -45,14 +50,17 @@ export const TextField = <T extends FieldValues>({
         placeholder={placeholder}
         onChange={onChange}
         value={value}
+        readOnly={readOnly}
         {...methods?.register(registerName!, options)}
       />
 
-      {btn && (
+      {!rightBlock && btn && (
         <button className={styles.btn} type="button" onClick={btn.onClick}>
           {btn.title}
         </button>
       )}
+
+      {rightBlock && !btn && rightBlock}
     </div>
   );
 };

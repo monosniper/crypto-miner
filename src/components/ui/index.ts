@@ -11,6 +11,7 @@ export * from "./Buttons/TabButton/TabButton";
 
 export * from "./TextFieldAuth/TextFieldAuth";
 export * from "./TextField/TextField";
+export * from "./TextField/TextFieldSelect/TextFieldSelect";
 
 export * from "./Search/Search";
 

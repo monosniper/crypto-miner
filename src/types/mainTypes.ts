@@ -20,4 +20,5 @@ export type Settings = {
   instagram?: string;
   tiktok?: string;
   withdraw_fee?: string;
+  convertation_fee?: string;
 };

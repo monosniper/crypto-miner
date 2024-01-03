@@ -179,6 +179,19 @@ export const userApi = createApi({
         };
       },
     }),
+
+    convertation: mutation<
+      null,
+      { coin_from_id: number; coin_to_id: number; amount: number }
+    >({
+      query(body) {
+        return {
+          url: "me/convertations",
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -196,4 +209,5 @@ export const {
   useBuyServerMutation,
   usePartnershipMutation,
   useGetReplenishmentQuery,
+  useConvertationMutation,
 } = userApi;

@@ -7,6 +7,7 @@ import {
   PartnerIcon,
   ExitIcon,
   ConverIcon,
+  RefIcon,
 } from "@/components/icons";
 import { MenuItem } from "./MenuItem/MenuItem";
 import { useTranslation } from "react-i18next";
@@ -46,6 +47,12 @@ export const Menu = () => {
             icon={<ConverIcon />}
             title={t("conversions")}
             href="/converter"
+          />
+
+          <MenuItem
+            icon={<RefIcon />}
+            title={t("referral system")}
+            href="/ref"
           />
         </div>
       </div>

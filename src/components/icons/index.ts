@@ -33,3 +33,4 @@ export * from "./CheckIcon";
 export * from "./TimeIcon";
 export * from "./ConvertationsIcon";
 export * from "./TransferIcon";
+export * from "./RefIcon";
