@@ -6,3 +6,8 @@ export type WithdrawalFormData = {
 export type ReplenishmentFormData = {
   amount: number;
 };
+
+export type TransferFormData = {
+  amount: number;
+  nickname: string;
+};

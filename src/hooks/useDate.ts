@@ -23,24 +23,19 @@ export const useDate = () => {
   };
 
   const formattedDateStr = (date: Date) => {
-    const languagesAbbrs = {
+    const languagesLocales = {
       rus: "ru-RU",
       eng: "en-US",
     };
 
-    const options: Intl.DateTimeFormatOptions = {
+    const formattedDateStr = date.toLocaleString(languagesLocales[language], {
       year: "numeric",
       month: "short",
       day: "numeric",
       weekday: "long",
-    };
+    });
 
-    const formattedDateStr = new Intl.DateTimeFormat(
-      languagesAbbrs[language],
-      options,
-    ).format(date);
-
-    // Example - Friday, October 13, 2023
+    // Example - Пятница, 13 октября 2023 г.
     return formattedDateStr;
   };
 

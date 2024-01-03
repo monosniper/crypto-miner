@@ -116,7 +116,10 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
             <p className="text-xs text-base-content-300">
               © app.hogyx.io, 2023
             </p>
-            <Link className="text-xs text-base-content-300" to="/">
+            <Link
+              className="text-xs text-base-content-300"
+              to="/privacy-policy"
+            >
               Terms and Conditions
             </Link>
           </div>

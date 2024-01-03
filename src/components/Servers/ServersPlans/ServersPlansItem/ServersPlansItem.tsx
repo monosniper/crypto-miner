@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui";
+import { Button, MainBadge } from "@/components/ui";
 import { PropsWithClassName, Server } from "@/types";
 import cn from "clsx";
 import { FC, useEffect } from "react";
@@ -9,12 +9,6 @@ import { toast } from "react-toastify";
 import { useAppDispatch } from "@/redux/store";
 
 type Props = {
-  // icon: JSX.Element | string;
-  // title: string;
-  // price: number;
-
-  // list: { icon: JSX.Element | string; text: string }[];
-
   data: Server;
 };
 
@@ -69,6 +63,14 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
                 </div>
               );
             })}
+
+            {data.coins && data.coins.length > 0 && (
+              <div className="flex items-center gap-2 flex-wrap">
+                {data.coins.map((el) => {
+                  return <MainBadge key={el.id} title={el.slug} />;
+                })}
+              </div>
+            )}
           </div>
         </div>
 

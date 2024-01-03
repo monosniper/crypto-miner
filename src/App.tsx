@@ -134,6 +134,7 @@ const App = () => {
       />
 
       <Tooltip id="light" />
+      <Tooltip id="mining-server" />
 
       <SuccessModal />
     </div>

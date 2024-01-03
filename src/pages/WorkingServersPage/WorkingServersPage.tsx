@@ -14,7 +14,7 @@ export const WorkingServersPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching
+    serversListIsFetching,
   );
   const { t } = useTranslation();
 
@@ -54,7 +54,7 @@ const AttentionContent = () => {
       <div>
         <p>
           {t(
-            "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
+            "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
           )}
         </p>
       </div>

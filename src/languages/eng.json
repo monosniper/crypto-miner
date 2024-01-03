@@ -124,5 +124,21 @@
   "you already have this server, the maximum number of servers of this type is 1": "You already have this server, the maximum number of servers of this type is 1",
   "attention": "Attention",
   "the server is mining. After the time expires, the money will be credited to the wallet section": "The server is mining. After the time expires, the money will be credited to the wallet section",
-  "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm": "Servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
+  "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm": "Servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+  "transfer": "Transfer",
+  "referral system": "Referral system",
+  "privacy policy": "Privacy policy",
+  "number of referrals": "Number of referrals",
+  "the number of deposits": "The number of deposits",
+  "the percentage received": "The percentage received",
+  "the text has been copied": "The text has been copied",
+  "convert": "Convert",
+  "insufficient funds": "Insufficient funds",
+  "nickname": "Nickname",
+  "the user": "The user",
+  "has received your funds": "has received your funds",
+  "taking into account the commission": "Taking into account the commission",
+  "there is no such user": "There is no such user",
+  "the user is being verified": "The user is being verified",
+  "the server was launched less than 24 hours ago": "The server was launched less than 24h ago"
 }

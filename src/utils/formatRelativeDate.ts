@@ -17,11 +17,10 @@ export const formatRelativeDate = (inputDate: Date) => {
     }
     return `${daysAgo} дней назад`;
   } else {
-    const day = inputDate.getDate();
-    const month = inputDate.getMonth() + 1;
-    const year = inputDate.getFullYear();
-    return `${day < 10 ? "0" : ""}${day}.${
-      month < 10 ? "0" : ""
-    }${month}.${year}`;
+    return inputDate.toLocaleString("ru-RU", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    });
   }
 };

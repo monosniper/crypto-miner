@@ -1,4 +1,3 @@
-import { ReplenishmentPage } from "@/pages";
 import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -13,6 +12,11 @@ const {
   ServerPage,
   WorkingServersPage,
   PartnershipPage,
+  ReplenishmentPage,
+  ConverterPage,
+  TransferPage,
+  RefPage,
+  PrivacyPolicyPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -106,6 +110,42 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <PartnershipPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/converter"
+            element={
+              <Suspense>
+                <ConverterPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/ref"
+            element={
+              <Suspense>
+                <RefPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/transfer"
+            element={
+              <Suspense>
+                <TransferPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/privacy-policy"
+            element={
+              <Suspense>
+                <PrivacyPolicyPage />
               </Suspense>
             }
           />

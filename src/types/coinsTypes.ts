@@ -1,7 +1,7 @@
 export type Coin = {
   id: number;
   name?: string;
-  slug?: string;
+  slug: string;
   rate: number;
   change: number;
   graph: number[];

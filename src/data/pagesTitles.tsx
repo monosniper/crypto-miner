@@ -1,3 +1,5 @@
+// key = href, value = name from (eng.json or rus.json)
+
 export const pagesTitles: {
   [key: string]: string | JSX.Element;
 } = {
@@ -10,4 +12,8 @@ export const pagesTitles: {
   "/nft-wallet": "nft-wallet",
   "/partnership": "partnership",
   "/trading": "trading",
+  "/converter": "conversions",
+  "/transfer": "transfer",
+  "/ref": "referral system",
+  "/privacy-policy": "privacy policy",
 };
