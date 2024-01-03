@@ -97,6 +97,18 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                             el.status !== ServerStatuses.ACTIVE_STATUS
                           }
                           inWork={inWork}
+                          tooltip={{
+                            value: el.last_work_at
+                              ? Date.now() -
+                                  new Date(el.last_work_at).getTime() <
+                                24 * 60 * 60 * 1000
+                                ? true
+                                : false
+                              : false,
+                            title: t(
+                              "the server was launched less than 24 hours ago",
+                            ),
+                          }}
                         />
                       </div>
                     );

@@ -7,9 +7,13 @@ export type User = {
   token: string;
   coin_positions: CoinPosition[];
   session: SessionData;
+  ref_code: string;
+  total_refs: number;
+  total_refs_amount: number;
 };
 
 export type Balance = {
+  [key: string]: number;
   ADA: number;
   BNB: number;
   BTC: number;

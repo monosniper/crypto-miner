@@ -31,7 +31,7 @@ export const MiningPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching
+    serversListIsFetching,
   );
   const { t } = useTranslation();
   const {
@@ -54,7 +54,7 @@ export const MiningPage = () => {
   const bytesPassword =
     CryptoJS.AES.decrypt(
       mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY
+      import.meta.env.VITE_CRYPT_KEY,
     ) || undefined;
   const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
 
@@ -65,7 +65,7 @@ export const MiningPage = () => {
     },
     {
       skip: Boolean(userData) || Boolean(sessionData),
-    }
+    },
   );
 
   useEffect(() => {
@@ -75,14 +75,14 @@ export const MiningPage = () => {
       setOpenModal({
         stateNameModal: NamesModals.isOpenInfoModal,
         isOpen: true,
-      })
+      }),
     );
 
     setTitle(t("attention") + "!");
     setText(
       t(
-        "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
-      )
+        "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+      ),
     );
   }, [dispatch, sessionData, t]);
 
@@ -125,11 +125,11 @@ export const MiningPage = () => {
                   })
                   .map((el) => {
                     const foundSelectedCoin = selectedCoins.find(
-                      (item) => item === el.id
+                      (item) => item === el.id,
                     );
                     const inWork =
                       Boolean(
-                        foundSelectedCoin && (userData?.session || sessionData)
+                        foundSelectedCoin && (userData?.session || sessionData),
                       ) || false;
 
                     return (
@@ -204,7 +204,7 @@ export const MiningPage = () => {
                 (userData?.session && userData?.session.end_at)) && (
                 <p className="text-gray-1">
                   {t(
-                    "the server is mining. After the time expires, the money will be credited to the wallet section"
+                    "the server is mining. After the time expires, the money will be credited to the wallet section",
                   )}
                 </p>
               )}

@@ -11,6 +11,7 @@ export * from "./Buttons/TabButton/TabButton";
 
 export * from "./TextFieldAuth/TextFieldAuth";
 export * from "./TextField/TextField";
+export * from "./TextField/TextFieldSelect/TextFieldSelect";
 
 export * from "./Search/Search";
 
@@ -19,3 +20,7 @@ export * from "./FieldWrapper/FieldWrapper";
 // LINKS
 
 export * from "./Links/TelegramLink/TelegramLink";
+
+// BADGES
+
+export * from "./Badges/MainBadge/MainBadge";

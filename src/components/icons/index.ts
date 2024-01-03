@@ -1,3 +1,5 @@
+// ICONS
+
 export * from "./HomeIcon";
 export * from "./ConvertIcon";
 export * from "./WalletIcon";
@@ -29,3 +31,6 @@ export * from "./LightIcon";
 export * from "./LogoIcon";
 export * from "./CheckIcon";
 export * from "./TimeIcon";
+export * from "./ConvertationsIcon";
+export * from "./TransferIcon";
+export * from "./RefIcon";

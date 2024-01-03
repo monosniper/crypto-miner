@@ -54,6 +54,7 @@ export * from "./Forms/SignInForm/SignInForm";
 export * from "./Forms/WithdrawalForm/WithdrawalForm";
 export * from "./Forms/WithdrawNftForm/WithdrawNftForm";
 export * from "./Forms/ReplenishmentForm/ReplenishmentForm";
+export * from "./Forms/TransferForm/TransferForm";
 
 export * from "./EmptyText/EmptyText";
 export * from "./Attention/Attention";
