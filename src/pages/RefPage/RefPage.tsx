@@ -1,6 +1,6 @@
 import { Title } from "@/components";
 import { CopyIcon } from "@/components/icons/CopyIcon";
-import { TextField } from "@/components/ui";
+import { FieldWrapper, TextField } from "@/components/ui";
 import { user } from "@/redux/slices/userSlice";
 import { useAppSelector } from "@/redux/store";
 import { copyText } from "@/utils";
@@ -30,27 +30,33 @@ export const RefPage = () => {
       </div>
 
       <div className="box p-6 mt-8">
-        <TextField
-          className="[&>input]:!text-gray-1"
-          value={
-            userData ? `https://www.hogyx.io?ref_code=${userData.ref_code}` : ""
-          }
-          readOnly={true}
-          rightBlock={
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                if (!userData) return;
+        <FieldWrapper title={t("your referral link")}>
+          <TextField
+            className="[&>input]:!text-gray-1"
+            value={
+              userData
+                ? `https://www.hogyx.io?ref_code=${userData.ref_code}`
+                : ""
+            }
+            readOnly={true}
+            rightBlock={
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  if (!userData) return;
 
-                copyText(`https://www.hogyx.io?ref_code=${userData.ref_code}`);
+                  copyText(
+                    `https://www.hogyx.io?ref_code=${userData.ref_code}`,
+                  );
 
-                toast.success(t("the text has been copied"));
-              }}
-            >
-              <CopyIcon className="[&>g>path]:stroke-base-content-100" />
-            </div>
-          }
-        />
+                  toast.success(t("the text has been copied"));
+                }}
+              >
+                <CopyIcon className="[&>g>path]:stroke-base-content-100" />
+              </div>
+            }
+          />
+        </FieldWrapper>
       </div>
 
       <div className="flex items-start mt-8 flex-wrap gap-4">
