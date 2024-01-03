@@ -17,10 +17,10 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CryptoJS from "crypto-js";
-import { formatDate } from "@/utils";
 import { NamesModals } from "@/types";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { setText, setTitle } from "@/redux/slices/infoModalSlice";
+import moment from "moment";
 
 export const MiningPage = () => {
   const {
@@ -191,11 +191,17 @@ export const MiningPage = () => {
                   Примерное время завершения сессии:{"  "}
                   <span className="text-purple-2">
                     {sessionData &&
-                      formatDate(new Date(sessionData.data.end_at))}
+                      moment
+                        .utc(sessionData.data.end_at)
+                        .local()
+                        .format("DD.MM.YYYY HH:mm")}
 
                     {userData?.session &&
                       !sessionData &&
-                      formatDate(new Date(userData.session.end_at))}
+                      moment
+                        .utc(userData.session.end_at)
+                        .local()
+                        .format("DD.MM.YYYY HH:mm")}
                   </span>
                 </p>
               )}
