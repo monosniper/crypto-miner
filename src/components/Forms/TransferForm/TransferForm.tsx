@@ -17,7 +17,11 @@ export const TransferForm: FC<PropsWithClassName> = ({ className }) => {
   const [transfer, { isSuccess, isError, isLoading }] = useTransferMutation();
   const [
     checkUsername,
-    { data: checkUsernameData, isError: checkUsernameIsError },
+    {
+      data: checkUsernameData,
+      isError: checkUsernameIsError,
+      isLoading: checkUsernameIsLoading,
+    },
   ] = useCheckUsernameMutation();
   const { data: walletData } = useGetWalletQuery(null, {
     refetchOnMountOrArgChange: true,
@@ -28,6 +32,10 @@ export const TransferForm: FC<PropsWithClassName> = ({ className }) => {
   const timeoutRef = useRef<number | null>(null);
 
   const formHandler = (data: TransferFormData) => {
+    if (checkUsernameIsLoading) {
+      return toast.warning(t("the user is being verified"));
+    }
+
     if (!data.amount || !data.nickname) {
       return toast.error(t("fill in all the fields"));
     }
@@ -142,7 +150,7 @@ export const TransferForm: FC<PropsWithClassName> = ({ className }) => {
 
                 const newTimeoutId = window.setTimeout(() => {
                   checkUsername({ username: e.target.value });
-                }, 1000);
+                }, 100);
 
                 timeoutRef.current = newTimeoutId;
               },

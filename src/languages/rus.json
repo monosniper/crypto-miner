@@ -138,7 +138,8 @@
   "insufficient funds": "Недостаточно средств",
   "nickname": "Никнейм",
   "the user": "Пользователь",
-  "has received your funds": "Получил Ваши средства",
+  "has received your funds": "получил Ваши средства",
   "taking into account the commission": "С учётом комиссии",
-  "there is no such user": "Такого пользователя не существует"
+  "there is no such user": "Такого пользователя не существует",
+  "the user is being verified": "Происходит проверка пользователя"
 }

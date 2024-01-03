@@ -136,7 +136,8 @@
   "insufficient funds": "Insufficient funds",
   "nickname": "Nickname",
   "the user": "The user",
-  "has received your funds": "Has received your funds",
+  "has received your funds": "has received your funds",
   "taking into account the commission": "Taking into account the commission",
-  "there is no such user": "There is no such user"
+  "there is no such user": "There is no such user",
+  "the user is being verified": "The user is being verified"
 }
