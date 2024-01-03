@@ -4,7 +4,7 @@ import { FC } from "react";
 import styles from "./Attention.module.css";
 
 type Props = {
-  title: string;
+  title?: string;
   content: JSX.Element;
 };
 
@@ -21,13 +21,25 @@ export const Attention: FC<PropsWithClassName<Props>> = ({
         "!border-base-border-warning !bg-warning",
       )}
     >
-      <div className="flex items-center gap-2">
-        <img className="w-6 h-6" src="/images/attention.png" alt="attention" />
+      {title && (
+        <div className="flex items-center gap-2">
+          <img
+            className="w-6 h-6"
+            src="/images/attention.png"
+            alt="attention"
+          />
 
-        <p className={styles.title}>{title}</p>
+          <p className={styles.title}>{title}</p>
+        </div>
+      )}
+
+      <div
+        className={cn(styles.content, {
+          "mt-0": !title,
+        })}
+      >
+        {content}
       </div>
-
-      <div className={styles.content}>{content}</div>
     </div>
   );
 };

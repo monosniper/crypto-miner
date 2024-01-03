@@ -143,5 +143,7 @@
   "the server was launched less than 24 hours ago": "The server was launched less than 24h ago",
   "your referral link": "Your referral link",
   "transfer-btn": "Transfer",
-  "your nickname": "Your nickname"
+  "your nickname": "Your nickname",
+  "you can send your assets to friends or strangers": "You can send your assets to friends or strangers",
+  "you can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks": "You can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks"
 }

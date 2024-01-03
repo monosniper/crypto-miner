@@ -1,4 +1,4 @@
-import { Title } from "@/components";
+import { Attention, Title } from "@/components";
 import { Button, TextField, TextFieldSelect } from "@/components/ui";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useGetSettingsQuery } from "@/redux/api/mainApi";
@@ -88,8 +88,12 @@ export const ConverterPage = () => {
       <div className="flex items-center justify-between gap-4">
         <Title className="flex lg:hidden pb-6" title={t("conversions")} />
       </div>
-
-      <div className="box p-6">
+      <Attention
+        className="p-6"
+        title={t("pay-attention")}
+        content={<AttentionContent />}
+      />
+      <div className="box p-6 mt-16">
         <form onSubmit={methods.handleSubmit(formHandler)} noValidate>
           <div className="grid gap-8 grid-cols-1 md:grid-cols-2 items-start">
             <TextField
@@ -193,5 +197,21 @@ export const ConverterPage = () => {
         </form>
       </div>
     </div>
+  );
+};
+
+const AttentionContent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div>
+        <p>
+          {t(
+            "you can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks",
+          )}
+        </p>
+      </div>
+    </>
   );
 };
