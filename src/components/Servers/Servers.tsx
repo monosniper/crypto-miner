@@ -60,12 +60,12 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
               {type === "mining"
                 ? servers.map((el) => {
                     const foundSelectedServer = selectedServers.find(
-                      (item) => item.id === el.id,
+                      (item) => item.id === el.id
                     );
                     const inWork =
                       Boolean(
                         foundSelectedServer &&
-                          (userData?.session || sessionData),
+                          (userData?.session || sessionData)
                       ) || false;
 
                     return (
@@ -79,7 +79,11 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                             if (
                               el.status === ServerStatuses.ACTIVE_STATUS &&
                               !userData?.session &&
-                              !sessionData
+                              !sessionData &&
+                              (Date.now() -
+                                new Date(el.last_work_at!).getTime() >
+                                24 * 60 * 60 * 1000 ||
+                                false)
                             ) {
                               toggleServerSelection(el);
                             }
@@ -87,14 +91,16 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                           data={el}
                           selected={
                             selectedServers.find(
-                              (server) => el.id === server.id,
+                              (server) => el.id === server.id
                             )
                               ? true
                               : false
                           }
                           disabled={
                             !checkIdentityType(el) ||
-                            el.status !== ServerStatuses.ACTIVE_STATUS
+                            el.status !== ServerStatuses.ACTIVE_STATUS ||
+                            Date.now() - new Date(el.last_work_at!).getTime() <
+                              24 * 60 * 60 * 1000
                           }
                           inWork={inWork}
                           tooltip={{
@@ -106,7 +112,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                                 : false
                               : false,
                             title: t(
-                              "the server was launched less than 24 hours ago",
+                              "the server was launched less than 24 hours ago"
                             ),
                           }}
                         />

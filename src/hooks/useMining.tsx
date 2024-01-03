@@ -112,11 +112,11 @@ export const useMining = () => {
 
           if (currentDate.getTime() > logDate.getTime()) {
             if (log.type === "miner") {
-              setSessionMinerLogs((prev) => [...prev, log]);
+              return setSessionMinerLogs((prev) => [...prev, log]);
             }
 
             if (log.type === "servers") {
-              setSessionServersLogs((prev) => [...prev, log]);
+              return setSessionServersLogs((prev) => [...prev, log]);
             }
           }
         }
