@@ -132,7 +132,7 @@ export const TransferForm: FC<PropsWithClassName> = ({ className }) => {
 
         <FieldWrapper
           className="w-full md:w-1/2 p-4"
-          title={t("nickname")}
+          title={t("your nickname")}
           error={
             checkUsernameData?.success === false
               ? t("there is no such user")
@@ -164,7 +164,7 @@ export const TransferForm: FC<PropsWithClassName> = ({ className }) => {
         type="submit"
         color="primary"
         disabled={isLoading}
-        title={isLoading ? t("loading") : t("deposit")}
+        title={isLoading ? t("loading") : t("transfer-btn")}
       />
     </form>
   );
