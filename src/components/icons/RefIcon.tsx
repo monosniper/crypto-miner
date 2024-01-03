@@ -12,7 +12,7 @@ export const RefIcon: FC<PropsWithSize<PropsWithClassName>> = ({
       width={width}
       height={height}
       viewBox="0 0 16 16"
-      fill="#000000"
+      fill="#58667E"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g

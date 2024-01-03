@@ -105,10 +105,17 @@ export const ConverterPage = () => {
                       (coin) => coin.id === toCoinId,
                     );
 
-                    if (walletData && fromCoin?.rate && toCoin?.rate) {
+                    if (
+                      walletData &&
+                      fromCoin?.rate &&
+                      toCoin?.rate &&
+                      settings?.convertation_fee
+                    ) {
                       methods.setValue(
                         "amountTwo",
-                        (Number(e.target.value) * fromCoin.rate) / toCoin.rate,
+                        (fromCoin.rate / toCoin.rate) *
+                          Number(e.target.value) *
+                          (1 - Number(settings.convertation_fee) / 100),
                       );
                     }
                   }
@@ -140,11 +147,17 @@ export const ConverterPage = () => {
                         (coin) => coin.id === toCoinId,
                       );
 
-                      if (walletData && fromCoin?.rate && toCoin?.rate) {
+                      if (
+                        walletData &&
+                        fromCoin?.rate &&
+                        toCoin?.rate &&
+                        settings?.convertation_fee
+                      ) {
                         methods.setValue(
                           "amount",
-                          (Number(e.target.value) * toCoin.rate) /
-                            fromCoin.rate,
+                          (toCoin.rate / fromCoin.rate) *
+                            Number(e.target.value) *
+                            (1 + Number(settings.convertation_fee) / 100),
                         );
                       }
                     }
