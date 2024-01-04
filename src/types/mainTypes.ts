@@ -13,6 +13,11 @@ export type SelectItemWithIcon = {
   icon?: JSX.Element | string;
 };
 
+export type PartnershipItem = {
+  title: string;
+  description: string;
+};
+
 export type Settings = {
   telegram?: string;
   youtube?: string;
@@ -23,4 +28,8 @@ export type Settings = {
   convertation_fee?: string;
   transfer_min?: string;
   transfer_fee?: string;
+  partnership: {
+    1: PartnershipItem;
+    2: PartnershipItem;
+  };
 };
