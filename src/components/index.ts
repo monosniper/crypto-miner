@@ -93,7 +93,3 @@ export * from "./Notifications/NotificationsItem/NotificationsItem";
 // REPLENISHMENT
 
 export * from "./ReplenishmentItem/ReplenishmentItem";
-
-// REF
-
-export * from "./Ref/TopRefsBlock/TopRefsBlock";
