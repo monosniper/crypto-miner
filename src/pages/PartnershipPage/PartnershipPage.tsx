@@ -6,11 +6,13 @@ import { usePartnershipMutation } from "@/redux/api/userApi";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 
 export const PartnershipPage = () => {
   const { t } = useTranslation();
   const methods = useForm<{ amount: number }>();
   const [partnership, { data, error, isLoading }] = usePartnershipMutation();
+  const { data: settings } = useGetSettingsQuery(null);
 
   useEffect(() => {
     if (!data) return;
@@ -45,33 +47,33 @@ export const PartnershipPage = () => {
 
         <div className="mt-8 bg-base-200 border border-base-border-100 rounded-xl p-6">
           <div className="flex flex-wrap -m-5">
-            <div className="w-full lg:w-1/2 p-5">
-              <div className="flex flex-col gap-6">
-                <h5 className="text-xl font-semibold">Why do we use it?</h5>
+            {settings?.partnership[1] && (
+              <div className="w-full lg:w-1/2 p-5">
+                <div className="flex flex-col gap-6">
+                  <h5 className="text-xl font-semibold">
+                    {settings.partnership[1].title}
+                  </h5>
 
-                <p className="text-base">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                </p>
+                  <p className="text-base">
+                    {settings.partnership[1].description}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
 
-            <div className="w-full lg:w-1/2 p-5">
-              <div className="flex flex-col gap-6">
-                <h5 className="text-xl font-semibold">Why do we use it?</h5>
+            {settings?.partnership[2] && (
+              <div className="w-full lg:w-1/2 p-5">
+                <div className="flex flex-col gap-6">
+                  <h5 className="text-xl font-semibold">
+                    {settings.partnership[2].title}
+                  </h5>
 
-                <p className="text-base">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                </p>
+                  <p className="text-base">
+                    {settings.partnership[2].description}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
