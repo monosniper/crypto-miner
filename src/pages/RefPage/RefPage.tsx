@@ -40,7 +40,7 @@ export const RefPage = () => {
                   if (!userData) return;
 
                   copyText(
-                    `https://www.hogyx.io?ref_code=${userData.ref_code}`
+                    `https://www.hogyx.io?ref_code=${userData.ref_code}`,
                   );
 
                   toast.success(t("the text has been copied"));
@@ -54,6 +54,12 @@ export const RefPage = () => {
       </div>
 
       <div className="flex items-start mt-8 flex-wrap gap-4">
+        {/* <img
+          className="w-full sm:max-w-[300px]"
+          src="/images/podarok.png"
+          alt="podarok"
+        /> */}
+
         <div className="box p-6 w-full sm:flex-1">
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">

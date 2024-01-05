@@ -23,7 +23,8 @@ export const TransferPage = () => {
       <div className="box p-6 mt-8">
         {userData && (
           <p className="text-lg">
-            {t("your nickname")}: <span className="font-semibold">{userData.name}</span>
+            {t("your nickname")}:{" "}
+            <span className="font-semibold">{userData.name}</span>
           </p>
         )}
       </div>
