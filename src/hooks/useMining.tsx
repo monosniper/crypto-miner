@@ -200,6 +200,12 @@ export const useMining = () => {
   };
 
   const startMiner = () => {
+    if (!userData) return;
+
+    if (!userData.isVerificated) {
+      return toast.error(t("verify your email") + ": " + userData.email);
+    }
+
     if (selectedCoins.length === 0) {
       return toast.warning(t("select coins"));
     }

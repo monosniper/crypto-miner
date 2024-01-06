@@ -9,6 +9,7 @@ import {
   ConverIcon,
   RefIcon,
   TransferIcon,
+  ServersIcon,
 } from "@/components/icons";
 import { MenuItem } from "./MenuItem/MenuItem";
 import { useTranslation } from "react-i18next";
@@ -41,25 +42,18 @@ export const Menu = () => {
           <MenuItem icon={<MiningIcon />} title={t("mining")} href="/mining" />
           <MenuItem
             icon={<LightingIcon />}
-            title={t("working-servers")}
-            href="/working-servers"
+            title={t("server packages")}
+            href="/server-packages"
           />
           <MenuItem
-            icon={<ConverIcon />}
-            title={t("conversions")}
-            href="/converter"
+            icon={<ServersIcon />}
+            title={t("your servers")}
+            href="/user-servers"
           />
-
           <MenuItem
             icon={<TransferIcon />}
             title={t("transfer")}
             href="/transfer"
-          />
-
-          <MenuItem
-            icon={<RefIcon />}
-            title={t("referral system")}
-            href="/ref"
           />
         </div>
       </div>
@@ -78,6 +72,19 @@ export const Menu = () => {
             title={t("partnership")}
             href="/partnership"
           />
+
+          <MenuItem
+            icon={<ConverIcon />}
+            title={t("conversions")}
+            href="/converter"
+          />
+
+          <MenuItem
+            icon={<RefIcon />}
+            title={t("referral system")}
+            href="/ref"
+          />
+
           <MenuItem
             type="button"
             icon={<ExitIcon />}

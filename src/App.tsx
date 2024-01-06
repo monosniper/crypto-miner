@@ -6,7 +6,7 @@ import { PageLayout } from "./components/layouts";
 import { setUserData, user } from "./redux/slices/userSlice";
 import { useGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import socket from "@/core/socket";
 import Cookies from "js-cookie";
@@ -101,6 +101,11 @@ const App = () => {
     const { data: user } = data;
 
     dispatch(setUserData(user));
+
+    if (!user.isVerificated) {
+      toast.warning(t("verify your email") + ": " + user.email);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, dispatch]);
 
   useEffect(() => {
