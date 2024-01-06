@@ -8,7 +8,7 @@ export const pagesTitles: {
   "/wallet/withdrawal": "withdrawal-of-funds",
   "/wallet/replenishment": "replenishment",
   "/mining": "mining",
-  "/working-servers": "working-servers",
+  "/server-packages": "server packages",
   "/nft-wallet": "nft-wallet",
   "/partnership": "partnership",
   "/trading": "trading",

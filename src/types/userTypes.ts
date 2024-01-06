@@ -10,6 +10,7 @@ export type User = {
   ref_code: string;
   total_refs: number;
   total_refs_amount: number;
+  isVerificated: boolean | null;
 };
 
 export type Balance = {

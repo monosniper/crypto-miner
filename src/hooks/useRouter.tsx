@@ -10,13 +10,14 @@ const {
   WithdrawalPage,
   NftPage,
   ServerPage,
-  WorkingServersPage,
+  ServerPackagesPage,
   PartnershipPage,
   ReplenishmentPage,
   ConverterPage,
   TransferPage,
   RefPage,
   PrivacyPolicyPage,
+  UserServersPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -61,10 +62,10 @@ export const useRouter = (isAuth: boolean) => {
           />
 
           <Route
-            path="/working-servers"
+            path="/server-packages"
             element={
               <Suspense>
-                <WorkingServersPage />
+                <ServerPackagesPage />
               </Suspense>
             }
           />
@@ -146,6 +147,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <PrivacyPolicyPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/user-servers"
+            element={
+              <Suspense>
+                <UserServersPage />
               </Suspense>
             }
           />

@@ -64,7 +64,11 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
             type="number"
             methods={methods}
             registerName="amount"
-            btn={{ title: "Все", onClick: () => console.log("click") }}
+            btn={{
+              title: t("all"),
+              onClick: () =>
+                methods.setValue("amount", walletData?.data.balance.USDT || 0),
+            }}
             options={{
               valueAsNumber: true,
               min: {
