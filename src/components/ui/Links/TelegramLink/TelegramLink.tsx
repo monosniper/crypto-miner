@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 
 export const TelegramLink = () => {
   const { t } = useTranslation();
+  const { data: settings } = useGetSettingsQuery(null);
 
   return (
     <Link
       className="flex items-center gap-1 py-1 px-2 rounded-md border border-base-border-100 w-max text-base-content-100"
-      to={import.meta.env.VITE_TELEGRAM}
+      to={settings?.telegram || "/"}
     >
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
         <path
