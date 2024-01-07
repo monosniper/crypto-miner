@@ -158,5 +158,7 @@
   "the link for password recovery has been sent to the mail": "Ссылка для восстановления пароля отправлена на почту",
   "resend": "Отправить заново",
   "send": "Отправить",
-  "sign-in": "Вход"
+  "sign-in": "Вход",
+  "passwords don't match": "Пароли не совпадают",
+  "change the password": "Изменить пароль"
 }

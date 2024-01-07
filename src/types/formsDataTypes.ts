@@ -15,3 +15,8 @@ export type TransferFormData = {
 export type PasswordRecoveryFormData = {
   email: string;
 };
+
+export type NewPasswordFormData = {
+  newPassword: string;
+  newPasswordRepeat: string;
+};

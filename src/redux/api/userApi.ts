@@ -63,6 +63,29 @@ export const userApi = createApi({
       },
     }),
 
+    checkPasswordCode: mutation<{ success: boolean }, { code: string }>({
+      query(body) {
+        return {
+          url: "/check-password-code",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    updatePassword: mutation<
+      { success: boolean },
+      { password: string; code: string }
+    >({
+      query(body) {
+        return {
+          url: "update-password",
+          method: "PUT",
+          body,
+        };
+      },
+    }),
+
     getWallet: query<{ data: { balance: Balance; nfts: Nft[] } }, null>({
       query() {
         return {
@@ -235,4 +258,6 @@ export const {
   useConvertationMutation,
   useTransferMutation,
   useForgotPasswordMutation,
+  useCheckPasswordCodeMutation,
+  useUpdatePasswordMutation,
 } = userApi;

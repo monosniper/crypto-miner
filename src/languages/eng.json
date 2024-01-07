@@ -156,5 +156,7 @@
   "the link for password recovery has been sent to the mail": "The link for password recovery has been sent to the mail",
   "resend": "Resend",
   "send": "Send",
-  "sign-in": "Sign in"
+  "sign-in": "Sign in",
+  "passwords don't match": "Passwords don't match",
+  "change the password": "Change the password"
 }
