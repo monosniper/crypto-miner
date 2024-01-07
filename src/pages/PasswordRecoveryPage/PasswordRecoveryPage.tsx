@@ -1,10 +1,10 @@
-import { SignInForm } from "@/components";
+import { PasswordRecoveryForm } from "@/components";
 import { LogoIcon } from "@/components/icons";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-export const SignInPage = () => {
+export const PasswordRecoveryPage = () => {
   const { t } = useTranslation();
 
   return (
@@ -15,13 +15,13 @@ export const SignInPage = () => {
           Hogyx
         </h5>
 
-        <SignInForm className="mt-6" />
+        <PasswordRecoveryForm className="mt-6" />
 
         <Link
           className="mt-5 text-center flex justify-center text-base-content-100 hover:text-purple-3 transition"
-          to="/auth/password-recovery"
+          to="/auth/sign-in"
         >
-          {t("forgot your password?")}
+          {t("sign-in")}
         </Link>
       </div>
     </div>

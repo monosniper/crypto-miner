@@ -18,6 +18,7 @@ const {
   RefPage,
   PrivacyPolicyPage,
   UserServersPage,
+  PasswordRecoveryPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -181,6 +182,11 @@ export const useRouter = (isAuth: boolean) => {
       ) : (
         <Routes>
           <Route path="/auth/signin" element={<SignInPage />} />
+
+          <Route
+            path="/auth/password-recovery"
+            element={<PasswordRecoveryPage />}
+          />
 
           <Route
             index

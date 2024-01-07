@@ -53,6 +53,16 @@ export const userApi = createApi({
       },
     }),
 
+    forgotPassword: mutation<{ success: boolean }, { email: string }>({
+      query(body) {
+        return {
+          url: "forgot-password",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
     getWallet: query<{ data: { balance: Balance; nfts: Nft[] } }, null>({
       query() {
         return {
@@ -205,15 +215,6 @@ export const userApi = createApi({
         };
       },
     }),
-
-    getTopRefs: query<any, null>({
-      query() {
-        return {
-          url: "top-refs",
-          method: "GET",
-        };
-      },
-    }),
   }),
 });
 
@@ -233,5 +234,5 @@ export const {
   useGetReplenishmentQuery,
   useConvertationMutation,
   useTransferMutation,
-  useGetTopRefsQuery,
+  useForgotPasswordMutation,
 } = userApi;
