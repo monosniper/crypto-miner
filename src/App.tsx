@@ -71,6 +71,18 @@ const App = () => {
         dispatch(setTitle(t("success")));
         dispatch(setText(t("your server list will be updated within an hour")));
       }
+
+      if (type === "verificated") {
+        dispatch(
+          setOpenModal({
+            stateNameModal: NamesModals.isOpenSuccessModal,
+            isOpen: true,
+          }),
+        );
+
+        dispatch(setTitle(t("success")));
+        dispatch(setText(t("the mail was verified successfully")));
+      }
     }
   }, [dispatch, success, t, type]);
 

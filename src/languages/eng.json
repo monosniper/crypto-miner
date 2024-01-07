@@ -158,5 +158,6 @@
   "send": "Send",
   "sign-in": "Sign in",
   "passwords don't match": "Passwords don't match",
-  "change the password": "Change the password"
+  "change the password": "Change the password",
+  "the mail was verified successfully": "The mail was verified successfully"
 }
