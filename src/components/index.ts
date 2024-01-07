@@ -51,10 +51,12 @@ export * from "./Skelets/NotificationSkelet/NotificationSkelet";
 // FORMS
 
 export * from "./Forms/SignInForm/SignInForm";
+export * from "./Forms/PasswordRecoveryForm/PasswordRecoveryForm";
 export * from "./Forms/WithdrawalForm/WithdrawalForm";
 export * from "./Forms/WithdrawNftForm/WithdrawNftForm";
 export * from "./Forms/ReplenishmentForm/ReplenishmentForm";
 export * from "./Forms/TransferForm/TransferForm";
+export * from "./Forms/NewPasswordForm/NewPasswordForm";
 
 export * from "./EmptyText/EmptyText";
 export * from "./Attention/Attention";

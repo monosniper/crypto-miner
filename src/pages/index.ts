@@ -16,3 +16,5 @@ export * from "./RefPage/RefPage";
 export * from "./TransferPage/TransferPage";
 export * from "./PrivacyPolicyPage/PrivacyPolicyPage";
 export * from "./UserServersPage/UserServersPage";
+export * from "./PasswordRecoveryPage/PasswordRecoveryPage";
+export * from "./NewPasswordPage/NewPasswordPage";

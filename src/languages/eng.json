@@ -150,5 +150,13 @@
   "all": "All",
   "server packages": "Server packages",
   "available plans": "Available plans",
-  "verify your email": "Verify your email"
+  "verify your email": "Verify your email",
+  "forgot your password?": "Forgot your password?",
+  "next": "Next",
+  "the link for password recovery has been sent to the mail": "The link for password recovery has been sent to the mail",
+  "resend": "Resend",
+  "send": "Send",
+  "sign-in": "Sign in",
+  "passwords don't match": "Passwords don't match",
+  "change the password": "Change the password"
 }
