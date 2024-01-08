@@ -10,13 +10,11 @@ import { Button, Search } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useMining } from "@/hooks/useMining";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
-import { useGetMeQuery } from "@/redux/api/userApi";
 import { mining } from "@/redux/slices/miningSlice";
 import { user } from "@/redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import CryptoJS from "crypto-js";
 import { NamesModals } from "@/types";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import moment from "moment";
@@ -48,25 +46,7 @@ export const MiningPage = () => {
   const { selectedServers, selectedCoins } = useAppSelector(mining);
   const [searchValue, setSearchValue] = useState("");
   const { userData } = useAppSelector(user);
-  const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
   const dispatch = useAppDispatch();
-
-  const bytesPassword =
-    CryptoJS.AES.decrypt(
-      mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY,
-    ) || undefined;
-  const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
-
-  useGetMeQuery(
-    {
-      email: mainUserData.email,
-      password: password || mainUserData.password,
-    },
-    {
-      skip: Boolean(userData) || Boolean(sessionData),
-    },
-  );
 
   useEffect(() => {
     if (!sessionData) return;
