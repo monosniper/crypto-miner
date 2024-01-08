@@ -4,7 +4,7 @@ import { main } from "./redux/slices/mainSlice";
 import { useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
 import { setUserData, user } from "./redux/slices/userSlice";
-import { useGetMeQuery } from "./redux/api/userApi";
+import { useGetMeQuery, useLazyGetMeQuery } from "./redux/api/userApi";
 import CryptoJS from "crypto-js";
 import { ToastContainer, toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
@@ -15,6 +15,7 @@ import { setOpenModal } from "./redux/slices/modalsOpensSlice";
 import { setText, setTitle } from "./redux/slices/successModal";
 import { NamesModals } from "./types";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -25,6 +26,7 @@ const App = () => {
   const type = urlParams.get("type");
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     if (type === "server_exists") {
@@ -71,6 +73,18 @@ const App = () => {
         dispatch(setTitle(t("success")));
         dispatch(setText(t("your server list will be updated within an hour")));
       }
+
+      if (type === "verificated") {
+        dispatch(
+          setOpenModal({
+            stateNameModal: NamesModals.isOpenSuccessModal,
+            isOpen: true,
+          }),
+        );
+
+        dispatch(setTitle(t("success")));
+        dispatch(setText(t("the mail was verified successfully")));
+      }
     }
   }, [dispatch, success, t, type]);
 
@@ -90,6 +104,25 @@ const App = () => {
       skip: Boolean(userData) || !isAuth,
     },
   );
+
+  const [getMe, { data: getMeData }] = useLazyGetMeQuery();
+
+  useEffect(() => {
+    if (location.pathname === "/mining") {
+      getMe({
+        email: mainUserData.email,
+        password: password || mainUserData.password,
+      });
+    }
+  }, [getMe, location, mainUserData.email, mainUserData.password, password]);
+
+  useEffect(() => {
+    if (!getMeData) return;
+
+    const { data: user } = getMeData;
+
+    dispatch(setUserData(user));
+  }, [getMeData, dispatch]);
 
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);

@@ -21,13 +21,9 @@ export const UserServersPage = () => {
 
   return (
     <div>
-      <Title className="flex lg:hidden pb-6" title={t("available plans")} />
+      <Title className="flex lg:hidden pb-6" title={t("your servers")} />
 
-      <Servers
-        className="mt-6"
-        servers={serversList?.data}
-        loading={serversListLoading}
-      />
+      <Servers servers={serversList?.data} loading={serversListLoading} />
     </div>
   );
 };

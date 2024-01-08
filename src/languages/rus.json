@@ -160,5 +160,8 @@
   "send": "Отправить",
   "sign-in": "Вход",
   "passwords don't match": "Пароли не совпадают",
-  "change the password": "Изменить пароль"
+  "change the password": "Изменить пароль",
+  "the mail was verified successfully": "Почта была верифицирована успешно",
+  "the session is over": "Сессия закончилась",
+  "you can view the report on the server page": "Вы можете посмотреть отчет на странице сервера"
 }

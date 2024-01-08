@@ -1,24 +1,30 @@
 import socket from "@/core/socket";
 import { useLazyGetSessionQuery } from "@/redux/api/miningApi";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
+import { useLazyGetMeQuery } from "@/redux/api/userApi";
 import {
   mining,
   setSelectedCoins,
   setSelectedServers,
 } from "@/redux/slices/miningSlice";
-import { user } from "@/redux/slices/userSlice";
+import { setUserData, user } from "@/redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import {
   Coin,
   Found,
   Log,
+  NamesModals,
   Server,
   ServerLog,
   StartMinerSocketData,
 } from "@/types";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import CryptoJS from "crypto-js";
+import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
+import { setText, setTitle } from "@/redux/slices/successModal";
 
 export const useMining = () => {
   const { selectedServers, selectedCoins } = useAppSelector(mining);
@@ -35,6 +41,15 @@ export const useMining = () => {
   const [sessionMinerLogs, setSessionMinerLogs] = useState<Log[]>([]);
   const { userData } = useAppSelector(user);
   const { data: serversList } = useGetMyServersQuery(null);
+  const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
+  const bytesPassword =
+    CryptoJS.AES.decrypt(
+      mainUserData.password || "",
+      import.meta.env.VITE_CRYPT_KEY,
+    ) || undefined;
+  const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
+
+  const [getMe, { data: getMeData }] = useLazyGetMeQuery();
 
   useEffect(() => {
     if (!userData?.session) return;
@@ -60,6 +75,8 @@ export const useMining = () => {
   }, [dispatch, serversList?.data, userData]);
 
   useEffect(() => {
+    if (!userData) return;
+
     const servers = sessionData?.data.servers || userData?.session?.servers;
     const sessionLogs = sessionData?.data.logs || userData?.session?.logs;
 
@@ -124,17 +141,50 @@ export const useMining = () => {
       setServersAllFounds(founds);
       setSessionMinerLogs(sessionMinerLogsList);
       setSessionServersLogs(sessionServerLogsList);
+
+      const currentTime = moment();
+      const endTimeMining = moment.utc(userData.session.end_at);
+
+      if (endTimeMining.isBefore(currentTime)) {
+        getMe({
+          email: userData.email,
+          password: password || mainUserData.password,
+        });
+      }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [
+    getMe,
+    mainUserData.password,
+    password,
     sessionData?.data.logs,
     sessionData?.data.servers,
     sessionMinerLogs.length,
     sessionServersLogs.length,
-    userData?.session?.logs,
-    userData?.session?.servers,
+    userData,
   ]);
+
+  useEffect(() => {
+    if (!getMeData) return;
+
+    const { data: user } = getMeData;
+
+    dispatch(setUserData(user));
+
+    if (!user.session) {
+      dispatch(
+        setOpenModal({
+          stateNameModal: NamesModals.isOpenSuccessModal,
+          isOpen: true,
+        }),
+      );
+
+      dispatch(setTitle(t("the session is over")));
+      dispatch(setText(t("you can view the report on the server page")));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, getMeData]);
 
   const toggleServerSelection = (server: Server) => {
     const foundServer = selectedServers.find((el) => server.id === el.id);
