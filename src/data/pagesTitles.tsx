@@ -16,4 +16,5 @@ export const pagesTitles: {
   "/transfer": "transfer",
   "/ref": "referral system",
   "/privacy-policy": "privacy policy",
+  "/user-servers": "your servers",
 };
