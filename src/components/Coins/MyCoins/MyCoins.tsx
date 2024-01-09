@@ -6,8 +6,9 @@ import { CoinBlock, CoinSkelet } from "@/components";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { useLoading } from "@/hooks";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { main } from "@/redux/slices/mainSlice";
+import { setTotalBalanceUSD } from "@/redux/slices/userSlice";
 
 type Props = {
   coinsList?: { balance: Balance };
@@ -30,6 +31,7 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
   const [maxItems, setMaxItems] = useState<number>();
   const { t } = useTranslation();
   const { showZeroMyCoins } = useAppSelector(main);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const resizeListener = () => {
@@ -102,6 +104,22 @@ export const MyCoins: FC<PropsWithClassName<Props>> = ({
     allCoinsIsLoading || loading || isLoading,
     allCoinsIsFetching,
   );
+
+  useEffect(() => {
+    if (!coins) return;
+
+    let sum = 0;
+
+    for (let i = 0; i < coins.length; i++) {
+      const coin = coins[i];
+
+      const coinSum = Number(coin.balance) * Number(coin.rate);
+
+      sum += coinSum;
+    }
+
+    dispatch(setTotalBalanceUSD(sum));
+  }, [coins, dispatch]);
 
   return (
     <>
