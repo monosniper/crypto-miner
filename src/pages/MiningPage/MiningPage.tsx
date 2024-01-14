@@ -1,4 +1,5 @@
 import {
+  Attention,
   CoinBlock,
   EmptyText,
   InfoModal,
@@ -11,7 +12,7 @@ import { useLoading } from "@/hooks";
 import { useMining } from "@/hooks/useMining";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
 import { mining } from "@/redux/slices/miningSlice";
-import { user } from "@/redux/slices/userSlice";
+import { setUserData, user } from "@/redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,6 +20,7 @@ import { NamesModals } from "@/types";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import moment from "moment";
 import { setText, setTitle } from "@/redux/slices/infoModalSlice";
+import { useGetMeDataQuery } from "@/redux/api/userApi";
 
 export const MiningPage = () => {
   const {
@@ -47,6 +49,15 @@ export const MiningPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const { userData } = useAppSelector(user);
   const dispatch = useAppDispatch();
+  const { data: userDataApi } = useGetMeDataQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  useEffect(() => {
+    if (!userDataApi) return;
+
+    dispatch(setUserData(userDataApi.data));
+  }, [dispatch, userDataApi]);
 
   useEffect(() => {
     if (!sessionData) return;
@@ -73,7 +84,13 @@ export const MiningPage = () => {
       <div className="flex flex-col flex-grow">
         <Title className="flex lg:hidden pb-6" title={t("mining")} />
 
-        <div>
+        <Attention
+          className="p-6"
+          title={t("pay-attention")}
+          content={<AttentionContent />}
+        />
+
+        <div className="mt-16">
           <Title title={t("servers involved")} />
 
           <Servers
@@ -209,6 +226,22 @@ export const MiningPage = () => {
       </div>
 
       <InfoModal />
+    </>
+  );
+};
+
+const AttentionContent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div>
+        <p>
+          {t(
+            "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+          )}
+        </p>
+      </div>
     </>
   );
 };

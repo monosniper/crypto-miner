@@ -53,6 +53,15 @@ export const userApi = createApi({
       },
     }),
 
+    getMeData: query<{ data: User }, null>({
+      query() {
+        return {
+          url: "me",
+          method: "GET",
+        };
+      },
+    }),
+
     forgotPassword: mutation<{ success: boolean }, { email: string }>({
       query(body) {
         return {
@@ -260,4 +269,6 @@ export const {
   useForgotPasswordMutation,
   useCheckPasswordCodeMutation,
   useUpdatePasswordMutation,
+  useGetMeDataQuery,
+  useLazyGetMeDataQuery,
 } = userApi;

@@ -33,8 +33,8 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
   const { userData } = useAppSelector(user);
 
   const buyServerHandler = () => {
-    if (!location.pathname.includes("/working-servers")) {
-      navigate("/working-servers");
+    if (!location.pathname.includes("/server-packages")) {
+      navigate("/server-packages");
     }
 
     if (!plansRef || !plansRef.current) return;
@@ -47,7 +47,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
 
   return (
     <div className={cn(className, "flex flex-wrap -m-2")}>
-      {!location.pathname.includes("/working-servers") && (
+      {!location.pathname.includes("/server-packages") && (
         <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
           <Buy title={t("buy server")} onClick={buyServerHandler} />
         </div>

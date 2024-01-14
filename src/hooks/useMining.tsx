@@ -1,7 +1,7 @@
 import socket from "@/core/socket";
 import { useLazyGetSessionQuery } from "@/redux/api/miningApi";
 import { useGetMyServersQuery } from "@/redux/api/serversApi";
-import { useLazyGetMeQuery } from "@/redux/api/userApi";
+import { useLazyGetMeDataQuery } from "@/redux/api/userApi";
 import {
   mining,
   setSelectedCoins,
@@ -42,14 +42,18 @@ export const useMining = () => {
   const { userData } = useAppSelector(user);
   const { data: serversList } = useGetMyServersQuery(null);
   const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
-  const bytesPassword =
-    CryptoJS.AES.decrypt(
-      mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY,
-    ) || undefined;
-  const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
+  const bytesPassword = CryptoJS.AES.decrypt(
+    mainUserData.password || "",
+    import.meta.env.VITE_CRYPT_KEY || "",
+  );
+  const decryptedPassword = bytesPassword.toString(CryptoJS.enc.Utf8) || "";
 
-  const [getMe, { data: getMeData }] = useLazyGetMeQuery();
+  const encryptedPassword = CryptoJS.AES.encrypt(
+    decryptedPassword,
+    import.meta.env.VITE_CRYPT_KEY || "",
+  ).toString();
+
+  const [getMe, { data: getMeData }] = useLazyGetMeDataQuery();
 
   useEffect(() => {
     if (!userData?.session) return;
@@ -145,11 +149,8 @@ export const useMining = () => {
       const currentTime = moment();
       const endTimeMining = moment.utc(userData.session.end_at);
 
-      if (endTimeMining.isBefore(currentTime)) {
-        getMe({
-          email: userData.email,
-          password: password || mainUserData.password,
-        });
+      if (endTimeMining.isAfter(currentTime)) {
+        getMe(null);
       }
     }, 1000);
 
@@ -157,7 +158,7 @@ export const useMining = () => {
   }, [
     getMe,
     mainUserData.password,
-    password,
+    encryptedPassword,
     sessionData?.data.logs,
     sessionData?.data.servers,
     sessionMinerLogs.length,
@@ -285,7 +286,6 @@ export const useMining = () => {
 
   const handleSocketMessage = (e: MessageEvent) => {
     const data: StartMinerSocketData = JSON.parse(e.data);
-
     const {
       data: { session_id },
     } = data;
