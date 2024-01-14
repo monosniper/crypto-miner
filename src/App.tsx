@@ -4,8 +4,7 @@ import { main } from "./redux/slices/mainSlice";
 import { useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
 import { setUserData, user } from "./redux/slices/userSlice";
-import { useGetMeQuery, useLazyGetMeQuery } from "./redux/api/userApi";
-import CryptoJS from "crypto-js";
+import { useGetMeDataQuery } from "./redux/api/userApi";
 import { ToastContainer, toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import socket from "@/core/socket";
@@ -15,18 +14,15 @@ import { setOpenModal } from "./redux/slices/modalsOpensSlice";
 import { setText, setTitle } from "./redux/slices/successModal";
 import { NamesModals } from "./types";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
 
 const App = () => {
   const { theme } = useAppSelector(main);
   const { isAuth, userData } = useAppSelector(user);
-  const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
   const urlParams = new URLSearchParams(window.location.search);
   const success = urlParams.get("success");
   const type = urlParams.get("type");
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const location = useLocation();
 
   useEffect(() => {
     if (type === "server_exists") {
@@ -34,16 +30,16 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        }),
+        })
       );
 
       dispatch(setTitle(t("attention") + "!"));
       dispatch(
         setText(
           t(
-            "you already have this server, the maximum number of servers of this type is 1",
-          ),
-        ),
+            "you already have this server, the maximum number of servers of this type is 1"
+          )
+        )
       );
 
       return;
@@ -55,7 +51,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -67,7 +63,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -79,7 +75,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -88,45 +84,15 @@ const App = () => {
     }
   }, [dispatch, success, t, type]);
 
-  const bytesPassword =
-    CryptoJS.AES.decrypt(
-      mainUserData.password || "",
-      import.meta.env.VITE_CRYPT_KEY,
-    ) || undefined;
-  const password = bytesPassword.toString(CryptoJS.enc.Utf8) || undefined;
-
-  const { data, error } = useGetMeQuery(
-    {
-      email: mainUserData.email,
-      password: password || mainUserData.password,
-    },
-    {
-      skip: Boolean(userData) || !isAuth,
-    },
-  );
-
-  const [getMe, { data: getMeData }] = useLazyGetMeQuery();
-
-  useEffect(() => {
-    if (location.pathname === "/mining") {
-      getMe({
-        email: mainUserData.email,
-        password: password || mainUserData.password,
-      });
-    }
-  }, [getMe, location, mainUserData.email, mainUserData.password, password]);
-
-  useEffect(() => {
-    if (!getMeData) return;
-
-    const { data: user } = getMeData;
-
-    dispatch(setUserData(user));
-  }, [getMeData, dispatch]);
+  const { data, isError } = useGetMeDataQuery(null, {
+    skip: Boolean(userData) || !isAuth,
+  });
 
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
+
+  console.log(data);
 
   useEffect(() => {
     if (!data) return;
@@ -142,11 +108,11 @@ const App = () => {
   }, [data, dispatch]);
 
   useEffect(() => {
-    if (!error) return;
+    if (!isError) return;
 
     localStorage.removeItem("mainUserData");
     Cookies.remove("token");
-  }, [dispatch, error]);
+  }, [dispatch, isError]);
 
   useEffect(() => {
     socket?.addEventListener("open", () => {

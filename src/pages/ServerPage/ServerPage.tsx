@@ -8,9 +8,6 @@ import { Found, ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
-import { useMining } from "@/hooks/useMining";
-import { useAppSelector } from "@/redux/store";
-import { user } from "@/redux/slices/userSlice";
 import { useState, useEffect } from "react";
 import { useGetWalletQuery } from "@/redux/api/userApi";
 
@@ -18,15 +15,13 @@ export const ServerPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { id } = useParams();
-  const { data, isLoading } = useGetMyServerByIdQuery(
+  const { data: serverData, isLoading } = useGetMyServerByIdQuery(
     { id: Number(id) },
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    },
+    }
   );
-  const { sessionData } = useMining();
-  const { userData } = useAppSelector(user);
   const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
   const [serverFounds, setServerFounds] = useState<Found[]>([]);
   const { data: walletData } = useGetWalletQuery(null, {
@@ -34,54 +29,44 @@ export const ServerPage = () => {
   });
 
   useEffect(() => {
-    if ((!sessionData && !userData?.session) || !id) return;
-
-    const servers = sessionData?.data.servers || userData?.session.servers;
-
-    if (!servers) return;
-
-    const foundServer = servers.find((el) => el.id === Number(id));
-
-    if (!foundServer) return;
+    if (!serverData?.data?.logs) return;
 
     const interval = setInterval(() => {
-      if (foundServer.logs) {
-        const logs: ServerLog[] = [];
+      const logs: ServerLog[] = [];
+      const founds: Found[] = [];
 
-        for (let j = 0; j < foundServer.logs.length; j++) {
-          const log = foundServer.logs[j];
+      if (!serverData.data.logs) return;
 
-          const logDate = new Date(log.timestamp);
-          const currentDate = new Date();
+      for (let j = 0; j < serverData.data.logs.length; j++) {
+        const log = serverData.data.logs[j];
 
-          if (currentDate > logDate) {
-            logs.push(log);
-          }
+        const logDate = new Date(log.timestamp);
+        const currentDate = new Date();
+
+        if (currentDate > logDate) {
+          logs.push(log);
         }
-
-        setServerLogs(logs);
       }
 
-      if (foundServer.founds) {
-        const founds: Found[] = [];
+      if (!serverData.data.founds) return;
 
-        for (let j = 0; j < foundServer.founds.length; j++) {
-          const log = foundServer.founds[j];
+      for (let j = 0; j < serverData.data.founds.length; j++) {
+        const found = serverData.data.founds[j];
 
-          const logDate = new Date(log.timestamp);
-          const currentDate = new Date();
+        const logDate = new Date(found.timestamp);
+        const currentDate = new Date();
 
-          if (currentDate > logDate) {
-            founds.push(log);
-          }
+        if (currentDate > logDate) {
+          founds.push(found);
         }
-
-        setServerFounds(founds);
       }
-    }, 2000);
+
+      setServerLogs(logs);
+      setServerFounds(founds);
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [id, sessionData, userData?.session]);
+  }, [serverData]);
 
   return (
     <div>
@@ -95,8 +80,8 @@ export const ServerPage = () => {
         <span>{t("server")}</span>
       </button>
 
-      {!isLoading && data?.data.server?.title ? (
-        <Title title={data.data.server.title} />
+      {!isLoading && serverData?.data.server?.title ? (
+        <Title title={serverData.data.server.title} />
       ) : (
         <div className="w-20 h-2 rounded bg-base-200 animate-pulse"></div>
       )}
@@ -105,8 +90,8 @@ export const ServerPage = () => {
         <div className="flex justify-between items-start flex-wrap gap-4 flex-col-reverse min-[500px]:items-center min-[500px]:flex-row">
           <h5>{t("status")}</h5>
 
-          {data?.data.name && (
-            <h6 className="font-semibold text-xl">{data.data.name}</h6>
+          {serverData?.data.name && (
+            <h6 className="font-semibold text-xl">{serverData.data.name}</h6>
           )}
         </div>
 
@@ -116,15 +101,16 @@ export const ServerPage = () => {
               <div
                 className={cn(styles.state, {
                   [styles.notActive]:
-                    data?.data.status === ServerStatuses.NOT_ACTIVE_STATUS,
+                    serverData?.data.status ===
+                    ServerStatuses.NOT_ACTIVE_STATUS,
                   [styles.reload]:
-                    data?.data.status === ServerStatuses.RELOAD_STATUS,
+                    serverData?.data.status === ServerStatuses.RELOAD_STATUS,
                 })}
               >
                 <FanIcon
                   className={cn({
                     "animate-spin":
-                      data?.data.status === ServerStatuses.WORK_STATUS,
+                      serverData?.data.status === ServerStatuses.WORK_STATUS,
                   })}
                   width={32}
                   height={32}
@@ -132,7 +118,7 @@ export const ServerPage = () => {
               </div>
 
               <p className="text-2xl font-semibold">
-                {t(getServerStatus(data?.data.status as ServerStatuses))}
+                {t(getServerStatus(serverData?.data.status as ServerStatuses))}
               </p>
             </div>
 
