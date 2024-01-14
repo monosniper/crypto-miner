@@ -30,16 +30,16 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        })
+        }),
       );
 
       dispatch(setTitle(t("attention") + "!"));
       dispatch(
         setText(
           t(
-            "you already have this server, the maximum number of servers of this type is 1"
-          )
-        )
+            "you already have this server, the maximum number of servers of this type is 1",
+          ),
+        ),
       );
 
       return;
@@ -51,7 +51,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          })
+          }),
         );
 
         dispatch(setTitle(t("success")));
@@ -63,7 +63,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          })
+          }),
         );
 
         dispatch(setTitle(t("success")));
@@ -75,7 +75,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          })
+          }),
         );
 
         dispatch(setTitle(t("success")));

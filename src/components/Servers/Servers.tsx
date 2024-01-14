@@ -60,12 +60,12 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
               {type === "mining"
                 ? servers.map((el) => {
                     const foundSelectedServer = selectedServers.find(
-                      (item) => item.id === el.id
+                      (item) => item.id === el.id,
                     );
                     const inWork =
                       Boolean(
                         foundSelectedServer &&
-                          (userData?.session || sessionData)
+                          (userData?.session || sessionData),
                       ) || false;
 
                     return (
@@ -91,7 +91,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                           data={el}
                           selected={
                             selectedServers.find(
-                              (server) => el.id === server.id
+                              (server) => el.id === server.id,
                             )
                               ? true
                               : false
@@ -112,7 +112,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                                 : false
                               : false,
                             title: t(
-                              "the server was launched less than 24 hours ago"
+                              "the server was launched less than 24 hours ago",
                             ),
                           }}
                         />

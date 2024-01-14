@@ -20,7 +20,7 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    }
+    },
   );
   const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
   const [serverFounds, setServerFounds] = useState<Found[]>([]);
