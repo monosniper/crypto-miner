@@ -38,7 +38,7 @@ export const WalletPage = () => {
     <div>
       <Title className="flex lg:hidden pb-6" title={t("wallet")} />
 
-      <BalanceBlock title={`${t("balance")} USDT`} />
+      <BalanceBlock title={`${t("balance")}`} />
 
       <div className="mt-16">
         <div className="flex items-center justify-between gap-4">

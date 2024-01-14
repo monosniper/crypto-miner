@@ -5,10 +5,14 @@ const initialState: {
   isAuth: boolean;
 
   userData?: User;
+
+  totalBalanceUSD: number;
 } = {
   isAuth: localStorage.getItem("mainUserData") ? true : false,
 
   userData: undefined,
+
+  totalBalanceUSD: 0,
 };
 
 export const userSlice = createSlice({
@@ -22,11 +26,15 @@ export const userSlice = createSlice({
     setUserData: (state, action: PayloadAction<User | undefined>) => {
       state.userData = action.payload;
     },
+
+    setTotalBalanceUSD: (state, action: PayloadAction<number>) => {
+      state.totalBalanceUSD = action.payload;
+    },
   },
 });
 
 export default userSlice.reducer;
 
-export const { setAuth, setUserData } = userSlice.actions;
+export const { setAuth, setUserData, setTotalBalanceUSD } = userSlice.actions;
 
 export const user = (state: RootState) => state.user;

@@ -7,6 +7,8 @@ import { FC } from "react";
 import { useGetWalletQuery } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "@/redux/store";
+import { user } from "@/redux/slices/userSlice";
 
 type Props = {
   type?: "wallet" | "withdrawal";
@@ -26,6 +28,7 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
 
   const walletLoading = useLoading(isLoading, isFetching);
   const { t } = useTranslation();
+  const { totalBalanceUSD } = useAppSelector(user);
 
   return (
     <div className={cn("box", styles.wrapper)}>
@@ -39,9 +42,15 @@ export const BalanceBlock: FC<Props> = ({ title = "", type = "wallet" }) => {
             <div className="h-1 w-16 bg-base-300 rounded"></div>
           ) : (
             <>
-              {walletData && (
+              {walletData && type === "withdrawal" && (
                 <p className={styles.currentBalance}>
                   {walletData.data.balance.USDT || 0} USDT
+                </p>
+              )}
+
+              {walletData && type === "wallet" && (
+                <p className={styles.currentBalance}>
+                  ${totalBalanceUSD.toFixed(2)}
                 </p>
               )}
             </>
