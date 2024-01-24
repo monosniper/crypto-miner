@@ -30,16 +30,16 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        }),
+        })
       );
 
       dispatch(setTitle(t("attention") + "!"));
       dispatch(
         setText(
           t(
-            "you already have this server, the maximum number of servers of this type is 1",
-          ),
-        ),
+            "you already have this server, the maximum number of servers of this type is 1"
+          )
+        )
       );
 
       return;
@@ -51,7 +51,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -63,7 +63,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -75,7 +75,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -101,6 +101,19 @@ const App = () => {
 
     if (!user.isVerificated) {
       toast.warning(t("verify your email") + ": " + user.email);
+    }
+
+    if (!user.session && !localStorage.getItem("isOverSession")) {
+      dispatch(
+        setOpenModal({
+          stateNameModal: NamesModals.isOpenSuccessModal,
+          isOpen: true,
+        })
+      );
+
+      dispatch(setTitle(t("the session is over")));
+      dispatch(setText(t("you can view the report on the server page")));
+      localStorage.setItem("isOverSession", "true");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, dispatch]);
