@@ -157,6 +157,7 @@ export const useMining = () => {
     }
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     getMe,
     mainUserData.password,
@@ -185,6 +186,7 @@ export const useMining = () => {
 
       dispatch(setTitle(t("the session is over")));
       dispatch(setText(t("you can view the report on the server page")));
+      localStorage.setItem("isOverSession", "true");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, getMeData]);
@@ -295,6 +297,8 @@ export const useMining = () => {
     } = data;
 
     getSession({ id: session_id });
+
+    localStorage.removeItem("isOverSession");
   };
 
   useEffect(() => {
