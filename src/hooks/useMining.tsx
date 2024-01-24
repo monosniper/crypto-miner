@@ -44,13 +44,13 @@ export const useMining = () => {
   const mainUserData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
   const bytesPassword = CryptoJS.AES.decrypt(
     mainUserData.password || "",
-    import.meta.env.VITE_CRYPT_KEY || "",
+    import.meta.env.VITE_CRYPT_KEY || ""
   );
   const decryptedPassword = bytesPassword.toString(CryptoJS.enc.Utf8) || "";
 
   const encryptedPassword = CryptoJS.AES.encrypt(
     decryptedPassword,
-    import.meta.env.VITE_CRYPT_KEY || "",
+    import.meta.env.VITE_CRYPT_KEY || ""
   ).toString();
 
   const [getMe, { data: getMeData }] = useLazyGetMeDataQuery();
@@ -60,7 +60,7 @@ export const useMining = () => {
 
     const userSelectedServers = userData.session.servers.map((el) => {
       const foundServer = serversList?.data.find(
-        (server) => server.id === el.id,
+        (server) => server.id === el.id
       );
 
       if (!foundServer) return el;
@@ -145,14 +145,16 @@ export const useMining = () => {
       setServersAllFounds(founds);
       setSessionMinerLogs(sessionMinerLogsList);
       setSessionServersLogs(sessionServerLogsList);
-
-      const currentTime = moment();
-      const endTimeMining = moment.utc(userData.session.end_at);
-
-      if (endTimeMining.isAfter(currentTime)) {
-        getMe(null);
-      }
     }, 1000);
+
+    const currentTime = moment.utc();
+    const endTimeMining = moment.utc(
+      sessionData?.data.end_at || userData.session.end_at
+    );
+
+    if (currentTime.isAfter(endTimeMining)) {
+      getMe(null);
+    }
 
     return () => clearInterval(interval);
   }, [
@@ -178,7 +180,7 @@ export const useMining = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        }),
+        })
       );
 
       dispatch(setTitle(t("the session is over")));
@@ -205,13 +207,13 @@ export const useMining = () => {
       dispatch(
         setSelectedCoins(
           selectedCoins.filter(
-            (coinEl) => !server?.server?.coins?.some((el) => el.id === coinEl),
-          ),
-        ),
+            (coinEl) => !server?.server?.coins?.some((el) => el.id === coinEl)
+          )
+        )
       );
 
       return dispatch(
-        setSelectedServers(selectedServers.filter((el) => el.id !== server.id)),
+        setSelectedServers(selectedServers.filter((el) => el.id !== server.id))
       );
     }
   };
@@ -223,7 +225,7 @@ export const useMining = () => {
       return dispatch(setSelectedCoins([...selectedCoins, coin.id]));
     } else {
       return dispatch(
-        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id)),
+        setSelectedCoins(selectedCoins.filter((el) => el !== coin.id))
       );
     }
   };
@@ -237,14 +239,16 @@ export const useMining = () => {
   };
 
   const coins = () => {
-    const coins = [];
+    const coins: Coin[] = [];
 
     for (let i = 0; i < selectedServers.length; i++) {
       const server = selectedServers[i];
 
       if (!server.coins) break;
 
-      coins.push(...server.coins);
+      if (!coins.find((el) => el.id !== server.id)) {
+        coins.push(...server.coins);
+      }
     }
 
     return coins;

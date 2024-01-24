@@ -92,8 +92,6 @@ const App = () => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
-  console.log(data);
-
   useEffect(() => {
     if (!data) return;
 
