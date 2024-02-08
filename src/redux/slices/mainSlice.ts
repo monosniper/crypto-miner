@@ -10,7 +10,7 @@ const initialState: {
   goToBlock?: string;
 } = {
   theme: (localStorage.getItem("theme") as "light" | "dark") || "light",
-  language: (localStorage.getItem("language") as "rus" | "eng") || "rus",
+  language: (localStorage.getItem("language") as "rus" | "eng") || "eng",
   isOpenSidebar: false,
   showHideCoins:
     JSON.parse(localStorage.getItem("showHideCoins") || "false") || false,

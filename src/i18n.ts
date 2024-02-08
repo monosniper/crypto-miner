@@ -12,7 +12,7 @@ export default i18n.use(initReactI18next).init({
       translation: JSON.parse(JSON.stringify(rus)),
     },
   },
-  lng: localStorage.getItem("language") || "rus",
+  lng: localStorage.getItem("language") || "eng",
 
   interpolation: {
     escapeValue: false,

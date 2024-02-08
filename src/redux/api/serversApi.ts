@@ -27,7 +27,7 @@ export const serversApi = createApi({
   }),
 
   tagTypes: ["convertations"],
-  endpoints: ({ query }) => ({
+  endpoints: ({ query, mutation }) => ({
     getAllServers: query<{ data: Server[] }, null>({
       query() {
         return {
@@ -63,6 +63,19 @@ export const serversApi = createApi({
         };
       },
     }),
+
+    extendServer: mutation<
+      { success: boolean; url: string },
+      { server_id: number }
+    >({
+      query(body) {
+        return {
+          url: "me/servers",
+          method: "PUT",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -71,4 +84,5 @@ export const {
   useGetServerByIdQuery,
   useGetMyServersQuery,
   useGetMyServerByIdQuery,
+  useExtendServerMutation,
 } = serversApi;
