@@ -161,5 +161,7 @@
   "change the password": "Change the password",
   "the mail was verified successfully": "The mail was verified successfully",
   "the session is over": "The session is over",
-  "you can view the report on the server page": "You can view the report on the server page"
+  "you can view the report on the server page": "You can view the report on the server page",
+  "The payment was successful, the server will be restored within an hour": "The payment was successful, the server will be restored within an hour",
+  "To extend": "To extend"
 }

@@ -25,21 +25,41 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (type === "renew-server") {
+      dispatch(
+        setOpenModal({
+          stateNameModal: NamesModals.isOpenSuccessModal,
+          isOpen: true,
+        }),
+      );
+
+      dispatch(setTitle(t("success") + "!"));
+      dispatch(
+        setText(
+          t(
+            "The payment was successful, the server will be restored within an hour",
+          ),
+        ),
+      );
+
+      return;
+    }
+
     if (type === "server_exists") {
       dispatch(
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        })
+        }),
       );
 
       dispatch(setTitle(t("attention") + "!"));
       dispatch(
         setText(
           t(
-            "you already have this server, the maximum number of servers of this type is 1"
-          )
-        )
+            "you already have this server, the maximum number of servers of this type is 1",
+          ),
+        ),
       );
 
       return;
@@ -51,7 +71,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          })
+          }),
         );
 
         dispatch(setTitle(t("success")));
@@ -63,7 +83,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          })
+          }),
         );
 
         dispatch(setTitle(t("success")));
@@ -75,7 +95,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          })
+          }),
         );
 
         dispatch(setTitle(t("success")));
@@ -108,7 +128,7 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        })
+        }),
       );
 
       dispatch(setTitle(t("the session is over")));
