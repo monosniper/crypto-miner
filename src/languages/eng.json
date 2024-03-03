@@ -57,12 +57,12 @@
   "server": "Server",
   "status": "Status",
 
-  "basic-plan": "Basic",
-  "standard-plan": "Standard",
-  "professional-plan": "Professional",
-  "premium-plan": "Premium",
-  "profitable-plan": "Profitable plan",
-  "elite-plan": "Elite",
+  "free": "Basic",
+  "standard": "Standard",
+  "pro": "Professional",
+  "premium": "Premium",
+  "elite": "Elite",
+  "max": "Maximum",
 
   "buy": "Buy",
 

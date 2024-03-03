@@ -112,7 +112,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
         className="w-full mt-4"
         type="submit"
         color="primary"
-        title={loading ? t("loading") : "Вход"}
+        title={loading ? t("loading") : t("sign-in")}
         disabled={loading}
       />
     </form>

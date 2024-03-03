@@ -46,7 +46,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
           <div className={styles.titleBlock}>
             <img src={data.icon_url} alt="server-plan" />
 
-            <h3>{data.title}</h3>
+            <h3>{t(data.type as string)}</h3>
 
             <h4>${data.price}</h4>
           </div>

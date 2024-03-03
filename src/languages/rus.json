@@ -58,12 +58,12 @@
   "server": "Сервер",
   "status": "Статус",
 
-  "basic-plan": "Базовый",
-  "standart-plan": "Стандартный",
-  "professional-plan": "Профессиональный",
-  "premium-plan": "Премиум",
-  "profitable-plan": "Выгодный план",
-  "elite-plan": "Элитный",
+  "free": "Базовый",
+  "standard": "Стандартный",
+  "pro": "Профессиональный",
+  "premium": "Премиум",
+  "elite": "Элитный",
+  "max": "Максимальный",
 
   "buy": "Купить",
 
