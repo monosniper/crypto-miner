@@ -59,7 +59,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
                     <img src={el.icon_url} alt="poss" width={20} height={20} />
                   )}
 
-                  <p>{el.name}</p>
+                  <p>{t(el.name)}</p>
                 </div>
               );
             })}
