@@ -20,6 +20,8 @@ const {
   UserServersPage,
   PasswordRecoveryPage,
   NewPasswordPage,
+  PaymentPage,
+  PaymentFinishPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -41,6 +43,24 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <WalletPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/wallet/payment"
+            element={
+              <Suspense>
+                <PaymentPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/wallet/payment/finish"
+            element={
+              <Suspense>
+                <PaymentFinishPage />
               </Suspense>
             }
           />

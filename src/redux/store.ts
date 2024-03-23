@@ -17,6 +17,7 @@ import { articlesApi } from "./api/articlesApi";
 import { serversApi } from "./api/serversApi";
 import { mainApi } from "./api/mainApi";
 import { miningApi } from "./api/miningApi";
+import { paymentApi } from "./api/paymentApi";
 
 export const rootReducer = combineReducers({
   main: mainReducer,
@@ -34,6 +35,7 @@ export const rootReducer = combineReducers({
   [serversApi.reducerPath]: serversApi.reducer,
   [mainApi.reducerPath]: mainApi.reducer,
   [miningApi.reducerPath]: miningApi.reducer,
+  [paymentApi.reducerPath]: paymentApi.reducer,
 });
 
 export const store = configureStore({
@@ -46,6 +48,7 @@ export const store = configureStore({
       serversApi.middleware,
       mainApi.middleware,
       miningApi.middleware,
+      paymentApi.middleware,
     ]),
 });
 

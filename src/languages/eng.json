@@ -178,5 +178,13 @@
   "the session is over": "The session is over",
   "you can view the report on the server page": "You can view the report on the server page",
   "The payment was successful, the server will be restored within an hour": "The payment was successful, the server will be restored within an hour",
-  "To extend": "To extend"
+  "To extend": "To extend",
+
+  "payment-title": "Payment",
+  "payment-left": "With card",
+  "payment-right": "With crypto",
+  "payment-header-text": "You pay a commission to the network",
+  "payment-content-header": "Recipient's wallet address",
+  "payment-content-text": "After checking the funds transfer, the services will be linked to your account automatically",
+  "payment-attention": "If you have any problems with payment, contact us on social networks"
 }
