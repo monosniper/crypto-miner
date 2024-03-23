@@ -8,7 +8,7 @@ type Props = {
   color?: "error" | "success" | "standart" | "primary";
   size?: "small" | "normal" | "big";
   icon?: JSX.Element | string;
-  title: string;
+  title?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
 };

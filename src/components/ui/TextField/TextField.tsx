@@ -10,7 +10,7 @@ import { PropsWithClassName } from "@/types";
 import cn from "clsx";
 
 type Props<T extends FieldValues> = {
-  type?: "text" | "password" | "number";
+  type?: "text" | "password" | "number" | "email" | "tel";
   placeholder?: string;
   methods?: UseFormReturn<T>;
   registerName?: Path<T>;

@@ -186,5 +186,11 @@
   "payment-header-text": "You pay a commission to the network",
   "payment-content-header": "Recipient's wallet address",
   "payment-content-text": "After checking the funds transfer, the services will be linked to your account automatically",
-  "payment-attention": "If you have any problems with payment, contact us on social networks"
+  "payment-attention": "If you have any problems with payment, contact us on social networks",
+
+  "first-name": "First name",
+  "last-name": "Last name",
+  "username": "Username",
+  "phone": "Phone",
+  "email": "Email"
 }

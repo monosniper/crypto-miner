@@ -17,4 +17,5 @@ export const pagesTitles: {
   "/ref": "referral system",
   "/privacy-policy": "privacy policy",
   "/user-servers": "your servers",
+  "/profile": "profile",
 };

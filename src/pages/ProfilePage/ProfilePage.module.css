@@ -1,0 +1,11 @@
+.metamaskBtn {
+  @apply [&>svg]:!w-full w-full py-2.5;
+}
+
+body[data-theme="dark"] .metamaskBtn {
+  background-color: #fff !important;
+}
+
+body[data-theme="light"] .metamaskBtn svg path:first-child {
+  fill: #fff;
+}

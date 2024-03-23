@@ -2,6 +2,7 @@
 
 export * from "./Title/Title";
 export * from "./Map";
+export * from "./Progress/Progress";
 
 // HEADER
 
@@ -57,6 +58,7 @@ export * from "./Forms/WithdrawNftForm/WithdrawNftForm";
 export * from "./Forms/ReplenishmentForm/ReplenishmentForm";
 export * from "./Forms/TransferForm/TransferForm";
 export * from "./Forms/NewPasswordForm/NewPasswordForm";
+export * from "./Forms/PersonalDataForm/PersonalDataForm";
 
 export * from "./EmptyText/EmptyText";
 export * from "./Attention/Attention";

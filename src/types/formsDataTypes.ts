@@ -20,3 +20,11 @@ export type NewPasswordFormData = {
   newPassword: string;
   newPasswordRepeat: string;
 };
+
+export type PersonalFormData = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  phone: string;
+  email: string;
+};

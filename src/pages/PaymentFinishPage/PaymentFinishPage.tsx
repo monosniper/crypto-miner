@@ -12,6 +12,8 @@ export const PaymentFinishPage = () => {
       <div className="w-full lg:w-[560px] mx-auto flex flex-col gap-6">
         <div className="flex justify-between items-center gap-4 flex-wrap">
           <Title title={t("payment-title")} />
+
+          <p className="text-sm text-gray-1">Order ID: 42344234</p>
         </div>
 
         <div className="grid grid-cols-1 gap-6">

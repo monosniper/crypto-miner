@@ -35,3 +35,4 @@ export * from "./ConvertationsIcon";
 export * from "./TransferIcon";
 export * from "./RefIcon";
 export * from "./ServersIcon";
+export * from "./MetamaskIcon";
