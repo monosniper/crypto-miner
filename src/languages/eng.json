@@ -192,5 +192,9 @@
   "last-name": "Last name",
   "username": "Username",
   "phone": "Phone",
-  "email": "Email"
+  "email": "Email",
+
+  "need-help": "Need help?",
+
+  "enter-your-message": "Enter your message..."
 }

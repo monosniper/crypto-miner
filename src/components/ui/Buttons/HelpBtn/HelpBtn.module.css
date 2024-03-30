@@ -1,0 +1,19 @@
+.btn {
+  background: radial-gradient(
+    70.71% 70.71% at 50% 50%,
+    rgb(255, 255, 255) 0%,
+    rgb(124, 85, 231) 100%
+  );
+  box-shadow: 0 0 14px -3px rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+
+  @apply relative w-10 h-10 lg:w-12 lg:h-12 flex justify-center items-center;
+}
+
+.btn::before {
+  content: attr(data-before-title);
+
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background-color: #292c2f;
+  @apply absolute px-2 py-1 right-[calc(100%+10px)] top-1 rounded-md rounded-br-none text-white whitespace-nowrap text-[10px];
+}

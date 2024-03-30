@@ -97,3 +97,5 @@ export * from "./Notifications/NotificationsItem/NotificationsItem";
 // REPLENISHMENT
 
 export * from "./ReplenishmentItem/ReplenishmentItem";
+
+export * from "./HelpChat/HelpChat";

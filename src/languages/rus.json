@@ -194,5 +194,9 @@
   "last-name": "Фамилия",
   "username": "Имя пользователя",
   "phone": "Телефон",
-  "email": "Email"
+  "email": "Email",
+
+  "need-help": "Нужна помощь?",
+
+  "enter-your-message": "Введите сообщение..."
 }

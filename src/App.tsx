@@ -14,6 +14,7 @@ import { setOpenModal } from "./redux/slices/modalsOpensSlice";
 import { setText, setTitle } from "./redux/slices/successModal";
 import { NamesModals } from "./types";
 import { useTranslation } from "react-i18next";
+import { HelpBtn } from "./components/ui";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -172,6 +173,8 @@ const App = () => {
       <Tooltip id="mining-server" />
 
       <SuccessModal />
+
+      <HelpBtn />
     </div>
   );
 };
