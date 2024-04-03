@@ -3,9 +3,13 @@ import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { Button } from "@/components/ui";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const PaymentPage = () => {
   const { t } = useTranslation();
+  const [active, setActive] = useState<"with-card" | "with-crypto">(
+    "with-card",
+  );
   const navigate = useNavigate();
 
   return (
@@ -14,7 +18,12 @@ export const PaymentPage = () => {
         <Title title={t("payment-title")} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5">
-          <div className={cn("box", "py-2.5 px-5 cursor-pointer")}>
+          <div
+            className={cn("box", "py-2.5 px-5 cursor-pointer", {
+              "!border-purple-2": active === "with-card",
+            })}
+            onClick={() => setActive("with-card")}
+          >
             <h3 className="text-xl font-medium">With card</h3>
 
             <svg
@@ -31,7 +40,12 @@ export const PaymentPage = () => {
             </svg>
           </div>
 
-          <div className={cn("box", "py-2.5 px-5 cursor-pointer")}>
+          <div
+            className={cn("box", "py-2.5 px-5 cursor-pointer", {
+              "!border-purple-2": active === "with-crypto",
+            })}
+            onClick={() => setActive("with-crypto")}
+          >
             <h3 className="text-xl font-medium">With crypto</h3>
 
             <svg
@@ -68,7 +82,7 @@ export const PaymentPage = () => {
         <Button
           title={t("next")}
           color="primary"
-          onClick={() => navigate("/wallet/payment/finish")}
+          onClick={() => navigate(`/wallet/payment/finish/${active}`)}
         />
       </div>
     </div>

@@ -3,9 +3,13 @@ import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { CopyIcon } from "@/components/icons/CopyIcon";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "./PaymentFinishPage.module.css";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
+  const { type } = useParams();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -22,42 +26,81 @@ export const PaymentFinishPage = () => {
               Сумма (Сервер - Максимальный)
             </p>
 
-            <p className="text-[28px] font-bold mt-4">99.01 USDT</p>
+            <div className="mt-4 flex justify-between items-center gap-4 flex-wrap">
+              <p className="text-[28px] font-bold">99.01 USDT</p>
+
+              <Button
+                className={styles.changeMethodBtn}
+                title={t("Change the payment method")}
+                onClick={() => navigate("/wallet/payment")}
+              />
+            </div>
           </div>
 
           <div className={cn("box", "p-6")}>
             <div className="flex items-center flex-wrap gap-4">
-              <p className="text-base font-semibold">Сеть · TRON (TRC-20)</p>
-              <p className="text-sm font-medium text-gray-1">
-                {t("payment-header-text")}
-              </p>
+              {type === "with-crypto" ? (
+                <>
+                  <p className="text-base font-semibold">
+                    Сеть · TRON (TRC-20)
+                  </p>
+                  <p className="text-sm font-medium text-gray-1">
+                    {t("payment-header-text")}
+                  </p>
+                </>
+              ) : (
+                <p className="text-base font-semibold">
+                  {t("payment-with-card")}
+                </p>
+              )}
             </div>
 
-            <div className="flex items-center gap-4 mt-4">
-              <img src="/images/qr.png" alt="qr" />
+            {type === "with-crypto" ? (
+              <div className="flex items-center gap-4 mt-4">
+                <img src="/images/qr.png" alt="qr" />
 
-              <div className="flex flex-col gap-3.5">
-                <p className="text-sm text-gray-1">
-                  {t("payment-content-header")}
-                </p>
+                <div className="flex flex-col gap-3.5">
+                  <p className="text-sm text-gray-1">
+                    {t("payment-content-header")}
+                  </p>
 
-                <div className="flex items-center gap-4 text-xl">
-                  <p>TUPr4wqgqqUDXnt5VdUn3Px15W...</p>
-                  <div className="cursor-pointer">
-                    <CopyIcon className="[&>g>path]:stroke-base-content-100" />
+                  <div className="flex items-center gap-4 text-xl">
+                    <p>TUPr4wqgqqUDXnt5VdUn3Px15W...</p>
+                    <div className="cursor-pointer">
+                      <CopyIcon className="[&>g>path]:stroke-base-content-100" />
+                    </div>
                   </div>
+                  <p className="text-sm text-gray-1">
+                    {t("payment-content-text")}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-1">
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-4 mt-4 lg:gap-8 flex-wrap">
+                  <svg width="100" height="35" viewBox="0 0 100 35" fill="none">
+                    <path
+                      d="M7.02778 13.6879C7.02778 12.7887 7.91667 12.4429 9.38889 12.4429C11.5 12.4429 14.1667 12.9732 16.2778 13.9185V8.50041C13.9722 7.73957 11.6944 7.43985 9.38889 7.43985C3.75 7.43985 0 9.88374 0 13.9646C0 20.3279 10.5556 19.3135 10.5556 22.0571C10.5556 23.1176 9.44444 23.4635 7.88889 23.4635C5.58333 23.4635 2.63889 22.6796 0.305556 21.619V27.1062C2.88889 28.0285 5.5 28.4204 7.88889 28.4204C13.6667 28.4204 17.6389 26.0457 17.6389 21.9187C17.6111 15.0482 7.02778 16.2701 7.02778 13.6879ZM25.8056 2.82874L19.0278 4.02763L19 22.4951C19 25.9074 22.0833 28.4204 26.1944 28.4204C28.4722 28.4204 30.1389 28.0746 31.0556 27.6596V22.9793C30.1667 23.279 25.7778 24.3396 25.7778 20.9274V12.7426H31.0556V7.8318H25.7778L25.8056 2.82874ZM39.6944 9.53791L39.25 7.8318H33.25V28.0054H40.1944V14.3335C41.8333 12.5582 44.6111 12.881 45.4722 13.1346V7.8318C44.5833 7.55513 41.3333 7.04791 39.6944 9.53791ZM47.1667 7.8318H54.1389V28.0054H47.1667V7.8318ZM47.1667 6.07957L54.1389 4.83457V0.154297L47.1667 1.37624V6.07957ZM68.6389 7.43985C65.9167 7.43985 64.1667 8.50041 63.1944 9.23818L62.8333 7.80874H56.7222V34.6915L63.6667 33.4696L63.6944 26.9449C64.6945 27.5443 66.1667 28.3974 68.6111 28.3974C73.5833 28.3974 78.1111 25.0773 78.1111 17.7687C78.0833 11.0826 73.5 7.43985 68.6389 7.43985ZM66.9722 23.3251C65.3333 23.3251 64.3611 22.841 63.6944 22.2415L63.6667 13.6879C64.3889 13.0193 65.3889 12.5582 66.9722 12.5582C69.5 12.5582 71.25 14.9099 71.25 17.9301C71.25 21.0196 69.5278 23.3251 66.9722 23.3251ZM100 17.9993C100 12.0971 96.5556 7.43985 89.9722 7.43985C83.3611 7.43985 79.3611 12.0971 79.3611 17.9532C79.3611 24.8929 84.0833 28.3974 90.8611 28.3974C94.1667 28.3974 96.6667 27.7749 98.5555 26.8987V22.2876C96.6667 23.0715 94.5 23.5557 91.75 23.5557C89.0556 23.5557 86.6667 22.7718 86.3611 20.0512H99.9444C99.9444 19.7515 100 18.5526 100 17.9993ZM86.2778 15.809C86.2778 13.2037 88.1944 12.1201 89.9444 12.1201C91.6389 12.1201 93.4444 13.2037 93.4444 15.809H86.2778Z"
+                      fill="#6772E5"
+                    />
+                  </svg>
+
+                  <Button title={t("Proceed to payment")} color="primary" />
+                </div>
+
+                <p className="text-sm text-gray-1 mt-4">
                   {t("payment-content-text")}
                 </p>
-              </div>
-            </div>
+              </>
+            )}
 
-            <Button
-              className="mt-6"
-              title={t("Я оплатил(а)")}
-              color="primary"
-            />
+            {type === "with-crypto" && (
+              <Button
+                className="mt-6"
+                title={t("Я оплатил(а)")}
+                color="primary"
+              />
+            )}
           </div>
 
           <Attention className="p-6" content={<AttentionContent />} />

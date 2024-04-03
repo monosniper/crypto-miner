@@ -9,7 +9,7 @@ type Props = {
 export const Message: FC<Props> = ({ isMy, text }) => {
   return (
     <div
-      className={cn("px-3.5 py-2 rounded-[10px] w-max", {
+      className={cn("px-3.5 py-2 rounded-[10px] w-max text-black", {
         "rounded-br-none bg-purple-2 ml-auto": isMy,
         "rounded-bl-none bg-white": !isMy,
       })}

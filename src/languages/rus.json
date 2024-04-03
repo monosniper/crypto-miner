@@ -198,5 +198,11 @@
 
   "need-help": "Нужна помощь?",
 
-  "enter-your-message": "Введите сообщение..."
+  "enter-your-message": "Введите сообщение...",
+
+  "payment-with-card": "Оплата картой",
+
+  "Proceed to payment": "Перейти к оплате",
+
+  "Change the payment method": "Сменить метод оплаты"
 }

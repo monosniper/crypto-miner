@@ -1,7 +1,16 @@
 import { useTranslation } from "react-i18next";
 import styles from "./HelpChat.module.css";
 import { Message } from "./Message/Message";
-import { Dispatch, FC, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  FormEvent,
+  SetStateAction,
+  useRef,
+  useState,
+} from "react";
+import { useOutside } from "@/hooks";
 
 type Props = {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -9,9 +18,33 @@ type Props = {
 
 export const HelpChat: FC<Props> = ({ setOpen }) => {
   const { t } = useTranslation();
+  const [message, setMessage] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useOutside(ref, () => setOpen(false));
+
+  const changeMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+  };
+
+  const changeFileHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+
+    if (!files) return;
+
+    setFile(files[0]);
+  };
+
+  const formHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(message);
+    console.log(file);
+  };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} ref={ref}>
       <div className={styles.header}>
         <div className="flex items-center gap-2">
           <img
@@ -76,14 +109,21 @@ export const HelpChat: FC<Props> = ({ setOpen }) => {
         </div>
       </div>
 
-      <form className={styles.footer}>
+      <form className={styles.footer} onSubmit={formHandler}>
         <div className="bg-white/10 flex items-center gap-2 rounded-[10px] w-full p-2">
           <input
             className="bg-transparent w-full text-white"
             placeholder={t("enter-your-message")}
+            value={message}
+            onChange={changeMessageHandler}
           />
 
-          <input className="hidden" type="file" id="file" />
+          <input
+            className="hidden"
+            type="file"
+            id="file"
+            onChange={changeFileHandler}
+          />
 
           <label htmlFor="file">
             <svg

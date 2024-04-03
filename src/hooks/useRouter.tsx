@@ -58,7 +58,7 @@ export const useRouter = (isAuth: boolean) => {
           />
 
           <Route
-            path="/wallet/payment/finish"
+            path="/wallet/payment/finish/:type"
             element={
               <Suspense>
                 <PaymentFinishPage />

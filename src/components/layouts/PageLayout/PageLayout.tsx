@@ -3,6 +3,7 @@ import { Header, RecentTransactions, Sidebar } from "@/components";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { setOpenSidebar } from "@/redux/slices/mainSlice";
 import { user } from "@/redux/slices/userSlice";
+import { HelpBtn } from "@/components/ui";
 
 type Props = {
   children: ReactNode;
@@ -45,6 +46,8 @@ export const PageLayout: FC<Props> = ({ children }) => {
               {children}
             </main>
           </div>
+
+          <HelpBtn />
         </div>
       ) : (
         <>{children}</>
