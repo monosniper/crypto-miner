@@ -22,7 +22,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -35,7 +35,7 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["convertations", "coins"],
+  tagTypes: ["convertations", "coins", "nfts"],
   endpoints: ({ query, mutation }) => ({
     getMe: query<{ data: User }, { email: string; password: string | number }>({
       query(params) {
@@ -47,8 +47,6 @@ export const userApi = createApi({
           headers: {
             Authorization: `Basic ${btoa(credentials)}`,
           },
-
-          params,
         };
       },
     }),
@@ -95,7 +93,7 @@ export const userApi = createApi({
       },
     }),
 
-    getWallet: query<{ data: { balance: Balance; nfts: Nft[] } }, null>({
+    getWallet: query<{ data: { balance: Balance } }, null>({
       query() {
         return {
           url: "me/wallet",
@@ -247,6 +245,17 @@ export const userApi = createApi({
         };
       },
     }),
+
+    getNfts: query<{ success: boolean; data: Nft[]; message: string }, null>({
+      query() {
+        return {
+          url: "me/nfts",
+          method: "GET",
+        };
+      },
+
+      providesTags: ["nfts"],
+    }),
   }),
 });
 
@@ -271,4 +280,5 @@ export const {
   useUpdatePasswordMutation,
   useGetMeDataQuery,
   useLazyGetMeDataQuery,
+  useGetNftsQuery,
 } = userApi;

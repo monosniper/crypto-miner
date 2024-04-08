@@ -28,7 +28,7 @@ export const TextFieldSelect: FC<Props> = ({ value, onClickItem, list }) => {
       </p>
 
       {isOpen && (
-        <div className="absolute top-[calc(100%+10px)] right-0 box max-h-[200px] overflow-y-auto scrollbar-none">
+        <div className="absolute top-[calc(100%+10px)] right-0 box max-h-[200px] overflow-y-auto scrollbar-none z-20">
           {list.map((el, idx) => {
             return (
               <div

@@ -4,6 +4,7 @@ import styles from "./ConvertationsItem.module.css";
 import { Convertation } from "@/types";
 import { formatRelativeDate } from "@/utils";
 import { useTranslation } from "react-i18next";
+import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 
 type Props = {
   data: Convertation;
@@ -11,6 +12,7 @@ type Props = {
 
 export const ConvertationsItem: FC<Props> = ({ data }) => {
   const { t } = useTranslation();
+  const { data: coins } = useGetCoinsQuery(null);
 
   return (
     <div className={styles.wrapper}>
@@ -22,7 +24,10 @@ export const ConvertationsItem: FC<Props> = ({ data }) => {
       <div className={styles.content}>
         <div className={styles.conversions}>
           <p>
-            {data.amount.from.toFixed(2)} <span>{data.coin.from}</span>
+            {data.amount.from.toFixed(2)}{" "}
+            <span>
+              {coins?.data.find((coin) => data.coin.from === coin.id)?.slug}
+            </span>
           </p>
 
           {data.amount.to !== undefined && data.amount.to !== null && (
@@ -30,7 +35,10 @@ export const ConvertationsItem: FC<Props> = ({ data }) => {
               <ArrTopIcon className="rotate-90 [&>path]:fill-purple-3" />
 
               <p>
-                {data.amount.to.toFixed(2)} <span>{data.coin.to}</span>
+                {data.amount.to.toFixed(2)}{" "}
+                <span>
+                  {coins?.data.find((coin) => data.coin.to === coin.id)?.slug}
+                </span>
               </p>
             </>
           )}

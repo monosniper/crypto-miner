@@ -49,6 +49,7 @@ export const WithdrawalForm: FC<PropsWithClassName> = ({ className }) => {
     <form
       className={cn(className)}
       onSubmit={methods.handleSubmit(formHandler)}
+      noValidate
     >
       <div className="flex flex-wrap -m-4">
         <FieldWrapper

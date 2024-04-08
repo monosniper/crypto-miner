@@ -11,7 +11,7 @@ import {
 } from "@/redux/slices/mainSlice";
 import cn from "clsx";
 import { useOutside } from "@/hooks";
-import { Select, TelegramLink } from "@/components/ui";
+import { Select } from "@/components/ui";
 import { languagesData } from "@/data";
 import { useTranslation } from "react-i18next";
 import { LogoIcon } from "../icons";
@@ -59,13 +59,13 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
         </div>
 
         <div className="mt-auto">
-          <div className="flex flex-col gap-4 px-6">
+          {/* <div className="flex flex-col gap-4 px-6">
             <p className="text-xs text-base-content-300 uppercase">
               {t("contacts")}
             </p>
 
             <TelegramLink />
-          </div>
+          </div> */}
 
           <div className="flex flex-col gap-4 px-6 mt-4">
             <p className="text-xs text-base-content-300">{t("our-socials")}</p>

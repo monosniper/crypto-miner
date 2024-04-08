@@ -8,7 +8,7 @@ import { useState } from "react";
 export const PaymentPage = () => {
   const { t } = useTranslation();
   const [active, setActive] = useState<"with-card" | "with-crypto">(
-    "with-card",
+    "with-crypto"
   );
   const navigate = useNavigate();
 
@@ -19,10 +19,20 @@ export const PaymentPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5">
           <div
-            className={cn("box", "py-2.5 px-5 cursor-pointer", {
-              "!border-purple-2": active === "with-card",
-            })}
-            onClick={() => setActive("with-card")}
+            className={cn(
+              "box",
+              "py-2.5 px-5 cursor-not-allowed pointer-events-none opacity-60",
+              {
+                "!border-purple-2": active === "with-card",
+              }
+            )}
+            onClick={() => {
+              // пока отключено
+
+              return;
+
+              setActive("with-card");
+            }}
           >
             <h3 className="text-xl font-medium">With card</h3>
 

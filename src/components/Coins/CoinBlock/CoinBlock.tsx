@@ -276,7 +276,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                       "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200 touch-none",
                       {
                         "!bg-base-300": active,
-                      },
+                      }
                     )}
                     {...(window.innerWidth < 1024 ? attributes : {})}
                     {...(window.innerWidth < 1024 ? listeners : {})}
@@ -318,12 +318,20 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
 
             <div className={styles.footer}>
               {type === "my" && (
-                <p>${(Number(data.balance) * Number(data.rate))?.toFixed(2)}</p>
+                <p
+                  title={(Number(data.balance) * Number(data.rate)).toString()}
+                >
+                  ${(Number(data.balance) * Number(data.rate))?.toFixed(2)}
+                </p>
               )}
 
               {type !== "my" && <Rate type={type} data={data} />}
 
-              {type === "my" && <p>{data.balance?.toFixed(2)}</p>}
+              {type === "my" && (
+                <p title={data.balance?.toString()}>
+                  {data.balance?.toFixed(2)}
+                </p>
+              )}
 
               {"change" in data && type !== "my" && (
                 <div

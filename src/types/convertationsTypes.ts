@@ -1,8 +1,8 @@
 export type Convertation = {
   id: number;
   coin: {
-    from: string;
-    to: string;
+    from: number;
+    to: number;
   };
   amount: {
     from: number;
