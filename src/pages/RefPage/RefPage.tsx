@@ -1,15 +1,14 @@
 import { Attention, Title } from "@/components";
 import { CopyIcon } from "@/components/icons/CopyIcon";
 import { FieldWrapper, TextField } from "@/components/ui";
-import { user } from "@/redux/slices/userSlice";
-import { useAppSelector } from "@/redux/store";
+import { useGetRefQuery } from "@/redux/api/userApi";
 import { copyText } from "@/utils";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 export const RefPage = () => {
   const { t } = useTranslation();
-  const { userData } = useAppSelector(user);
+  const { data: refData } = useGetRefQuery(null);
 
   return (
     <div>
@@ -28,8 +27,8 @@ export const RefPage = () => {
           <TextField
             className="[&>input]:!text-gray-1"
             value={
-              userData
-                ? `https://www.hogyx.io?ref_code=${userData.ref_code}`
+              refData
+                ? `https://www.hogyx.io?ref_code=${refData.data?.ref_code}`
                 : ""
             }
             readOnly={true}
@@ -37,10 +36,10 @@ export const RefPage = () => {
               <div
                 className="cursor-pointer"
                 onClick={() => {
-                  if (!userData) return;
+                  if (!refData?.data) return;
 
                   copyText(
-                    `https://www.hogyx.io?ref_code=${userData.ref_code}`,
+                    `https://www.hogyx.io?ref_code=${refData.data.ref_code}`
                   );
 
                   toast.success(t("the text has been copied"));
@@ -65,13 +64,13 @@ export const RefPage = () => {
             <div className="flex justify-between items-center">
               <b>{t("number of referrals")}:</b>
 
-              <span>{userData?.total_refs || 0}</span>
+              <span>{refData?.data?.total_refs || 0}</span>
             </div>
 
             <div className="flex justify-between items-center">
               <b>{t("the number of deposits")}:</b>
 
-              <span>{userData?.total_refs_amount || 0}</span>
+              <span>{refData?.data?.total_refs_amount || 0}</span>
             </div>
           </div>
         </div>
@@ -80,7 +79,9 @@ export const RefPage = () => {
             <div className="flex justify-between items-center">
               <b>{t("the percentage received")}:</b>
 
-              <span>{userData ? userData.total_refs_amount / 10 : 0}</span>
+              <span>
+                {refData?.data ? refData.data.total_refs_amount / 10 : 0}
+              </span>
             </div>
           </div>
         </div>

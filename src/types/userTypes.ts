@@ -7,10 +7,13 @@ export type User = {
   token: string;
   coin_positions: CoinPosition[];
   session: SessionData;
+  isVerificated: boolean | null;
+};
+
+export type UserRef = {
   ref_code: string;
   total_refs: number;
   total_refs_amount: number;
-  isVerificated: boolean | null;
 };
 
 export type Balance = {

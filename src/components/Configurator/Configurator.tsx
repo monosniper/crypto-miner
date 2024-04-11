@@ -240,18 +240,18 @@ export const Configurator = () => {
           <h3 className="text-base font-semibold">Монеты</h3>
 
           <div className="flex items-center gap-1.5 flex-wrap">
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
-            <MainBadge title="USDT" />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            <MainBadge title="USDT" onClick={() => console.log("asd")} />
           </div>
         </div>
 

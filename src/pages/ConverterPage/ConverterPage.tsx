@@ -98,7 +98,7 @@ export const ConverterPage = () => {
           "amountTwo",
           (fromCoin.rate / toCoin.rate) *
             Number(methods.getValues("amount")) *
-            (1 - Number(settings.convertation_fee) / 100),
+            (1 - Number(settings.convertation_fee) / 100)
         );
       }
     }
@@ -120,7 +120,7 @@ export const ConverterPage = () => {
           "amount",
           (toCoin.rate / fromCoin.rate) *
             Number(methods.getValues("amountTwo")) *
-            (1 + Number(settings.convertation_fee) / 100),
+            (1 + Number(settings.convertation_fee) / 100)
         );
       }
     }
@@ -149,10 +149,10 @@ export const ConverterPage = () => {
                 onChange: (e) => {
                   if (coins && fromCoinId && toCoinId) {
                     const fromCoin = coins.data.find(
-                      (coin) => coin.id === fromCoinId,
+                      (coin) => coin.id === fromCoinId
                     );
                     const toCoin = coins.data.find(
-                      (coin) => coin.id === toCoinId,
+                      (coin) => coin.id === toCoinId
                     );
 
                     if (
@@ -165,7 +165,7 @@ export const ConverterPage = () => {
                         "amountTwo",
                         (fromCoin.rate / toCoin.rate) *
                           Number(e.target.value) *
-                          (1 - Number(settings.convertation_fee) / 100),
+                          (1 - Number(settings.convertation_fee) / 100)
                       );
                     }
                   }
@@ -176,7 +176,14 @@ export const ConverterPage = () => {
                 <TextFieldSelect
                   value={fromCoinId}
                   list={formatCoins}
-                  onClickItem={(id) => setFromCoinId(id)}
+                  onClickItem={(id) => {
+                    if (id === toCoinId)
+                      return toast.error(
+                        t("You cannot convert identical coins")
+                      );
+
+                    setFromCoinId(id);
+                  }}
                 />
               }
             />
@@ -191,10 +198,10 @@ export const ConverterPage = () => {
                   onChange: (e) => {
                     if (coins && fromCoinId && toCoinId) {
                       const fromCoin = coins.data.find(
-                        (coin) => coin.id === fromCoinId,
+                        (coin) => coin.id === fromCoinId
                       );
                       const toCoin = coins.data.find(
-                        (coin) => coin.id === toCoinId,
+                        (coin) => coin.id === toCoinId
                       );
 
                       if (
@@ -207,7 +214,7 @@ export const ConverterPage = () => {
                           "amount",
                           (toCoin.rate / fromCoin.rate) *
                             Number(e.target.value) *
-                            (1 + Number(settings.convertation_fee) / 100),
+                            (1 + Number(settings.convertation_fee) / 100)
                         );
                       }
                     }
@@ -218,7 +225,14 @@ export const ConverterPage = () => {
                   <TextFieldSelect
                     value={toCoinId}
                     list={formatCoins}
-                    onClickItem={(id) => setToCoinId(id)}
+                    onClickItem={(id) => {
+                      if (id === fromCoinId)
+                        return toast.error(
+                          t("You cannot convert identical coins")
+                        );
+
+                      setToCoinId(id);
+                    }}
                   />
                 }
               />
@@ -252,7 +266,7 @@ const AttentionContent = () => {
       <div>
         <p>
           {t(
-            "you can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks",
+            "you can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks"
           )}
         </p>
       </div>

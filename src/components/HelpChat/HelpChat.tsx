@@ -67,7 +67,7 @@ export const HelpChat: FC<Props> = ({ setOpen }) => {
           viewBox="0 0 10 10"
           fill="none"
         >
-          <g clip-path="url(#clip0_3005_739)">
+          <g clipPath="url(#clip0_3005_739)">
             <path d="M10 0H0V10H10V0Z" fill="white" fillOpacity="0.01" />
             <path
               d="M1.66663 1.6665L8.33329 8.33317"
@@ -79,7 +79,7 @@ export const HelpChat: FC<Props> = ({ setOpen }) => {
             <path
               d="M1.66663 8.33317L8.33329 1.6665"
               stroke="white"
-              stroke-width="2"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />

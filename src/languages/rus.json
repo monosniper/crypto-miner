@@ -210,5 +210,7 @@
 
   "There is no NFT": "Нет Nft",
   "Approximate end time of the session": "Примерное время завершения сессии",
-  "Server Configurator": "Конфигуратор сервера"
+  "Server Configurator": "Конфигуратор сервера",
+
+  "You cannot convert identical coins": "Нельзя конвертировать одинаковые монеты"
 }

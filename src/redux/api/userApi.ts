@@ -5,6 +5,7 @@ import {
   Notification,
   ReplenishmentItem,
   User,
+  UserRef,
   WithdrawsBody,
   WithdrawsItem,
 } from "@/types";
@@ -22,7 +23,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -35,7 +36,7 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["convertations", "coins", "nfts"],
+  tagTypes: ["convertations", "coins", "nfts", "ref"],
   endpoints: ({ query, mutation }) => ({
     getMe: query<{ data: User }, { email: string; password: string | number }>({
       query(params) {
@@ -256,6 +257,24 @@ export const userApi = createApi({
 
       providesTags: ["nfts"],
     }),
+
+    getRef: query<
+      {
+        success: boolean;
+        data?: UserRef;
+        message: string;
+      },
+      null
+    >({
+      query() {
+        return {
+          url: "me/ref",
+          methodL: "GET",
+        };
+      },
+
+      providesTags: ["ref"],
+    }),
   }),
 });
 
@@ -281,4 +300,5 @@ export const {
   useGetMeDataQuery,
   useLazyGetMeDataQuery,
   useGetNftsQuery,
+  useGetRefQuery,
 } = userApi;
