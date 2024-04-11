@@ -21,3 +21,4 @@ export * from "./NewPasswordPage/NewPasswordPage";
 export * from "./PaymentPage/PaymentPage";
 export * from "./PaymentFinishPage/PaymentFinishPage";
 export * from "./ProfilePage/ProfilePage";
+export * from "./ConfiguratorPage/ConfiguratorPage";

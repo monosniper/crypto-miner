@@ -276,7 +276,7 @@ export const CoinBlock: FC<PropsWithClassName<Props>> = ({
                       "lg:hidden p-1 bg-base-300/50 rounded ease-linear duration-200 touch-none",
                       {
                         "!bg-base-300": active,
-                      }
+                      },
                     )}
                     {...(window.innerWidth < 1024 ? attributes : {})}
                     {...(window.innerWidth < 1024 ? listeners : {})}

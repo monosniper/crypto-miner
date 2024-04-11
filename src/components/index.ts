@@ -99,3 +99,8 @@ export * from "./Notifications/NotificationsItem/NotificationsItem";
 export * from "./ReplenishmentItem/ReplenishmentItem";
 
 export * from "./HelpChat/HelpChat";
+
+// CONFIGURATOR
+
+export * from "./Configurator/ConfiguratorServerItem/ConfiguratorServerItem";
+export * from "./Configurator/Configurator";

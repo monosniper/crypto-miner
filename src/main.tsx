@@ -10,6 +10,8 @@ import "./i18n.ts";
 import "react-tooltip/dist/react-tooltip.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import "swiper/css";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Provider store={store}>

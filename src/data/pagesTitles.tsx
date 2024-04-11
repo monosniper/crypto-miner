@@ -18,4 +18,5 @@ export const pagesTitles: {
   "/privacy-policy": "privacy policy",
   "/user-servers": "your servers",
   "/profile": "profile",
+  "/configurator": "Server Configurator",
 };

@@ -1,4 +1,5 @@
 export * from "./Select/Select";
+export * from "./Select2/Select2";
 
 // BUTTONS
 

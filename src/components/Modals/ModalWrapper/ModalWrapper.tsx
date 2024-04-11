@@ -32,9 +32,12 @@ export const ModalWrapper: FC<PropsWithClassName<Props>> = ({
       )}
     >
       <div
-        className={cn("opacity-100 ease-linear duration-150 px-4 overflow-y-auto", {
-          "opacity-0 scale-[0.2]": !isOpen,
-        })}
+        className={cn(
+          "opacity-100 ease-linear duration-150 px-4 overflow-y-auto",
+          {
+            "opacity-0 scale-[0.2]": !isOpen,
+          },
+        )}
       >
         {children}
       </div>

@@ -8,7 +8,7 @@ import { useState } from "react";
 export const PaymentPage = () => {
   const { t } = useTranslation();
   const [active, setActive] = useState<"with-card" | "with-crypto">(
-    "with-crypto"
+    "with-crypto",
   );
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export const PaymentPage = () => {
               "py-2.5 px-5 cursor-not-allowed pointer-events-none opacity-60",
               {
                 "!border-purple-2": active === "with-card",
-              }
+              },
             )}
             onClick={() => {
               // пока отключено

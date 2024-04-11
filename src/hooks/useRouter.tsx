@@ -1,3 +1,4 @@
+import { ConfiguratorPage } from "@/pages";
 import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -188,6 +189,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <UserServersPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/configurator"
+            element={
+              <Suspense>
+                <ConfiguratorPage />
               </Suspense>
             }
           />
