@@ -3,13 +3,20 @@ import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { Button } from "@/components/ui";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export const ConfiguratorPage = () => {
+  const [isOpenAttention, setOpenAttention] = useState(true);
+
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-5">
         <div className="col-span-2 flex flex-col gap-2.5">
-          <Attention content={<AttentionContent />} />
+          {isOpenAttention && (
+            <Attention
+              content={<AttentionContent setOpen={setOpenAttention} />}
+            />
+          )}
 
           <div>
             <Swiper
@@ -49,7 +56,7 @@ export const ConfiguratorPage = () => {
         <div
           className={cn(
             "box",
-            "col-span-1 py-4 px-3.5 flex flex-col gap-4 h-max",
+            "col-span-1 py-4 px-3.5 flex flex-col gap-4 h-max"
           )}
         >
           <h3 className="text-base font-semibold">Кастомный сервер</h3>
@@ -58,7 +65,7 @@ export const ConfiguratorPage = () => {
             <div
               className={cn(
                 "box",
-                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400",
+                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400"
               )}
             >
               <div className="flex items-center justify-between gap-4">
@@ -80,7 +87,7 @@ export const ConfiguratorPage = () => {
             <div
               className={cn(
                 "box",
-                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400",
+                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400"
               )}
             >
               <div className="flex items-center justify-between gap-4">
@@ -102,7 +109,7 @@ export const ConfiguratorPage = () => {
             <div
               className={cn(
                 "box",
-                "py-3 px-3.5 flex justify-between items-center gap-4 !bg-base-400",
+                "py-3 px-3.5 flex justify-between items-center gap-4 !bg-base-400"
               )}
             >
               <h4 className="text-sm font-medium">Цена:</h4>
@@ -122,13 +129,22 @@ export const ConfiguratorPage = () => {
   );
 };
 
-const AttentionContent = () => {
+const AttentionContent = ({
+  setOpen,
+}: {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const { t } = useTranslation();
+
+  const close = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="p-2 pb-4">
       <div className="cursor-pointer w-max ml-auto">
         <svg
+          onClick={close}
           className="[&>path]:stroke-base-content-100"
           width="24"
           height="24"
@@ -155,7 +171,7 @@ const AttentionContent = () => {
 
       <p className="text-center lg:text-sm">
         {t(
-          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
         )}
       </p>
     </div>
