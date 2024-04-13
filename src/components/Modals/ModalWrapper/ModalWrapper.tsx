@@ -28,18 +28,17 @@ export const ModalWrapper: FC<PropsWithClassName<Props>> = ({
         {
           "opacity-0 pointer-events-none": !isOpen,
           "opacity-100": isOpen,
-        },
+        }
       )}
     >
-      <div
-        className={cn(
-          "opacity-100 ease-linear duration-150 px-4 overflow-y-auto",
-          {
+      <div className="overflow-y-auto">
+        <div
+          className={cn("opacity-100 ease-linear duration-150 px-4", {
             "opacity-0 scale-[0.2]": !isOpen,
-          },
-        )}
-      >
-        {children}
+          })}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

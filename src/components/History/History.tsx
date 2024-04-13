@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TabButton } from "@/components/ui";
+import { Button, TabButton } from "@/components/ui";
 import {
   useGetConvertationsQuery,
   useGetReplenishmentQuery,
@@ -20,6 +20,9 @@ type Tabs = "deposits" | "convertations" | "withdraws";
 export const History = () => {
   const [currentTab, setCurrentTab] = useState<Tabs>("convertations");
   const { t } = useTranslation();
+  const [showMoreConvertations, setShowMoreConvertations] = useState(false);
+  const [showMoreWithdraws, setShowMoreWithdraws] = useState(false);
+  const [showMoreDeposits, setShowMoreDeposits] = useState(false);
 
   const {
     data: convertationsList,
@@ -47,14 +50,14 @@ export const History = () => {
 
   const convertationsLoading = useLoading(
     convertationsIsLoading,
-    convertationsIsFetching,
+    convertationsIsFetching
   );
 
   const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
 
   const replenishmentLoading = useLoading(
     replenishmentIsLoading,
-    replenishmentIsFetching,
+    replenishmentIsFetching
   );
 
   return (
@@ -99,9 +102,11 @@ export const History = () => {
           ) : (
             <>
               {convertationsList && convertationsList.data.length > 0 ? (
-                convertationsList.data.map((el) => {
-                  return <ConvertationsItem key={el.id} data={el} />;
-                })
+                convertationsList.data
+                  .slice(0, showMoreConvertations ? undefined : 9)
+                  .map((el) => {
+                    return <ConvertationsItem key={el.id} data={el} />;
+                  })
               ) : (
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
@@ -109,6 +114,14 @@ export const History = () => {
                 />
               )}
             </>
+          )}
+
+          {convertationsList && convertationsList.data.length > 9 && (
+            <Button
+              className="mx-auto col-span-1 md:col-span-2 lg:col-span-3 mt-5"
+              title={showMoreConvertations ? t("roll-up") : t("show-more")}
+              onClick={() => setShowMoreConvertations((prev) => !prev)}
+            />
           )}
         </div>
       )}
@@ -124,9 +137,11 @@ export const History = () => {
           ) : (
             <>
               {withdrawsList && withdrawsList.data.length > 0 ? (
-                withdrawsList.data.map((el) => {
-                  return <WithdrawsItem key={el.id} data={el} />;
-                })
+                withdrawsList.data
+                  .slice(0, showMoreWithdraws ? undefined : 9)
+                  .map((el) => {
+                    return <WithdrawsItem key={el.id} data={el} />;
+                  })
               ) : (
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
@@ -134,6 +149,14 @@ export const History = () => {
                 />
               )}
             </>
+          )}
+
+          {withdrawsList && withdrawsList.data.length > 9 && (
+            <Button
+              className="mx-auto col-span-1 md:col-span-2 lg:col-span-3 mt-5"
+              title={showMoreWithdraws ? t("roll-up") : t("show-more")}
+              onClick={() => setShowMoreWithdraws((prev) => !prev)}
+            />
           )}
         </div>
       )}
@@ -149,9 +172,11 @@ export const History = () => {
           ) : (
             <>
               {replenishmentList && replenishmentList.data.length > 0 ? (
-                replenishmentList.data.map((el) => {
-                  return <ReplenishmentItem key={el.id} data={el} />;
-                })
+                replenishmentList.data
+                  .slice(0, showMoreDeposits ? undefined : 9)
+                  .map((el) => {
+                    return <ReplenishmentItem key={el.id} data={el} />;
+                  })
               ) : (
                 <EmptyText
                   className="col-span-1 md:col-span-2 lg:col-span-3"
@@ -159,6 +184,14 @@ export const History = () => {
                 />
               )}
             </>
+          )}
+
+          {replenishmentList && replenishmentList.data.length > 9 && (
+            <Button
+              className="mx-auto col-span-1 md:col-span-2 lg:col-span-3 mt-5"
+              title={showMoreDeposits ? t("roll-up") : t("show-more")}
+              onClick={() => setShowMoreDeposits((prev) => !prev)}
+            />
           )}
         </div>
       )}
