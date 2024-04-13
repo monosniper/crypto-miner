@@ -18,7 +18,7 @@ export const HelpBtn = () => {
   return (
     <div className="fixed bottom-5 right-3 lg:bottom-9 lg:right-10">
       <div className="relative">
-        {isOpen && <HelpChat setOpen={setOpen} />}
+        <HelpChat isOpen={isOpen} setOpen={setOpen} />
 
         <button
           className={styles.btn}

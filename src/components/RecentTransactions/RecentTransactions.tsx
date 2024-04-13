@@ -8,7 +8,7 @@ export const RecentTransactions = () => {
   const { data: coins } = useGetCoinsQuery(null);
 
   return (
-    <Marquee className="w-screen py-1 px-2 border-b border-base-border-100 !sticky !top-0 bg-base-100 z-20">
+    <Marquee className="w-screen py-1 px-2 border-b border-base-border-100 !sticky !top-0 bg-base-100 z-0">
       {coins?.data &&
         coins.data.map((el) => {
           return (

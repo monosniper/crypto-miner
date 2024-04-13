@@ -11,12 +11,14 @@ import {
   useState,
 } from "react";
 import { useOutside } from "@/hooks";
+import cn from "clsx";
 
 type Props = {
+  isOpen: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export const HelpChat: FC<Props> = ({ setOpen }) => {
+export const HelpChat: FC<Props> = ({ isOpen, setOpen }) => {
   const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -44,7 +46,9 @@ export const HelpChat: FC<Props> = ({ setOpen }) => {
   };
 
   return (
-    <div className={styles.wrapper} ref={ref}>
+    <div className={cn(styles.wrapper, {
+      [styles.notOpen]: !isOpen
+    })} ref={ref}>
       <div className={styles.header}>
         <div className="flex items-center gap-2">
           <img
