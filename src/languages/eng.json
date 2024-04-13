@@ -49,8 +49,8 @@
   "buy server": "Buy server",
 
   "server in work": "In work",
-  "server active": "Paid",
-  "server not active": "Not paid",
+  "server active": "Active",
+  "server not active": "Not active",
   "server reload": "Rebooting",
 
   "restart": "Restart",
@@ -208,5 +208,8 @@
   "There is no NFT": "There is no NFT",
   "Approximate end time of the session": "Approximate end time of the session",
   "Server Configurator": "Server Configurator",
-  "You cannot convert identical coins": "You cannot convert identical coins"
+  "You cannot convert identical coins": "You cannot convert identical coins",
+  "Send an email": "Send an email",
+
+  "save": "Save"
 }

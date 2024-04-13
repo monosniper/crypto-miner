@@ -50,8 +50,8 @@
   "buy server": "Купить сервер",
 
   "server in work": "В работе",
-  "server active": "Оплачен",
-  "server not active": "Не оплачен",
+  "server active": "Активен",
+  "server not active": "Не активен",
   "server reload": "Перезагружается",
 
   "restart": "Перезагрузить",
@@ -212,5 +212,9 @@
   "Approximate end time of the session": "Примерное время завершения сессии",
   "Server Configurator": "Конфигуратор сервера",
 
-  "You cannot convert identical coins": "Нельзя конвертировать одинаковые монеты"
+  "You cannot convert identical coins": "Нельзя конвертировать одинаковые монеты",
+
+  "Send an email": "Отправить письмо",
+
+  "save": "Сохранить"
 }

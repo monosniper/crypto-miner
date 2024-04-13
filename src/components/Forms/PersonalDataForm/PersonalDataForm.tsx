@@ -1,4 +1,6 @@
 import { Button, FieldWrapper, TextField } from "@/components/ui";
+import { user } from "@/redux/slices/userSlice";
+import { useAppSelector } from "@/redux/store";
 import { PersonalFormData } from "@/types";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -10,13 +12,14 @@ const formHandler = (data: PersonalFormData) => {
 export const PersonalDataForm = () => {
   const methods = useForm<PersonalFormData>();
   const { t } = useTranslation();
+  const { userData } = useAppSelector(user);
 
   return (
     <form
       className="flex flex-col gap-6"
       onSubmit={methods.handleSubmit(formHandler)}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
         <FieldWrapper
           className="w-full"
           title={t("first-name")}
@@ -76,6 +79,13 @@ export const PersonalDataForm = () => {
         >
           <TextField type="email" methods={methods} registerName="email" />
         </FieldWrapper>
+
+        {!userData?.isVerificated && (
+          <Button
+            className="h-[54px] rounded-lg w-full"
+            title={t("Send an email")}
+          />
+        )}
       </div>
 
       <Button type="submit" color="primary" title={t("save")} />

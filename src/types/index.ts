@@ -13,3 +13,4 @@ export * from "./withdrawsTypes";
 export * from "./notificationsTypes";
 export * from "./miningTypes";
 export * from "./replenishmentTypes";
+export * from "./orders.types"

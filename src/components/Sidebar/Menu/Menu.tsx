@@ -10,6 +10,7 @@ import {
   RefIcon,
   TransferIcon,
   ServersIcon,
+  ProfileIcon,
 } from "@/components/icons";
 import { MenuItem } from "./MenuItem/MenuItem";
 import { useTranslation } from "react-i18next";
@@ -62,11 +63,11 @@ export const Menu = () => {
         <h6 className="text-gray-1 text-xs uppercase">{t("profile")}</h6>
 
         <div className="flex flex-col gap-2 mt-2">
-          {/* <MenuItem
+          <MenuItem
             icon={<ProfileIcon />}
             title={t("profile")}
             href="/profile"
-          /> */}
+          />
           <MenuItem
             icon={<PartnerIcon />}
             title={t("partnership")}

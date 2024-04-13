@@ -8,6 +8,8 @@ import {
   UserRef,
   WithdrawsBody,
   WithdrawsItem,
+  OrderPostBody,
+  OrderPatchBody,
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
@@ -36,7 +38,7 @@ export const userApi = createApi({
     },
   }),
 
-  tagTypes: ["convertations", "coins", "nfts", "ref"],
+  tagTypes: ["convertations", "coins", "nfts", "ref", "orders"],
   endpoints: ({ query, mutation }) => ({
     getMe: query<{ data: User }, { email: string; password: string | number }>({
       query(params) {
@@ -139,7 +141,7 @@ export const userApi = createApi({
     getCoinsPositions: query<{ id: number; hide?: boolean }[], null>({
       query() {
         return {
-          url: "me/coins",
+          url: "coins",
           method: "GET",
         };
       },
@@ -275,6 +277,52 @@ export const userApi = createApi({
 
       providesTags: ["ref"],
     }),
+
+    setOrder: mutation<any, OrderPostBody>({
+      query(body) {
+        return {
+          url: "me/orders",
+          method: "POST",
+          body,
+        };
+      },
+
+      invalidatesTags: ["orders"],
+    }),
+
+    patchOrder: mutation<any, OrderPatchBody>({
+      query(body) {
+        return {
+          url: `me/orders/{orders_id}`,
+          method: "PATCH",
+          body,
+        };
+      },
+
+      invalidatesTags: ["orders"],
+    }),
+
+    getOrders: query<any, null>({
+      query() {
+        return {
+          url: "me/orders/",
+          method: "GET",
+        };
+      },
+
+      providesTags: ["orders"],
+    }),
+
+    getOrdersById: query<any, { order_id: number }>({
+      query(params) {
+        return {
+          url: `me/orders/${params.order_id}`,
+          method: "GET",
+        };
+      },
+
+      providesTags: ["orders"],
+    }),
   }),
 });
 
@@ -301,4 +349,8 @@ export const {
   useLazyGetMeDataQuery,
   useGetNftsQuery,
   useGetRefQuery,
+  useSetOrderMutation,
+  usePatchOrderMutation,
+  useGetOrdersByIdQuery,
+  useGetOrdersQuery,
 } = userApi;

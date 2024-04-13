@@ -5,18 +5,12 @@ import cn from "clsx";
 import { useTranslation } from "react-i18next";
 import { Found, ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
-import {
-  useExtendServerMutation,
-  useGetMyServerByIdQuery,
-} from "@/redux/api/serversApi";
+import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
 import { useState, useEffect } from "react";
 import { useGetWalletQuery } from "@/redux/api/userApi";
-import moment from "moment";
-import { Button } from "@/components/ui";
-import { toast } from "react-toastify";
 
-const currentDate = moment.utc();
+// const currentDate = moment.utc();
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -27,37 +21,37 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    },
+    }
   );
-  const [
-    extendServer,
-    {
-      data: extendServerData,
-      isError: extendServerIsError,
-      isLoading: extendServerIsLoading,
-    },
-  ] = useExtendServerMutation();
+  // const [
+  //   extendServer,
+  //   {
+  //     data: extendServerData,
+  //     isError: extendServerIsError,
+  //     isLoading: extendServerIsLoading,
+  //   },
+  // ] = useExtendServerMutation();
   const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
   const [serverFounds, setServerFounds] = useState<Found[]>([]);
   const { data: walletData } = useGetWalletQuery(null, {
     refetchOnMountOrArgChange: true,
   });
 
-  useEffect(() => {
-    if (!extendServerData) return;
+  // useEffect(() => {
+  //   if (!extendServerData) return;
 
-    if (extendServerData.success) {
-      document.location.href = extendServerData.url;
-    } else {
-      toast.error(t("mistake"));
-    }
-  }, [extendServerData, t]);
+  //   if (extendServerData.success) {
+  //     document.location.href = extendServerData.url;
+  //   } else {
+  //     toast.error(t("mistake"));
+  //   }
+  // }, [extendServerData, t]);
 
-  useEffect(() => {
-    if (!extendServerIsError) return;
+  // useEffect(() => {
+  //   if (!extendServerIsError) return;
 
-    toast.error(t("mistake"));
-  }, [extendServerIsError, t]);
+  //   toast.error(t("mistake"));
+  // }, [extendServerIsError, t]);
 
   useEffect(() => {
     if (!serverData?.data?.logs) return;
@@ -152,7 +146,7 @@ export const ServerPage = () => {
                 {t(getServerStatus(serverData?.data.status as ServerStatuses))}
               </p>
 
-              {moment
+              {/* {moment
                 .utc(serverData?.data.active_until)
                 .isBefore(currentDate) && (
                 <Button
@@ -166,7 +160,7 @@ export const ServerPage = () => {
                   }}
                   disabled={extendServerIsLoading}
                 />
-              )}
+              )} */}
             </div>
 
             <p>

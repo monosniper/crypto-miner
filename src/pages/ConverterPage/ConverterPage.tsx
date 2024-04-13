@@ -20,7 +20,7 @@ export const ConverterPage = () => {
   const { data: walletData } = useGetWalletQuery(null, {
     refetchOnMountOrArgChange: true,
   });
-  const methods = useForm<{ amount: number; amountTwo: number }>();
+  const methods = useForm<{ amount?: number; amountTwo?: number }>();
   const [fromCoinId, setFromCoinId] = useState<number>();
   const [toCoinId, setToCoinId] = useState<number>();
   const [formatCoins, setFormatCoins] = useState<
@@ -47,7 +47,7 @@ export const ConverterPage = () => {
     }
   }, [formatCoins]);
 
-  const formHandler = (data: { amount: number; amountTwo: number }) => {
+  const formHandler = (data: { amount?: number; amountTwo?: number }) => {
     if (!data.amount) {
       return toast.error(t("enter the amount"));
     }
@@ -74,8 +74,17 @@ export const ConverterPage = () => {
   useEffect(() => {
     if (!data) return;
 
+    if (!data.success) {
+      toast.error(t("insufficient funds"));
+
+      return;
+    }
+
     toast.success(t("success"));
-  }, [data, t]);
+
+    methods.setValue("amount", undefined);
+    methods.setValue("amountTwo", undefined);
+  }, [data, methods, t]);
 
   useEffect(() => {
     if (!isError) return;
@@ -170,7 +179,6 @@ export const ConverterPage = () => {
                     }
                   }
                 },
-                valueAsNumber: true,
               }}
               rightBlock={
                 <TextFieldSelect
@@ -219,7 +227,6 @@ export const ConverterPage = () => {
                       }
                     }
                   },
-                  valueAsNumber: true,
                 }}
                 rightBlock={
                   <TextFieldSelect
