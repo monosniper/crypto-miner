@@ -50,14 +50,14 @@ export const History = () => {
 
   const convertationsLoading = useLoading(
     convertationsIsLoading,
-    convertationsIsFetching
+    convertationsIsFetching,
   );
 
   const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
 
   const replenishmentLoading = useLoading(
     replenishmentIsLoading,
-    replenishmentIsFetching
+    replenishmentIsFetching,
   );
 
   return (

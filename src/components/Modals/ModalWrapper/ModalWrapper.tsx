@@ -28,7 +28,7 @@ export const ModalWrapper: FC<PropsWithClassName<Props>> = ({
         {
           "opacity-0 pointer-events-none": !isOpen,
           "opacity-100": isOpen,
-        }
+        },
       )}
     >
       <div className="overflow-y-auto">

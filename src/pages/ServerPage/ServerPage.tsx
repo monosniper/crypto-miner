@@ -21,7 +21,7 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    }
+    },
   );
   // const [
   //   extendServer,

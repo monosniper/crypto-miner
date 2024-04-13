@@ -2,8 +2,11 @@ import { CoinPosition, SessionData } from ".";
 
 export type User = {
   id: number;
+  first_name?: string;
+  last_name?: string;
   name: string;
   email: string;
+  phone?: string;
   token: string;
   coin_positions: CoinPosition[];
   session: SessionData;

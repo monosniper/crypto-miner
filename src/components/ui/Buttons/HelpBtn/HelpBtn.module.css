@@ -1,7 +1,9 @@
 .btn {
-  background: radial-gradient(70.71% 70.71% at 50% 50%,
-      rgb(255, 255, 255) 0%,
-      rgb(124, 85, 231) 100%);
+  background: radial-gradient(
+    70.71% 70.71% at 50% 50%,
+    rgb(255, 255, 255) 0%,
+    rgb(124, 85, 231) 100%
+  );
   box-shadow: 0 0 14px -3px rgba(255, 255, 255, 0.25);
   border-radius: 50%;
 

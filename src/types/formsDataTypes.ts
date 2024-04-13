@@ -22,9 +22,9 @@ export type NewPasswordFormData = {
 };
 
 export type PersonalFormData = {
-  firstName: string;
-  lastName: string;
-  username: string;
+  first_name: string;
+  last_name: string;
+  name: string;
   phone: string;
   email: string;
 };

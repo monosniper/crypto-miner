@@ -46,9 +46,12 @@ export const HelpChat: FC<Props> = ({ isOpen, setOpen }) => {
   };
 
   return (
-    <div className={cn(styles.wrapper, {
-      [styles.notOpen]: !isOpen
-    })} ref={ref}>
+    <div
+      className={cn(styles.wrapper, {
+        [styles.notOpen]: !isOpen,
+      })}
+      ref={ref}
+    >
       <div className={styles.header}>
         <div className="flex items-center gap-2">
           <img

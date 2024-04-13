@@ -10,6 +10,7 @@ import {
   WithdrawsItem,
   OrderPostBody,
   OrderPatchBody,
+  PersonalFormData,
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
@@ -25,7 +26,7 @@ export const userApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY
+          import.meta.env.VITE_CRYPT_KEY,
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -59,6 +60,19 @@ export const userApi = createApi({
         return {
           url: "me",
           method: "GET",
+        };
+      },
+    }),
+
+    updateMe: mutation<
+      { data: boolean; message: string; success: boolean },
+      Partial<PersonalFormData>
+    >({
+      query(body) {
+        return {
+          url: "me",
+          method: "PUT",
+          body,
         };
       },
     }),
@@ -353,4 +367,5 @@ export const {
   usePatchOrderMutation,
   useGetOrdersByIdQuery,
   useGetOrdersQuery,
+  useUpdateMeMutation,
 } = userApi;

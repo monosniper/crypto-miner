@@ -3,7 +3,12 @@ import cn from "clsx";
 
 export const ConfiguratorServerItem = () => {
   return (
-    <div className={cn("box", "px-5 py-4 flex flex-col gap-4 w-full cursor-pointer")}>
+    <div
+      className={cn(
+        "box",
+        "px-5 py-4 flex flex-col gap-4 w-full cursor-pointer",
+      )}
+    >
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <h4 className="font-bold text-sm">Базовый</h4>
 

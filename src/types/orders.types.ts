@@ -7,6 +7,6 @@ export type OrderPostBody = {
 };
 
 export type OrderPatchBody = {
-    method: "crypto" | "card",
-    orders_id: number;
-}
+  method: "crypto" | "card";
+  orders_id: number;
+};

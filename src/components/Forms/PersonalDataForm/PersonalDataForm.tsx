@@ -1,18 +1,53 @@
 import { Button, FieldWrapper, TextField } from "@/components/ui";
+import { useUpdateMeMutation } from "@/redux/api/userApi";
 import { user } from "@/redux/slices/userSlice";
 import { useAppSelector } from "@/redux/store";
 import { PersonalFormData } from "@/types";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
-const formHandler = (data: PersonalFormData) => {
-  console.log(data);
-};
+import { toast } from "react-toastify";
 
 export const PersonalDataForm = () => {
   const methods = useForm<PersonalFormData>();
+  const { setValue } = methods;
   const { t } = useTranslation();
   const { userData } = useAppSelector(user);
+  const [update, { data, isError, isLoading }] = useUpdateMeMutation();
+
+  const formHandler = (data: PersonalFormData) => {
+    const sendData = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+    };
+
+    update(sendData);
+  };
+
+  useEffect(() => {
+    if (!userData) return;
+
+    setValue("email", userData.email || "");
+    setValue("name", userData.name || "");
+    setValue("first_name", userData.first_name || "");
+    setValue("last_name", userData.last_name || "");
+    setValue("phone", userData.phone || "");
+  }, [setValue, userData]);
+
+  useEffect(() => {
+    if (!data || !data.success) return;
+
+    toast.success(t("success"));
+  }, [data, t]);
+
+  useEffect(() => {
+    if (!isError) return;
+
+    toast.error(t("failed"));
+  }, [isError, t]);
 
   return (
     <form
@@ -24,36 +59,36 @@ export const PersonalDataForm = () => {
           className="w-full"
           title={t("first-name")}
           error={
-            methods.formState.errors.firstName
-              ? methods.formState.errors.firstName.message
+            methods.formState.errors.first_name
+              ? methods.formState.errors.first_name.message
               : undefined
           }
         >
-          <TextField methods={methods} registerName="firstName" />
+          <TextField methods={methods} registerName="first_name" />
         </FieldWrapper>
 
         <FieldWrapper
           className="w-full"
           title={t("last-name")}
           error={
-            methods.formState.errors.lastName
-              ? methods.formState.errors.lastName.message
+            methods.formState.errors.last_name
+              ? methods.formState.errors.last_name.message
               : undefined
           }
         >
-          <TextField methods={methods} registerName="lastName" />
+          <TextField methods={methods} registerName="last_name" />
         </FieldWrapper>
 
         <FieldWrapper
           className="w-full"
           title={t("username")}
           error={
-            methods.formState.errors.username
-              ? methods.formState.errors.username.message
+            methods.formState.errors.name
+              ? methods.formState.errors.name.message
               : undefined
           }
         >
-          <TextField methods={methods} registerName="username" />
+          <TextField methods={methods} registerName="name" />
         </FieldWrapper>
 
         <FieldWrapper
@@ -88,7 +123,12 @@ export const PersonalDataForm = () => {
         )}
       </div>
 
-      <Button type="submit" color="primary" title={t("save")} />
+      <Button
+        type="submit"
+        color="primary"
+        title={isLoading ? t("loading") : t("save")}
+        disabled={isLoading}
+      />
     </form>
   );
 };
