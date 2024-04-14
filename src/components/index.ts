@@ -75,6 +75,7 @@ export * from "./Modals/ModalWrapper/ModalWrapper";
 export * from "./Modals/NftWithdrawSuccessModal/NftWithdrawSuccessModal";
 export * from "./Modals/SuccessModal/SuccessModal";
 export * from "./Modals/InfoModal/InfoModal";
+export * from "./Modals/HowUseModal/HowUseModal";
 
 // TRADING
 
@@ -104,3 +105,4 @@ export * from "./HelpChat/HelpChat";
 
 export * from "./Configurator/ConfiguratorServerItem/ConfiguratorServerItem";
 export * from "./Configurator/Configurator";
+export * from "./Configurator/ConfiguratorServers/ConfiguratorServers";

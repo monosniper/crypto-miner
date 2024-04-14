@@ -1,4 +1,4 @@
-import { Server } from "@/types";
+import { Server, ServerPlan } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -28,7 +28,7 @@ export const serversApi = createApi({
 
   tagTypes: ["convertations"],
   endpoints: ({ query, mutation }) => ({
-    getAllServers: query<{ data: Server[] }, null>({
+    getAllServers: query<{ data: ServerPlan[] }, null>({
       query() {
         return {
           url: "servers",

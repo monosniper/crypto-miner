@@ -73,6 +73,10 @@ export const userApi = createApi({
           url: "me",
           method: "PUT",
           body,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         };
       },
     }),

@@ -1,8 +1,7 @@
-import { Attention, Configurator, ConfiguratorServerItem } from "@/components";
+import { Attention, Configurator, ConfiguratorServers } from "@/components";
 import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { Button } from "@/components/ui";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export const ConfiguratorPage = () => {
@@ -19,35 +18,7 @@ export const ConfiguratorPage = () => {
           )}
 
           <div>
-            <Swiper
-              spaceBetween={10}
-              slidesPerView={1.5}
-              breakpoints={{
-                768: {
-                  slidesPerView: 2.5,
-                },
-              }}
-            >
-              <SwiperSlide>
-                <ConfiguratorServerItem />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <ConfiguratorServerItem />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <ConfiguratorServerItem />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <ConfiguratorServerItem />
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <ConfiguratorServerItem />
-              </SwiperSlide>
-            </Swiper>
+            <ConfiguratorServers />
           </div>
 
           <Configurator />

@@ -50,7 +50,7 @@ export const ServersPlans = () => {
             !serversList ||
             serversList.data.length === 0) && (
             <div className="flex flex-col flex-grow">
-              <EmptyText text="Нет получилось получить данные" />
+              <EmptyText text="Не получилось получить данные" />
             </div>
           )}
         </>
