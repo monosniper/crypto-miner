@@ -8,6 +8,7 @@ import {
 } from "react-hook-form";
 import { PropsWithClassName } from "@/types";
 import cn from "clsx";
+import PhoneInput from "react-phone-number-input";
 
 type Props<T extends FieldValues> = {
   type?: "text" | "password" | "number" | "email" | "tel";
@@ -42,6 +43,31 @@ export const TextField = <T extends FieldValues>({
 
   btn,
 }: PropsWithClassName<Props<T>>) => {
+  if (type === "tel") {
+    return (
+      <div className={cn(className, styles.wrapper)}>
+        <PhoneInput
+          className={cn(styles.input, styles.tel)}
+          international
+          defaultCountry="RU"
+          type={type}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          {...methods?.register(registerName!, options)}
+          onChange={() => console.log()}
+        />
+
+        {!rightBlock && btn && (
+          <button className={styles.btn} type="button" onClick={btn.onClick}>
+            {btn.title}
+          </button>
+        )}
+
+        {rightBlock && !btn && rightBlock}
+      </div>
+    );
+  }
+
   return (
     <div className={cn(className, styles.wrapper)}>
       <input

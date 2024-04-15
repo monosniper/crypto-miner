@@ -6,6 +6,20 @@
   @apply w-full text-lg font-medium text-base-content-100 bg-transparent;
 }
 
+.input.tel {
+  @apply text-black;
+}
+
+.input.tel select {
+  @apply text-black;
+}
+
+.input.tel input {
+  @apply text-base-content-100;
+
+  background: transparent;
+}
+
 .btn {
   @apply text-lg font-medium text-base-content-300;
 }

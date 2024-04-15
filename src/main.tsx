@@ -9,6 +9,7 @@ import "./i18n.ts";
 
 import "react-tooltip/dist/react-tooltip.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-phone-number-input/style.css";
 
 import "swiper/css";
 
@@ -17,5 +18,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <App />
     </Provider>
-  </BrowserRouter>,
+  </BrowserRouter>
 );

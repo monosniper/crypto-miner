@@ -13,7 +13,7 @@ export const PersonalDataForm = () => {
   const { setValue } = methods;
   const { t } = useTranslation();
   const { userData } = useAppSelector(user);
-  const [update, { data, isError, isLoading }] = useUpdateMeMutation();
+  const [update, { data, error, isLoading }] = useUpdateMeMutation();
 
   const formHandler = (data: PersonalFormData) => {
     const sendData = {
@@ -44,10 +44,10 @@ export const PersonalDataForm = () => {
   }, [data, t]);
 
   useEffect(() => {
-    if (!isError) return;
+    if (!error) return;
 
     toast.error(t("failed"));
-  }, [isError, t]);
+  }, [error, t]);
 
   return (
     <form
