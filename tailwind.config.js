@@ -37,7 +37,7 @@ export default {
         "base-200": "#fff",
         "base-300": "#E5E9EB",
         "base-400": "#E5E9EB",
-        "base-500": "#292A31",
+        "base-500": "#E5E9EB",
 
         "base-content-100": "#000",
         "base-content-200": "#241F21",
