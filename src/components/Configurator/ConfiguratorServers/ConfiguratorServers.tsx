@@ -1,11 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ConfiguratorServerItem } from "../ConfiguratorServerItem/ConfiguratorServerItem";
 import { useGetPresetsQuery } from "@/redux/api/serversApi";
-import { useTranslation } from "react-i18next";
 
 export const ConfiguratorServers = () => {
   const { data } = useGetPresetsQuery(null);
-  const { t } = useTranslation();
 
   return (
     <Swiper
@@ -17,8 +15,8 @@ export const ConfiguratorServers = () => {
         },
       }}
     >
-      {data?.data.map((preset) => (
-        <SwiperSlide className="!h-auto">
+      {data?.data.map((preset, idx) => (
+        <SwiperSlide key={idx} className="!h-auto">
           <ConfiguratorServerItem
             type={preset.title}
             price={preset.price}

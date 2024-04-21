@@ -4,7 +4,7 @@
 }
 
 .select {
-  @apply cursor-pointer px-3 py-2 rounded-lg bg-base-500 text-base-content-100 flex items-center gap-1 text-sm;
+  @apply cursor-pointer px-3 py-2 rounded-lg bg-base-500 text-base-content-100 flex items-center justify-between gap-1 text-sm lg:max-w-[150px] lg:min-w-[150px] truncate;
 
   appearance: none;
 }

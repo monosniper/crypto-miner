@@ -37,6 +37,32 @@ export type BaseConfigurator = {
   gpu_count: string;
 };
 
+export type OcConfigurator = {
+  oc: string;
+};
+
+export type Configuration = {
+  type: string;
+  location: string;
+};
+
+export type AdditionalConfigurator = {
+  notifications: string;
+  canFarmNft: string;
+};
+
+export type NetworkConfigurator = {
+  ipv: string;
+  ip_count: string;
+  port: string;
+  traffic: string;
+}
+
 export type ConfiguratorFormData = {
+  configuration: Configuration;
   base: BaseConfigurator;
+  oc: OcConfigurator;
+  network: NetworkConfigurator;
+  comment: string;
+  additional: AdditionalConfigurator;
 };
