@@ -17,7 +17,7 @@ export const useConfigurator = () => {
     if (!data) return;
 
     const configurationList = data.data.find(
-      (el) => el.slug === "configuration.php"
+      (el) => el.slug === "configuration.php",
     );
     const baseList = data.data.find((el) => el.slug === "base");
     const ocList = data.data.find((el) => el.slug === "oc");

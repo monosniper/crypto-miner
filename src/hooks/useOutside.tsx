@@ -3,7 +3,7 @@ import { RefObject, useEffect } from "react";
 export const useOutside = (
   ref: RefObject<HTMLElement>,
   callback: (event: MouseEvent | TouchEvent) => void,
-  btnRef?: RefObject<HTMLElement>
+  btnRef?: RefObject<HTMLElement>,
 ) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {

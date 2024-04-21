@@ -104,10 +104,12 @@ body[data-theme="dark"] .map-svg path {
 .box-in-work {
   --border-size: 6px;
   --border-angle: 0turn;
-  background-image: conic-gradient(from var(--border-angle),
+  background-image: conic-gradient(
+      from var(--border-angle),
       #213,
       #112 50%,
-      #213),
+      #213
+    ),
     conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
   background-size:
     calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),

@@ -38,7 +38,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `configuration.${el.slug as keyof Configuration}`,
-                list[0]?.value
+                list[0]?.value,
               );
 
               return (
@@ -54,7 +54,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
-                          value
+                          value,
                         );
                       }}
                     />
@@ -81,7 +81,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `oc.${el.slug as keyof OcConfigurator}`,
-                list[0]?.value
+                list[0]?.value,
               );
 
               return (
@@ -97,7 +97,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
-                          value
+                          value,
                         );
                       }}
                     />
@@ -122,7 +122,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `base.${el.slug as keyof BaseConfigurator}`,
-                list[0]?.value
+                list[0]?.value,
               );
 
               return (
@@ -138,7 +138,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
-                          value
+                          value,
                         );
                       }}
                     />
@@ -163,7 +163,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `network.${el.slug as keyof NetworkConfigurator}`,
-                list[0]?.value
+                list[0]?.value,
               );
 
               return (
@@ -179,7 +179,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
-                          value
+                          value,
                         );
                       }}
                     />
@@ -204,7 +204,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `additional.${el.slug as keyof AdditionalConfigurator}`,
-                list[0]?.value
+                list[0]?.value,
               );
 
               return (
@@ -220,7 +220,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
-                          value
+                          value,
                         );
                       }}
                     />

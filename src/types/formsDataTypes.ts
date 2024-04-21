@@ -56,7 +56,7 @@ export type NetworkConfigurator = {
   ip_count: string;
   port: string;
   traffic: string;
-}
+};
 
 export type ConfiguratorFormData = {
   configuration: Configuration;
