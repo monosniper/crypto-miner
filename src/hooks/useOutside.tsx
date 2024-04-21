@@ -1,22 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
-export const useOutside = (ref: any, callback: any) => {
+export const useOutside = (
+  ref: RefObject<HTMLElement>,
+  callback: (event: MouseEvent | TouchEvent) => void,
+  btnRef?: RefObject<HTMLElement>
+) => {
   useEffect(() => {
-    const listener = (event: any) => {
-      if (!ref.current || ref.current.contains(event.target)) {
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (
+        !(event.target instanceof Node) ||
+        ref.current?.contains(event.target) ||
+        btnRef?.current?.contains(event.target)
+      ) {
         return;
       }
 
       callback(event);
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    const mouseListener = listener as (event: MouseEvent) => void;
+    const touchListener = listener as (event: TouchEvent) => void;
+
+    document.addEventListener("mousedown", mouseListener);
+    document.addEventListener("touchstart", touchListener);
 
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("mousedown", mouseListener);
+      document.removeEventListener("touchstart", touchListener);
     };
-  }, [ref, callback]);
+  }, [ref, callback, btnRef]);
 };

@@ -1,22 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ConfiguratorServerItem } from "../ConfiguratorServerItem/ConfiguratorServerItem";
-import { useGetAllServersQuery } from "@/redux/api/serversApi";
-import { useEffect, useState } from "react";
-import { ServerPlan } from "@/types";
-import { getSortedPlans } from "@/utils";
+import { useGetPresetsQuery } from "@/redux/api/serversApi";
 import { useTranslation } from "react-i18next";
 
 export const ConfiguratorServers = () => {
-  const { data } = useGetAllServersQuery(null);
+  const { data } = useGetPresetsQuery(null);
   const { t } = useTranslation();
-
-  const [sortedServers, setSortedServers] = useState<ServerPlan[]>([]);
-
-  useEffect(() => {
-    if (!data?.data) return;
-
-    setSortedServers(getSortedPlans(data.data));
-  }, [data]);
 
   return (
     <Swiper
@@ -28,13 +17,13 @@ export const ConfiguratorServers = () => {
         },
       }}
     >
-      {sortedServers.map((server) => (
+      {data?.data.map((preset) => (
         <SwiperSlide className="!h-auto">
           <ConfiguratorServerItem
-            type={t(server.type as string)}
-            price={server.price}
-            textList={[]}
-            coins={server.coins}
+            type={preset.title}
+            price={preset.price}
+            textList={[preset.configuration.location]}
+            coins={preset.configuration.coins}
           />
         </SwiperSlide>
       ))}

@@ -1,8 +1,19 @@
 import cn from "clsx";
 import { Select2 } from "../ui/Select2/Select2";
 import { MainBadge } from "../ui";
+import { useConfigurator } from "@/hooks";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { BaseConfigurator, ConfiguratorFormData } from "@/types";
 
-export const Configurator = () => {
+type Props<T extends FieldValues> = {
+  methods: UseFormReturn<T>;
+};
+
+export const Configurator = <T extends FieldValues>({
+  methods,
+}: Props<ConfiguratorFormData>) => {
+  const { base } = useConfigurator();
+
   return (
     <div className={cn("box", "p-8")}>
       <div className="flex flex-col gap-4 lg:gap-5">
@@ -22,7 +33,6 @@ export const Configurator = () => {
               <p>Локация</p>
 
               <Select2
-                value={"United Kingdom"}
                 onChange={() => console.log("asd")}
                 list={[
                   {
@@ -49,7 +59,6 @@ export const Configurator = () => {
               <p>OC</p>
 
               <Select2
-                value={"Ubuntu 22 x64"}
                 onChange={() => console.log("asd")}
                 list={[
                   {
@@ -67,82 +76,35 @@ export const Configurator = () => {
           <h3 className="text-base font-semibold">Базовые настройки</h3>
 
           <div className="flex flex-col gap-1">
-            <div className="flex justify-between items-center gap-4 flex-wrap text-sm">
-              <p>CPU</p>
+            {base?.map((el, idx) => {
+              const list = el.options.map((option) => {
+                return {
+                  value: option.title,
+                  title: option.title + " " + option.price + "$",
+                };
+              });
 
-              <Select2
-                value={"Ubuntu 22 x64"}
-                onChange={() => console.log("asd")}
-                list={[
-                  {
-                    value: "Ubuntu 22 x64",
-                    title: <div className="Ubuntu 22 x64">Ubuntu 22 x64</div>,
-                  },
-                  { value: "Ubuntu 22 x64", title: "Ubuntu 22 x64" },
-                ]}
-              />
-            </div>
+              return (
+                <div
+                  key={idx}
+                  className="flex justify-between items-center gap-4 flex-wrap text-sm"
+                >
+                  <p>{el.slug}</p>
 
-            <div className="flex justify-between items-center gap-4 flex-wrap text-sm">
-              <p>RAM</p>
-
-              <Select2
-                value={"Ubuntu 22 x64"}
-                onChange={() => console.log("asd")}
-                list={[
-                  {
-                    value: "Ubuntu 22 x64",
-                    title: <div className="Ubuntu 22 x64">Ubuntu 22 x64</div>,
-                  },
-                  { value: "Ubuntu 22 x64", title: "Ubuntu 22 x64" },
-                ]}
-              />
-            </div>
-            <div className="flex justify-between items-center gap-4 flex-wrap text-sm">
-              <p>Диск</p>
-
-              <Select2
-                value={"Ubuntu 22 x64"}
-                onChange={() => console.log("asd")}
-                list={[
-                  {
-                    value: "Ubuntu 22 x64",
-                    title: <div className="Ubuntu 22 x64">Ubuntu 22 x64</div>,
-                  },
-                  { value: "Ubuntu 22 x64", title: "Ubuntu 22 x64" },
-                ]}
-              />
-            </div>
-            <div className="flex justify-between items-center gap-4 flex-wrap text-sm">
-              <p>GPU</p>
-
-              <Select2
-                value={"Ubuntu 22 x64"}
-                onChange={() => console.log("asd")}
-                list={[
-                  {
-                    value: "Ubuntu 22 x64",
-                    title: <div className="Ubuntu 22 x64">Ubuntu 22 x64</div>,
-                  },
-                  { value: "Ubuntu 22 x64", title: "Ubuntu 22 x64" },
-                ]}
-              />
-            </div>
-            <div className="flex justify-between items-center gap-4 flex-wrap text-sm">
-              <p>Количество GPU</p>
-
-              <Select2
-                value={"Ubuntu 22 x64"}
-                onChange={() => console.log("asd")}
-                list={[
-                  {
-                    value: "Ubuntu 22 x64",
-                    title: <div className="Ubuntu 22 x64">Ubuntu 22 x64</div>,
-                  },
-                  { value: "Ubuntu 22 x64", title: "Ubuntu 22 x64" },
-                ]}
-              />
-            </div>
+                  {el.type === "select" && (
+                    <Select2
+                      list={list}
+                      onChange={(value) => {
+                        methods.setValue(
+                          `base.${el.slug as keyof BaseConfigurator}`,
+                          value
+                        );
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -222,7 +184,6 @@ export const Configurator = () => {
               <p>Уведомления об окончании сессии</p>
 
               <Select2
-                value={"Ubuntu 22 x64"}
                 onChange={() => console.log("asd")}
                 list={[
                   {

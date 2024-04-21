@@ -14,7 +14,7 @@
 }
 
 .list {
-  @apply absolute top-full left-0 right-0 w-full text-base-content-100 text-xs overflow-hidden z-10 rounded-lg bg-base-400;
+  @apply absolute top-full left-0 right-0 w-full text-base-content-100 text-xs overflow-hidden z-10 rounded-lg bg-base-400 max-h-[250px] overflow-y-auto;
 }
 
 body[data-theme='light'] .list {

@@ -1,4 +1,4 @@
-import { Server, ServerPlan } from "@/types";
+import { ConfigurationItem, Preset, Server, ServerPlan } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -13,7 +13,7 @@ export const serversApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -76,6 +76,30 @@ export const serversApi = createApi({
         };
       },
     }),
+
+    getPresets: query<
+      { success: boolean; data: Preset[]; message: string },
+      null
+    >({
+      query() {
+        return {
+          url: "presets",
+          methodL: "GET",
+        };
+      },
+    }),
+
+    getConfiguration: query<
+      { success: boolean; data: ConfigurationItem[]; message: string },
+      null
+    >({
+      query() {
+        return {
+          url: "configuration",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -85,4 +109,6 @@ export const {
   useGetMyServersQuery,
   useGetMyServerByIdQuery,
   useExtendServerMutation,
+  useGetPresetsQuery,
+  useGetConfigurationQuery,
 } = serversApi;

@@ -28,3 +28,15 @@ export type PersonalFormData = {
   phone: string;
   email: string;
 };
+
+export type BaseConfigurator = {
+  cpu: string;
+  ram: string;
+  disk: string;
+  gpu: string;
+  gpu_count: string;
+};
+
+export type ConfiguratorFormData = {
+  base: BaseConfigurator;
+};

@@ -44,4 +44,37 @@ export type Server = {
   last_work_at?: string;
 };
 
+export type Preset = {
+  title: string;
+  configuration: {
+    oc: string;
+    cpu: string;
+    gpu: string;
+    ipv: string;
+    ram: string;
+    disk: string;
+    port: string;
+    coins: string[];
+    traffic: string;
+    ip_count: string;
+    location: string;
+    gpu_count: string;
+    canFarmNft: string;
+    notifications: string;
+  };
+  price: number;
+  isHot: number;
+};
+
+export type ConfiguratorField = {
+  options: { price: number; title: string }[];
+  slug: string;
+  type: "text" | "select";
+};
+
+export type ConfigurationItem = {
+  fields: ConfiguratorField[];
+  slug: string;
+};
+
 export type SelectedServer = Pick<Server, "id" | "type" | "coins">;

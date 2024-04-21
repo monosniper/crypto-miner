@@ -3,9 +3,12 @@ import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { Button } from "@/components/ui";
 import { Dispatch, SetStateAction, useState } from "react";
+import { useForm } from "react-hook-form";
+import { ConfiguratorFormData } from "@/types";
 
 export const ConfiguratorPage = () => {
   const [isOpenAttention, setOpenAttention] = useState(true);
+  const methods = useForm<ConfiguratorFormData>();
 
   return (
     <div>
@@ -21,13 +24,13 @@ export const ConfiguratorPage = () => {
             <ConfiguratorServers />
           </div>
 
-          <Configurator />
+          <Configurator methods={methods} />
         </div>
 
         <div
           className={cn(
             "box",
-            "col-span-1 py-4 px-3.5 flex flex-col gap-4 h-max",
+            "col-span-1 py-4 px-3.5 flex flex-col gap-4 h-max"
           )}
         >
           <h3 className="text-base font-semibold">Кастомный сервер</h3>
@@ -36,7 +39,7 @@ export const ConfiguratorPage = () => {
             <div
               className={cn(
                 "box",
-                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400",
+                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400"
               )}
             >
               <div className="flex items-center justify-between gap-4">
@@ -58,7 +61,7 @@ export const ConfiguratorPage = () => {
             <div
               className={cn(
                 "box",
-                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400",
+                "py-3 px-3.5 flex flex-col gap-2.5 !bg-base-400"
               )}
             >
               <div className="flex items-center justify-between gap-4">
@@ -80,7 +83,7 @@ export const ConfiguratorPage = () => {
             <div
               className={cn(
                 "box",
-                "py-3 px-3.5 flex justify-between items-center gap-4 !bg-base-400",
+                "py-3 px-3.5 flex justify-between items-center gap-4 !bg-base-400"
               )}
             >
               <h4 className="text-sm font-medium">Цена:</h4>
@@ -142,7 +145,7 @@ const AttentionContent = ({
 
       <p className="text-center lg:text-sm">
         {t(
-          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
         )}
       </p>
     </div>
