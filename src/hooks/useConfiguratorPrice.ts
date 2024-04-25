@@ -29,6 +29,20 @@ export const useConfiguratorPrice = (data: Args) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
+    if (
+      !configuration ||
+      !base ||
+      !oc ||
+      !network ||
+      !additional ||
+      !data.base ||
+      !data.configuration ||
+      !data.additional ||
+      !data.network ||
+      !data.oc
+    )
+      return;
+
     let configurationSum = 0;
     let baseSum = 0;
     let ocSum = 0;
@@ -36,7 +50,7 @@ export const useConfiguratorPrice = (data: Args) => {
     let additionalSum = 0;
 
     Object.entries(data.configuration).forEach((el) => {
-      const foundMoreData = configuration?.find(
+      const foundMoreData = configuration.find(
         (confItem) => confItem.slug === el[0]
       );
 
@@ -50,7 +64,7 @@ export const useConfiguratorPrice = (data: Args) => {
     });
 
     Object.entries(data.base).forEach((el) => {
-      const foundMoreData = base?.find((confItem) => confItem.slug === el[0]);
+      const foundMoreData = base.find((confItem) => confItem.slug === el[0]);
 
       const foundOption = foundMoreData?.options.find(
         (option) => option.title === el[1]
@@ -62,7 +76,7 @@ export const useConfiguratorPrice = (data: Args) => {
     });
 
     Object.entries(data.oc).forEach((el) => {
-      const foundMoreData = oc?.find((confItem) => confItem.slug === el[0]);
+      const foundMoreData = oc.find((confItem) => confItem.slug === el[0]);
 
       const foundOption = foundMoreData?.options.find(
         (option) => option.title === el[1]
@@ -74,7 +88,7 @@ export const useConfiguratorPrice = (data: Args) => {
     });
 
     Object.entries(data.network).forEach((el) => {
-      const foundMoreData = network?.find((confItem) => confItem.slug === el[0]);
+      const foundMoreData = network.find((confItem) => confItem.slug === el[0]);
 
       const foundOption = foundMoreData?.options.find(
         (option) => option.title === el[1]
@@ -86,7 +100,7 @@ export const useConfiguratorPrice = (data: Args) => {
     });
 
     Object.entries(data.additional).forEach((el) => {
-      const foundMoreData = additional?.find(
+      const foundMoreData = additional.find(
         (confItem) => confItem.slug === el[0]
       );
 

@@ -20,7 +20,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
   const comment = useWatch({ control, name: "comment" });
   const additional = useWatch({ control, name: "additional" });
 
-  const {totalPrice} = useConfiguratorPrice({base, configuration, oc, network, additional});
+  const {totalPrice} = useConfiguratorPrice({base, configuration, oc, network, additional})
 
   return (
     <div
