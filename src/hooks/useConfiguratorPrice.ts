@@ -60,7 +60,7 @@ export const useConfiguratorPrice = (data: Args) => {
 
       if (!foundOption) return;
 
-      configurationSum = foundOption.price;
+      configurationSum += foundOption.price;
     });
 
     Object.entries(data.base).forEach((el) => {
@@ -72,7 +72,7 @@ export const useConfiguratorPrice = (data: Args) => {
 
       if (!foundOption) return;
 
-      baseSum = foundOption.price;
+      baseSum += foundOption.price;
     });
 
     Object.entries(data.oc).forEach((el) => {
@@ -84,7 +84,7 @@ export const useConfiguratorPrice = (data: Args) => {
 
       if (!foundOption) return;
 
-      ocSum = foundOption.price;
+      ocSum += foundOption.price;
     });
 
     Object.entries(data.network).forEach((el) => {
@@ -96,7 +96,7 @@ export const useConfiguratorPrice = (data: Args) => {
 
       if (!foundOption) return;
 
-      networkSum = foundOption.price;
+      networkSum += foundOption.price;
     });
 
     Object.entries(data.additional).forEach((el) => {
@@ -110,8 +110,9 @@ export const useConfiguratorPrice = (data: Args) => {
 
       if (!foundOption) return;
 
-      additionalSum = foundOption.price;
+      additionalSum += foundOption.price;
     });
+
 
     setConfigurationPrice(configurationSum);
     setBasePrice(baseSum);

@@ -20,7 +20,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
   const comment = useWatch({ control, name: "comment" });
   const additional = useWatch({ control, name: "additional" });
 
-  const {totalPrice} = useConfiguratorPrice({base, configuration, oc, network, additional})
+  const {basePrice, configurationPrice, ocPrice, networkPrice, additionalPrice, totalPrice} = useConfiguratorPrice({base, configuration, oc, network, additional})
 
   return (
     <div
@@ -38,7 +38,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
           <div className="flex items-center justify-between gap-4">
             <h4 className="text-lg font-medium">Базовые настройки</h4>
 
-            <p className="text-xs">$60.00</p>
+            <p className="text-xs">${(basePrice + configurationPrice).toFixed(2)}</p>
           </div>
 
           <div className="flex flex-col gap-1.5 text-base-content-300 leading-normal">
@@ -74,7 +74,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
           <div className="flex items-center justify-between gap-4">
             <h4 className="text-lg font-medium">Сеть</h4>
 
-            <p className="text-xs">$60.00</p>
+            <p className="text-xs">${networkPrice.toFixed(2)}</p>
           </div>
 
           <div className="flex flex-col gap-1.5 text-base-content-300 leading-normal">
@@ -96,7 +96,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
           <div className="flex items-center justify-between gap-4">
             <h4 className="text-lg font-medium">Дополнительно</h4>
 
-            <p className="text-xs">$60.00</p>
+            <p className="text-xs">${additionalPrice.toFixed(2)}</p>
           </div>
 
           <div className="flex flex-col gap-1.5 text-base-content-300 leading-normal">
@@ -130,7 +130,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
         >
           <h4 className="text-sm font-medium">Цена:</h4>
 
-          <p className="text-xs font-bold">$120.00</p>
+          <p className="text-xs font-bold">${totalPrice.toFixed(2)}</p>
         </div>
       </div>
 
