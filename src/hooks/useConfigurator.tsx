@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export const useConfigurator = () => {
   const { data } = useGetConfigurationQuery(null);
-
+  
   const [configuration, setConfiguration] = useState<ConfiguratorField[]>();
   const [base, setBase] = useState<ConfiguratorField[]>();
   const [oc, setOc] = useState<ConfiguratorField[]>();
