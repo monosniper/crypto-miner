@@ -1,9 +1,9 @@
-import { Button, MainBadge } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { useConfiguratorPrice } from "@/hooks";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { ConfiguratorFormData } from "@/types";
 import cn from "clsx";
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import { FC } from "react";
 import { Control, useWatch } from "react-hook-form";
 
 type Props = {
@@ -17,7 +17,6 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
   const configuration = useWatch({ control, name: "configuration" });
   const oc = useWatch({ control, name: "oc" });
   const network = useWatch({ control, name: "network" });
-  const comment = useWatch({ control, name: "comment" });
   const additional = useWatch({ control, name: "additional" });
 
   const {basePrice, configurationPrice, ocPrice, networkPrice, additionalPrice, totalPrice} = useConfiguratorPrice({base, configuration, oc, network, additional})
@@ -38,7 +37,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
           <div className="flex items-center justify-between gap-4">
             <h4 className="text-lg font-medium">Базовые настройки</h4>
 
-            <p className="text-xs">${(basePrice + configurationPrice).toFixed(2)}</p>
+            <p className="text-xs">${(basePrice + configurationPrice + ocPrice).toFixed(2)}</p>
           </div>
 
           <div className="flex flex-col gap-1.5 text-base-content-300 leading-normal">

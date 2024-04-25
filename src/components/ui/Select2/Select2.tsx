@@ -29,9 +29,9 @@ export const Select2: FC<Props> = ({ onChange, list }) => {
         onClick={() => setOpen((prev) => !prev)}
         ref={btnRef}
       >
-        <span>{value}</span>
+        <span className="truncate">{value}</span>
 
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <svg className="min-w-[15px]" width="15" height="15" viewBox="0 0 15 15" fill="none">
           <path
             d="M11.875 5.625L8.20711 9.29289C7.81658 9.68342 7.18342 9.68342 6.79289 9.29289L3.125 5.625"
             stroke="white"
