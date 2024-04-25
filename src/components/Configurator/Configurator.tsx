@@ -11,13 +11,34 @@ import {
   NetworkConfigurator,
   OcConfigurator,
 } from "@/types";
+import { useGetCoinsQuery } from "@/redux/api/coinsApi";
+import { Dispatch, SetStateAction } from "react";
 
 type Props<T extends FieldValues> = {
   methods: UseFormReturn<T>;
+  selectedCoins: number[];
+  setSelectedCoins: Dispatch<SetStateAction<number[]>>;
 };
 
-export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
+export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props<ConfiguratorFormData>) => {
   const { configuration, base, oc, network, additional } = useConfigurator();
+  const { data: coins } = useGetCoinsQuery(null);
+
+  const selectCoin = (id: number) => {
+    if (selectedCoins.find((coinId) => coinId === id)) {
+      const coinsWithoutThisId = selectedCoins.filter(
+        (coinId) => coinId !== id
+      );
+
+      setSelectedCoins(coinsWithoutThisId);
+    } else {
+      setSelectedCoins((prev) => [...prev, id]);
+    }
+  };
+
+  const checkActiveCoin = (id: number) => {
+    return Boolean(selectedCoins.find((coinId) => coinId === id));
+  };
 
   return (
     <div className={cn("box", "p-8")}>
@@ -38,7 +59,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `configuration.${el.slug as keyof Configuration}`,
-                list[0]?.value,
+                list[0]?.value
               );
 
               return (
@@ -53,8 +74,8 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       list={list}
                       onChange={(value) => {
                         methods.setValue(
-                          `base.${el.slug as keyof BaseConfigurator}`,
-                          value,
+                          `configuration.${el.slug as keyof Configuration}`,
+                          value
                         );
                       }}
                     />
@@ -81,7 +102,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `oc.${el.slug as keyof OcConfigurator}`,
-                list[0]?.value,
+                list[0]?.value
               );
 
               return (
@@ -96,8 +117,8 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       list={list}
                       onChange={(value) => {
                         methods.setValue(
-                          `base.${el.slug as keyof BaseConfigurator}`,
-                          value,
+                          `oc.${el.slug as keyof OcConfigurator}`,
+                          value
                         );
                       }}
                     />
@@ -122,7 +143,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `base.${el.slug as keyof BaseConfigurator}`,
-                list[0]?.value,
+                list[0]?.value
               );
 
               return (
@@ -138,7 +159,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
-                          value,
+                          value
                         );
                       }}
                     />
@@ -163,7 +184,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `network.${el.slug as keyof NetworkConfigurator}`,
-                list[0]?.value,
+                list[0]?.value
               );
 
               return (
@@ -178,8 +199,8 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       list={list}
                       onChange={(value) => {
                         methods.setValue(
-                          `base.${el.slug as keyof BaseConfigurator}`,
-                          value,
+                          `network.${el.slug as keyof NetworkConfigurator}`,
+                          value
                         );
                       }}
                     />
@@ -204,7 +225,7 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
 
               methods.setValue(
                 `additional.${el.slug as keyof AdditionalConfigurator}`,
-                list[0]?.value,
+                list[0]?.value
               );
 
               return (
@@ -219,8 +240,8 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
                       list={list}
                       onChange={(value) => {
                         methods.setValue(
-                          `base.${el.slug as keyof BaseConfigurator}`,
-                          value,
+                          `additional.${el.slug as keyof AdditionalConfigurator}`,
+                          value
                         );
                       }}
                     />
@@ -235,18 +256,14 @@ export const Configurator = ({ methods }: Props<ConfiguratorFormData>) => {
           <h3 className="text-base font-semibold">Монеты</h3>
 
           <div className="flex items-center gap-1.5 flex-wrap">
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
-            <MainBadge title="USDT" onClick={() => console.log("asd")} />
+            {coins?.data.map((coin) => (
+              <MainBadge
+                key={coin.id}
+                title={coin.slug}
+                onClick={() => selectCoin(coin.id)}
+                active={checkActiveCoin(coin.id)}
+              />
+            ))}
           </div>
         </div>
 

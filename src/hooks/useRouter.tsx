@@ -1,4 +1,3 @@
-import { ConfiguratorPage } from "@/pages";
 import { Suspense } from "react";
 import { lazily } from "react-lazily";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -24,6 +23,7 @@ const {
   PaymentPage,
   PaymentFinishPage,
   ProfilePage,
+  ConfiguratorPage
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {

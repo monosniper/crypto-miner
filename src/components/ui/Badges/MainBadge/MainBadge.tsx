@@ -5,12 +5,14 @@ import { PropsWithClassName } from "@/types";
 type Props = {
   onClick?: MouseEventHandler<HTMLDivElement>;
   title: string;
+  active?: boolean;
 };
 
 export const MainBadge: FC<PropsWithClassName<Props>> = ({
   className,
   onClick,
   title,
+  active = false
 }) => {
   return (
     <div
@@ -19,6 +21,7 @@ export const MainBadge: FC<PropsWithClassName<Props>> = ({
         className,
         {
           "cursor-pointer": onClick,
+          "border-primary": active
         },
       )}
       onClick={onClick}
