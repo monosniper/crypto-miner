@@ -65,4 +65,5 @@ export type ConfiguratorFormData = {
   network: NetworkConfigurator;
   comment: string;
   additional: AdditionalConfigurator;
+  coins: number[]
 };

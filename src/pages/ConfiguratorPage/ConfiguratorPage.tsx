@@ -51,12 +51,14 @@ export const ConfiguratorPage = () => {
       port: data.network.port,
       ip_count: data.network.ip_count,
       traffic: data.network.traffic,
+
+      canFarmNft: data.additional.canFarmNft,
+      comment: data.comment,
+
+      coins: selectedCoins,
     };
 
     setOrder({
-      type: "purchase",
-      purchase_type: "server",
-      method: "crypto",
       configuration: resData as any,
     });
   };

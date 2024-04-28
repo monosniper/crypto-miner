@@ -1,4 +1,5 @@
 import { MainBadge } from "@/components/ui";
+import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import cn from "clsx";
 import { FC } from "react";
 
@@ -15,11 +16,13 @@ export const ConfiguratorServerItem: FC<Props> = ({
   textList,
   coins,
 }) => {
+  const { data: allCoins } = useGetCoinsQuery(null);
+
   return (
     <div
       className={cn(
         "box",
-        "px-5 py-4 flex flex-col gap-4 w-full cursor-pointer h-full",
+        "px-5 py-4 flex flex-col gap-4 w-full cursor-pointer h-full"
       )}
     >
       <div className="flex justify-between items-center gap-4 flex-wrap">
@@ -35,9 +38,15 @@ export const ConfiguratorServerItem: FC<Props> = ({
       ))}
 
       <div className="flex items-center gap-1 flex-wrap">
-        {coins.map((coinTitle, idx) => (
-          <MainBadge key={idx} className="!px-4" title={coinTitle} />
-        ))}
+        {coins.map((coinId, idx) => {
+          if (!allCoins) return;
+
+          const coin = allCoins.data.find((el) => el.id === Number(coinId));
+
+          return (
+            <MainBadge key={idx} className="!px-4" title={coin?.slug || ""} />
+          );
+        })}
       </div>
     </div>
   );
