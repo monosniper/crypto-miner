@@ -3,13 +3,14 @@ import { Button } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { CopyIcon } from "@/components/icons/CopyIcon";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styles from "./PaymentFinishPage.module.css";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
   const { type } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   return (
     <div>
@@ -27,12 +28,15 @@ export const PaymentFinishPage = () => {
             </p>
 
             <div className="mt-4 flex justify-between items-center gap-4 flex-wrap">
-              <p className="text-[28px] font-bold">99.01 USDT</p>
+              <p className="text-[28px] font-bold">
+                {Number(searchParams.get("price")).toFixed(2)} 
+                {" "}USDT
+              </p>
 
               <Button
                 className={styles.changeMethodBtn}
                 title={t("Change the payment method")}
-                onClick={() => navigate("/wallet/payment")}
+                onClick={() => navigate(`/wallet/payment?price=${searchParams.get("price")}`)}
               />
             </div>
           </div>

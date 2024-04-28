@@ -7,13 +7,15 @@ import {
 } from "@/types";
 import { useEffect, useState } from "react";
 import { useConfigurator } from "./useConfigurator";
+import { setPrice } from "@/redux/slices/configurator.slice";
+import { useAppDispatch } from "@/redux/store";
 
 type Args = {
-  configuration: Configuration;
-  base: BaseConfigurator;
-  oc: OcConfigurator;
-  network: NetworkConfigurator;
-  additional: AdditionalConfigurator;
+  configuration?: Configuration;
+  base?: BaseConfigurator;
+  oc?: OcConfigurator;
+  network?: NetworkConfigurator;
+  additional?: AdditionalConfigurator;
 };
 
 // data: Args = данные из react-hook-form
@@ -27,6 +29,7 @@ export const useConfiguratorPrice = (data: Args) => {
   const [networkPrice, setNetworkPrice] = useState(0);
   const [additionalPrice, setAdditionalPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (
@@ -136,6 +139,7 @@ export const useConfiguratorPrice = (data: Args) => {
     const sum = basePrice + configurationPrice + ocPrice + networkPrice;
 
     setTotalPrice(sum);
+    dispatch(setPrice(sum));
   }, [basePrice, configurationPrice, ocPrice, networkPrice]);
 
   return {

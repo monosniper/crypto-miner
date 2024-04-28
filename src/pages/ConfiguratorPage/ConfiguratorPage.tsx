@@ -1,16 +1,64 @@
-import { Attention, Configurator, ConfiguratorAccount, ConfiguratorServers } from "@/components";
+import {
+  Attention,
+  Configurator,
+  ConfiguratorAccount,
+  ConfiguratorServers,
+} from "@/components";
 import { useTranslation } from "react-i18next";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ConfiguratorFormData } from "@/types";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/redux/store";
+import { configurator } from "@/redux/slices/configurator.slice";
+import { useSetOrderMutation } from "@/redux/api/userApi";
+import { toast } from "react-toastify";
 
 export const ConfiguratorPage = () => {
   const [isOpenAttention, setOpenAttention] = useState(true);
   const methods = useForm<ConfiguratorFormData>();
   const [selectedCoins, setSelectedCoins] = useState<number[]>([]);
-  
+  const navigate = useNavigate();
+  const { price } = useAppSelector(configurator);
+  const [setOrder, { error: newOrderError, isSuccess: newOrderIsSuccess }] =
+    useSetOrderMutation();
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!newOrderError) return;
+
+    toast.error(t("mistake"));
+  }, [newOrderError, t]);
+
+  useEffect(() => {
+    if (!newOrderIsSuccess) return;
+
+    navigate(`/wallet/payment?price=${price}`);
+  }, [navigate, newOrderIsSuccess, price]);
+
   const formHandler = (data: ConfiguratorFormData) => {
-    console.log(data);
+    const resData = {
+      cpu: data.base.cpu,
+      ram: data.base.ram,
+      disk: data.base.disk,
+      gpu: data.base.gpu,
+      gpu_count: data.base.gpu_count,
+      oc: data.oc.oc,
+      type: data.configuration.type,
+      location: data.configuration.location,
+      notifications: data.additional.notifications,
+      ipv: data.network.ipv,
+      port: data.network.port,
+      ip_count: data.network.ip_count,
+      traffic: data.network.traffic,
+    };
+
+    setOrder({
+      type: "purchase",
+      purchase_type: "server",
+      method: "crypto",
+      configuration: resData as any,
+    });
   };
 
   return (
@@ -27,10 +75,17 @@ export const ConfiguratorPage = () => {
             <ConfiguratorServers />
           </div>
 
-          <Configurator selectedCoins={selectedCoins} setSelectedCoins={setSelectedCoins} methods={methods} />
+          <Configurator
+            selectedCoins={selectedCoins}
+            setSelectedCoins={setSelectedCoins}
+            methods={methods}
+          />
         </div>
 
-          <ConfiguratorAccount selectedCoins={selectedCoins} control={methods.control} />
+        <ConfiguratorAccount
+          selectedCoins={selectedCoins}
+          control={methods.control}
+        />
       </div>
     </form>
   );
@@ -77,7 +132,7 @@ const AttentionContent = ({
 
       <p className="text-center lg:text-sm">
         {t(
-          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
         )}
       </p>
     </div>

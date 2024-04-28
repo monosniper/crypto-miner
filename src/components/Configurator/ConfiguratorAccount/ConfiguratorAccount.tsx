@@ -19,7 +19,14 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
   const network = useWatch({ control, name: "network" });
   const additional = useWatch({ control, name: "additional" });
 
-  const {basePrice, configurationPrice, ocPrice, networkPrice, additionalPrice, totalPrice} = useConfiguratorPrice({base, configuration, oc, network, additional})
+  const {
+    basePrice,
+    configurationPrice,
+    ocPrice,
+    networkPrice,
+    additionalPrice,
+    totalPrice,
+  } = useConfiguratorPrice({ base, configuration, oc, network, additional });
 
   return (
     <div
@@ -37,7 +44,9 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
           <div className="flex items-center justify-between gap-4">
             <h4 className="text-lg font-medium">Базовые настройки</h4>
 
-            <p className="text-xs">${(basePrice + configurationPrice + ocPrice).toFixed(2)}</p>
+            <p className="text-xs">
+              ${(basePrice + configurationPrice + ocPrice).toFixed(2)}
+            </p>
           </div>
 
           <div className="flex flex-col gap-1.5 text-base-content-300 leading-normal">
@@ -109,13 +118,15 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
             {
               <p>
                 Coins:{" "}
-                {selectedCoins.map((coin) => {
-                  if (!coins) return;
+                {selectedCoins
+                  .map((coin) => {
+                    if (!coins) return;
 
-                  const foundCoin = coins.data.find((el) => el.id === coin);
+                    const foundCoin = coins.data.find((el) => el.id === coin);
 
-                  return foundCoin?.slug;
-                }).join(", ")}
+                    return foundCoin?.slug;
+                  })
+                  .join(", ")}
               </p>
             }
           </div>
