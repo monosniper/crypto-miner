@@ -53,7 +53,7 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
               const list = el.options.map((option) => {
                 return {
                   value: option.title,
-                  title: option.title + " " + option.price + "$",
+                  title: option.title + " " + `(${option.price}$)`,
                 };
               });
 
@@ -96,7 +96,7 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
               const list = el.options.map((option) => {
                 return {
                   value: option.title,
-                  title: option.title + " " + option.price + "$",
+                  title: option.title + " " + `(${option.price}$)`,
                 };
               });
 
@@ -137,7 +137,7 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
               const list = el.options.map((option) => {
                 return {
                   value: option.title,
-                  title: option.title + " " + option.price + "$",
+                  title: option.title + " " + `(${option.price}$)`,
                 };
               });
 
@@ -178,7 +178,7 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
               const list = el.options.map((option) => {
                 return {
                   value: option.title,
-                  title: option.title + " " + option.price + "$",
+                  title: option.title + " " + `(${option.price}$)`,
                 };
               });
 
@@ -219,7 +219,7 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
               const list = el.options.map((option) => {
                 return {
                   value: option.title,
-                  title: option.title + " " + option.price + "$",
+                  title: option.title + " " + `(${option.price}$)`,
                 };
               });
 

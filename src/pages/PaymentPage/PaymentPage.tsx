@@ -97,7 +97,7 @@ export const PaymentPage = () => {
             navigate(
               `/wallet/payment/finish/${active}?price=${searchParams.get(
                 "price"
-              )}`
+              )}&orderId=${searchParams.get("orderId")}`
             )
           }
         />

@@ -45,6 +45,7 @@ export type Server = {
 };
 
 export type Preset = {
+  id: number;
   title: string;
   configuration: {
     oc: string;

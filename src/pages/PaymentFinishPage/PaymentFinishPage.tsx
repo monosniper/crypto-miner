@@ -5,12 +5,39 @@ import cn from "clsx";
 import { CopyIcon } from "@/components/icons/CopyIcon";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styles from "./PaymentFinishPage.module.css";
+import { useLazyPayedQuery } from "@/redux/api/userApi";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
   const { type } = useParams();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [
+    payed,
+    { data: payedData, error: payedError, isLoading: payedIsLoading },
+  ] = useLazyPayedQuery();
+
+  const payedHandler = () => {
+    payed({ orderId: Number(searchParams.get("orderId")) });
+  };
+
+  useEffect(() => {
+    if (!payedData) return;
+
+    toast.success(
+      t("success") +
+        " " +
+        t("After verification, the funds will be linked to your account")
+    );
+  }, [payedData, t]);
+
+  useEffect(() => {
+    if (!payedError) return;
+
+    toast.error(t("mistake"));
+  }, [payedError, t]);
 
   return (
     <div>
@@ -29,14 +56,19 @@ export const PaymentFinishPage = () => {
 
             <div className="mt-4 flex justify-between items-center gap-4 flex-wrap">
               <p className="text-[28px] font-bold">
-                {Number(searchParams.get("price")).toFixed(2)} 
-                {" "}USDT
+                {Number(searchParams.get("price")).toFixed(2)} USDT
               </p>
 
               <Button
                 className={styles.changeMethodBtn}
                 title={t("Change the payment method")}
-                onClick={() => navigate(`/wallet/payment?price=${searchParams.get("price")}`)}
+                onClick={() =>
+                  navigate(
+                    `/wallet/payment?price=${searchParams.get(
+                      "price"
+                    )}&orderId=${searchParams.get("orderId")}`
+                  )
+                }
               />
             </div>
           </div>
@@ -101,8 +133,10 @@ export const PaymentFinishPage = () => {
             {type === "with-crypto" && (
               <Button
                 className="mt-6"
-                title={t("Я оплатил(а)")}
+                title={payedIsLoading ? t("loading") : t("Я оплатил(а)")}
                 color="primary"
+                onClick={payedHandler}
+                disabled={payedIsLoading}
               />
             )}
           </div>

@@ -18,6 +18,7 @@ export const ConfiguratorServers = () => {
       {data?.data.map((preset, idx) => (
         <SwiperSlide key={idx} className="!h-auto">
           <ConfiguratorServerItem
+            id={preset.id}
             type={preset.title}
             price={preset.price}
             textList={[preset.configuration.location]}

@@ -11,6 +11,7 @@ import {
   OrderPostBody,
   OrderPatchBody,
   PersonalFormData,
+  Order,
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
@@ -296,7 +297,7 @@ export const userApi = createApi({
       providesTags: ["ref"],
     }),
 
-    setOrder: mutation<any, OrderPostBody>({
+    setOrder: mutation<Order, OrderPostBody>({
       query(body) {
         return {
           url: "me/orders",
@@ -345,6 +346,18 @@ export const userApi = createApi({
 
       providesTags: ["orders"],
     }),
+
+    payed: query<
+      { success: boolean; data: boolean; message: string },
+      { orderId: number }
+    >({
+      query(params) {
+        return {
+          url: `me/orders/payed/${params.orderId}/`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -376,4 +389,5 @@ export const {
   useGetOrdersByIdQuery,
   useGetOrdersQuery,
   useUpdateMeMutation,
+  useLazyPayedQuery,
 } = userApi;

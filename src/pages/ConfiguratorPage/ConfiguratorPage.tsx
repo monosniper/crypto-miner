@@ -20,8 +20,10 @@ export const ConfiguratorPage = () => {
   const [selectedCoins, setSelectedCoins] = useState<number[]>([]);
   const navigate = useNavigate();
   const { price } = useAppSelector(configurator);
-  const [setOrder, { error: newOrderError, isSuccess: newOrderIsSuccess }] =
-    useSetOrderMutation();
+  const [
+    setOrder,
+    { data: newOrder, error: newOrderError, isSuccess: newOrderIsSuccess },
+  ] = useSetOrderMutation();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -31,12 +33,18 @@ export const ConfiguratorPage = () => {
   }, [newOrderError, t]);
 
   useEffect(() => {
-    if (!newOrderIsSuccess) return;
+    if (!newOrderIsSuccess || !newOrder) return;
 
-    navigate(`/wallet/payment?price=${price}`);
-  }, [navigate, newOrderIsSuccess, price]);
+    navigate(
+      `/wallet/payment?price=${newOrder.data.amount}&orderId=${newOrder.data.id}`
+    );
+  }, [navigate, newOrder, newOrderIsSuccess, price]);
 
   const formHandler = (data: ConfiguratorFormData) => {
+    if (selectedCoins.length === 0) {
+      return toast.error("Выберите хотя бы 1 монету");
+    }
+
     const resData = {
       cpu: data.base.cpu,
       ram: data.base.ram,
