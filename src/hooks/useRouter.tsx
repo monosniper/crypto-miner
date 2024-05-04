@@ -11,7 +11,6 @@ const {
   NftPage,
   ServerPage,
   ServerPackagesPage,
-  PartnershipPage,
   ReplenishmentPage,
   ConverterPage,
   TransferPage,
@@ -139,14 +138,14 @@ export const useRouter = (isAuth: boolean) => {
             }
           />
 
-          <Route
+          {/* <Route
             path="/partnership"
             element={
               <Suspense>
                 <PartnershipPage />
               </Suspense>
             }
-          />
+          /> */}
 
           <Route
             path="/converter"

@@ -3,7 +3,6 @@ import {
   NftWalletIcon,
   WalletIcon,
   MiningIcon,
-  PartnerIcon,
   ExitIcon,
   ConverIcon,
   RefIcon,
@@ -98,11 +97,11 @@ export const Menu = () => {
             title={t("profile")}
             href="/profile"
           />
-          <MenuItem
+          {/* <MenuItem
             icon={<PartnerIcon />}
             title={t("partnership")}
             href="/partnership"
-          />
+          /> */}
 
           <MenuItem
             icon={<ConverIcon />}

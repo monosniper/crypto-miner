@@ -20,7 +20,11 @@ type Props<T extends FieldValues> = {
   setSelectedCoins: Dispatch<SetStateAction<number[]>>;
 };
 
-export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props<ConfiguratorFormData>) => {
+export const Configurator = ({
+  methods,
+  selectedCoins,
+  setSelectedCoins,
+}: Props<ConfiguratorFormData>) => {
   const { configuration, base, oc, network, additional } = useConfigurator();
   const { data: coins } = useGetCoinsQuery(null);
 
@@ -137,7 +141,10 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
               const list = el.options.map((option) => {
                 return {
                   value: option.title,
-                  title: option.title + " " + `(${option.price}$)`,
+                  title:
+                    el.slug === "gpu_count"
+                      ? option.title
+                      : option.title + " " + `(${option.price}$)`,
                 };
               });
 
@@ -240,7 +247,9 @@ export const Configurator = ({ methods, selectedCoins, setSelectedCoins }: Props
                       list={list}
                       onChange={(value) => {
                         methods.setValue(
-                          `additional.${el.slug as keyof AdditionalConfigurator}`,
+                          `additional.${
+                            el.slug as keyof AdditionalConfigurator
+                          }`,
                           value
                         );
                       }}
