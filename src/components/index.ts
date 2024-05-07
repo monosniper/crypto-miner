@@ -42,6 +42,7 @@ export * from "./Servers/Servers";
 export * from "./Servers/ServersItem/ServersItem";
 export * from "./Servers/ServersPlans/ServersPlans";
 export * from "./Servers/ServersPlans/ServersPlansItem/ServersPlansItem";
+export * from "./LogsBlocks/LogsBlocks";
 export * from "./LogsBlock/LogsBlock";
 
 // SKELETS
@@ -106,4 +107,4 @@ export * from "./HelpChat/HelpChat";
 export * from "./Configurator/ConfiguratorServerItem/ConfiguratorServerItem";
 export * from "./Configurator/Configurator";
 export * from "./Configurator/ConfiguratorServers/ConfiguratorServers";
-export * from "./Configurator/ConfiguratorAccount/ConfiguratorAccount"
+export * from "./Configurator/ConfiguratorAccount/ConfiguratorAccount";

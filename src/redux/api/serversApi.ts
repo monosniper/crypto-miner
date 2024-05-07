@@ -64,7 +64,7 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServerById: query<{ data: Server }, { id: number }>({
+    getMyServerById: query<{ success: boolean, data: {status: ServerStatuses} & Preset, message: string }, { id: number }>({
       query(params) {
         return {
           url: `me/servers/${params.id}`,

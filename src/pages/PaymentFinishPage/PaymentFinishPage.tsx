@@ -47,7 +47,9 @@ export const PaymentFinishPage = () => {
         <div className="flex justify-between items-center gap-4 flex-wrap">
           <Title title={t("payment-title")} />
 
-          <p className="text-sm text-gray-1">Order ID: 42344234</p>
+          <p className="text-sm text-gray-1">
+            Order ID: {searchParams.get("orderId")}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6">

@@ -13,7 +13,7 @@ import { user } from "@/redux/slices/userSlice";
 type Props = {
   type?: "mining" | "standart";
   plansRef?: RefObject<HTMLDivElement>;
-  servers?: (Preset & {status: ServerStatuses})[];
+  servers?: (Preset & { status: ServerStatuses })[];
   loading?: boolean;
 };
 
@@ -59,12 +59,12 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
               {type === "mining"
                 ? servers.map((el) => {
                     const foundSelectedServer = selectedServers.find(
-                      (item) => item.id === el.id,
+                      (item) => item.id === el.id
                     );
                     const inWork =
                       Boolean(
                         foundSelectedServer &&
-                          (userData?.session || sessionData),
+                          (userData?.session || sessionData)
                       ) || false;
 
                     return (
@@ -75,45 +75,23 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                         <ServersItem
                           type={type}
                           onClick={() => {
-                            if (
-                              el.status === ServerStatuses.WORK_STATUS &&
-                              !userData?.session &&
-                              !sessionData &&
-                              (Date.now() -
-                                new Date(el.last_work_at!).getTime() >
-                                24 * 60 * 60 * 1000 ||
-                                false)
-                            ) {
-                              toggleServerSelection(el);
-                            }
+                            // if (
+                            //   el.status === ServerStatuses.WORK_STATUS &&
+                            //   !userData?.session &&
+                            //   !sessionData
+                            // ) {
+                            //   toggleServerSelection(el);
+                            // }
                           }}
                           data={el}
                           selected={
                             selectedServers.find(
-                              (server) => el.id === server.id,
+                              (server) => el.id === server.id
                             )
                               ? true
                               : false
                           }
-                          disabled={
-                            !checkIdentityType(el) ||
-                            el.status !== ServerStatuses.WORK_STATUS ||
-                            Date.now() - new Date(el.last_work_at!).getTime() <
-                              24 * 60 * 60 * 1000
-                          }
                           inWork={inWork}
-                          tooltip={{
-                            value: el.last_work_at
-                              ? Date.now() -
-                                  new Date(el.last_work_at).getTime() <
-                                24 * 60 * 60 * 1000
-                                ? true
-                                : false
-                              : false,
-                            title: t(
-                              "the server was launched less than 24 hours ago",
-                            ),
-                          }}
                         />
                       </div>
                     );

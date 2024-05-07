@@ -217,5 +217,8 @@
 
   "configurator": "Configurator",
 
-  "After verification, the funds will be linked to your account": "After verification, the funds will be linked to your account"
+  "After verification, the funds will be linked to your account": "After verification, the funds will be linked to your account",
+
+  "Change the coin": "Change the coin",
+  "Shutdown request": "Shutdown request"
 }

@@ -222,5 +222,8 @@
 
   "configurator": "Конфигуратор",
 
-  "After verification, the funds will be linked to your account": "После проверки, средства будут привязаны к Вашему аккаунту"
+  "After verification, the funds will be linked to your account": "После проверки, средства будут привязаны к Вашему аккаунту",
+
+  "Change the coin": "Сменить монету",
+  "Shutdown request": "Запрос на выключение"
 }
