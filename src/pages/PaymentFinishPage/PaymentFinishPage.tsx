@@ -8,6 +8,8 @@ import styles from "./PaymentFinishPage.module.css";
 import { useLazyPayedQuery } from "@/redux/api/userApi";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { QRCodeCanvas } from "qrcode.react";
+import { copyText } from "@/utils";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
@@ -92,21 +94,28 @@ export const PaymentFinishPage = () => {
             </div>
 
             {type === "with-crypto" ? (
-              <div className="flex items-center gap-4 mt-4">
-                <img src="/images/qr.png" alt="qr" />
+              <div className="flex items-start flex-col min-[600px]:flex-row min-[600px]:items-center gap-4 mt-4 overflow-hidden">
+                <QRCodeCanvas value="TUPr4wqgqqUDXnt5VdUn3Px15W" />
 
-                <div className="flex flex-col gap-3.5">
+                <div className="flex flex-col gap-3.5 w-full">
                   <p className="text-sm text-gray-1">
                     {t("payment-content-header")}
                   </p>
 
-                  <div className="flex items-center gap-4 text-xl">
-                    <p>TUPr4wqgqqUDXnt5VdUn3Px15W...</p>
-                    <div className="cursor-pointer">
+                  <div className="flex items-center gap-4 text-xl flex-wrap">
+                    <p className="truncate w-max">TUPr4wqgqqUDXnt5VdUn3Px15W</p>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => {
+                        copyText(`TUPr4wqgqqUDXnt5VdUn3Px15W`);
+
+                        toast.success(t("the text has been copied"));
+                      }}
+                    >
                       <CopyIcon className="[&>g>path]:stroke-base-content-100" />
                     </div>
                   </div>
-                  <p className="text-sm text-gray-1">
+                  <p className="text-sm text-gray-1 w-full">
                     {t("payment-content-text")}
                   </p>
                 </div>

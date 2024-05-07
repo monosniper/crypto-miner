@@ -96,7 +96,7 @@ export const ConfiguratorPage = () => {
     methods.setValue("additional.canFarmNft", configuration.canFarmNft);
     methods.setValue("additional.notifications", configuration.notifications);
 
-    setSelectedCoins(JSON.parse(JSON.stringify(configuration.coins)));
+    setSelectedCoins(configuration.coins.map((el) => Number(el)));
 
     dispatch(setConfiguration(undefined));
   }, [configuration, dispatch, methods]);
