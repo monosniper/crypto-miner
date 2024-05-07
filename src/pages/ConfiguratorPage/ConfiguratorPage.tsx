@@ -9,10 +9,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ConfiguratorFormData } from "@/types";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { configurator } from "@/redux/slices/configurator.slice";
 import { useSetOrderMutation } from "@/redux/api/userApi";
 import { toast } from "react-toastify";
+import { presets, setConfiguration } from "@/redux/slices/presets.slice";
 
 export const ConfiguratorPage = () => {
   const [isOpenAttention, setOpenAttention] = useState(true);
@@ -20,11 +21,13 @@ export const ConfiguratorPage = () => {
   const [selectedCoins, setSelectedCoins] = useState<number[]>([]);
   const navigate = useNavigate();
   const { price } = useAppSelector(configurator);
+  const { configuration } = useAppSelector(presets);
   const [
     setOrder,
     { data: newOrder, error: newOrderError, isSuccess: newOrderIsSuccess },
   ] = useSetOrderMutation();
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!newOrderError) return;
@@ -70,6 +73,33 @@ export const ConfiguratorPage = () => {
       configuration: resData as any,
     });
   };
+
+  useEffect(() => {
+    if (!configuration) return;
+
+    methods.setValue("configuration.location", configuration.location);
+    methods.setValue("configuration.type", "");
+
+    methods.setValue("base.cpu", configuration.cpu);
+    methods.setValue("base.disk", configuration.disk);
+    methods.setValue("base.gpu", configuration.gpu);
+    methods.setValue("base.gpu_count", configuration.gpu_count);
+    methods.setValue("base.ram", configuration.ram);
+
+    methods.setValue("oc.oc", configuration.oc);
+
+    methods.setValue("network.ip_count", configuration.ip_count);
+    methods.setValue("network.ipv", configuration.ipv);
+    methods.setValue("network.port", configuration.port);
+    methods.setValue("network.traffic", configuration.traffic);
+
+    methods.setValue("additional.canFarmNft", configuration.canFarmNft);
+    methods.setValue("additional.notifications", configuration.notifications);
+
+    setSelectedCoins(JSON.parse(JSON.stringify(configuration.coins)));
+
+    dispatch(setConfiguration(undefined));
+  }, [configuration, dispatch, methods]);
 
   return (
     <form onSubmit={methods.handleSubmit(formHandler)}>

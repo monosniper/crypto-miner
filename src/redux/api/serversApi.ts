@@ -1,4 +1,10 @@
-import { ConfigurationItem, Preset, Server, ServerPlan } from "@/types";
+import {
+  ConfigurationItem,
+  Preset,
+  Server,
+  ServerPlan,
+  ServerStatuses,
+} from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -13,7 +19,7 @@ export const serversApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -46,7 +52,10 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServers: query<{ data: Server[] }, null>({
+    getMyServers: query<
+      { data: (Preset & { status: ServerStatuses })[] },
+      null
+    >({
       query() {
         return {
           url: "me/servers",

@@ -1,49 +1,31 @@
 import { MainBadge } from "@/components/ui";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
-import { useSetOrderMutation } from "@/redux/api/userApi";
+import { setConfiguration } from "@/redux/slices/presets.slice";
+import { useAppDispatch } from "@/redux/store";
+import { Configurator } from "@/types";
 import cn from "clsx";
-import { FC, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { FC } from "react";
 
 type Props = {
-  id: number;
   type: string;
   price: number;
   textList: string[];
   coins: string[];
+  configuration: Configurator;
 };
 
 export const ConfiguratorServerItem: FC<Props> = ({
-  id,
   type,
   price,
   textList,
   coins,
+  configuration,
 }) => {
   const { data: allCoins } = useGetCoinsQuery(null);
-  const [setOrder, { error: newOrderError, isSuccess: newOrderIsSuccess }] =
-    useSetOrderMutation();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    if (!newOrderError) return;
-
-    toast.error(t("mistake"));
-  }, [newOrderError, t]);
-
-  useEffect(() => {
-    if (!newOrderIsSuccess) return;
-
-    navigate(`/wallet/payment?price=${price}&id=${id}`);
-  }, [id, navigate, newOrderIsSuccess, price]);
+  const dispatch = useAppDispatch();
 
   const clickHandler = () => {
-    setOrder({
-      purchase_id: id,
-    });
+    dispatch(setConfiguration(configuration));
   };
 
   return (

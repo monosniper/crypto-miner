@@ -1,7 +1,7 @@
 import { useOutside } from "@/hooks";
 import styles from "./Select2.module.css";
 
-import { FC, useState, useRef } from "react";
+import { FC, useState, useRef, useEffect } from "react";
 import { SelectItemWithIcon } from "@/types";
 import cn from "clsx";
 
@@ -12,15 +12,20 @@ interface Item extends SelectItemWithIcon {
 type Props = {
   onChange: (value: string) => void;
   list: Item[];
+  defaultValue: string;
 };
 
-export const Select2: FC<Props> = ({ onChange, list }) => {
+export const Select2: FC<Props> = ({ onChange, list, defaultValue }) => {
   const [isOpen, setOpen] = useState(false);
   const [value, setValue] = useState(list[0].value);
   const ref = useRef(null);
   const btnRef = useRef(null);
 
   useOutside(ref, () => setOpen(false), btnRef);
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   return (
     <div className={styles.wrapper}>
@@ -31,7 +36,13 @@ export const Select2: FC<Props> = ({ onChange, list }) => {
       >
         <span className="truncate">{value}</span>
 
-        <svg className="min-w-[15px]" width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <svg
+          className="min-w-[15px]"
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+        >
           <path
             d="M11.875 5.625L8.20711 9.29289C7.81658 9.68342 7.18342 9.68342 6.79289 9.29289L3.125 5.625"
             stroke="white"

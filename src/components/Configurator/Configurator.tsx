@@ -12,7 +12,7 @@ import {
   OcConfigurator,
 } from "@/types";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 type Props<T extends FieldValues> = {
   methods: UseFormReturn<T>;
@@ -44,6 +44,90 @@ export const Configurator = ({
     return Boolean(selectedCoins.find((coinId) => coinId === id));
   };
 
+  useEffect(() => {
+    if (!configuration || !base || !oc || !network || !additional) return;
+
+    configuration.forEach((el) => {
+      const newOptions = el.options.map((option) => {
+        return {
+          value: option.title,
+          title: option.title + " " + `(${option.price}$)`,
+        };
+      });
+
+      if (newOptions[0]) {
+        methods.setValue(
+          `configuration.${el.slug as keyof Configuration}`,
+          newOptions[0].value
+        );
+      }
+    });
+
+    base.forEach((el) => {
+      const newOptions = el.options.map((option) => {
+        return {
+          value: option.title,
+          title: option.title + " " + `(${option.price}$)`,
+        };
+      });
+
+      if (newOptions[0]) {
+        methods.setValue(
+          `base.${el.slug as keyof BaseConfigurator}`,
+          newOptions[0].value
+        );
+      }
+    });
+
+    oc.forEach((el) => {
+      const newOptions = el.options.map((option) => {
+        return {
+          value: option.title,
+          title: option.title + " " + `(${option.price}$)`,
+        };
+      });
+
+      if (newOptions[0]) {
+        methods.setValue(
+          `oc.${el.slug as keyof OcConfigurator}`,
+          newOptions[0].value
+        );
+      }
+    });
+
+    network.forEach((el) => {
+      const newOptions = el.options.map((option) => {
+        return {
+          value: option.title,
+          title: option.title + " " + `(${option.price}$)`,
+        };
+      });
+
+      if (newOptions[0]) {
+        methods.setValue(
+          `network.${el.slug as keyof NetworkConfigurator}`,
+          newOptions[0].value
+        );
+      }
+    });
+
+    additional.forEach((el) => {
+      const newOptions = el.options.map((option) => {
+        return {
+          value: option.title,
+          title: option.title + " " + `(${option.price}$)`,
+        };
+      });
+
+      if (newOptions[0]) {
+        methods.setValue(
+          `additional.${el.slug as keyof AdditionalConfigurator}`,
+          newOptions[0].value
+        );
+      }
+    });
+  }, [additional, base, configuration, methods, network, oc]);
+
   return (
     <div className={cn("box", "p-8")}>
       <div className="flex flex-col gap-4 lg:gap-5">
@@ -61,11 +145,6 @@ export const Configurator = ({
                 };
               });
 
-              methods.setValue(
-                `configuration.${el.slug as keyof Configuration}`,
-                list[0]?.value
-              );
-
               return (
                 <div
                   key={idx}
@@ -76,6 +155,9 @@ export const Configurator = ({
                   {el.type === "select" && (
                     <Select2
                       list={list}
+                      defaultValue={methods.watch(
+                        `configuration.${el.slug as keyof Configuration}`
+                      )}
                       onChange={(value) => {
                         methods.setValue(
                           `configuration.${el.slug as keyof Configuration}`,
@@ -104,11 +186,6 @@ export const Configurator = ({
                 };
               });
 
-              methods.setValue(
-                `oc.${el.slug as keyof OcConfigurator}`,
-                list[0]?.value
-              );
-
               return (
                 <div
                   key={idx}
@@ -119,6 +196,9 @@ export const Configurator = ({
                   {el.type === "select" && (
                     <Select2
                       list={list}
+                      defaultValue={methods.watch(
+                        `oc.${el.slug as keyof OcConfigurator}`
+                      )}
                       onChange={(value) => {
                         methods.setValue(
                           `oc.${el.slug as keyof OcConfigurator}`,
@@ -148,11 +228,6 @@ export const Configurator = ({
                 };
               });
 
-              methods.setValue(
-                `base.${el.slug as keyof BaseConfigurator}`,
-                list[0]?.value
-              );
-
               return (
                 <div
                   key={idx}
@@ -163,6 +238,9 @@ export const Configurator = ({
                   {el.type === "select" && (
                     <Select2
                       list={list}
+                      defaultValue={methods.watch(
+                        `base.${el.slug as keyof BaseConfigurator}`
+                      )}
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
@@ -189,11 +267,6 @@ export const Configurator = ({
                 };
               });
 
-              methods.setValue(
-                `network.${el.slug as keyof NetworkConfigurator}`,
-                list[0]?.value
-              );
-
               return (
                 <div
                   key={idx}
@@ -204,6 +277,9 @@ export const Configurator = ({
                   {el.type === "select" && (
                     <Select2
                       list={list}
+                      defaultValue={methods.watch(
+                        `network.${el.slug as keyof NetworkConfigurator}`
+                      )}
                       onChange={(value) => {
                         methods.setValue(
                           `network.${el.slug as keyof NetworkConfigurator}`,
@@ -230,11 +306,6 @@ export const Configurator = ({
                 };
               });
 
-              methods.setValue(
-                `additional.${el.slug as keyof AdditionalConfigurator}`,
-                list[0]?.value
-              );
-
               return (
                 <div
                   key={idx}
@@ -245,6 +316,9 @@ export const Configurator = ({
                   {el.type === "select" && (
                     <Select2
                       list={list}
+                      defaultValue={methods.watch(
+                        `additional.${el.slug as keyof AdditionalConfigurator}`
+                      )}
                       onChange={(value) => {
                         methods.setValue(
                           `additional.${

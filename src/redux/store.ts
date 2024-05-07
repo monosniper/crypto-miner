@@ -11,6 +11,7 @@ import miningReducer from "./slices/miningSlice";
 import successModalReducer from "./slices/successModal";
 import infoModalReducer from "./slices/infoModalSlice";
 import configuratorReducer from "./slices/configurator.slice";
+import presetsReducer from "./slices/presets.slice";
 
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
@@ -30,6 +31,7 @@ export const rootReducer = combineReducers({
   successModal: successModalReducer,
   infoModal: infoModalReducer,
   configurator: configuratorReducer,
+  presets: presetsReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

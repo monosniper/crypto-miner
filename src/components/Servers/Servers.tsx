@@ -1,10 +1,9 @@
-import { PropsWithClassName, ServerStatuses } from "@/types";
+import { Preset, PropsWithClassName, ServerStatuses } from "@/types";
 import { FC, RefObject } from "react";
 import cn from "clsx";
 import { Buy } from "../ui";
 import { CoinSkelet, ServersItem } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Server } from "@/types";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "@/redux/store";
 import { mining } from "@/redux/slices/miningSlice";
@@ -14,7 +13,7 @@ import { user } from "@/redux/slices/userSlice";
 type Props = {
   type?: "mining" | "standart";
   plansRef?: RefObject<HTMLDivElement>;
-  servers?: Server[];
+  servers?: (Preset & {status: ServerStatuses})[];
   loading?: boolean;
 };
 
@@ -77,7 +76,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                           type={type}
                           onClick={() => {
                             if (
-                              el.status === ServerStatuses.ACTIVE_STATUS &&
+                              el.status === ServerStatuses.WORK_STATUS &&
                               !userData?.session &&
                               !sessionData &&
                               (Date.now() -
@@ -98,7 +97,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                           }
                           disabled={
                             !checkIdentityType(el) ||
-                            el.status !== ServerStatuses.ACTIVE_STATUS ||
+                            el.status !== ServerStatuses.WORK_STATUS ||
                             Date.now() - new Date(el.last_work_at!).getTime() <
                               24 * 60 * 60 * 1000
                           }
