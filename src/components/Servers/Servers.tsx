@@ -27,7 +27,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const location = useLocation();
-  const { toggleServerSelection, checkIdentityType, sessionData } = useMining();
+  const { toggleServerSelection, sessionData } = useMining();
   const { selectedServers } = useAppSelector(mining);
   const { userData } = useAppSelector(user);
 
@@ -59,7 +59,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
               {type === "mining"
                 ? servers.map((el) => {
                     const foundSelectedServer = selectedServers.find(
-                      (item) => item.id === el.id
+                      (id) => id === el.id
                     );
                     const inWork =
                       Boolean(
@@ -75,19 +75,11 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                         <ServersItem
                           type={type}
                           onClick={() => {
-                            // if (
-                            //   el.status === ServerStatuses.WORK_STATUS &&
-                            //   !userData?.session &&
-                            //   !sessionData
-                            // ) {
-                            //   toggleServerSelection(el);
-                            // }
+                            toggleServerSelection(el.id);
                           }}
                           data={el}
                           selected={
-                            selectedServers.find(
-                              (server) => el.id === server.id
-                            )
+                            selectedServers.find((id) => id === el.id)
                               ? true
                               : false
                           }

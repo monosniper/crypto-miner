@@ -14,6 +14,7 @@ import {
   Found,
   Log,
   NamesModals,
+  Preset,
   Server,
   ServerLog,
   StartMinerSocketData,
@@ -191,33 +192,18 @@ export const useMining = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, getMeData]);
 
-  const toggleServerSelection = (server: Server) => {
-    const foundServer = selectedServers.find((el) => server.id === el.id);
-
-    if (selectedServers[0] && selectedServers[0].type !== server.server?.type)
-      return;
-
-    const filteredServer = {
-      id: server.id,
-      type: server.server?.type,
-      coins: server.server?.coins,
-    };
+  const toggleServerSelection = (serverId: number) => {
+    const foundServer = selectedServers.find((id) => id === serverId);
 
     if (!foundServer) {
-      return dispatch(setSelectedServers([...selectedServers, filteredServer]));
-    } else {
-      dispatch(
-        setSelectedCoins(
-          selectedCoins.filter(
-            (coinEl) => !server?.server?.coins?.some((el) => el.id === coinEl)
-          )
-        )
-      );
-
-      return dispatch(
-        setSelectedServers(selectedServers.filter((el) => el.id !== server.id))
-      );
+      return dispatch(setSelectedServers([...selectedServers, serverId]));
     }
+
+    const serversWithoutThisId = selectedServers.filter(
+      (id) => id !== serverId
+    );
+
+    dispatch(setSelectedServers(serversWithoutThisId));
   };
 
   const toggleCoinSelection = (coin: Coin) => {
