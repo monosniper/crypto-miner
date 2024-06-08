@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const NewsItem: FC<Props> = ({ data }) => {
-  const maxContentLength = 200; // Установите максимальную длину контента по вашему усмотрению
+  const maxContentLength = 300; // Установите максимальную длину контента по вашему усмотрению
   const truncatedContent = data.content.slice(0, maxContentLength);
   const contentObj = { __html: truncatedContent + "..." };
 

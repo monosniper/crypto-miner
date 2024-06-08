@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from "./redux/store";
 import { main } from "./redux/slices/mainSlice";
 import { useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
-import { setUserData, user } from "./redux/slices/userSlice";
-import { useGetMeDataQuery } from "./redux/api/userApi";
+import { setAuth, setUserData, user } from "./redux/slices/userSlice";
+import { useGetMeDataQuery, useLazyGetMeDataQuery } from "./redux/api/userApi";
 import { ToastContainer, toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import socket from "@/core/socket";
@@ -14,6 +14,7 @@ import { setOpenModal } from "./redux/slices/modalsOpensSlice";
 import { setText, setTitle } from "./redux/slices/successModal";
 import { NamesModals } from "./types";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -21,8 +22,25 @@ const App = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const success = urlParams.get("success");
   const type = urlParams.get("type");
+  const token = urlParams.get("token");
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [getMe] = useLazyGetMeDataQuery();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(setAuth(true));
+
+      navigate(`/main?token=${token}`);
+
+      Cookies.set("token", token);
+
+      setTimeout(() => {
+        getMe(null);
+      }, 1000);
+    }
+  }, [token, dispatch, navigate, getMe]);
 
   useEffect(() => {
     if (type === "renew-server") {
@@ -30,16 +48,16 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        }),
+        })
       );
 
       dispatch(setTitle(t("success") + "!"));
       dispatch(
         setText(
           t(
-            "The payment was successful, the server will be restored within an hour",
-          ),
-        ),
+            "The payment was successful, the server will be restored within an hour"
+          )
+        )
       );
 
       return;
@@ -50,16 +68,16 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        }),
+        })
       );
 
       dispatch(setTitle(t("attention") + "!"));
       dispatch(
         setText(
           t(
-            "you already have this server, the maximum number of servers of this type is 1",
-          ),
-        ),
+            "you already have this server, the maximum number of servers of this type is 1"
+          )
+        )
       );
 
       return;
@@ -71,7 +89,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -83,7 +101,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -95,7 +113,7 @@ const App = () => {
           setOpenModal({
             stateNameModal: NamesModals.isOpenSuccessModal,
             isOpen: true,
-          }),
+          })
         );
 
         dispatch(setTitle(t("success")));
@@ -128,7 +146,7 @@ const App = () => {
         setOpenModal({
           stateNameModal: NamesModals.isOpenSuccessModal,
           isOpen: true,
-        }),
+        })
       );
 
       dispatch(setTitle(t("the session is over")));

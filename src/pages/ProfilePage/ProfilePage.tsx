@@ -1,9 +1,6 @@
-import { PersonalDataForm, Progress, Title } from "@/components";
+import { MetamaskBtn, PersonalDataForm, Progress, Title } from "@/components";
 import { useTranslation } from "react-i18next";
 import cn from "clsx";
-import { Button } from "@/components/ui";
-import { MetamaskIcon } from "@/components/icons";
-import styles from "./ProfilePage.module.css";
 
 export const ProfilePage = () => {
   const { t } = useTranslation();
@@ -40,7 +37,7 @@ export const ProfilePage = () => {
           <div className={cn("box", "p-6 flex flex-col gap-4 text-sm")}>
             <div className="grid grid-cols-1 md:grid-cols-2 items-center">
               <h4 className="text-lg font-medium">Connect Crypto-Wallet</h4>
-              <Button className={styles.metamaskBtn} icon={<MetamaskIcon />} />
+              <MetamaskBtn />
             </div>
 
             <p className="text-base-content-300">

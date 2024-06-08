@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector } from "@/redux/store";
 import { mining } from "@/redux/slices/miningSlice";
 import { useMining } from "@/hooks/useMining";
-import { user } from "@/redux/slices/userSlice";
 
 type Props = {
   type?: "mining" | "standart";
@@ -29,7 +28,6 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
   const location = useLocation();
   const { toggleServerSelection, sessionData } = useMining();
   const { selectedServers } = useAppSelector(mining);
-  const { userData } = useAppSelector(user);
 
   const buyServerHandler = () => {
     if (!location.pathname.includes("/server-packages")) {
@@ -62,10 +60,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                       (id) => id === el.id
                     );
                     const inWork =
-                      Boolean(
-                        foundSelectedServer &&
-                          (userData?.session || sessionData)
-                      ) || false;
+                      Boolean(foundSelectedServer && sessionData) || false;
 
                     return (
                       <div
@@ -75,7 +70,9 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                         <ServersItem
                           type={type}
                           onClick={() => {
-                            toggleServerSelection(el.id);
+                            if (!sessionData) {
+                              toggleServerSelection(el.id);
+                            }
                           }}
                           data={el}
                           selected={

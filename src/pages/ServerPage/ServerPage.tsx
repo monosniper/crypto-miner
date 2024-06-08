@@ -1,4 +1,4 @@
-import { LogsBlock, Title } from "@/components";
+import { Graph, LogsBlock, Title } from "@/components";
 import { FanIcon, PrevIcon } from "@/components/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
@@ -7,9 +7,13 @@ import { ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
-import { Button } from "@/components/ui";
+import { useEffect, useState } from "react";
 
 // const currentDate = moment.utc();
+
+const getRandomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -22,6 +26,64 @@ export const ServerPage = () => {
       refetchOnMountOrArgChange: true,
     }
   );
+  const [cpuList, setCpuList] = useState<number[]>(
+    new Array(8).fill(0).map(() => getRandomNumber(95, 100))
+  );
+  const [gpuList, setGpuList] = useState<number[]>(
+    new Array(8).fill(0).map(() => getRandomNumber(95, 100))
+  );
+  const [ramList, setRamList] = useState<number[]>([]);
+  const [tempCpuList, setTempCpuList] = useState<number[]>(
+    new Array(8).fill(0).map(() => getRandomNumber(55, 65))
+  );
+
+  const [tempGpuList, setTempGpuList] = useState<number[]>(
+    new Array(8).fill(0).map(() => getRandomNumber(65, 70))
+  );
+
+  useEffect(() => {
+    console.log(Number(serverData?.data.configuration.ram.match(/\d+/)));
+    setRamList(
+      new Array(8)
+        .fill(0)
+        .map(() =>
+          getRandomNumber(
+            Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
+            Number(serverData?.data.configuration.ram.match(/\d+/))
+          )
+        )
+    );
+  }, [serverData?.data.configuration.ram]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCpuList((prev) => [
+        ...prev.filter((_, idx) => idx !== 0),
+        getRandomNumber(95, 100),
+      ]);
+      setGpuList((prev) => [
+        ...prev.filter((_, idx) => idx !== 0),
+        getRandomNumber(95, 100),
+      ]);
+      setRamList((prev) => [
+        ...prev.filter((_, idx) => idx !== 0),
+        getRandomNumber(
+          Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
+          Number(serverData?.data.configuration.ram.match(/\d+/))
+        ),
+      ]);
+      setTempCpuList((prev) => [
+        ...prev.filter((_, idx) => idx !== 0),
+        getRandomNumber(55, 65),
+      ]);
+      setTempGpuList((prev) => [
+        ...prev.filter((_, idx) => idx !== 0),
+        getRandomNumber(65, 70),
+      ]);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -79,20 +141,123 @@ export const ServerPage = () => {
               <p>{serverData?.data.configuration.disk}</p>
             </div>
 
-            <div className="flex items-center gap-5 flex-wrap">
+            {/* <div className="flex items-center gap-5 flex-wrap">
               <Button title={t("Change the coin")} />
               <Button title={t("Shutdown request")} />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
 
       <div className="mt-6 flex flex-col gap-4 lg:gap-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          <LogsBlock list={[]} title="CPU Usage" />
-          <LogsBlock list={[]} title="GPU Usage" />
-          <LogsBlock list={[]} title="RAM Usage" />
-          <LogsBlock list={[]} title="Temperathure" />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
+          <LogsBlock
+            className="h-max"
+            children={
+              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                <Graph
+                  graphData={cpuList}
+                  y={{
+                    ticks: 6,
+                    min: 20,
+                    max: 100,
+                    afterNumber: "%",
+                  }}
+                  margins={{
+                    left: 40,
+                    right: 0,
+                    bottom: 20,
+                  }}
+                />
+              </div>
+            }
+            title="CPU Usage"
+          />
+          <LogsBlock
+            className="h-max"
+            children={
+              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                <Graph
+                  graphData={gpuList}
+                  y={{
+                    ticks: 6,
+                    min: 20,
+                    max: 100,
+                    afterNumber: "%",
+                  }}
+                  margins={{
+                    left: 40,
+                    right: 0,
+                    bottom: 20,
+                  }}
+                />
+              </div>
+            }
+            title="GPU Usage"
+          />
+          <LogsBlock
+            className="h-max"
+            children={
+              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                <Graph
+                  graphData={ramList}
+                  y={{
+                    ticks: 6,
+                    min: 1,
+                    max: Number(
+                      serverData?.data.configuration.ram.match(/\d+/)
+                    ),
+                  }}
+                  margins={{
+                    left: 25,
+                    right: 0,
+                    bottom: 20,
+                  }}
+                />
+              </div>
+            }
+            title="RAM Usage"
+          />
+          <LogsBlock
+            className="h-auto"
+            children={
+              <div className="flex flex-col gap-2">
+                <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)] mt-4">
+                  <p className="ml-3">CPU</p>
+
+                  <Graph
+                    graphData={tempCpuList}
+                    y={{
+                      min: 30,
+                      max: 70,
+                    }}
+                    margins={{
+                      left: 25,
+                      right: 0,
+                      bottom: 20,
+                    }}
+                  />
+                </div>
+                <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)] mt-4">
+                  <p className="ml-3">GPU</p>
+
+                  <Graph
+                    graphData={tempGpuList}
+                    y={{
+                      min: 40,
+                      max: 80,
+                    }}
+                    margins={{
+                      left: 25,
+                      right: 0,
+                      bottom: 20,
+                    }}
+                  />
+                </div>
+              </div>
+            }
+            title="Temperathure"
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6"></div>

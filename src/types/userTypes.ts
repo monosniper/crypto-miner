@@ -1,4 +1,4 @@
-import { CoinPosition, SessionData } from ".";
+import { CoinPosition } from ".";
 
 export type User = {
   id: number;
@@ -9,8 +9,9 @@ export type User = {
   phone?: string;
   token: string;
   coin_positions: CoinPosition[];
-  session: SessionData;
-  isVerificated: boolean | null;
+  session: boolean;
+  isVerificated: number | null;
+  countryCode: string | null;
 };
 
 export type UserRef = {

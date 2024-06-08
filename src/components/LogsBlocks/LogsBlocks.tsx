@@ -50,7 +50,7 @@ export const LogsBlocks: FC<Props> = ({
   }, [rightTwoRef]);
 
   return (
-    <div className="flex flex-wrap -ml-6 w-[calc(100%+48px)] lg:w-full lg:-ml-3 -m-3">
+    <div className="flex flex-wrap -m-3">
       <div
         className={cn("w-1/2 p-3", {
           "sm:w-1/4": leftTwo || rightTwo,

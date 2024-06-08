@@ -9,7 +9,7 @@ import { getServerStatus } from "@/data";
 type Props = {
   type?: "mining" | "standart";
   onClick?: MouseEventHandler<HTMLElement>;
-  data: Preset & {status: ServerStatuses};
+  data: Preset & { status: ServerStatuses };
   selected?: boolean;
   disabled?: boolean;
   inWork?: boolean;
@@ -52,7 +52,7 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
           {
             "hover:border hover:border-primary": type === "standart",
             "border !border-primary border-solid": selected,
-          },
+          }
         )}
         onClick={onClick}
       >
