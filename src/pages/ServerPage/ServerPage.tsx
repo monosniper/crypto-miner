@@ -42,7 +42,6 @@ export const ServerPage = () => {
   );
 
   useEffect(() => {
-    console.log(Number(serverData?.data.configuration.ram.match(/\d+/)));
     setRamList(
       new Array(8)
         .fill(0)
