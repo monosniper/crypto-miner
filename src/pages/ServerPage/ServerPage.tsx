@@ -26,63 +26,78 @@ export const ServerPage = () => {
       refetchOnMountOrArgChange: true,
     }
   );
-  const [cpuList, setCpuList] = useState<number[]>(
-    new Array(8).fill(0).map(() => getRandomNumber(95, 100))
-  );
-  const [gpuList, setGpuList] = useState<number[]>(
-    new Array(8).fill(0).map(() => getRandomNumber(95, 100))
-  );
-  const [ramList, setRamList] = useState<number[]>([]);
-  const [tempCpuList, setTempCpuList] = useState<number[]>(
-    new Array(8).fill(0).map(() => getRandomNumber(55, 65))
-  );
+  const [cpuList, setCpuList] = useState<number[]>([]);
+const [gpuList, setGpuList] = useState<number[]>([]);
+const [ramList, setRamList] = useState<number[]>([]);
+const [tempCpuList, setTempCpuList] = useState<number[]>([]);
+const [tempGpuList, setTempGpuList] = useState<number[]>([]);
 
-  const [tempGpuList, setTempGpuList] = useState<number[]>(
-    new Array(8).fill(0).map(() => getRandomNumber(65, 70))
-  );
-
-  useEffect(() => {
-    setRamList(
-      new Array(8)
-        .fill(0)
-        .map(() =>
-          getRandomNumber(
-            Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
-            Number(serverData?.data.configuration.ram.match(/\d+/))
-          )
-        )
-    );
-  }, [serverData?.data.configuration.ram]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCpuList((prev) => [
-        ...prev.filter((_, idx) => idx !== 0),
-        getRandomNumber(95, 100),
-      ]);
-      setGpuList((prev) => [
-        ...prev.filter((_, idx) => idx !== 0),
-        getRandomNumber(95, 100),
-      ]);
-      setRamList((prev) => [
-        ...prev.filter((_, idx) => idx !== 0),
+useEffect(() => {
+  setRamList(
+    new Array(8)
+      .fill(0)
+      .map(() =>
         getRandomNumber(
           Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
           Number(serverData?.data.configuration.ram.match(/\d+/))
-        ),
-      ]);
-      setTempCpuList((prev) => [
-        ...prev.filter((_, idx) => idx !== 0),
-        getRandomNumber(55, 65),
-      ]);
-      setTempGpuList((prev) => [
-        ...prev.filter((_, idx) => idx !== 0),
-        getRandomNumber(65, 70),
-      ]);
-    }, 5000);
+        )
+      )
+  );
+}, [serverData?.data.configuration.ram]);
 
-    return () => clearInterval(interval);
-  }, []);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCpuList((prev) => {
+      const newValue = getRandomNumber(95, 100);
+      if (prev.length < 8) {
+        return [...prev, newValue];
+      } else {
+        return [...prev.slice(1), newValue];
+      }
+    });
+
+    setGpuList((prev) => {
+      const newValue = getRandomNumber(95, 100);
+      if (prev.length < 8) {
+        return [...prev, newValue];
+      } else {
+        return [...prev.slice(1), newValue];
+      }
+    });
+
+    setRamList((prev) => {
+      const newValue = getRandomNumber(
+        Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
+        Number(serverData?.data.configuration.ram.match(/\d+/))
+      );
+      if (prev.length < 8) {
+        return [...prev, newValue];
+      } else {
+        return [...prev.slice(1), newValue];
+      }
+    });
+
+    setTempCpuList((prev) => {
+      const newValue = getRandomNumber(55, 65);
+      if (prev.length < 8) {
+        return [...prev, newValue];
+      } else {
+        return [...prev.slice(1), newValue];
+      }
+    });
+
+    setTempGpuList((prev) => {
+      const newValue = getRandomNumber(65, 70);
+      if (prev.length < 8) {
+        return [...prev, newValue];
+      } else {
+        return [...prev.slice(1), newValue];
+      }
+    });
+  }, 5000);
+
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <div>

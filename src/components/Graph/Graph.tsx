@@ -60,8 +60,9 @@ export const Graph: FC<Props> = ({ graphData, y, margins }) => {
 
       // Generate time data for the x-axis
       const startTime = new Date(); // Current time as the start
-      const timeData = Array.from({ length: normalizedData.length }, (_, i) =>
-        d3.timeMinute.offset(startTime, i * 10) // 10-minute intervals
+      const timeData = Array.from(
+        { length: normalizedData.length },
+        (_, i) => d3.timeMinute.offset(startTime, i * 10) // 10-minute intervals
       );
 
       // Create scales for x and y
@@ -76,12 +77,14 @@ export const Graph: FC<Props> = ({ graphData, y, margins }) => {
         .range([chartHeight, 0]);
 
       // Add x-axis
-      chart.append("g")
+      chart
+        .append("g")
         .attr("transform", `translate(0,${chartHeight})`)
         .call(
-          d3.axisBottom(xScale)
+          d3
+            .axisBottom(xScale)
             .ticks(d3.timeMinute.every(10))
-            .tickFormat(d3.timeFormat("%H:%M"))
+            .tickFormat(d3.timeFormat("%H:%M") as any)
         );
 
       // Add y-axis

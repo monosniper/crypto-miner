@@ -4,7 +4,6 @@ import { EmptyText, NotificationSkelet, NotificationsItem } from "..";
 import {
   Dispatch,
   FC,
-  MouseEvent,
   RefObject,
   SetStateAction,
   useRef,
@@ -30,7 +29,7 @@ export const Notifications: FC<Props> = ({ setOpen, openBtnRef }) => {
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
 
-  useOutside(ref, (e: MouseEvent<HTMLDivElement>) => {
+  useOutside(ref, (e) => {
     if (!setOpen) return;
 
     if (!openBtnRef) {
