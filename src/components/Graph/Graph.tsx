@@ -38,8 +38,14 @@ export const Graph: FC<Props> = ({ graphData, y, margins }) => {
         left: margins?.left || 40,
       };
 
+      // Ensure we have at least two data points for proper x-axis scaling
+      let extendedData = [...graphData];
+      if (extendedData.length === 1) {
+        extendedData.push(extendedData[0]); // Add a duplicate point if only one exists
+      }
+
       // Normalize the data to the range [0, 100]
-      const normalizedData = graphData.map((d) => (d / 100) * 100);
+      const normalizedData = extendedData.map((d) => (d / 100) * 100);
 
       // Clear previous chart if it exists
       d3.select(svgRef.current).selectAll("*").remove();
@@ -61,8 +67,8 @@ export const Graph: FC<Props> = ({ graphData, y, margins }) => {
       // Generate time data for the x-axis
       const startTime = new Date(); // Current time as the start
       const timeData = Array.from(
-        { length: normalizedData.length },
-        (_, i) => d3.timeMinute.offset(startTime, i * 10) // 10-minute intervals
+        { length: 8 },
+        (_, i) => d3.timeMinute.offset(startTime, i) // 1-minute intervals
       );
 
       // Create scales for x and y
@@ -83,7 +89,7 @@ export const Graph: FC<Props> = ({ graphData, y, margins }) => {
         .call(
           d3
             .axisBottom(xScale)
-            .ticks(d3.timeMinute.every(10))
+            .ticks(d3.timeMinute.every(1))
             .tickFormat(d3.timeFormat("%H:%M") as any)
         );
 

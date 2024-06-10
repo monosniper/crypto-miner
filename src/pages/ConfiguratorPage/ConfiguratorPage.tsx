@@ -97,8 +97,6 @@ export const ConfiguratorPage = () => {
     methods.setValue("additional.notifications", configuration.notifications);
 
     setSelectedCoins(configuration.coins.map((el) => Number(el)));
-
-    dispatch(setConfiguration(undefined));
   }, [configuration, dispatch, methods]);
 
   return (

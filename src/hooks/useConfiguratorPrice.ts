@@ -8,7 +8,8 @@ import {
 import { useEffect, useState } from "react";
 import { useConfigurator } from "./useConfigurator";
 import { setPrice } from "@/redux/slices/configurator.slice";
-import { useAppDispatch } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { presets } from "@/redux/slices/presets.slice";
 
 type Args = {
   configuration?: Configuration;
@@ -22,6 +23,7 @@ type Args = {
 
 export const useConfiguratorPrice = (data: Args) => {
   const { configuration, base, oc, network, additional } = useConfigurator(); // Отфильтрованные данные из useGetConfigurationQuery
+  const { price: presetPrice, configuration: presetConfiguration } = useAppSelector(presets);
 
   const [basePrice, setBasePrice] = useState(0);
   const [configurationPrice, setConfigurationPrice] = useState(0);
@@ -116,7 +118,6 @@ export const useConfiguratorPrice = (data: Args) => {
       additionalSum += foundOption.price;
     });
 
-
     setConfigurationPrice(configurationSum);
     setBasePrice(baseSum);
     setOcPrice(ocSum);
@@ -140,7 +141,13 @@ export const useConfiguratorPrice = (data: Args) => {
 
     setTotalPrice(sum);
     dispatch(setPrice(sum));
-  }, [basePrice, configurationPrice, ocPrice, networkPrice]);
+  }, [basePrice, configurationPrice, ocPrice, networkPrice, dispatch]);
+
+  useEffect(() => {
+    if (presetPrice === undefined) return;
+
+    setTotalPrice(presetPrice);
+  }, [presetPrice]);
 
   return {
     basePrice,

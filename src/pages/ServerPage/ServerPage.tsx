@@ -26,78 +26,78 @@ export const ServerPage = () => {
       refetchOnMountOrArgChange: true,
     }
   );
-  const [cpuList, setCpuList] = useState<number[]>([]);
-const [gpuList, setGpuList] = useState<number[]>([]);
-const [ramList, setRamList] = useState<number[]>([]);
-const [tempCpuList, setTempCpuList] = useState<number[]>([]);
-const [tempGpuList, setTempGpuList] = useState<number[]>([]);
+  const [cpuList, setCpuList] = useState<number[]>([getRandomNumber(95, 100)]);
+  const [gpuList, setGpuList] = useState<number[]>([getRandomNumber(95, 100)]);
+  const [ramList, setRamList] = useState<number[]>([]);
+  const [tempCpuList, setTempCpuList] = useState<number[]>([getRandomNumber(55, 65)]);
+  const [tempGpuList, setTempGpuList] = useState<number[]>([getRandomNumber(65, 70)]);
 
-useEffect(() => {
-  setRamList(
-    new Array(8)
-      .fill(0)
-      .map(() =>
-        getRandomNumber(
+  useEffect(() => {
+    setRamList(
+      new Array(1)
+        .fill(0)
+        .map(() =>
+          getRandomNumber(
+            Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
+            Number(serverData?.data.configuration.ram.match(/\d+/))
+          )
+        )
+    );
+  }, [serverData?.data.configuration.ram]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCpuList((prev) => {
+        const newValue = getRandomNumber(95, 100);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
+
+      setGpuList((prev) => {
+        const newValue = getRandomNumber(95, 100);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
+
+      setRamList((prev) => {
+        const newValue = getRandomNumber(
           Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
           Number(serverData?.data.configuration.ram.match(/\d+/))
-        )
-      )
-  );
-}, [serverData?.data.configuration.ram]);
+        );
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCpuList((prev) => {
-      const newValue = getRandomNumber(95, 100);
-      if (prev.length < 8) {
-        return [...prev, newValue];
-      } else {
-        return [...prev.slice(1), newValue];
-      }
-    });
+      setTempCpuList((prev) => {
+        const newValue = getRandomNumber(55, 65);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
 
-    setGpuList((prev) => {
-      const newValue = getRandomNumber(95, 100);
-      if (prev.length < 8) {
-        return [...prev, newValue];
-      } else {
-        return [...prev.slice(1), newValue];
-      }
-    });
+      setTempGpuList((prev) => {
+        const newValue = getRandomNumber(65, 70);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
+    }, 60000);
 
-    setRamList((prev) => {
-      const newValue = getRandomNumber(
-        Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
-        Number(serverData?.data.configuration.ram.match(/\d+/))
-      );
-      if (prev.length < 8) {
-        return [...prev, newValue];
-      } else {
-        return [...prev.slice(1), newValue];
-      }
-    });
-
-    setTempCpuList((prev) => {
-      const newValue = getRandomNumber(55, 65);
-      if (prev.length < 8) {
-        return [...prev, newValue];
-      } else {
-        return [...prev.slice(1), newValue];
-      }
-    });
-
-    setTempGpuList((prev) => {
-      const newValue = getRandomNumber(65, 70);
-      if (prev.length < 8) {
-        return [...prev, newValue];
-      } else {
-        return [...prev.slice(1), newValue];
-      }
-    });
-  }, 5000);
-
-  return () => clearInterval(interval);
-}, []);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>

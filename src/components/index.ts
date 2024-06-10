@@ -114,3 +114,5 @@ export * from "./Configurator/ConfiguratorAccount/ConfiguratorAccount";
 export * from "./MetamaskBtn/MetamaskBtn";
 
 export * from "./Graph/Graph";
+
+export * from "./Logo/Logo";
