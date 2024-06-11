@@ -13,6 +13,7 @@ import {
 } from "@/types";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 type Props<T extends FieldValues> = {
   methods: UseFormReturn<T>;
@@ -27,6 +28,7 @@ export const Configurator = ({
 }: Props<ConfiguratorFormData>) => {
   const { configuration, base, oc, network, additional } = useConfigurator();
   const { data: coins } = useGetCoinsQuery(null);
+  const { t } = useTranslation();
 
   const selectCoin = (id: number) => {
     if (selectedCoins.find((coinId) => coinId === id)) {
@@ -175,7 +177,9 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">Операционная система</h3>
+          <h3 className="text-base font-semibold">
+            {t("The operating system")}
+          </h3>
 
           <div className="flex flex-col gap-1">
             {oc?.map((el, idx) => {
@@ -214,7 +218,7 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">Базовые настройки</h3>
+          <h3 className="text-base font-semibold">{t("Basic settings")}</h3>
 
           <div className="flex flex-col gap-1">
             {base?.map((el, idx) => {
@@ -256,7 +260,7 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">Сеть</h3>
+          <h3 className="text-base font-semibold">{t("Network")}</h3>
 
           <div className="flex flex-col gap-1">
             {network?.map((el, idx) => {
@@ -295,7 +299,7 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">Дополнительно</h3>
+          <h3 className="text-base font-semibold">{t("Additionally")}</h3>
 
           <div className="flex flex-col gap-1">
             {additional?.map((el, idx) => {
@@ -336,7 +340,7 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">Монеты</h3>
+          <h3 className="text-base font-semibold">{t("coins")}</h3>
 
           <div className="flex items-center gap-1.5 flex-wrap">
             {coins?.data.map((coin) => (
@@ -351,7 +355,7 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">Комментарий</h3>
+          <h3 className="text-base font-semibold">{t("Comment")}</h3>
 
           <div className="flex items-center gap-1.5 flex-wrap">
             <textarea

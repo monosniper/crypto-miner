@@ -225,5 +225,12 @@
   "After verification, the funds will be linked to your account": "После проверки, средства будут привязаны к Вашему аккаунту",
 
   "Change the coin": "Сменить монету",
-  "Shutdown request": "Запрос на выключение"
+  "Shutdown request": "Запрос на выключение",
+
+  "The operating system": "Операционная система",
+  "Basic settings": "Базовые настройки",
+  "Network": "Сеть",
+  "Additionally": "Дополнительно",
+  "Coins": "Монеты",
+  "Comment": "Комментарий"
 }
