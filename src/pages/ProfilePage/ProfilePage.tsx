@@ -1,9 +1,12 @@
 import { MetamaskBtn, PersonalDataForm, Progress, Title } from "@/components";
 import { useTranslation } from "react-i18next";
 import cn from "clsx";
+import { useAppSelector } from "@/redux/store";
+import { user } from "@/redux/slices/userSlice";
 
 export const ProfilePage = () => {
   const { t } = useTranslation();
+  const { userData } = useAppSelector(user);
 
   return (
     <div>
@@ -12,7 +15,7 @@ export const ProfilePage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col gap-6">
           <div className={cn("box", "p-6")}>
-            <p className="text-lg font-medium">Hello, John Silver! 😊</p>
+            <p className="text-lg font-medium">Hello, {userData?.name}! 😊</p>
           </div>
 
           <div className={cn("box", "p-6 flex flex-col gap-4")}>

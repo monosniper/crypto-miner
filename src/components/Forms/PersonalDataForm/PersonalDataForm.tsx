@@ -1,7 +1,7 @@
 import { Button, FieldWrapper, TextField } from "@/components/ui";
 import { useUpdateMeMutation } from "@/redux/api/userApi";
-import { user } from "@/redux/slices/userSlice";
-import { useAppSelector } from "@/redux/store";
+import { setUserData, user } from "@/redux/slices/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { PersonalFormData } from "@/types";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,7 @@ export const PersonalDataForm = () => {
   const { t } = useTranslation();
   const { userData } = useAppSelector(user);
   const [update, { data, error, isLoading }] = useUpdateMeMutation();
+  const dispatch = useAppDispatch();
 
   const formHandler = (data: PersonalFormData) => {
     const sendData = {
@@ -41,7 +42,12 @@ export const PersonalDataForm = () => {
     if (!data || !data.success) return;
 
     toast.success(t("success"));
-  }, [data, t]);
+
+    if (!userData) return;
+
+    dispatch(setUserData({ ...userData, name: methods.getValues("name") }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, dispatch, t]);
 
   useEffect(() => {
     if (!error) return;
