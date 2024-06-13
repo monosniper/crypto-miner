@@ -34,7 +34,7 @@ const App = () => {
 
       navigate(`/main?token=${token}`);
 
-      Cookies.set("token", token);
+      Cookies.set("credentials", token);
 
       setTimeout(() => {
         getMe(null);

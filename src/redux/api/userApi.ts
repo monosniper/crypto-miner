@@ -58,9 +58,15 @@ export const userApi = createApi({
 
     getMeData: query<{ data: User }, null>({
       query() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token");
+
         return {
           url: "me",
           method: "GET",
+          headers: {
+            Authorization: `Basic ${token}`,
+          },
         };
       },
     }),
