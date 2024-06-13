@@ -15,6 +15,7 @@ import {
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
+import Cookies from "js-cookie";
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -59,7 +60,7 @@ export const userApi = createApi({
     getMeData: query<{ data: User }, null>({
       query() {
         const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get("token");
+        const token = urlParams.get("token") || Cookies.get("credentials");
 
         return {
           url: "me",

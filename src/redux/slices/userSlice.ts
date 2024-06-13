@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, User } from "@/types";
+import Cookies from "js-cookie";
 
 const initialState: {
   isAuth: boolean;
@@ -8,7 +9,10 @@ const initialState: {
 
   totalBalanceUSD: number;
 } = {
-  isAuth: localStorage.getItem("mainUserData") ? true : false,
+  isAuth:
+    localStorage.getItem("mainUserData") || Cookies.get("credentials")
+      ? true
+      : false,
 
   userData: undefined,
 
