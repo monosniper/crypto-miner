@@ -23,7 +23,7 @@ type Args = {
 
 export const useConfiguratorPrice = (data: Args) => {
   const { configuration, base, oc, network, additional } = useConfigurator(); // Отфильтрованные данные из useGetConfigurationQuery
-  const { price: presetPrice, configuration: presetConfiguration } = useAppSelector(presets);
+  const { price: presetPrice } = useAppSelector(presets);
 
   const [basePrice, setBasePrice] = useState(0);
   const [configurationPrice, setConfigurationPrice] = useState(0);

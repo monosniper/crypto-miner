@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { configurator } from "@/redux/slices/configurator.slice";
 import { useSetOrderMutation } from "@/redux/api/userApi";
 import { toast } from "react-toastify";
-import { presets, setConfiguration } from "@/redux/slices/presets.slice";
+import { presets } from "@/redux/slices/presets.slice";
 
 export const ConfiguratorPage = () => {
   const [isOpenAttention, setOpenAttention] = useState(true);
