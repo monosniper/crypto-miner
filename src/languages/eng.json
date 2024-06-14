@@ -227,5 +227,9 @@
   "Network": "Network",
   "Additionally": "Additionally",
   "Coins": "Coins",
-  "Comment": "Comment"
+  "Comment": "Comment",
+
+  "Faster withdraws within one hour": "Faster withdraws within one hour",
+  "Your personal manager": "Your personal manager",
+  "Automatic restart of mining": "Automatic restart of mining"
 }

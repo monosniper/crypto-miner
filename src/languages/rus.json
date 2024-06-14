@@ -232,5 +232,9 @@
   "Network": "Сеть",
   "Additionally": "Дополнительно",
   "Coins": "Монеты",
-  "Comment": "Комментарий"
+  "Comment": "Комментарий",
+
+  "Faster withdraws within one hour": "Более быстрый вывод средств в течение одного часа",
+  "Your personal manager": "Ваш персональный менеджер",
+  "Automatic restart of mining": "Автоматический перезапуск майнинга"
 }

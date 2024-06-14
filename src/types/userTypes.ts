@@ -12,6 +12,7 @@ export type User = {
   session: boolean;
   isVerificated: number | null;
   countryCode: string | null;
+  total_deposit: number | null;
 };
 
 export type UserRef = {

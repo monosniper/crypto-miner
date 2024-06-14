@@ -23,16 +23,15 @@ export const ProfilePage = () => {
               Before receiving the PRO status
             </h3>
 
-            <Progress />
+            <Progress total={userData?.total_deposit || 0} />
 
             <div>
               <h4 className="text-sm font-medium">The Benefits of PRO:</h4>
 
               <div className="flex flex-col text-xs leading-[200%] text-base-content-200">
-                <p>⚡ Faster withdraws within one hour</p>
-                <p>❤️ Your personal manager</p>
-                <p>✅ Automatic restart of mining</p>
-                <p>⚡ Faster withdraws within one hour</p>
+                <p>⚡ {t("Faster withdraws within one hour")}</p>
+                <p>❤️ {t("Your personal manager")}</p>
+                <p>✅ {t("Automatic restart of mining")}</p>
               </div>
             </div>
           </div>
