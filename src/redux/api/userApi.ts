@@ -23,6 +23,8 @@ export const userApi = createApi({
     baseUrl: `${import.meta.env.VITE_API!}/`,
 
     prepareHeaders: (headers) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token") || Cookies.get("credentials");
       const userData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
 
       if (userData && userData.password) {
@@ -35,7 +37,7 @@ export const userApi = createApi({
         const credentials = `${userData.email}:${password}`;
         const encodedCredentials = btoa(credentials);
 
-        headers.set("Authorization", `Basic ${encodedCredentials}`);
+        headers.set("Authorization", `Basic ${token || encodedCredentials}`);
         return headers;
       }
     },

@@ -19,7 +19,7 @@ export const Menu = () => {
 
   const logout = () => {
     localStorage.removeItem("mainUserData");
-    Cookies.remove("token");
+    Cookies.remove("credentials");
 
     document.location.reload();
   };
