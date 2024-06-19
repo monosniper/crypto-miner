@@ -15,6 +15,7 @@ import { useAppDispatch } from "@/redux/store";
 import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { NamesModals } from "@/types";
 import { setText, setTitle } from "@/redux/slices/waitingModal";
+import { CheckIcon } from "@/components/icons";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
@@ -70,11 +71,26 @@ export const PaymentFinishPage = () => {
 
         <div className="grid grid-cols-1 gap-6">
           <div className={cn("box", "p-6")}>
-            <p className="text-lg font-medium base-content-200">
+            <p className="text-lg font-medium base-content-200 flex items-center gap-2">
               Сумма{" "}
-              {searchParams.get("serverName")
-                ? `(${t("server")} - ${t(searchParams.get("serverName")!)})`
-                : ""}
+              {searchParams.get("status") &&
+              searchParams.get("status") === "waiting" ? (
+                <span className="text-yellow-500">{t("Please wait")}</span>
+              ) : (
+                <>
+                  {searchParams.get("serverName")
+                    ? `(${t("server")} - ${t(searchParams.get("serverName")!)})`
+                    : ""}
+                </>
+              )}
+              {searchParams.get("status") === "success" && (
+                <>
+                  <CheckIcon className="[&>g>path]:stroke-green-500" />{" "}
+                  <span className="font-semibold text-green-500">
+                    {t("The payment was successful")}
+                  </span>
+                </>
+              )}
             </p>
 
             <div className="mt-4 flex justify-between items-center gap-4 flex-wrap">
@@ -162,15 +178,27 @@ export const PaymentFinishPage = () => {
               </>
             )}
 
-            {type === "with-crypto" && (
-              <Button
-                className="mt-6"
-                title={payedIsLoading ? t("loading") : t("Я оплатил(а)")}
-                color="primary"
-                onClick={payedHandler}
-                disabled={payedIsLoading}
-              />
-            )}
+            {type === "with-crypto" &&
+              searchParams.get("status") !== "success" && (
+                <Button
+                  className={cn("mt-6", {
+                    "!bg-none !bg-yellow-700": Boolean(
+                      searchParams.get("status") &&
+                        searchParams.get("status") === "waiting"
+                    ),
+                  })}
+                  title={payedIsLoading ? t("loading") : t("Я оплатил(а)")}
+                  color="primary"
+                  onClick={payedHandler}
+                  disabled={
+                    payedIsLoading ||
+                    Boolean(
+                      searchParams.get("status") &&
+                        searchParams.get("status") === "waiting"
+                    )
+                  }
+                />
+              )}
           </div>
 
           <Attention className="p-6" content={<AttentionContent />} />

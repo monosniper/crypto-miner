@@ -259,6 +259,8 @@
   "Premium": "Premium",
   "Elite": "Elite",
 
-    "Thanks": "Thanks!",
-    "After checking the funds transfer, the services will be linked to your account automatically": "After checking the funds transfer, the services will be linked to your account automatically"
+  "Thanks": "Thanks!",
+  "After checking the funds transfer, the services will be linked to your account automatically": "After checking the funds transfer, the services will be linked to your account automatically",
+  "Please wait": "Please wait",
+  "The payment was successful": "The payment was successful"
 }
