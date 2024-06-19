@@ -14,6 +14,7 @@ import {
   WithdrawsItem,
 } from "@/components";
 import { useTranslation } from "react-i18next";
+import { ReplenishmentItem as ReplenishmentItemTypes } from "@/types";
 
 type Tabs = "deposits" | "convertations" | "withdraws";
 
@@ -50,14 +51,14 @@ export const History = () => {
 
   const convertationsLoading = useLoading(
     convertationsIsLoading,
-    convertationsIsFetching,
+    convertationsIsFetching
   );
 
   const withdrawsLoading = useLoading(withdrawsIsLoading, withdrawsIsFetching);
 
   const replenishmentLoading = useLoading(
     replenishmentIsLoading,
-    replenishmentIsFetching,
+    replenishmentIsFetching
   );
 
   return (
@@ -174,7 +175,7 @@ export const History = () => {
               {replenishmentList && replenishmentList.data.length > 0 ? (
                 replenishmentList.data
                   .slice(0, showMoreDeposits ? undefined : 9)
-                  .map((el) => {
+                  .map((el: ReplenishmentItemTypes) => {
                     return <ReplenishmentItem key={el.id} data={el} />;
                   })
               ) : (

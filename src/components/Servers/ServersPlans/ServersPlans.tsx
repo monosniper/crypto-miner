@@ -4,7 +4,6 @@ import { useGetPresetsQuery } from "@/redux/api/serversApi";
 import { useLoading } from "@/hooks";
 import { useState } from "react";
 import { CoinSkelet, EmptyText } from "@/components";
-import { ServerTypes } from "@/types";
 
 export const ServersPlans = () => {
   const {
