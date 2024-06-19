@@ -1,5 +1,6 @@
 import {
   ConfigurationItem,
+  Log,
   Preset,
   Server,
   ServerPlan,
@@ -64,7 +65,14 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServerById: query<{ success: boolean, data: {status: ServerStatuses} & Preset, message: string }, { id: number }>({
+    getMyServerById: query<
+      {
+        success: boolean;
+        data: { status: ServerStatuses, logs: Log[] } & Preset;
+        message: string;
+      },
+      { id: number }
+    >({
       query(params) {
         return {
           url: `me/servers/${params.id}`,

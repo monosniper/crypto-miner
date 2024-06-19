@@ -231,5 +231,19 @@
 
   "Faster withdraws within one hour": "Faster withdraws within one hour",
   "Your personal manager": "Your personal manager",
-  "Automatic restart of mining": "Automatic restart of mining"
+  "Automatic restart of mining": "Automatic restart of mining",
+
+  "location": "Location",
+  "type": "Type",
+  "port": "Port",
+  "canFarmNft": "Can farm nft",
+  "traffic": "Traffic",
+  "disk": "Disk",
+  "gpu_count": "Gpu_count",
+  "ip_count": "Ip_count",
+
+  "Server in work": "Server in work",
+
+  "hours": "hours",
+  "minutes": "minutes"
 }

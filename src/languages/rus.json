@@ -236,5 +236,19 @@
 
   "Faster withdraws within one hour": "Более быстрый вывод средств в течение одного часа",
   "Your personal manager": "Ваш персональный менеджер",
-  "Automatic restart of mining": "Автоматический перезапуск майнинга"
+  "Automatic restart of mining": "Автоматический перезапуск майнинга",
+
+  "location": "Местоположение",
+  "type": "Тип",
+  "port": "Порт",
+  "canFarmNft": "Может фармить NFT",
+  "traffic": "Трафик",
+  "disk": "Диск",
+  "gpu_count": "Gpu количество",
+  "ip_count": "IP количество",
+
+  "Server in work": "Сервер в работе",
+
+  "hours": "часов",
+  "minutes": "минут"
 }

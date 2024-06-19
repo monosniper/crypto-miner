@@ -8,6 +8,7 @@ import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
 import { useEffect, useState } from "react";
+import { getPastTimeStr } from "@/utils";
 
 // const currentDate = moment.utc();
 
@@ -29,8 +30,12 @@ export const ServerPage = () => {
   const [cpuList, setCpuList] = useState<number[]>([getRandomNumber(95, 100)]);
   const [gpuList, setGpuList] = useState<number[]>([getRandomNumber(95, 100)]);
   const [ramList, setRamList] = useState<number[]>([]);
-  const [tempCpuList, setTempCpuList] = useState<number[]>([getRandomNumber(55, 65)]);
-  const [tempGpuList, setTempGpuList] = useState<number[]>([getRandomNumber(65, 70)]);
+  const [tempCpuList, setTempCpuList] = useState<number[]>([
+    getRandomNumber(55, 65),
+  ]);
+  const [tempGpuList, setTempGpuList] = useState<number[]>([
+    getRandomNumber(65, 70),
+  ]);
 
   useEffect(() => {
     setRamList(
@@ -163,7 +168,20 @@ export const ServerPage = () => {
         </div>
       </div>
 
-      <div className="mt-6 flex flex-col gap-4 lg:gap-6">
+      {serverData?.data?.logs?.[0]?.timestamp && (
+        <div className="py-4">
+          {t("Server in work")}:{" "}
+          <span className="font-semibold">
+            {getPastTimeStr(serverData.data.logs[0].timestamp, t)}
+          </span>
+        </div>
+      )}
+
+      <div
+        className={cn("flex flex-col gap-4 lg:gap-6", {
+          "mt-6": !serverData?.data?.logs?.[0]?.timestamp,
+        })}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
           <LogsBlock
             className="h-max"
