@@ -250,5 +250,9 @@
   "Server in work": "Сервер в работе",
 
   "hours": "часов",
-  "minutes": "минут"
+  "minutes": "минут",
+
+  "finished": "Завершено",
+
+  "Accounts": "Счета"
 }

@@ -21,7 +21,7 @@ export const ReplenishmentItem: FC<Props> = ({ data }) => {
           <CloseIcon className="[&>path]:fill-red-500" width={20} height={20} />
         )}
 
-        {data.status === ReplenishmentStatuses.SUCCESS && (
+        {data.status === ReplenishmentStatuses.FINISHED && (
           <CheckIcon
             className="[&>g>path]:stroke-success"
             width={20}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, TabButton } from "@/components/ui";
 import {
   useGetConvertationsQuery,
-  useGetReplenishmentQuery,
+  useGetOrdersQuery,
   useGetWithdrawsQuery,
 } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
@@ -44,7 +44,7 @@ export const History = () => {
     data: replenishmentList,
     isLoading: replenishmentIsLoading,
     isFetching: replenishmentIsFetching,
-  } = useGetReplenishmentQuery(null, {
+  } = useGetOrdersQuery(null, {
     skip: currentTab !== "deposits",
   });
 
@@ -75,7 +75,7 @@ export const History = () => {
         <div className="p-2 w-full sm:w-1/3 md:w-max">
           <TabButton
             className="w-full"
-            title={t("deposits")}
+            title={t("Accounts")}
             selected={currentTab === "deposits"}
             onClick={() => setCurrentTab("deposits")}
           />

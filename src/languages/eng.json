@@ -245,5 +245,8 @@
   "Server in work": "Server in work",
 
   "hours": "hours",
-  "minutes": "minutes"
+  "minutes": "minutes",
+
+  "finished": "Finished",
+  "Accounts": "Accounts"
 }
