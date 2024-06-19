@@ -4,20 +4,39 @@ import { modalsOpens, setOpenModal } from "@/redux/slices/modalsOpensSlice";
 import { CloseIcon } from "@/components/icons";
 import { useTranslation } from "react-i18next";
 import { NamesModals } from "@/types";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
+import { useEffect } from "react";
+import { user } from "@/redux/slices/userSlice";
 
 export const HowUseModal = () => {
   const { isOpenHowUseModal: isOpen } = useAppSelector(modalsOpens);
+  const { isAuth } = useAppSelector(user);
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const { data: settings } = useGetSettingsQuery(null);
 
   const close = () => {
     dispatch(
       setOpenModal({
         isOpen: false,
         stateNameModal: NamesModals.isOpenHowUseModal,
-      }),
+      })
     );
   };
+
+  useEffect(() => {
+    if (!isAuth) return;
+
+    if (!localStorage.getItem("opened-video")) {
+      dispatch(
+        setOpenModal({
+          isOpen: true,
+          stateNameModal: NamesModals.isOpenHowUseModal,
+        })
+      );
+      localStorage.setItem("opened-video", JSON.stringify(true));
+    }
+  }, [dispatch, isAuth]);
 
   return (
     <ModalWrapper isOpen={isOpen}>
@@ -37,12 +56,18 @@ export const HowUseModal = () => {
             </div>
           </div>
 
-          <video
-            className="w-full h-[80vh]"
-            src="/videos/newnew.mp4"
-            controls
-            poster="/images/podarok.png"
-          ></video>
+          {settings?.video_url ? (
+            <video
+              className="w-full h-[80vh]"
+              src={settings.video_url}
+              controls
+              poster="/images/podarok.png"
+            ></video>
+          ) : (
+            <p className="min-h-[200px] flex items-center text-xl">
+              {t("The video has not been added at the moment")}
+            </p>
+          )}
         </div>
       </div>
     </ModalWrapper>

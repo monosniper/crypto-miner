@@ -213,7 +213,7 @@
 
   "save": "Save",
 
-  "how use": "How use",
+  "how use": "How to use the miner's services",
 
   "configurator": "Configurator",
 
@@ -248,5 +248,14 @@
   "minutes": "minutes",
 
   "finished": "Finished",
-  "Accounts": "Accounts"
+  "Accounts": "Accounts",
+
+  "The video has not been added at the moment": "The video has not been added at the moment",
+
+  "Base": "Base",
+  "Standard": "Standard",
+  "A profitable plan": "A profitable plan",
+  "Professional": "Professional",
+  "Premium": "Premium",
+  "Elite": "Elite"
 }

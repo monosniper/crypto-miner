@@ -32,4 +32,6 @@ export type Settings = {
     1: PartnershipItem;
     2: PartnershipItem;
   };
+  video_url: string | null;
+  wallet: string | null;
 };

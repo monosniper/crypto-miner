@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { QRCodeCanvas } from "qrcode.react";
 import { copyText } from "@/utils";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export const PaymentFinishPage = () => {
     payed,
     { data: payedData, error: payedError, isLoading: payedIsLoading },
   ] = useLazyPayedQuery();
+  const { data: settings } = useGetSettingsQuery(null);
 
   const payedHandler = () => {
     payed({ orderId: Number(searchParams.get("orderId")) });
@@ -55,7 +57,10 @@ export const PaymentFinishPage = () => {
         <div className="grid grid-cols-1 gap-6">
           <div className={cn("box", "p-6")}>
             <p className="text-lg font-medium base-content-200">
-              Сумма (Сервер - Максимальный)
+              Сумма{" "}
+              {searchParams.get("serverName")
+                ? `(${t("server")} - ${t(searchParams.get("serverName")!)})`
+                : ""}
             </p>
 
             <div className="mt-4 flex justify-between items-center gap-4 flex-wrap">
@@ -105,7 +110,9 @@ export const PaymentFinishPage = () => {
                   </p>
 
                   <div className="flex items-center gap-4 text-xl flex-wrap">
-                    <p className="truncate w-max">TUPr4wqgqqUDXnt5VdUn3Px15W</p>
+                    {settings?.wallet && (
+                      <p className="truncate w-max">{settings?.wallet}</p>
+                    )}
                     <div
                       className="cursor-pointer"
                       onClick={() => {

@@ -5,7 +5,7 @@ export const getPastTimeStr = (
   t: TFunction<"translation", undefined>
 ) => {
   const createdDate = new Date(time);
-  
+
   const now = new Date();
 
   const diffMs = now.getTime() - createdDate.getTime();

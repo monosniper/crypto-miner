@@ -68,6 +68,7 @@ export type Configurator = {
   gpu_count: string;
   canFarmNft: string;
   notifications: string;
+  type: string;
 };
 
 export type ConfiguratorField = {

@@ -218,7 +218,7 @@
 
   "save": "Сохранить",
 
-  "how use": "Как использовать",
+  "how use": "Как пользоваться услугами майнера",
 
   "configurator": "Конфигуратор",
 
@@ -254,5 +254,13 @@
 
   "finished": "Завершено",
 
-  "Accounts": "Счета"
+  "Accounts": "Счета",
+  "The video has not been added at the moment": "Видео на данный момент не добавлено",
+
+  "Base": "Базовый",
+  "Standard": "Стандартный",
+  "A profitable plan": "Выгодный план",
+  "Professional": "Профессиональный",
+  "Premium": "Премиум",
+  "Elite": "Элитный"
 }
