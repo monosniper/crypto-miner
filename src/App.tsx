@@ -15,6 +15,7 @@ import { setText, setTitle } from "./redux/slices/successModal";
 import { NamesModals } from "./types";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { WaitingModal } from "./components/Modals/WaitingModal/WaitingModal";
 
 const App = () => {
   const { theme } = useAppSelector(main);
@@ -190,6 +191,7 @@ const App = () => {
       <Tooltip id="mining-server" />
 
       <SuccessModal />
+      <WaitingModal />
 
       <HowUseModal />
     </div>

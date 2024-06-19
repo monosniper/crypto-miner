@@ -9,6 +9,7 @@ import coinsReducer from "./slices/coinsSlice";
 import withdrawNftReducer from "./slices/withdrawNftModalSlice";
 import miningReducer from "./slices/miningSlice";
 import successModalReducer from "./slices/successModal";
+import waitingModalReducer from "./slices/waitingModal";
 import infoModalReducer from "./slices/infoModalSlice";
 import configuratorReducer from "./slices/configurator.slice";
 import presetsReducer from "./slices/presets.slice";
@@ -32,6 +33,7 @@ export const rootReducer = combineReducers({
   infoModal: infoModalReducer,
   configurator: configuratorReducer,
   presets: presetsReducer,
+  waitingModal: waitingModalReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,

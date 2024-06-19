@@ -12,6 +12,7 @@ type InitialState = {
   isOpenSuccessModal: boolean;
   isOpenInfoModal: boolean;
   isOpenHowUseModal: boolean;
+  isOpenWaitingModal: boolean;
 };
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
   isOpenSuccessModal: false,
   isOpenInfoModal: false,
   isOpenHowUseModal: false,
+  isOpenWaitingModal: false,
 };
 
 export const modalsOpensSlice = createSlice({

@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 import { QRCodeCanvas } from "qrcode.react";
 import { copyText } from "@/utils";
 import { useGetSettingsQuery } from "@/redux/api/mainApi";
+import { useAppDispatch } from "@/redux/store";
+import { setOpenModal } from "@/redux/slices/modalsOpensSlice";
+import { NamesModals } from "@/types";
+import { setText, setTitle } from "@/redux/slices/waitingModal";
 
 export const PaymentFinishPage = () => {
   const { t } = useTranslation();
@@ -22,6 +26,7 @@ export const PaymentFinishPage = () => {
     { data: payedData, error: payedError, isLoading: payedIsLoading },
   ] = useLazyPayedQuery();
   const { data: settings } = useGetSettingsQuery(null);
+  const dispatch = useAppDispatch();
 
   const payedHandler = () => {
     payed({ orderId: Number(searchParams.get("orderId")) });
@@ -30,12 +35,21 @@ export const PaymentFinishPage = () => {
   useEffect(() => {
     if (!payedData) return;
 
-    toast.success(
-      t("success") +
-        " " +
-        t("After verification, the funds will be linked to your account")
+    dispatch(
+      setOpenModal({
+        isOpen: true,
+        stateNameModal: NamesModals.isOpenWaitingModal,
+      })
     );
-  }, [payedData, t]);
+    dispatch(setTitle(t("Thanks")));
+    dispatch(
+      setText(
+        t(
+          "After checking the funds transfer, the services will be linked to your account automatically"
+        )
+      )
+    );
+  }, [dispatch, payedData, t]);
 
   useEffect(() => {
     if (!payedError) return;
