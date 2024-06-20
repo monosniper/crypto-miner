@@ -27,6 +27,7 @@ export const PaymentFinishPage = () => {
     { data: payedData, error: payedError, isLoading: payedIsLoading },
   ] = useLazyPayedQuery();
   const { data: settings } = useGetSettingsQuery(null);
+  console.log(settings);
   const dispatch = useAppDispatch();
 
   const payedHandler = () => {
@@ -146,7 +147,9 @@ export const PaymentFinishPage = () => {
                     <div
                       className="cursor-pointer"
                       onClick={() => {
-                        copyText(`TUPr4wqgqqUDXnt5VdUn3Px15W`);
+                        if (!settings?.wallet) return;
+
+                        copyText(settings.wallet);
 
                         toast.success(t("the text has been copied"));
                       }}
