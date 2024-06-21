@@ -28,7 +28,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
     networkPrice,
     additionalPrice,
     totalPrice,
-  } = useConfiguratorPrice({ base, configuration, oc, network, additional });
+  } = useConfiguratorPrice({ base, configuration, oc, network, additional, selectedCoins });
 
   return (
     <div

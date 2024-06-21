@@ -34,4 +34,5 @@ export type Settings = {
   };
   video_url: string | null;
   wallet: string | null;
+  coin_prices: { [key: string]: string };
 };

@@ -10,6 +10,7 @@ import { useConfigurator } from "./useConfigurator";
 import { setPrice } from "@/redux/slices/configurator.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { presets } from "@/redux/slices/presets.slice";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 
 type Args = {
   configuration?: Configuration;
@@ -17,6 +18,7 @@ type Args = {
   oc?: OcConfigurator;
   network?: NetworkConfigurator;
   additional?: AdditionalConfigurator;
+  selectedCoins: number[];
 };
 
 // data: Args = данные из react-hook-form
@@ -24,12 +26,14 @@ type Args = {
 export const useConfiguratorPrice = (data: Args) => {
   const { configuration, base, oc, network, additional } = useConfigurator(); // Отфильтрованные данные из useGetConfigurationQuery
   const { price: presetPrice } = useAppSelector(presets);
+  const { data: settings } = useGetSettingsQuery(null);
 
   const [basePrice, setBasePrice] = useState(0);
   const [configurationPrice, setConfigurationPrice] = useState(0);
   const [ocPrice, setOcPrice] = useState(0);
   const [networkPrice, setNetworkPrice] = useState(0);
   const [additionalPrice, setAdditionalPrice] = useState(0);
+  const [coinsPrice, setCoinsPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
 
@@ -137,11 +141,33 @@ export const useConfiguratorPrice = (data: Args) => {
   ]);
 
   useEffect(() => {
-    const sum = basePrice + configurationPrice + ocPrice + networkPrice;
+    let sum = 0;
+
+    for (let i = 0; i < data.selectedCoins.length; i++) {
+      const coinId = data.selectedCoins[i];
+
+      const coinPrice = Number(settings?.coin_prices[coinId.toString()]);
+
+      sum += coinPrice;
+    }
+
+    setCoinsPrice(sum);
+  }, [data.selectedCoins, settings?.coin_prices]);
+
+  useEffect(() => {
+    const sum =
+      basePrice + configurationPrice + ocPrice + networkPrice + coinsPrice;
 
     setTotalPrice(sum);
     dispatch(setPrice(sum));
-  }, [basePrice, configurationPrice, ocPrice, networkPrice, dispatch]);
+  }, [
+    basePrice,
+    configurationPrice,
+    ocPrice,
+    networkPrice,
+    dispatch,
+    coinsPrice,
+  ]);
 
   useEffect(() => {
     if (presetPrice === undefined) return;
@@ -155,6 +181,7 @@ export const useConfiguratorPrice = (data: Args) => {
     ocPrice,
     networkPrice,
     additionalPrice,
+    coinsPrice,
     totalPrice,
   };
 };
