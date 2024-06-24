@@ -8,6 +8,7 @@ export * from "./Buttons/ShowMoreBtn/ShowMoreBtn";
 export * from "./Buttons/Buy/Buy";
 export * from "./Buttons/TabButton/TabButton";
 export * from "./Buttons/HelpBtn/HelpBtn";
+export * from "./Buttons/HogyxTapButton/HogyxTapButton";
 
 // INPUTS
 

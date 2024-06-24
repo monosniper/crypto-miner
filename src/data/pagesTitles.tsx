@@ -19,4 +19,5 @@ export const pagesTitles: {
   "/user-servers": "your servers",
   "/profile": "profile",
   "/configurator": "Server Configurator",
+  "/cooperation": "Cooperation",
 };
