@@ -45,7 +45,10 @@ export const userApi = createApi({
 
   tagTypes: ["convertations", "coins", "nfts", "ref", "orders"],
   endpoints: ({ query, mutation }) => ({
-    getMe: query<{ data: User }, { email: string; password: string | number }>({
+    getMe: query<
+      { data: User },
+      { email: string; password: string | number; connect?: string }
+    >({
       query(params) {
         const credentials = `${params.email}:${params.password}`;
 
@@ -54,6 +57,9 @@ export const userApi = createApi({
           method: "GET",
           headers: {
             Authorization: `Basic ${btoa(credentials)}`,
+          },
+          params: {
+            connect: params.connect,
           },
         };
       },
