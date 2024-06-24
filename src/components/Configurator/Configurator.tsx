@@ -244,7 +244,7 @@ export const Configurator = ({
                       list={list}
                       defaultValue={methods.watch(
                         `base.${el.slug as keyof BaseConfigurator}`
-                      )}
+                      ) as any}
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,

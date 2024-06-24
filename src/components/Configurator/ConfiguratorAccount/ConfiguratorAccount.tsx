@@ -28,7 +28,14 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
     networkPrice,
     additionalPrice,
     totalPrice,
-  } = useConfiguratorPrice({ base, configuration, oc, network, additional, selectedCoins });
+  } = useConfiguratorPrice({
+    base,
+    configuration,
+    oc,
+    network,
+    additional,
+    selectedCoins,
+  });
 
   return (
     <div
@@ -69,7 +76,7 @@ export const ConfiguratorAccount: FC<Props> = ({ control, selectedCoins }) => {
             {base &&
               Object.entries(base).map((el, idx) => (
                 <p key={idx}>
-                  {t(el[0])}: {el[1]}
+                  {t(el[0])}: {el[1] as any}
                 </p>
               ))}
           </div>
