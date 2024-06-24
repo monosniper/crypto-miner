@@ -14,6 +14,7 @@ import { useOutside } from "@/hooks";
 import { Select } from "@/components/ui";
 import { languagesData } from "@/data";
 import { useTranslation } from "react-i18next";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 
 type Props = {
   isLaptop: boolean;
@@ -24,6 +25,7 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
   const ref = useRef(null);
   const dispatch = useAppDispatch();
   const { i18n, t } = useTranslation();
+  const { data: settings } = useGetSettingsQuery(null);
 
   useOutside(ref, () => dispatch(setOpenSidebar(false)));
 
@@ -67,6 +69,36 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
 
             <TelegramLink />
           </div> */}
+
+          {settings?.offers_mail && (
+            <div className="flex flex-col gap-4 px-6 mt-4">
+              <p className="text-xs text-base-content-300">
+                {t("Contact us and suggestions")}
+              </p>
+
+              <a
+                className="text-base-content-100"
+                href={`mailto:${settings.offers_mail}`}
+              >
+                {settings.offers_mail}
+              </a>
+            </div>
+          )}
+
+          {settings?.work_mail && (
+            <div className="flex flex-col gap-4 px-6 mt-4">
+              <p className="text-xs text-base-content-300">
+                {t("To work with us")}
+              </p>
+
+              <a
+                className="text-base-content-100"
+                href={`mailto:${settings.work_mail}`}
+              >
+                {settings.work_mail}
+              </a>
+            </div>
+          )}
 
           <div className="flex flex-col gap-4 px-6 mt-4">
             <p className="text-xs text-base-content-300">{t("our-socials")}</p>
