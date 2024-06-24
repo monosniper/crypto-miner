@@ -24,7 +24,7 @@ export const ConverterPage = () => {
   const [fromCoinId, setFromCoinId] = useState<number>();
   const [toCoinId, setToCoinId] = useState<number>();
   const [formatCoins, setFormatCoins] = useState<
-    { title: string; value: number }[]
+    { title: string; value: number; icon?: string }[]
   >([]);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export const ConverterPage = () => {
       return {
         title: coin.slug,
         value: coin.id,
+        icon: coin.icon_url,
       };
     });
 

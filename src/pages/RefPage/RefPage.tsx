@@ -52,38 +52,32 @@ export const RefPage = () => {
         </FieldWrapper>
       </div>
 
-      <div className="flex items-start mt-8 flex-wrap gap-4">
-        {/* <img
-          className="w-full sm:max-w-[300px]"
-          src="/images/podarok.png"
-          alt="podarok"
-        /> */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-8">
+        <div className="box p-4 lg:p-6">
+          <h4 className="font-medium text-base">{t("number of referrals")}:</h4>
 
-        <div className="box p-6 w-full sm:flex-1">
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-              <b>{t("number of referrals")}:</b>
-
-              <span>{refData?.data?.total_refs || 0}</span>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <b>{t("the number of deposits")}:</b>
-
-              <span>{refData?.data?.total_refs_amount || 0}</span>
-            </div>
-          </div>
+          <p className="text-3xl font-bold mt-4">
+            {refData?.data?.total_refs || 0}
+          </p>
         </div>
-        <div className="box p-6 w-full sm:flex-1">
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-              <b>{t("the percentage received")}:</b>
+        <div className="box p-4 lg:p-6">
+          <h4 className="font-medium text-base">
+            {t("the number of deposits")}:
+          </h4>
 
-              <span>
-                {refData?.data ? refData.data.total_refs_amount / 10 : 0}
-              </span>
-            </div>
-          </div>
+          <p className="text-3xl font-bold mt-4">
+            {" "}
+            {refData?.data?.total_refs_amount || 0}
+          </p>
+        </div>
+        <div className="box p-4 lg:p-6">
+          <h4 className="font-medium text-base">
+            {t("the percentage received")}:
+          </h4>
+
+          <p className="text-3xl font-bold mt-4">
+            {refData?.data ? refData.data.total_refs_amount / 10 : 0}
+          </p>
         </div>
       </div>
     </div>

@@ -81,7 +81,12 @@ export const useConfiguratorPrice = (data: Args) => {
 
       if (!foundOption) return;
 
-      baseSum += foundOption.price;
+      if (el[0] === "gpu") {
+        // Calculate GPU price based on gpu_count
+        baseSum += foundOption.price * Number(data?.base?.gpu_count);
+      } else {
+        baseSum += foundOption.price;
+      }
     });
 
     Object.entries(data.oc).forEach((el) => {
