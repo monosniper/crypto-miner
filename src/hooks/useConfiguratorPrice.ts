@@ -5,7 +5,7 @@ import {
   NetworkConfigurator,
   OcConfigurator,
 } from "@/types";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useConfigurator } from "./useConfigurator";
 import { setPrice } from "@/redux/slices/configurator.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
@@ -37,18 +37,6 @@ export const useConfiguratorPrice = (data: Args) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
 
-  const calculateSum = (data: Record<string, string>, configurator: any[]) => {
-    return Object.entries(data).reduce((sum, [key, value]) => {
-      const foundMoreData = configurator.find(
-        (confItem) => confItem.slug === key
-      );
-      const foundOption = foundMoreData?.options.find(
-        (option: any) => option.title === value
-      );
-      return sum + (foundOption?.price || 0);
-    }, 0);
-  };
-
   useEffect(() => {
     if (
       !configuration ||
@@ -64,32 +52,117 @@ export const useConfiguratorPrice = (data: Args) => {
     )
       return;
 
-    setConfigurationPrice(calculateSum(data.configuration, configuration));
-    setBasePrice(calculateSum(data.base, base));
-    setOcPrice(calculateSum(data.oc, oc));
-    setNetworkPrice(calculateSum(data.network, network));
-    setAdditionalPrice(calculateSum(data.additional, additional));
-  }, [base, configuration, oc, network, additional, data]);
+    let configurationSum = 0;
+    let baseSum = 0;
+    let ocSum = 0;
+    let networkSum = 0;
+    let additionalSum = 0;
+
+    Object.entries(data.configuration).forEach((el) => {
+      const foundMoreData = configuration.find(
+        (confItem) => confItem.slug === el[0]
+      );
+
+      const foundOption = foundMoreData?.options.find(
+        (option) => option.title === el[1]
+      );
+
+      if (!foundOption) return;
+
+      configurationSum += foundOption.price;
+    });
+
+    Object.entries(data.base).forEach((el) => {
+      const foundMoreData = base.find((confItem) => confItem.slug === el[0]);
+
+      const foundOption = foundMoreData?.options.find(
+        (option) => option.title === el[1]
+      );
+
+      if (!foundOption) return;
+
+      if (el[0] === "gpu") {
+        // Calculate GPU price based on gpu_count
+        baseSum += foundOption.price * Number(data?.base?.gpu_count);
+      } else {
+        baseSum += foundOption.price;
+      }
+    });
+
+    Object.entries(data.oc).forEach((el) => {
+      const foundMoreData = oc.find((confItem) => confItem.slug === el[0]);
+
+      const foundOption = foundMoreData?.options.find(
+        (option) => option.title === el[1]
+      );
+
+      if (!foundOption) return;
+
+      ocSum += foundOption.price;
+    });
+
+    Object.entries(data.network).forEach((el) => {
+      const foundMoreData = network.find((confItem) => confItem.slug === el[0]);
+
+      const foundOption = foundMoreData?.options.find(
+        (option) => option.title === el[1]
+      );
+
+      if (!foundOption) return;
+
+      networkSum += foundOption.price;
+    });
+
+    Object.entries(data.additional).forEach((el) => {
+      const foundMoreData = additional.find(
+        (confItem) => confItem.slug === el[0]
+      );
+
+      const foundOption = foundMoreData?.options.find(
+        (option) => option.title === el[1]
+      );
+
+      if (!foundOption) return;
+
+      additionalSum += foundOption.price;
+    });
+
+    setConfigurationPrice(configurationSum);
+    setBasePrice(baseSum);
+    setOcPrice(ocSum);
+    setNetworkPrice(networkSum);
+    setAdditionalPrice(additionalSum);
+  }, [
+    base,
+    configuration,
+    oc,
+    network,
+    additional,
+    data.base,
+    data.configuration,
+    data.oc,
+    data.network,
+    data.additional,
+  ]);
 
   useEffect(() => {
-    if (!settings) return;
+    let sum = 0;
 
-    const sum = data.selectedCoins.reduce((acc, coinId) => {
-      const coinPrice = Number(settings.coin_prices[coinId.toString()]);
-      return acc + coinPrice;
-    }, 0);
+    for (let i = 0; i < data.selectedCoins.length; i++) {
+      const coinId = data.selectedCoins[i];
+
+      const coinPrice = Number(settings?.coin_prices[coinId.toString()]);
+
+      sum += coinPrice;
+    }
 
     setCoinsPrice(sum);
-  }, [data.selectedCoins, settings]);
+  }, [data.selectedCoins, settings?.coin_prices]);
 
   useEffect(() => {
     const sum =
-      basePrice +
-      configurationPrice +
-      ocPrice +
-      networkPrice +
-      additionalPrice +
-      coinsPrice;
+      basePrice + configurationPrice + ocPrice + networkPrice + coinsPrice;
+
     setTotalPrice(sum);
     dispatch(setPrice(sum));
   }, [
@@ -97,35 +170,23 @@ export const useConfiguratorPrice = (data: Args) => {
     configurationPrice,
     ocPrice,
     networkPrice,
-    additionalPrice,
-    coinsPrice,
     dispatch,
+    coinsPrice,
   ]);
 
   useEffect(() => {
-    if (presetPrice !== undefined) {
-      setTotalPrice(presetPrice);
-    }
+    if (presetPrice === undefined) return;
+
+    setTotalPrice(presetPrice);
   }, [presetPrice]);
 
-  return useMemo(
-    () => ({
-      basePrice,
-      configurationPrice,
-      ocPrice,
-      networkPrice,
-      additionalPrice,
-      coinsPrice,
-      totalPrice,
-    }),
-    [
-      basePrice,
-      configurationPrice,
-      ocPrice,
-      networkPrice,
-      additionalPrice,
-      coinsPrice,
-      totalPrice,
-    ]
-  );
+  return {
+    basePrice,
+    configurationPrice,
+    ocPrice,
+    networkPrice,
+    additionalPrice,
+    coinsPrice,
+    totalPrice,
+  };
 };

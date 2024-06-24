@@ -30,6 +30,7 @@ export type PersonalFormData = {
 };
 
 export type BaseConfigurator = {
+  find(arg0: (confItem: any) => boolean): unknown;
   cpu: string;
   ram: string;
   disk: string;
