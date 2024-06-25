@@ -56,12 +56,11 @@ export const HowUseModal = () => {
             </div>
           </div>
 
-          {settings?.video_url ? (
+          {settings?.how_video ? (
             <video
               className="w-full h-[80vh]"
-              src={settings.video_url}
+              src={settings.how_video}
               controls
-              poster="/images/podarok.png"
             ></video>
           ) : (
             <p className="min-h-[200px] flex items-center text-xl">

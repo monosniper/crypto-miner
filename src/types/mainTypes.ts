@@ -32,7 +32,8 @@ export type Settings = {
     1: PartnershipItem;
     2: PartnershipItem;
   };
-  video_url: string | null;
+  landing_video: string | null;
+  how_video: string | null;
   wallet: string | null;
   coin_prices: { [key: string]: string };
   offers_mail?: string;
