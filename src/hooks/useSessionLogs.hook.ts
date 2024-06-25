@@ -19,8 +19,8 @@ export const useSessionLogs = (sessionData?: Session) => {
   const encryptedPassword = getEncryptedPassword();
 
   useEffect(() => {
-    const servers = sessionData?.data.servers;
-    const sessionLogs = sessionData?.data.logs;
+    const servers = sessionData?.data?.servers;
+    const sessionLogs = sessionData?.data?.logs;
 
     if (!servers) return;
 
@@ -111,7 +111,7 @@ export const useSessionLogs = (sessionData?: Session) => {
     const { data: user } = getMeData;
 
     dispatch(setUserData(user));
- 
+
     if (!user.session) {
       dispatch(
         setOpenModal({

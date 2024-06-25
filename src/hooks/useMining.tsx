@@ -43,7 +43,7 @@ export const useMining = () => {
       (id) => id !== serverId
     );
 
-    dispatch(setSelectedServers(serversWithoutThisId));
+    dispatch(setSelectedServers(serversWithoutThisId || []));
   };
 
   const toggleCoinSelection = (coin: Coin) => {
@@ -61,7 +61,7 @@ export const useMining = () => {
   const getCoins = () => {
     const coins: Coin[] = [];
 
-    for (let i = 0; i < selectedServers.length; i++) {
+    for (let i = 0; i < selectedServers?.length; i++) {
       const serverId = selectedServers[i];
 
       const server = serversList?.data.find((server) => server.id === serverId);

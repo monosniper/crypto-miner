@@ -60,7 +60,7 @@ export const MiningPage = () => {
   }, [dispatch, userDataApi]);
 
   useEffect(() => {
-    if (!sessionData) return;
+    if (!sessionData?.data) return;
 
     dispatch(
       setOpenModal({
@@ -127,7 +127,7 @@ export const MiningPage = () => {
                       (item) => item === el.id
                     );
                     const inWork =
-                      Boolean(foundSelectedCoin && sessionData) || false;
+                      Boolean(foundSelectedCoin && sessionData?.data) || false;
 
                     return (
                       <div
@@ -135,6 +135,7 @@ export const MiningPage = () => {
                         className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
                       >
                         <CoinBlock
+                        className="cursor-pointer"
                           data={el}
                           type="mining"
                           selected={
@@ -143,7 +144,7 @@ export const MiningPage = () => {
                               : false
                           }
                           onClick={() => {
-                            if (!sessionData) {
+                            if (!sessionData?.data) {
                               toggleCoinSelection(el);
                             }
                           }}
@@ -157,7 +158,7 @@ export const MiningPage = () => {
               <Button
                 className="mx-auto mt-6 min-w-[150px]"
                 title={
-                  userData?.session || sessionData
+                  userData?.session || sessionData?.data
                     ? t("at work")
                     : !sessionIsLoading
                     ? t("start")
@@ -166,14 +167,16 @@ export const MiningPage = () => {
                 color="primary"
                 onClick={startMiner}
                 disabled={
-                  userData?.session || sessionData ? true : sessionIsLoading
+                  userData?.session || sessionData?.data
+                    ? true
+                    : sessionIsLoading
                 }
               />
             </div>
           )}
 
           {coins.length === 0 &&
-            selectedServers.length === 0 &&
+            selectedServers?.length === 0 &&
             !userData?.session && (
               <div className="flex flex-col flex-grow">
                 <EmptyText text={t("select servers")} />
@@ -184,12 +187,12 @@ export const MiningPage = () => {
         {(coins.length > 0 || userData?.session) && (
           <div className="mt-16">
             <div className="flex items-center justify-between gap-4 flex-wrap mb-6">
-              {((sessionData && sessionData.data.end_at) ||
+              {((sessionData?.data && sessionData.data?.end_at) ||
                 userData?.session) && (
                 <p>
                   {t("Approximate end time of the session")}:{"  "}
                   <span className="text-purple-2">
-                    {sessionData &&
+                    {sessionData?.data &&
                       moment
                         .utc(sessionData.data.end_at)
                         .local()
@@ -198,7 +201,7 @@ export const MiningPage = () => {
                 </p>
               )}
 
-              {sessionData && sessionData.data.end_at && (
+              {sessionData && sessionData.data?.end_at && (
                 <p className="text-gray-1">
                   {t(
                     "the server is mining. After the time expires, the money will be credited to the wallet section"
