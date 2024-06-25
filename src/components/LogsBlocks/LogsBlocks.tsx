@@ -95,7 +95,7 @@ export const LogsBlocks: FC<Props> = ({
                 className="text-purple-3"
                 onClick={() => setVisibleLeft(visibleLeft + INITIAL_LOGS_COUNT)}
               >
-                {t("show more")}
+                {t("show-more")}
               </button>
             )}
           </div>
@@ -115,7 +115,7 @@ export const LogsBlocks: FC<Props> = ({
                   setVisibleRight(visibleRight + INITIAL_LOGS_COUNT)
                 }
               >
-                {t("show more")}
+                {t("show-more")}
               </button>
             )}
           </div>
@@ -138,7 +138,7 @@ export const LogsBlocks: FC<Props> = ({
                   setVisibleLeftTwo(visibleLeftTwo + INITIAL_LOGS_COUNT)
                 }
               >
-                {t("show more")}
+                {t("show-more")}
               </button>
             )}
           </div>
@@ -161,7 +161,7 @@ export const LogsBlocks: FC<Props> = ({
                   setVisibleRightTwo(visibleRightTwo + INITIAL_LOGS_COUNT)
                 }
               >
-                {t("show more")}
+                {t("show-more")}
               </button>
             )}
           </div>
