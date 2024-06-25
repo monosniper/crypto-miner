@@ -5,11 +5,17 @@ import {
   Notification,
   ReplenishmentItem,
   User,
+  UserRef,
   WithdrawsBody,
   WithdrawsItem,
+  OrderPostBody,
+  OrderPatchBody,
+  PersonalFormData,
+  Order,
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
+import Cookies from "js-cookie";
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -17,27 +23,32 @@ export const userApi = createApi({
     baseUrl: `${import.meta.env.VITE_API!}/`,
 
     prepareHeaders: (headers) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get("token") || Cookies.get("credentials");
       const userData = JSON.parse(localStorage.getItem("mainUserData") || "{}");
 
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
         const credentials = `${userData.email}:${password}`;
         const encodedCredentials = btoa(credentials);
 
-        headers.set("Authorization", `Basic ${encodedCredentials}`);
+        headers.set("Authorization", `Basic ${token || encodedCredentials}`);
         return headers;
       }
     },
   }),
 
-  tagTypes: ["convertations", "coins"],
+  tagTypes: ["convertations", "coins", "nfts", "ref", "orders"],
   endpoints: ({ query, mutation }) => ({
-    getMe: query<{ data: User }, { email: string; password: string | number }>({
+    getMe: query<
+      { data: User },
+      { email: string; password: string | number; connect?: string }
+    >({
       query(params) {
         const credentials = `${params.email}:${params.password}`;
 
@@ -47,17 +58,41 @@ export const userApi = createApi({
           headers: {
             Authorization: `Basic ${btoa(credentials)}`,
           },
-
-          params,
+          params: {
+            connect: params.connect,
+          },
         };
       },
     }),
 
     getMeData: query<{ data: User }, null>({
       query() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token") || Cookies.get("credentials");
+
         return {
           url: "me",
           method: "GET",
+          headers: {
+            Authorization: `Basic ${token}`,
+          },
+        };
+      },
+    }),
+
+    updateMe: mutation<
+      { data: boolean; message: string; success: boolean },
+      Partial<PersonalFormData>
+    >({
+      query(body) {
+        return {
+          url: "me",
+          method: "PUT",
+          body,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         };
       },
     }),
@@ -95,7 +130,7 @@ export const userApi = createApi({
       },
     }),
 
-    getWallet: query<{ data: { balance: Balance; nfts: Nft[] } }, null>({
+    getWallet: query<{ data: { balance: Balance } }, null>({
       query() {
         return {
           url: "me/wallet",
@@ -140,7 +175,7 @@ export const userApi = createApi({
     getCoinsPositions: query<{ id: number; hide?: boolean }[], null>({
       query() {
         return {
-          url: "me/coins",
+          url: "coins",
           method: "GET",
         };
       },
@@ -247,6 +282,97 @@ export const userApi = createApi({
         };
       },
     }),
+
+    getNfts: query<{ success: boolean; data: Nft[]; message: string }, null>({
+      query() {
+        return {
+          url: "me/nfts",
+          method: "GET",
+        };
+      },
+
+      providesTags: ["nfts"],
+    }),
+
+    getRef: query<
+      {
+        success: boolean;
+        data?: UserRef;
+        message: string;
+      },
+      null
+    >({
+      query() {
+        return {
+          url: "me/ref",
+          methodL: "GET",
+        };
+      },
+
+      providesTags: ["ref"],
+    }),
+
+    setOrder: mutation<Order, OrderPostBody>({
+      query(body) {
+        return {
+          url: "me/orders",
+          method: "POST",
+          body,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        };
+      },
+
+      invalidatesTags: ["orders"],
+    }),
+
+    patchOrder: mutation<any, OrderPatchBody>({
+      query(body) {
+        return {
+          url: `me/orders/{orders_id}`,
+          method: "PATCH",
+          body,
+        };
+      },
+
+      invalidatesTags: ["orders"],
+    }),
+
+    getOrders: query<any, null>({
+      query() {
+        return {
+          url: "me/orders/",
+          method: "GET",
+        };
+      },
+
+      providesTags: ["orders"],
+    }),
+
+    getOrdersById: query<any, { order_id: number }>({
+      query(params) {
+        return {
+          url: `me/orders/${params.order_id}`,
+          method: "GET",
+        };
+      },
+
+      providesTags: ["orders"],
+    }),
+
+    payed: query<
+      { success: boolean; data: boolean; message: string },
+      { orderId: number }
+    >({
+      query(params) {
+        return {
+          url: `me/orders/payed/${params.orderId}/`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -271,4 +397,12 @@ export const {
   useUpdatePasswordMutation,
   useGetMeDataQuery,
   useLazyGetMeDataQuery,
+  useGetNftsQuery,
+  useGetRefQuery,
+  useSetOrderMutation,
+  usePatchOrderMutation,
+  useGetOrdersByIdQuery,
+  useGetOrdersQuery,
+  useUpdateMeMutation,
+  useLazyPayedQuery,
 } = userApi;

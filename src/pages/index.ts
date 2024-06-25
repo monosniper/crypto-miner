@@ -18,3 +18,8 @@ export * from "./PrivacyPolicyPage/PrivacyPolicyPage";
 export * from "./UserServersPage/UserServersPage";
 export * from "./PasswordRecoveryPage/PasswordRecoveryPage";
 export * from "./NewPasswordPage/NewPasswordPage";
+export * from "./PaymentPage/PaymentPage";
+export * from "./PaymentFinishPage/PaymentFinishPage";
+export * from "./ProfilePage/ProfilePage";
+export * from "./ConfiguratorPage/ConfiguratorPage";
+export * from "./CooperationPage/CooperationPage";

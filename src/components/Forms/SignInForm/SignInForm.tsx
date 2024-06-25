@@ -7,7 +7,7 @@ import { useLazyGetMeQuery } from "@/redux/api/userApi";
 import { useLoading } from "@/hooks";
 import { useAppDispatch } from "@/redux/store";
 import { setUserData } from "@/redux/slices/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
@@ -19,11 +19,17 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
   const [password, setPassword] = useState<string>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
 
   const formHandler = ({ email, password }: SignInFormData) => {
+    const connectParam = searchParams.get("connect") || undefined;
+
+    console.log(connectParam);
+
     getMe({
       email,
       password,
+      connect: connectParam,
     });
 
     setPassword(password);
@@ -39,7 +45,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       const hashedPassword = CryptoJS.AES.encrypt(
         password,
-        import.meta.env.VITE_CRYPT_KEY,
+        import.meta.env.VITE_CRYPT_KEY
       ).toString();
 
       const token = data.data.token;
@@ -53,7 +59,19 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       Cookies.set("token", token);
 
-      document.location.reload();
+      const pick = async () => {
+        await fetch(
+          `https://tap-api.hogyx.io/api/site-visited/${data.data.id}`,
+
+          {
+            method: "PATCH",
+          }
+        );
+      };
+
+      pick().then(() => {
+        document.location.reload();
+      });
     }
   }, [data, dispatch, navigate, password]);
 

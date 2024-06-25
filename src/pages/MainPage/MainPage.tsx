@@ -1,4 +1,5 @@
 import { Coins, Convertations, News, Title } from "@/components";
+import { HogyxTapButton } from "@/components/ui";
 import { useLoading } from "@/hooks";
 import { useGetArticlesQuery } from "@/redux/api/articlesApi";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
@@ -27,18 +28,20 @@ export const MainPage = () => {
   const coinsLoading = useLoading(isLoading, isFetching);
   const convertationsLoading = useLoading(
     convertationsIsLoading,
-    convertationsIsFetching,
+    convertationsIsFetching
   );
   const articlesLoading = useLoading(articlesIsLoading, articlesIsFetching);
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-4 mb-4">
         <Title className="flex lg:hidden pb-6" title={t("main")} />
+      </div>
 
-        <div className="flex items-center gap-5 flex-wrap justify-start mb-4">
+      <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
+        <div className="flex flex-col lg:flex-row items-center gap-5 flex-wrap w-full sm:w-max">
           <button
-            className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100 border-solid"
+            className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100 border-solid w-full sm:w-max"
             onClick={() => dispatch(setShowHideCoins(!showHideCoins))}
           >
             {showHideCoins ? t("dont-show-hidden") : t("show-hidden")}
@@ -48,9 +51,11 @@ export const MainPage = () => {
             {t("coins can be dragged with the mouse")}
           </p>
         </div>
+
+        <HogyxTapButton />
       </div>
 
-      <p className="text-xs text-center sm:text-right pb-4 text-gray-1 lg:hidden block">
+      <p className="text-xs text-center sm:text-left pb-4 text-gray-1 lg:hidden block">
         {t("coins can be dragged with the mouse")}
       </p>
 

@@ -1,0 +1,16 @@
+.wrapper {
+  @apply w-full h-5 bg-[rgba(255,255,255,0.19)] flex justify-between items-center gap-4 relative rounded-[5px] px-2 text-xs;
+}
+
+.totalProgress {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  box-shadow: 0 4px 13px -7px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(90deg, #5b39b8 0%, #d0c0fc 100%);
+  border-radius: 5px;
+  z-index: 0;
+}

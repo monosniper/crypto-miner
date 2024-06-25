@@ -50,8 +50,8 @@
   "buy server": "Купить сервер",
 
   "server in work": "В работе",
-  "server active": "Оплачен",
-  "server not active": "Не оплачен",
+  "server active": "Активен",
+  "server not active": "Не активен",
   "server reload": "Перезагружается",
 
   "restart": "Перезагрузить",
@@ -180,5 +180,100 @@
   "the session is over": "Сессия закончилась",
   "you can view the report on the server page": "Вы можете посмотреть отчет на странице сервера",
   "The payment was successful, the server will be restored within an hour": "Оплата прошла успешно, сервер будет восстановлен в течение часа",
-  "To extend": "Продлить"
+  "To extend": "Продлить",
+
+  "payment-title": "Оплата",
+  "payment-left": "С карты",
+  "payment-right": "С крипты",
+  "payment-header-text": "Вы платите комиссию сети",
+  "payment-content-header": "Адрес кошелька получателя",
+  "payment-content-text": "После проверки зачисления средств услуги будут привязаны к Вашему аккаунту автоматически",
+  "payment-attention": "Если у Вас возникли проблемы с оплатой, свяжитесь с нами в соц сетях",
+
+  "first-name": "Имя",
+  "last-name": "Фамилия",
+  "username": "Имя пользователя",
+  "phone": "Телефон",
+  "email": "Email",
+
+  "need-help": "Нужна помощь?",
+
+  "enter-your-message": "Введите сообщение...",
+
+  "payment-with-card": "Оплата картой",
+
+  "Proceed to payment": "Перейти к оплате",
+
+  "Change the payment method": "Сменить метод оплаты",
+
+  "Commission": "Комиссия",
+
+  "There is no NFT": "Нет Nft",
+  "Approximate end time of the session": "Примерное время завершения сессии",
+  "Server Configurator": "Конфигуратор сервера",
+
+  "You cannot convert identical coins": "Нельзя конвертировать одинаковые монеты",
+
+  "Send an email": "Отправить письмо",
+
+  "save": "Сохранить",
+
+  "how use": "Как пользоваться услугами майнера",
+
+  "configurator": "Конфигуратор",
+
+  "After verification, the funds will be linked to your account": "После проверки, средства будут привязаны к Вашему аккаунту",
+
+  "Change the coin": "Сменить монету",
+  "Shutdown request": "Запрос на выключение",
+
+  "The operating system": "Операционная система",
+  "Basic settings": "Базовые настройки",
+  "Network": "Сеть",
+  "Additionally": "Дополнительно",
+  "Coins": "Монеты",
+  "Comment": "Комментарий",
+
+  "Faster withdraws within one hour": "Более быстрый вывод средств в течение одного часа",
+  "Your personal manager": "Ваш персональный менеджер",
+  "Automatic restart of mining": "Автоматический перезапуск майнинга",
+
+  "location": "Местоположение",
+  "type": "Тип",
+  "port": "Порт",
+  "canFarmNft": "Может фармить NFT",
+  "traffic": "Трафик",
+  "disk": "Диск",
+  "gpu_count": "Gpu количество",
+  "ip_count": "IP количество",
+
+  "Server in work": "Сервер в работе",
+
+  "hours": "часов",
+  "minutes": "минут",
+
+  "finished": "Завершено",
+
+  "Accounts": "Счета",
+  "The video has not been added at the moment": "Видео на данный момент не добавлено",
+
+  "Base": "Базовый",
+  "Standard": "Стандартный",
+  "A profitable plan": "Выгодный план",
+  "Professional": "Профессиональный",
+  "Premium": "Премиум",
+  "Elite": "Элитный",
+
+  "Thanks": "Спасибо!",
+  "After checking the funds transfer, the services will be linked to your account automatically": "Проверьте счет, чтобы связаться с Вашим аккаунтом автоматически",
+  "Please wait": "Пожалуйста, ожидайте",
+  "The payment was successful": "Оплата прошла успешно",
+  "Price": "Цена",
+
+  "Custom server": "Кастомный сервер",
+
+  "Cooperation": "Сотрудничество",
+
+  "Contact us and suggestions": "Связь с нами и предложения",
+  "To work with us": "Работать с нами"
 }

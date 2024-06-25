@@ -1,4 +1,5 @@
 export * from "./Select/Select";
+export * from "./Select2/Select2";
 
 // BUTTONS
 
@@ -6,6 +7,8 @@ export * from "./Buttons/Button/Button";
 export * from "./Buttons/ShowMoreBtn/ShowMoreBtn";
 export * from "./Buttons/Buy/Buy";
 export * from "./Buttons/TabButton/TabButton";
+export * from "./Buttons/HelpBtn/HelpBtn";
+export * from "./Buttons/HogyxTapButton/HogyxTapButton";
 
 // INPUTS
 

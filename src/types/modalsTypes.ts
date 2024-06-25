@@ -3,4 +3,6 @@ export enum NamesModals {
   isOpenNftWithdrawSuccessModal = "isOpenNftWithdrawSuccessModal",
   isOpenSuccessModal = "isOpenSuccessModal",
   isOpenInfoModal = "isOpenInfoModal",
+  isOpenHowUseModal = "isOpenHowUseModal",
+  isOpenWaitingModal = "isOpenWaitingModal",
 }

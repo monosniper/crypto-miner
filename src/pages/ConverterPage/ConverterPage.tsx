@@ -20,11 +20,11 @@ export const ConverterPage = () => {
   const { data: walletData } = useGetWalletQuery(null, {
     refetchOnMountOrArgChange: true,
   });
-  const methods = useForm<{ amount: number; amountTwo: number }>();
+  const methods = useForm<{ amount?: number; amountTwo?: number }>();
   const [fromCoinId, setFromCoinId] = useState<number>();
   const [toCoinId, setToCoinId] = useState<number>();
   const [formatCoins, setFormatCoins] = useState<
-    { title: string; value: number }[]
+    { title: string; value: number; icon?: string }[]
   >([]);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export const ConverterPage = () => {
       return {
         title: coin.slug,
         value: coin.id,
+        icon: coin.icon_url,
       };
     });
 
@@ -43,11 +44,11 @@ export const ConverterPage = () => {
   useEffect(() => {
     if (formatCoins.length > 0) {
       setFromCoinId(formatCoins[0].value);
-      setToCoinId(formatCoins[0].value);
+      setToCoinId(formatCoins[1].value);
     }
   }, [formatCoins]);
 
-  const formHandler = (data: { amount: number; amountTwo: number }) => {
+  const formHandler = (data: { amount?: number; amountTwo?: number }) => {
     if (!data.amount) {
       return toast.error(t("enter the amount"));
     }
@@ -74,14 +75,57 @@ export const ConverterPage = () => {
   useEffect(() => {
     if (!data) return;
 
+    if (!data.success) {
+      toast.error(t("insufficient funds"));
+
+      return;
+    }
+
     toast.success(t("success"));
-  }, [data, t]);
+
+    methods.setValue("amount", undefined);
+    methods.setValue("amountTwo", undefined);
+  }, [data, methods, t]);
 
   useEffect(() => {
     if (!isError) return;
 
     toast.error("mistake");
   }, [isError]);
+
+  useEffect(() => {
+    if (coins && fromCoinId && toCoinId) {
+      const fromCoin = coins.data.find((coin) => coin.id === fromCoinId);
+      const toCoin = coins.data.find((coin) => coin.id === toCoinId);
+
+      if (walletData && fromCoin?.rate && toCoin?.rate) {
+        methods.setValue(
+          "amountTwo",
+          (fromCoin.rate / toCoin.rate) *
+            Number(methods.getValues("amount")) *
+            (1 - Number(settings?.convertation_fee || 0) / 100)
+        );
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fromCoinId]);
+
+  useEffect(() => {
+    if (coins && fromCoinId && toCoinId) {
+      const fromCoin = coins.data.find((coin) => coin.id === fromCoinId);
+      const toCoin = coins.data.find((coin) => coin.id === toCoinId);
+
+      if (walletData && fromCoin?.rate && toCoin?.rate) {
+        methods.setValue(
+          "amount",
+          (toCoin.rate / fromCoin.rate) *
+            Number(methods.getValues("amountTwo")) *
+            (1 + Number(settings?.convertation_fee || 0) / 100)
+        );
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toCoinId]);
 
   return (
     <div>
@@ -105,34 +149,35 @@ export const ConverterPage = () => {
                 onChange: (e) => {
                   if (coins && fromCoinId && toCoinId) {
                     const fromCoin = coins.data.find(
-                      (coin) => coin.id === fromCoinId,
+                      (coin) => coin.id === fromCoinId
                     );
                     const toCoin = coins.data.find(
-                      (coin) => coin.id === toCoinId,
+                      (coin) => coin.id === toCoinId
                     );
 
-                    if (
-                      walletData &&
-                      fromCoin?.rate &&
-                      toCoin?.rate &&
-                      settings?.convertation_fee
-                    ) {
+                    if (walletData && fromCoin?.rate && toCoin?.rate) {
                       methods.setValue(
                         "amountTwo",
                         (fromCoin.rate / toCoin.rate) *
                           Number(e.target.value) *
-                          (1 - Number(settings.convertation_fee) / 100),
+                          (1 - Number(settings?.convertation_fee || 0) / 100)
                       );
                     }
                   }
                 },
-                valueAsNumber: true,
               }}
               rightBlock={
                 <TextFieldSelect
                   value={fromCoinId}
                   list={formatCoins}
-                  onClickItem={(id) => setFromCoinId(id)}
+                  onClickItem={(id) => {
+                    if (id === toCoinId)
+                      return toast.error(
+                        t("You cannot convert identical coins")
+                      );
+
+                    setFromCoinId(id);
+                  }}
                 />
               }
             />
@@ -147,41 +192,42 @@ export const ConverterPage = () => {
                   onChange: (e) => {
                     if (coins && fromCoinId && toCoinId) {
                       const fromCoin = coins.data.find(
-                        (coin) => coin.id === fromCoinId,
+                        (coin) => coin.id === fromCoinId
                       );
                       const toCoin = coins.data.find(
-                        (coin) => coin.id === toCoinId,
+                        (coin) => coin.id === toCoinId
                       );
 
-                      if (
-                        walletData &&
-                        fromCoin?.rate &&
-                        toCoin?.rate &&
-                        settings?.convertation_fee
-                      ) {
+                      if (walletData && fromCoin?.rate && toCoin?.rate) {
                         methods.setValue(
                           "amount",
                           (toCoin.rate / fromCoin.rate) *
                             Number(e.target.value) *
-                            (1 + Number(settings.convertation_fee) / 100),
+                            (1 + Number(settings?.convertation_fee || 0) / 100)
                         );
                       }
                     }
                   },
-                  valueAsNumber: true,
                 }}
                 rightBlock={
                   <TextFieldSelect
                     value={toCoinId}
                     list={formatCoins}
-                    onClickItem={(id) => setToCoinId(id)}
+                    onClickItem={(id) => {
+                      if (id === fromCoinId)
+                        return toast.error(
+                          t("You cannot convert identical coins")
+                        );
+
+                      setToCoinId(id);
+                    }}
                   />
                 }
               />
 
               {settings?.convertation_fee && (
                 <p className="mt-1 text-gray-1 text-xs">
-                  Комиссия: {settings.convertation_fee}%
+                  {t("Commission")}: {settings.convertation_fee}%
                 </p>
               )}
             </div>
@@ -208,7 +254,7 @@ const AttentionContent = () => {
       <div>
         <p>
           {t(
-            "you can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks",
+            "you can convert your assets with a minimum commission of 1%. For example, you need USDT for withdrawal, but you only have BNB. Select BNB and the amount in the window, then select USDT in a separate window. Convert in 2 clicks"
           )}
         </p>
       </div>

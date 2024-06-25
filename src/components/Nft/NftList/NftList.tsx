@@ -3,16 +3,13 @@ import { NftItem } from "../NftItem/NftItem";
 import { useLoading } from "@/hooks";
 import { CoinSkelet, EmptyText } from "@/components";
 import { useState } from "react";
-import { useGetWalletQuery } from "@/redux/api/userApi";
+import { useGetNftsQuery } from "@/redux/api/userApi";
+import { useTranslation } from "react-i18next";
 
 export const NftList = () => {
-  const {
-    data: wallet,
-    isLoading,
-    isFetching,
-    isError,
-  } = useGetWalletQuery(null);
   const [skeletItems] = useState(Array(8).fill(0));
+  const { data: nfts, isError, isLoading, isFetching } = useGetNftsQuery(null);
+  const { t } = useTranslation();
 
   const loading = useLoading(isLoading, isFetching);
 
@@ -34,9 +31,9 @@ export const NftList = () => {
           </div>
         ) : (
           <>
-            {wallet && wallet.data.nfts.length > 0 && (
+            {nfts && nfts.data.length > 0 && (
               <div className="flex flex-wrap -m-2">
-                {wallet.data.nfts.map((el) => {
+                {nfts.data.map((el) => {
                   return (
                     <div
                       className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
@@ -55,15 +52,15 @@ export const NftList = () => {
               </div>
             )}
 
-            {!isError && (!wallet || wallet.data.nfts.length === 0) && (
+            {!isError && (!nfts || nfts.data.length === 0) && (
               <div className="flex flex-col flex-grow">
-                <EmptyText text="Нет Nft" />
+                <EmptyText text={t("There is no NFT")} />
               </div>
             )}
           </>
         )}
       </div>
-      {wallet && wallet.data.nfts.length > 8 && (
+      {nfts && nfts.data.length > 8 && (
         <ShowMoreBtn className="mt-6" onClick={() => console.log("click")} />
       )}
     </>

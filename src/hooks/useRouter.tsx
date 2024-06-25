@@ -11,7 +11,6 @@ const {
   NftPage,
   ServerPage,
   ServerPackagesPage,
-  PartnershipPage,
   ReplenishmentPage,
   ConverterPage,
   TransferPage,
@@ -20,6 +19,11 @@ const {
   UserServersPage,
   PasswordRecoveryPage,
   NewPasswordPage,
+  PaymentPage,
+  PaymentFinishPage,
+  ProfilePage,
+  ConfiguratorPage,
+  CooperationPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -41,6 +45,33 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <WalletPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/wallet/payment"
+            element={
+              <Suspense>
+                <PaymentPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/wallet/payment/finish/:type"
+            element={
+              <Suspense>
+                <PaymentFinishPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <Suspense>
+                <ProfilePage />
               </Suspense>
             }
           />
@@ -108,14 +139,14 @@ export const useRouter = (isAuth: boolean) => {
             }
           />
 
-          <Route
+          {/* <Route
             path="/partnership"
             element={
               <Suspense>
                 <PartnershipPage />
               </Suspense>
             }
-          />
+          /> */}
 
           <Route
             path="/converter"
@@ -163,6 +194,15 @@ export const useRouter = (isAuth: boolean) => {
           />
 
           <Route
+            path="/configurator"
+            element={
+              <Suspense>
+                <ConfiguratorPage />
+              </Suspense>
+            }
+          />
+
+          <Route
             index
             element={
               <Suspense>
@@ -176,6 +216,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <Navigate to="/main" />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/cooperation"
+            element={
+              <Suspense>
+                <CooperationPage />
               </Suspense>
             }
           />

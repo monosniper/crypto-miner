@@ -1,0 +1,26 @@
+.wrapper {
+  @apply w-max relative;
+  font-family: Inter, sans-serif;
+}
+
+.select {
+  @apply cursor-pointer px-3 py-2 rounded-lg bg-base-500 text-base-content-100 flex items-center justify-between gap-1 text-sm lg:max-w-[150px] lg:min-w-[150px] truncate;
+
+  appearance: none;
+}
+
+.select svg {
+  @apply stroke-base-content-100;
+}
+
+.list {
+  @apply absolute top-full left-0 right-0 w-full text-base-content-100 text-xs overflow-hidden z-10 rounded-lg bg-base-400 max-h-[250px] overflow-y-auto;
+}
+
+body[data-theme="light"] .list {
+  @apply bg-base-100 border shadow;
+}
+
+.item {
+  @apply flex items-center gap-1 hover:bg-primary cursor-pointer px-2.5 py-2 text-sm;
+}

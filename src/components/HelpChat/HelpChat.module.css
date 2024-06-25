@@ -1,0 +1,26 @@
+.wrapper {
+  box-shadow: 0 4px 11px 0 rgba(5, 5, 5, 0.25);
+  background: linear-gradient(90deg, #212426 0%, #1e1a29 100%);
+
+  @apply lg:rounded-[20px] p-2.5 w-full min-w-[300px] lg:min-w-[350px] fixed lg:absolute left-0 lg:left-auto right-0 bottom-0 flex flex-col justify-between gap-2 z-50 ease-in-out lg:ease-linear duration-200 lg:duration-100 pointer-events-auto opacity-100 h-screen lg:h-auto;
+}
+
+.wrapper.notOpen {
+  @apply opacity-0 pointer-events-none -bottom-[200%];
+}
+
+.header {
+  box-shadow: 0 4px 16px -7px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(90deg, #7c55e7 0%, #472a95 99%);
+
+  @apply flex justify-between items-center rounded-[20px] py-2 px-2.5 gap-2;
+}
+
+.footer {
+  @apply flex items-center gap-1.5 w-full;
+}
+
+.btn {
+  background: linear-gradient(45deg, #7c55e7 0%, #432c83 100%);
+  @apply flex justify-center items-center px-2 py-1.5 rounded-[10px];
+}

@@ -10,10 +10,10 @@ export const miningApi = createApi({
     prepareHeaders,
   }),
   endpoints: ({ query }) => ({
-    getSession: query<Session, { id: number }>({
-      query(params) {
+    getSession: query<Session, null>({
+      query() {
         return {
-          url: `/sessions/${params.id}`,
+          url: `/me/session`,
           method: "GET",
         };
       },
@@ -21,4 +21,4 @@ export const miningApi = createApi({
   }),
 });
 
-export const { useLazyGetSessionQuery } = miningApi;
+export const { useLazyGetSessionQuery, useGetSessionQuery } = miningApi;

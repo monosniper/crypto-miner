@@ -3,7 +3,7 @@ import {
   CoinBlock,
   EmptyText,
   InfoModal,
-  LogsBlock,
+  LogsBlocks,
   Servers,
   Title,
 } from "@/components";
@@ -31,15 +31,15 @@ export const MiningPage = () => {
 
   const serversListLoading = useLoading(
     serversListIsLoading,
-    serversListIsFetching,
+    serversListIsFetching
   );
   const { t } = useTranslation();
   const {
+    sessionData,
+    sessionIsLoading,
     coins,
     toggleCoinSelection,
     startMiner,
-    loading,
-    sessionData,
     serversAllLogs,
     serversAllFounds,
     sessionMinerLogs,
@@ -60,22 +60,22 @@ export const MiningPage = () => {
   }, [dispatch, userDataApi]);
 
   useEffect(() => {
-    if (!sessionData) return;
+    if (!sessionData?.data) return;
 
     dispatch(
       setOpenModal({
         stateNameModal: NamesModals.isOpenInfoModal,
         isOpen: true,
-      }),
+      })
     );
 
     dispatch(setTitle(t("attention") + "!"));
     dispatch(
       setText(
         t(
-          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
-        ),
-      ),
+          "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
+        )
+      )
     );
   }, [dispatch, sessionData, t]);
 
@@ -124,12 +124,10 @@ export const MiningPage = () => {
                   })
                   .map((el) => {
                     const foundSelectedCoin = selectedCoins.find(
-                      (item) => item === el.id,
+                      (item) => item === el.id
                     );
                     const inWork =
-                      Boolean(
-                        foundSelectedCoin && (userData?.session || sessionData),
-                      ) || false;
+                      Boolean(foundSelectedCoin && sessionData?.data) || false;
 
                     return (
                       <div
@@ -137,6 +135,7 @@ export const MiningPage = () => {
                         className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
                       >
                         <CoinBlock
+                        className="cursor-pointer"
                           data={el}
                           type="mining"
                           selected={
@@ -145,7 +144,7 @@ export const MiningPage = () => {
                               : false
                           }
                           onClick={() => {
-                            if (!userData?.session && !sessionData) {
+                            if (!sessionData?.data) {
                               toggleCoinSelection(el);
                             }
                           }}
@@ -159,21 +158,25 @@ export const MiningPage = () => {
               <Button
                 className="mx-auto mt-6 min-w-[150px]"
                 title={
-                  userData?.session || sessionData
+                  userData?.session || sessionData?.data
                     ? t("at work")
-                    : !loading
+                    : !sessionIsLoading
                     ? t("start")
                     : t("loading")
                 }
                 color="primary"
                 onClick={startMiner}
-                disabled={userData?.session || sessionData ? true : loading}
+                disabled={
+                  userData?.session || sessionData?.data
+                    ? true
+                    : sessionIsLoading
+                }
               />
             </div>
           )}
 
           {coins.length === 0 &&
-            selectedServers.length === 0 &&
+            selectedServers?.length === 0 &&
             !userData?.session && (
               <div className="flex flex-col flex-grow">
                 <EmptyText text={t("select servers")} />
@@ -184,38 +187,30 @@ export const MiningPage = () => {
         {(coins.length > 0 || userData?.session) && (
           <div className="mt-16">
             <div className="flex items-center justify-between gap-4 flex-wrap mb-6">
-              {((sessionData && sessionData.data.end_at) ||
-                (userData?.session && userData?.session.end_at)) && (
+              {((sessionData?.data && sessionData.data?.end_at) ||
+                userData?.session) && (
                 <p>
-                  Примерное время завершения сессии:{"  "}
+                  {t("Approximate end time of the session")}:{"  "}
                   <span className="text-purple-2">
-                    {sessionData &&
+                    {sessionData?.data &&
                       moment
                         .utc(sessionData.data.end_at)
-                        .local()
-                        .format("DD.MM.YYYY HH:mm")}
-
-                    {userData?.session &&
-                      !sessionData &&
-                      moment
-                        .utc(userData.session.end_at)
                         .local()
                         .format("DD.MM.YYYY HH:mm")}
                   </span>
                 </p>
               )}
 
-              {((sessionData && sessionData.data.end_at) ||
-                (userData?.session && userData?.session.end_at)) && (
+              {sessionData && sessionData.data?.end_at && (
                 <p className="text-gray-1">
                   {t(
-                    "the server is mining. After the time expires, the money will be credited to the wallet section",
+                    "the server is mining. After the time expires, the money will be credited to the wallet section"
                   )}
                 </p>
               )}
             </div>
 
-            <LogsBlock
+            <LogsBlocks
               left={serversAllLogs}
               right={serversAllFounds}
               leftTwo={sessionMinerLogs}
@@ -238,7 +233,7 @@ const AttentionContent = () => {
       <div>
         <p>
           {t(
-            "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm",
+            "servers of the same plan can be launched simultaneously, this will give a multiple boost to the farm"
           )}
         </p>
       </div>

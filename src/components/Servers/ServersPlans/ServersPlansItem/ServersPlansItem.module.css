@@ -7,7 +7,7 @@
 }
 
 .titleBlock {
-  @apply flex flex-col items-center gap-2 font-semibold;
+  @apply flex flex-col items-center gap-3 font-semibold;
 }
 
 .titleBlock img {

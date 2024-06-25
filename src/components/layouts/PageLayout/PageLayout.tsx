@@ -45,6 +45,8 @@ export const PageLayout: FC<Props> = ({ children }) => {
               {children}
             </main>
           </div>
+
+          {/* <HelpBtn /> */}
         </div>
       ) : (
         <>{children}</>

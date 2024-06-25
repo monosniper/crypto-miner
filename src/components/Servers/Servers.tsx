@@ -1,20 +1,18 @@
-import { PropsWithClassName, ServerStatuses } from "@/types";
+import { Preset, PropsWithClassName, ServerStatuses } from "@/types";
 import { FC, RefObject } from "react";
 import cn from "clsx";
 import { Buy } from "../ui";
 import { CoinSkelet, ServersItem } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Server } from "@/types";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "@/redux/store";
 import { mining } from "@/redux/slices/miningSlice";
 import { useMining } from "@/hooks/useMining";
-import { user } from "@/redux/slices/userSlice";
 
 type Props = {
   type?: "mining" | "standart";
   plansRef?: RefObject<HTMLDivElement>;
-  servers?: Server[];
+  servers?: (Preset & { status: ServerStatuses })[];
   loading?: boolean;
 };
 
@@ -28,9 +26,8 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
   const navigate = useNavigate();
   const { t } = useTranslation();
   const location = useLocation();
-  const { toggleServerSelection, checkIdentityType, sessionData } = useMining();
+  const { toggleServerSelection, sessionData } = useMining();
   const { selectedServers } = useAppSelector(mining);
-  const { userData } = useAppSelector(user);
 
   const buyServerHandler = () => {
     if (!location.pathname.includes("/server-packages")) {
@@ -59,14 +56,12 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
             <>
               {type === "mining"
                 ? servers.map((el) => {
-                    const foundSelectedServer = selectedServers.find(
-                      (item) => item.id === el.id,
+                    const foundSelectedServer = selectedServers?.find(
+                      (id) => id === el.id
                     );
+
                     const inWork =
-                      Boolean(
-                        foundSelectedServer &&
-                          (userData?.session || sessionData),
-                      ) || false;
+                      Boolean(foundSelectedServer && sessionData?.data) || false;
 
                     return (
                       <div
@@ -76,50 +71,22 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                         <ServersItem
                           type={type}
                           onClick={() => {
-                            if (
-                              el.status === ServerStatuses.ACTIVE_STATUS &&
-                              !userData?.session &&
-                              !sessionData &&
-                              (Date.now() -
-                                new Date(el.last_work_at!).getTime() >
-                                24 * 60 * 60 * 1000 ||
-                                false)
-                            ) {
-                              toggleServerSelection(el);
+                            if (!sessionData?.data) {
+                              toggleServerSelection(el.id);
                             }
                           }}
                           data={el}
                           selected={
-                            selectedServers.find(
-                              (server) => el.id === server.id,
-                            )
+                            selectedServers?.find((id) => id === el.id)
                               ? true
                               : false
                           }
-                          disabled={
-                            !checkIdentityType(el) ||
-                            el.status !== ServerStatuses.ACTIVE_STATUS ||
-                            Date.now() - new Date(el.last_work_at!).getTime() <
-                              24 * 60 * 60 * 1000
-                          }
                           inWork={inWork}
-                          tooltip={{
-                            value: el.last_work_at
-                              ? Date.now() -
-                                  new Date(el.last_work_at).getTime() <
-                                24 * 60 * 60 * 1000
-                                ? true
-                                : false
-                              : false,
-                            title: t(
-                              "the server was launched less than 24 hours ago",
-                            ),
-                          }}
                         />
                       </div>
                     );
                   })
-                : servers.map((el) => {
+                : servers?.map((el) => {
                     return (
                       <div
                         key={el.id}

@@ -9,11 +9,24 @@ import "./i18n.ts";
 
 import "react-tooltip/dist/react-tooltip.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-phone-number-input/style.css";
+
+import "swiper/css";
+import { MetaMaskProvider } from "@metamask/sdk-react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <MetaMaskProvider
+        sdkOptions={{
+          dappMetadata: {
+            name: "Hogyx",
+            url: window.location.href,
+          },
+        }}
+      >
+        <App />
+      </MetaMaskProvider>
     </Provider>
-  </BrowserRouter>,
+  </BrowserRouter>
 );

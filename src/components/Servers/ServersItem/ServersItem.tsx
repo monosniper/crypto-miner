@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from "react";
 import styles from "./ServersItem.module.css";
 import cn from "clsx";
-import { PropsWithClassName, Server, ServerStatuses } from "@/types";
+import { Preset, PropsWithClassName, ServerStatuses } from "@/types";
 import { FanIcon } from "@/components/icons";
 import { useTranslation } from "react-i18next";
 import { getServerStatus } from "@/data";
@@ -9,7 +9,7 @@ import { getServerStatus } from "@/data";
 type Props = {
   type?: "mining" | "standart";
   onClick?: MouseEventHandler<HTMLElement>;
-  data: Server;
+  data: Preset & { status: ServerStatuses };
   selected?: boolean;
   disabled?: boolean;
   inWork?: boolean;
@@ -52,7 +52,7 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
           {
             "hover:border hover:border-primary": type === "standart",
             "border !border-primary border-solid": selected,
-          },
+          }
         )}
         onClick={onClick}
       >
@@ -61,7 +61,7 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
             className={cn(styles.state, {
               [styles.notActive]:
                 data.status === ServerStatuses.NOT_ACTIVE_STATUS,
-              [styles.reload]: data.status === ServerStatuses.RELOAD_STATUS,
+              // [styles.reload]: data.status === ServerStatuses.RELOAD_STATUS,
             })}
           >
             <FanIcon
@@ -74,9 +74,9 @@ export const ServersItem: FC<PropsWithClassName<Props>> = ({
           </div>
         </div>
 
-        {data.name && <h4 className={styles.title}>{data.name}</h4>}
+        {/* {data.name && <h4 className={styles.title}>{data.name}</h4>} */}
 
-        <h5 className={styles.title}>{data.server?.title}</h5>
+        <h5 className={styles.title}>{data?.title}</h5>
 
         {disabled && (
           <div className="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-black/30 cursor-not-allowed"></div>

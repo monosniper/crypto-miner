@@ -9,7 +9,10 @@ import coinsReducer from "./slices/coinsSlice";
 import withdrawNftReducer from "./slices/withdrawNftModalSlice";
 import miningReducer from "./slices/miningSlice";
 import successModalReducer from "./slices/successModal";
+import waitingModalReducer from "./slices/waitingModal";
 import infoModalReducer from "./slices/infoModalSlice";
+import configuratorReducer from "./slices/configurator.slice";
+import presetsReducer from "./slices/presets.slice";
 
 import { coinsApi } from "./api/coinsApi";
 import { userApi } from "./api/userApi";
@@ -17,6 +20,7 @@ import { articlesApi } from "./api/articlesApi";
 import { serversApi } from "./api/serversApi";
 import { mainApi } from "./api/mainApi";
 import { miningApi } from "./api/miningApi";
+import { paymentApi } from "./api/paymentApi";
 
 export const rootReducer = combineReducers({
   main: mainReducer,
@@ -27,6 +31,9 @@ export const rootReducer = combineReducers({
   mining: miningReducer,
   successModal: successModalReducer,
   infoModal: infoModalReducer,
+  configurator: configuratorReducer,
+  presets: presetsReducer,
+  waitingModal: waitingModalReducer,
 
   [coinsApi.reducerPath]: coinsApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
@@ -34,6 +41,7 @@ export const rootReducer = combineReducers({
   [serversApi.reducerPath]: serversApi.reducer,
   [mainApi.reducerPath]: mainApi.reducer,
   [miningApi.reducerPath]: miningApi.reducer,
+  [paymentApi.reducerPath]: paymentApi.reducer,
 });
 
 export const store = configureStore({
@@ -46,6 +54,7 @@ export const store = configureStore({
       serversApi.middleware,
       mainApi.middleware,
       miningApi.middleware,
+      paymentApi.middleware,
     ]),
 });
 

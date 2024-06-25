@@ -9,9 +9,10 @@ export type Possibility = {
 
 export enum ServerStatuses {
   WORK_STATUS = "work",
-  ACTIVE_STATUS = "active",
-  NOT_ACTIVE_STATUS = "not active",
-  RELOAD_STATUS = "reload",
+  // ACTIVE_STATUS = "active",
+  // NOT_ACTIVE_STATUS = "not active",
+  NOT_ACTIVE_STATUS = "idle",
+  // RELOAD_STATUS = "reload",
 }
 
 export enum ServerTypes {
@@ -44,4 +45,41 @@ export type Server = {
   last_work_at?: string;
 };
 
-export type SelectedServer = Pick<Server, "id" | "type" | "coins">;
+export type Preset = {
+  id: number;
+  title: string;
+  configuration: Configurator;
+  price: number;
+  isHot: number;
+};
+
+export type Configurator = {
+  oc: string;
+  cpu: string;
+  gpu: string;
+  ipv: string;
+  ram: string;
+  disk: string;
+  port: string;
+  coins: string[];
+  traffic: string;
+  ip_count: string;
+  location: string;
+  gpu_count: string;
+  canFarmNft: string;
+  notifications: string;
+  type: string;
+};
+
+export type ConfiguratorField = {
+  options: { price: number; title: string }[];
+  slug: string;
+  type: "text" | "select";
+};
+
+export type ConfigurationItem = {
+  fields: ConfiguratorField[];
+  slug: string;
+};
+
+export type SelectedServer = Pick<Server, "id" | "coins">;

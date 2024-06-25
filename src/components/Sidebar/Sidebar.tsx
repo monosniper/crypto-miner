@@ -1,7 +1,7 @@
 import { useRef, FC, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { Menu, Socials } from "@/components";
+import { Logo, Menu, Socials } from "@/components";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import {
   main,
@@ -11,10 +11,10 @@ import {
 } from "@/redux/slices/mainSlice";
 import cn from "clsx";
 import { useOutside } from "@/hooks";
-import { Select, TelegramLink } from "@/components/ui";
+import { Select } from "@/components/ui";
 import { languagesData } from "@/data";
 import { useTranslation } from "react-i18next";
-import { LogoIcon } from "../icons";
+import { useGetSettingsQuery } from "@/redux/api/mainApi";
 
 type Props = {
   isLaptop: boolean;
@@ -25,6 +25,7 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
   const ref = useRef(null);
   const dispatch = useAppDispatch();
   const { i18n, t } = useTranslation();
+  const { data: settings } = useGetSettingsQuery(null);
 
   useOutside(ref, () => dispatch(setOpenSidebar(false)));
 
@@ -45,13 +46,15 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
         ref={ref}
       >
         <div className={styles.header}>
-          <Link
+          {/* <Link
             className="bg-gradient-3 bg-clip-text text-transparent text-[34px] leading-10 font-semibold font-droid flex items-center gap-2"
             to="/"
           >
             <LogoIcon />
             Hogyx
-          </Link>
+          </Link> */}
+
+          <Logo />
         </div>
 
         <div className="my-10 overflow-y-auto min-h-[50px] px-6 scrollbar-menu">
@@ -59,13 +62,43 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
         </div>
 
         <div className="mt-auto">
-          <div className="flex flex-col gap-4 px-6">
+          {/* <div className="flex flex-col gap-4 px-6">
             <p className="text-xs text-base-content-300 uppercase">
               {t("contacts")}
             </p>
 
             <TelegramLink />
-          </div>
+          </div> */}
+
+          {settings?.offers_mail && (
+            <div className="flex flex-col gap-4 px-6 mt-4">
+              <p className="text-xs text-base-content-300">
+                {t("Contact us and suggestions")}
+              </p>
+
+              <a
+                className="text-base-content-100"
+                href={`mailto:${settings.offers_mail}`}
+              >
+                {settings.offers_mail}
+              </a>
+            </div>
+          )}
+
+          {settings?.work_mail && (
+            <div className="flex flex-col gap-4 px-6 mt-4">
+              <p className="text-xs text-base-content-300">
+                {t("To work with us")}
+              </p>
+
+              <a
+                className="text-base-content-100"
+                href={`mailto:${settings.work_mail}`}
+              >
+                {settings.work_mail}
+              </a>
+            </div>
+          )}
 
           <div className="flex flex-col gap-4 px-6 mt-4">
             <p className="text-xs text-base-content-300">{t("our-socials")}</p>

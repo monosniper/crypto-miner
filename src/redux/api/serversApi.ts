@@ -1,4 +1,11 @@
-import { Server } from "@/types";
+import {
+  ConfigurationItem,
+  Log,
+  Preset,
+  Server,
+  ServerPlan,
+  ServerStatuses,
+} from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import CryptoJS from "crypto-js";
 
@@ -13,7 +20,7 @@ export const serversApi = createApi({
       if (userData && userData.password) {
         const bytesPassword = CryptoJS.AES.decrypt(
           userData.password,
-          import.meta.env.VITE_CRYPT_KEY,
+          import.meta.env.VITE_CRYPT_KEY
         );
         const password = bytesPassword.toString(CryptoJS.enc.Utf8);
 
@@ -28,7 +35,7 @@ export const serversApi = createApi({
 
   tagTypes: ["convertations"],
   endpoints: ({ query, mutation }) => ({
-    getAllServers: query<{ data: Server[] }, null>({
+    getAllServers: query<{ data: ServerPlan[] }, null>({
       query() {
         return {
           url: "servers",
@@ -46,7 +53,10 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServers: query<{ data: Server[] }, null>({
+    getMyServers: query<
+      { data: (Preset & { status: ServerStatuses })[] },
+      null
+    >({
       query() {
         return {
           url: "me/servers",
@@ -55,7 +65,14 @@ export const serversApi = createApi({
       },
     }),
 
-    getMyServerById: query<{ data: Server }, { id: number }>({
+    getMyServerById: query<
+      {
+        success: boolean;
+        data: { status: ServerStatuses, logs: Log[] } & Preset;
+        message: string;
+      },
+      { id: number }
+    >({
       query(params) {
         return {
           url: `me/servers/${params.id}`,
@@ -76,6 +93,30 @@ export const serversApi = createApi({
         };
       },
     }),
+
+    getPresets: query<
+      { success: boolean; data: Preset[]; message: string },
+      null
+    >({
+      query() {
+        return {
+          url: "presets",
+          methodL: "GET",
+        };
+      },
+    }),
+
+    getConfiguration: query<
+      { success: boolean; data: ConfigurationItem[]; message: string },
+      null
+    >({
+      query() {
+        return {
+          url: "configuration",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -85,4 +126,6 @@ export const {
   useGetMyServersQuery,
   useGetMyServerByIdQuery,
   useExtendServerMutation,
+  useGetPresetsQuery,
+  useGetConfigurationQuery,
 } = serversApi;

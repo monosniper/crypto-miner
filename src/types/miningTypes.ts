@@ -23,6 +23,7 @@ export type Found = {
 
 export type Session = {
   data: SessionData;
+  success: boolean;
 };
 
 export type SessionData = {

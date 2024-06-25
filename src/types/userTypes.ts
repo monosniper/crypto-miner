@@ -1,16 +1,24 @@
-import { CoinPosition, SessionData } from ".";
+import { CoinPosition } from ".";
 
 export type User = {
   id: number;
+  first_name?: string;
+  last_name?: string;
   name: string;
   email: string;
+  phone?: string;
   token: string;
   coin_positions: CoinPosition[];
-  session: SessionData;
+  session: boolean;
+  isVerificated: number | null;
+  countryCode: string | null;
+  total_deposit: number | null;
+};
+
+export type UserRef = {
   ref_code: string;
   total_refs: number;
   total_refs_amount: number;
-  isVerificated: boolean | null;
 };
 
 export type Balance = {

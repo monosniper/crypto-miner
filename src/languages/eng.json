@@ -49,8 +49,8 @@
   "buy server": "Buy server",
 
   "server in work": "In work",
-  "server active": "Paid",
-  "server not active": "Not paid",
+  "server active": "Active",
+  "server not active": "Not active",
   "server reload": "Rebooting",
 
   "restart": "Restart",
@@ -178,5 +178,96 @@
   "the session is over": "The session is over",
   "you can view the report on the server page": "You can view the report on the server page",
   "The payment was successful, the server will be restored within an hour": "The payment was successful, the server will be restored within an hour",
-  "To extend": "To extend"
+  "To extend": "To extend",
+
+  "payment-title": "Payment",
+  "payment-left": "With card",
+  "payment-right": "With crypto",
+  "payment-header-text": "You pay a commission to the network",
+  "payment-content-header": "Recipient's wallet address",
+  "payment-content-text": "After checking the funds transfer, the services will be linked to your account automatically",
+  "payment-attention": "If you have any problems with payment, contact us on social networks",
+
+  "first-name": "First name",
+  "last-name": "Last name",
+  "username": "Username",
+  "phone": "Phone",
+  "email": "Email",
+
+  "need-help": "Need help?",
+
+  "enter-your-message": "Enter your message...",
+
+  "payment-with-card": "Payment by card",
+  "Proceed to payment": "Proceed to payment",
+
+  "Change the payment method": "Change the payment method",
+
+  "Commission": "Commission",
+
+  "There is no NFT": "There is no NFT",
+  "Approximate end time of the session": "Approximate end time of the session",
+  "Server Configurator": "Server Configurator",
+  "You cannot convert identical coins": "You cannot convert identical coins",
+  "Send an email": "Send an email",
+
+  "save": "Save",
+
+  "how use": "How to use the miner's services",
+
+  "configurator": "Configurator",
+
+  "After verification, the funds will be linked to your account": "After verification, the funds will be linked to your account",
+
+  "Change the coin": "Change the coin",
+  "Shutdown request": "Shutdown request",
+
+  "The operating system": "The operating system",
+  "Basic settings": "Basic settings",
+  "Network": "Network",
+  "Additionally": "Additionally",
+  "Coins": "Coins",
+  "Comment": "Comment",
+
+  "Faster withdraws within one hour": "Faster withdraws within one hour",
+  "Your personal manager": "Your personal manager",
+  "Automatic restart of mining": "Automatic restart of mining",
+
+  "location": "Location",
+  "type": "Type",
+  "port": "Port",
+  "canFarmNft": "Can farm nft",
+  "traffic": "Traffic",
+  "disk": "Disk",
+  "gpu_count": "Gpu_count",
+  "ip_count": "Ip_count",
+
+  "Server in work": "Server in work",
+
+  "hours": "hours",
+  "minutes": "minutes",
+
+  "finished": "Finished",
+  "Accounts": "Accounts",
+
+  "The video has not been added at the moment": "The video has not been added at the moment",
+
+  "Base": "Base",
+  "Standard": "Standard",
+  "A profitable plan": "A profitable plan",
+  "Professional": "Professional",
+  "Premium": "Premium",
+  "Elite": "Elite",
+
+  "Thanks": "Thanks!",
+  "After checking the funds transfer, the services will be linked to your account automatically": "After checking the funds transfer, the services will be linked to your account automatically",
+  "Please wait": "Please wait",
+  "The payment was successful": "The payment was successful",
+  "Price": "Price",
+  "Custom server": "Custom server",
+
+  "Cooperation": "Cooperation",
+
+  "Contact us and suggestions": "Contact us and suggestions",
+  "To work with us": "To work with us"
 }

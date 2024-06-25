@@ -50,12 +50,15 @@ body[data-theme="dark"] .map-svg path {
   width: 100px;
   border-radius: 20px;
 }
+
 .trading-chart-scrollbar::-webkit-scrollbar-track {
   @apply bg-base-100;
 }
+
 .trading-chart-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-base-content-100 rounded-[20px];
 }
+
 .scrollbar-none::-webkit-scrollbar {
   width: 0;
 }
@@ -67,12 +70,15 @@ body[data-theme="dark"] .map-svg path {
 .scrollbar-none {
   overflow: -moz-scrollbars-none;
 }
+
 .scrollbar-menu::-webkit-scrollbar {
   width: 1px;
 }
+
 .scrollbar-menu::-webkit-scrollbar-track {
   @apply bg-base-200;
 }
+
 .scrollbar-menu::-webkit-scrollbar-thumb {
   @apply bg-base-content-100;
 }
@@ -85,9 +91,11 @@ body[data-theme="dark"] .map-svg path {
   0% {
     left: 0%;
   }
+
   50% {
     left: 100%;
   }
+
   100% {
     left: 0%;
   }
@@ -110,6 +118,10 @@ body[data-theme="dark"] .map-svg path {
   background-repeat: no-repeat;
 
   animation: bg-spin 3s linear infinite;
+}
+
+.PhoneInputCountry {
+  @apply text-base-content-100;
 }
 
 @keyframes bg-spin {

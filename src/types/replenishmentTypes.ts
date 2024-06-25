@@ -12,4 +12,5 @@ export enum ReplenishmentStatuses {
   FAILED = "failed",
   WAITING = "waiting",
   SUCCESS = "success",
+  FINISHED = "finished",
 }

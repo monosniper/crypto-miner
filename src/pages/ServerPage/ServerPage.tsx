@@ -1,22 +1,20 @@
-import { LogsBlock, Title } from "@/components";
+import { Graph, LogsBlock, Title } from "@/components";
 import { FanIcon, PrevIcon } from "@/components/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
-import { Found, ServerLog, ServerStatuses } from "@/types";
+import { ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
-import {
-  useExtendServerMutation,
-  useGetMyServerByIdQuery,
-} from "@/redux/api/serversApi";
+import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
-import { useState, useEffect } from "react";
-import { useGetWalletQuery } from "@/redux/api/userApi";
-import moment from "moment";
-import { Button } from "@/components/ui";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { getPastTimeStr } from "@/utils";
 
-const currentDate = moment.utc();
+// const currentDate = moment.utc();
+
+const getRandomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 export const ServerPage = () => {
   const navigate = useNavigate();
@@ -27,77 +25,84 @@ export const ServerPage = () => {
     {
       skip: !id,
       refetchOnMountOrArgChange: true,
-    },
-  );
-  const [
-    extendServer,
-    {
-      data: extendServerData,
-      isError: extendServerIsError,
-      isLoading: extendServerIsLoading,
-    },
-  ] = useExtendServerMutation();
-  const [serverLogs, setServerLogs] = useState<ServerLog[]>([]);
-  const [serverFounds, setServerFounds] = useState<Found[]>([]);
-  const { data: walletData } = useGetWalletQuery(null, {
-    refetchOnMountOrArgChange: true,
-  });
-
-  useEffect(() => {
-    if (!extendServerData) return;
-
-    if (extendServerData.success) {
-      document.location.href = extendServerData.url;
-    } else {
-      toast.error(t("mistake"));
     }
-  }, [extendServerData, t]);
+  );
+  const [cpuList, setCpuList] = useState<number[]>([getRandomNumber(95, 100)]);
+  const [gpuList, setGpuList] = useState<number[]>([getRandomNumber(95, 100)]);
+  const [ramList, setRamList] = useState<number[]>([]);
+  const [tempCpuList, setTempCpuList] = useState<number[]>([
+    getRandomNumber(55, 65),
+  ]);
+  const [tempGpuList, setTempGpuList] = useState<number[]>([
+    getRandomNumber(65, 70),
+  ]);
 
   useEffect(() => {
-    if (!extendServerIsError) return;
-
-    toast.error(t("mistake"));
-  }, [extendServerIsError, t]);
+    setRamList(
+      new Array(1)
+        .fill(0)
+        .map(() =>
+          getRandomNumber(
+            Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
+            Number(serverData?.data.configuration.ram.match(/\d+/))
+          )
+        )
+    );
+  }, [serverData?.data.configuration.ram]);
 
   useEffect(() => {
-    if (!serverData?.data?.logs) return;
-
     const interval = setInterval(() => {
-      const logs: ServerLog[] = [];
-      const founds: Found[] = [];
-
-      if (!serverData.data.logs) return;
-
-      for (let j = 0; j < serverData.data.logs.length; j++) {
-        const log = serverData.data.logs[j];
-
-        const logDate = new Date(log.timestamp);
-        const currentDate = new Date();
-
-        if (currentDate > logDate) {
-          logs.push(log);
+      setCpuList((prev) => {
+        const newValue = getRandomNumber(95, 100);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
         }
-      }
+      });
 
-      if (!serverData.data.founds) return;
-
-      for (let j = 0; j < serverData.data.founds.length; j++) {
-        const found = serverData.data.founds[j];
-
-        const logDate = new Date(found.timestamp);
-        const currentDate = new Date();
-
-        if (currentDate > logDate) {
-          founds.push(found);
+      setGpuList((prev) => {
+        const newValue = getRandomNumber(95, 100);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
         }
-      }
+      });
 
-      setServerLogs(logs);
-      setServerFounds(founds);
-    }, 1000);
+      setRamList((prev) => {
+        const newValue = getRandomNumber(
+          Number(serverData?.data.configuration.ram.match(/\d+/)) - 1,
+          Number(serverData?.data.configuration.ram.match(/\d+/))
+        );
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
+
+      setTempCpuList((prev) => {
+        const newValue = getRandomNumber(55, 65);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
+
+      setTempGpuList((prev) => {
+        const newValue = getRandomNumber(65, 70);
+        if (prev.length < 8) {
+          return [...prev, newValue];
+        } else {
+          return [];
+        }
+      });
+    }, 60000);
 
     return () => clearInterval(interval);
-  }, [serverData]);
+  }, []);
 
   return (
     <div>
@@ -111,8 +116,8 @@ export const ServerPage = () => {
         <span>{t("server")}</span>
       </button>
 
-      {!isLoading && serverData?.data.server?.title ? (
-        <Title title={serverData.data.server.title} />
+      {!isLoading && serverData?.data?.title ? (
+        <Title title={serverData.data.title} />
       ) : (
         <div className="w-20 h-2 rounded bg-base-200 animate-pulse"></div>
       )}
@@ -120,10 +125,6 @@ export const ServerPage = () => {
       <div className={cn("box", "p-6 mt-6")}>
         <div className="flex justify-between items-start flex-wrap gap-4 flex-col-reverse min-[500px]:items-center min-[500px]:flex-row">
           <h5>{t("status")}</h5>
-
-          {serverData?.data.name && (
-            <h6 className="font-semibold text-xl">{serverData.data.name}</h6>
-          )}
         </div>
 
         <div className="flex justify-between items-center gap-3 gap-y-6 flex-wrap mt-4">
@@ -134,8 +135,6 @@ export const ServerPage = () => {
                   [styles.notActive]:
                     serverData?.data.status ===
                     ServerStatuses.NOT_ACTIVE_STATUS,
-                  [styles.reload]:
-                    serverData?.data.status === ServerStatuses.RELOAD_STATUS,
                 })}
               >
                 <FanIcon
@@ -151,38 +150,149 @@ export const ServerPage = () => {
               <p className="text-2xl font-semibold">
                 {t(getServerStatus(serverData?.data.status as ServerStatuses))}
               </p>
-
-              {moment
-                .utc(serverData?.data.active_until)
-                .isBefore(currentDate) && (
-                <Button
-                  title={extendServerIsLoading ? t("loading") : t("To extend")}
-                  onClick={() => {
-                    if (!serverData) return;
-
-                    extendServer({
-                      server_id: serverData.data.id,
-                    });
-                  }}
-                  disabled={extendServerIsLoading}
-                />
-              )}
             </div>
-
-            <p>
-              Баланс:{" "}
-              <span className="font-semibold text-base">
-                {walletData?.data.balance.USDT} USDT
-              </span>
-            </p>
           </div>
 
-          {/* <Button title={t("restart")} /> */}
+          <div className="flex justify-between items-end w-full">
+            <div className="flex flex-col gap-1 text-base font-medium text-base-content-300">
+              <p>{serverData?.data.configuration.cpu}</p>
+              <p>{serverData?.data.configuration.gpu}</p>
+              <p>{serverData?.data.configuration.disk}</p>
+            </div>
+
+            {/* <div className="flex items-center gap-5 flex-wrap">
+              <Button title={t("Change the coin")} />
+              <Button title={t("Shutdown request")} />
+            </div> */}
+          </div>
         </div>
       </div>
 
-      <div className="mt-6">
-        <LogsBlock loading={isLoading} left={serverLogs} right={serverFounds} />
+      {serverData?.data?.logs?.[0]?.timestamp && (
+        <div className="py-4">
+          {t("Server in work")}:{" "}
+          <span className="font-semibold">
+            {getPastTimeStr(serverData.data.logs[0].timestamp, t)}
+          </span>
+        </div>
+      )}
+
+      <div
+        className={cn("flex flex-col gap-4 lg:gap-6", {
+          "mt-6": !serverData?.data?.logs?.[0]?.timestamp,
+        })}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
+          <LogsBlock
+            className="h-max"
+            children={
+              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                <Graph
+                  graphData={cpuList}
+                  y={{
+                    ticks: 6,
+                    min: 20,
+                    max: 100,
+                    afterNumber: "%",
+                  }}
+                  margins={{
+                    left: 40,
+                    right: 0,
+                    bottom: 20,
+                  }}
+                />
+              </div>
+            }
+            title="CPU Usage"
+          />
+          <LogsBlock
+            className="h-max"
+            children={
+              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                <Graph
+                  graphData={gpuList}
+                  y={{
+                    ticks: 6,
+                    min: 20,
+                    max: 100,
+                    afterNumber: "%",
+                  }}
+                  margins={{
+                    left: 40,
+                    right: 0,
+                    bottom: 20,
+                  }}
+                />
+              </div>
+            }
+            title="GPU Usage"
+          />
+          <LogsBlock
+            className="h-max"
+            children={
+              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                <Graph
+                  graphData={ramList}
+                  y={{
+                    ticks: 6,
+                    min: 1,
+                    max: Number(
+                      serverData?.data.configuration.ram.match(/\d+/)
+                    ),
+                  }}
+                  margins={{
+                    left: 25,
+                    right: 0,
+                    bottom: 20,
+                  }}
+                />
+              </div>
+            }
+            title="RAM Usage"
+          />
+          <LogsBlock
+            className="h-auto"
+            children={
+              <div className="flex flex-col gap-2">
+                <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)] mt-4">
+                  <p className="ml-3">CPU</p>
+
+                  <Graph
+                    graphData={tempCpuList}
+                    y={{
+                      min: 30,
+                      max: 70,
+                    }}
+                    margins={{
+                      left: 25,
+                      right: 0,
+                      bottom: 20,
+                    }}
+                  />
+                </div>
+                <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)] mt-4">
+                  <p className="ml-3">GPU</p>
+
+                  <Graph
+                    graphData={tempGpuList}
+                    y={{
+                      min: 40,
+                      max: 80,
+                    }}
+                    margins={{
+                      left: 25,
+                      right: 0,
+                      bottom: 20,
+                    }}
+                  />
+                </div>
+              </div>
+            }
+            title="Temperathure"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6"></div>
       </div>
     </div>
   );
