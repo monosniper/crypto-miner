@@ -19,13 +19,15 @@ export const useSession = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!sessionData) return;
-    const { coins, servers } = sessionData.data;
-    const coinsIds = coins.map((coin) => coin.id);
-    const serversIds = servers.map((server) => server.id);
+    if (!sessionData?.data) return;
+    const coins = sessionData?.data?.coins;
+    const servers = sessionData?.data?.servers;
+
+    const coinsIds = coins?.map((coin) => coin.id);
+    const serversIds = servers?.map((server) => server.id);
 
     dispatch(setSelectedCoins(coinsIds));
-    dispatch(setSelectedServers(serversIds));
+    dispatch(setSelectedServers(serversIds || []));
   }, [dispatch, sessionData]);
 
   return {

@@ -56,11 +56,12 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
             <>
               {type === "mining"
                 ? servers.map((el) => {
-                    const foundSelectedServer = selectedServers.find(
+                    const foundSelectedServer = selectedServers?.find(
                       (id) => id === el.id
                     );
+
                     const inWork =
-                      Boolean(foundSelectedServer && sessionData) || false;
+                      Boolean(foundSelectedServer && sessionData?.data) || false;
 
                     return (
                       <div
@@ -70,13 +71,13 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                         <ServersItem
                           type={type}
                           onClick={() => {
-                            if (!sessionData) {
+                            if (!sessionData?.data) {
                               toggleServerSelection(el.id);
                             }
                           }}
                           data={el}
                           selected={
-                            selectedServers.find((id) => id === el.id)
+                            selectedServers?.find((id) => id === el.id)
                               ? true
                               : false
                           }
@@ -85,7 +86,7 @@ export const Servers: FC<PropsWithClassName<Props>> = ({
                       </div>
                     );
                   })
-                : servers.map((el) => {
+                : servers?.map((el) => {
                     return (
                       <div
                         key={el.id}
