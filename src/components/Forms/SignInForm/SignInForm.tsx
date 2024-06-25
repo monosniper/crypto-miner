@@ -29,7 +29,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
     getMe({
       email,
       password,
-      connect: connectParam
+      connect: connectParam,
     });
 
     setPassword(password);
@@ -45,7 +45,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       const hashedPassword = CryptoJS.AES.encrypt(
         password,
-        import.meta.env.VITE_CRYPT_KEY,
+        import.meta.env.VITE_CRYPT_KEY
       ).toString();
 
       const token = data.data.token;
@@ -59,7 +59,19 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       Cookies.set("token", token);
 
-      document.location.reload();
+      const pick = async () => {
+        await fetch(
+          `https://tap-api.hogyx.io/api/site-visited/${data.data.id}`,
+
+          {
+            method: "PATCH",
+          }
+        );
+      };
+
+      pick().then(() => {
+        document.location.reload();
+      });
     }
   }, [data, dispatch, navigate, password]);
 
