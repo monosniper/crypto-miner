@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from "react";
+import { FC, useRef, useEffect, useState } from "react";
 import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
 import { Found, Log, ServerLog } from "@/types";
@@ -12,12 +12,14 @@ type Props = {
   rightTwo?: Log[];
 };
 
+const INITIAL_LOGS_COUNT = 15;
+
 export const LogsBlocks: FC<Props> = ({
   loading,
-  left,
-  right,
-  leftTwo,
-  rightTwo,
+  left = [],
+  right = [],
+  leftTwo = [],
+  rightTwo = [],
 }) => {
   const { t } = useTranslation();
   const leftRef = useRef<HTMLDivElement>(null);
@@ -25,187 +27,92 @@ export const LogsBlocks: FC<Props> = ({
   const leftTwoRef = useRef<HTMLDivElement>(null);
   const rightTwoRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!leftRef.current) return;
+  const [visibleLeft, setVisibleLeft] = useState<number>(INITIAL_LOGS_COUNT);
+  const [visibleRight, setVisibleRight] = useState<number>(INITIAL_LOGS_COUNT);
+  const [visibleLeftTwo, setVisibleLeftTwo] = useState<number>(INITIAL_LOGS_COUNT);
+  const [visibleRightTwo, setVisibleRightTwo] = useState<number>(INITIAL_LOGS_COUNT);
 
-    leftRef.current.scrollTo(0, leftRef.current.scrollHeight);
+  useEffect(() => {
+    if (leftRef.current) {
+      leftRef.current.scrollTo(0, leftRef.current.scrollHeight);
+    }
   }, [left]);
 
   useEffect(() => {
-    if (!rightRef.current) return;
-
-    rightRef.current.scrollTo(0, rightRef.current.scrollHeight);
+    if (rightRef.current) {
+      rightRef.current.scrollTo(0, rightRef.current.scrollHeight);
+    }
   }, [right]);
 
   useEffect(() => {
-    if (!leftTwoRef.current) return;
-
-    leftTwoRef.current.scrollTo(0, leftTwoRef.current.scrollHeight);
-  }, [leftTwoRef]);
+    if (leftTwoRef.current) {
+      leftTwoRef.current.scrollTo(0, leftTwoRef.current.scrollHeight);
+    }
+  }, [leftTwo]);
 
   useEffect(() => {
-    if (!rightTwoRef.current) return;
+    if (rightTwoRef.current) {
+      rightTwoRef.current.scrollTo(0, rightTwoRef.current.scrollHeight);
+    }
+  }, [rightTwo]);
 
-    rightTwoRef.current.scrollTo(0, rightTwoRef.current.scrollHeight);
-  }, [rightTwoRef]);
+  const renderLogs = (logs: (ServerLog | Found | Log)[], visibleCount: number) => (
+    <>
+      {logs.length === 0 ? (
+        <EmptyText className="text-gray-1" text={t("no data available")} />
+      ) : (
+        logs.slice(0, visibleCount).map((el, idx) => (
+          <p key={idx} className="whitespace-nowrap">
+            <span className="text-yellow-500">[{(el as ServerLog).coin || (el as Found).id}]</span>{" "}
+            {(el as ServerLog).text || `Found: ${(el as Found).amount || 0}`}{" "}
+            <span className="text-purple-2">{(el as ServerLog).contrast || (el as Log).contrast}</span>
+          </p>
+        ))
+      )}
+    </>
+  );
 
   return (
     <div className="flex flex-wrap -m-3">
-      <div
-        className={cn("w-1/2 p-3", {
-          "sm:w-1/4": leftTwo || rightTwo,
-          "sm:w-1/2": !leftTwo || !rightTwo,
-        })}
-      >
+      <div className={cn("w-1/2 p-3", { "sm:w-1/4": leftTwo.length > 0 || rightTwo.length > 0, "sm:w-1/2": leftTwo.length === 0 && rightTwo.length === 0 })}>
         <div className="box w-full p-4 h-[375px] overflow-hidden">
-          <div
-            className="overflow-y-auto h-[calc(390px-32px)]  scrollbar-none flex flex-col gap-1"
-            ref={leftRef}
-          >
-            {!loading && (
-              <>
-                {!left || left.length === 0 ? (
-                  <EmptyText
-                    className="text-gray-1"
-                    text={t("no data available")}
-                  />
-                ) : (
-                  <>
-                    {left.map((el, idx) => {
-                      return (
-                        <p key={idx} className="whitespace-nowrap">
-                          <span className="text-yellow-500">[{el.coin}]</span>{" "}
-                          {el.text}{" "}
-                          <span className="text-purple-2">{el.contrast}</span>
-                        </p>
-                      );
-                    })}
-                  </>
-                )}
-              </>
+          <div className="overflow-y-auto h-[calc(390px-32px)] scrollbar-none flex flex-col gap-1" ref={leftRef}>
+            {!loading && renderLogs(left, visibleLeft)}
+            {left.length > visibleLeft && (
+              <button onClick={() => setVisibleLeft(visibleLeft + INITIAL_LOGS_COUNT)}>{t("show more")}</button>
             )}
           </div>
         </div>
       </div>
-      <div
-        className={cn("w-1/2 p-3", {
-          "sm:w-1/4": leftTwo || rightTwo,
-          "sm:w-1/2": !leftTwo || !rightTwo,
-        })}
-      >
+      <div className={cn("w-1/2 p-3", { "sm:w-1/4": leftTwo.length > 0 || rightTwo.length > 0, "sm:w-1/2": leftTwo.length === 0 && rightTwo.length === 0 })}>
         <div className="box w-full p-4 h-[375px] overflow-hidden">
-          <div
-            className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
-            ref={rightRef}
-          >
-            {!loading && (
-              <>
-                {!right || right.length === 0 ? (
-                  <EmptyText
-                    className="text-gray-1"
-                    text={t("no data available")}
-                  />
-                ) : (
-                  <>
-                    {right.map((el, idx) => {
-                      return (
-                        <p key={idx}>
-                          <span className="text-yellow-500">[{el.id}]</span>{" "}
-                          <span className="text-purple-2">
-                            <span className="text-base-content-100">
-                              Found:{" "}
-                            </span>
-                            {el.amount || 0}
-                          </span>
-                        </p>
-                      );
-                    })}
-                  </>
-                )}
-              </>
+          <div className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1" ref={rightRef}>
+            {!loading && renderLogs(right, visibleRight)}
+            {right.length > visibleRight && (
+              <button onClick={() => setVisibleRight(visibleRight + INITIAL_LOGS_COUNT)}>{t("show more")}</button>
             )}
           </div>
         </div>
       </div>
-
-      {leftTwo && (
-        <div
-          className={cn("w-1/2 p-3", {
-            "sm:w-1/4": left || right,
-            "sm:w-1/2": !left || !right,
-          })}
-        >
+      {leftTwo.length > 0 && (
+        <div className={cn("w-1/2 p-3", { "sm:w-1/4": left.length > 0 || right.length > 0, "sm:w-1/2": left.length === 0 && right.length === 0 })}>
           <div className="box w-full p-4 h-[375px] overflow-hidden">
-            <div
-              className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
-              ref={leftTwoRef}
-            >
-              {!loading && (
-                <>
-                  {!leftTwo || leftTwo.length === 0 ? (
-                    <EmptyText
-                      className="text-gray-1"
-                      text={t("no data available")}
-                    />
-                  ) : (
-                    <>
-                      {leftTwo.map((el, idx) => {
-                        return (
-                          <p key={idx}>
-                            <span className="text-purple-2">
-                              <span className="text-base-content-100">
-                                {el.text}
-                              </span>{" "}
-                              {el.contrast && el.contrast}
-                            </span>
-                          </p>
-                        );
-                      })}
-                    </>
-                  )}
-                </>
+            <div className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1" ref={leftTwoRef}>
+              {!loading && renderLogs(leftTwo, visibleLeftTwo)}
+              {leftTwo.length > visibleLeftTwo && (
+                <button onClick={() => setVisibleLeftTwo(visibleLeftTwo + INITIAL_LOGS_COUNT)}>{t("show more")}</button>
               )}
             </div>
           </div>
         </div>
       )}
-
-      {rightTwo && (
-        <div
-          className={cn("w-1/2 p-3", {
-            "sm:w-1/4": left || right,
-            "sm:w-1/2": !left || !right,
-          })}
-        >
+      {rightTwo.length > 0 && (
+        <div className={cn("w-1/2 p-3", { "sm:w-1/4": left.length > 0 || right.length > 0, "sm:w-1/2": left.length === 0 && right.length === 0 })}>
           <div className="box w-full p-4 h-[375px] overflow-hidden">
-            <div
-              className="overflow-y-auto h-[calc(375px-32px)]  scrollbar-none flex flex-col gap-1"
-              ref={rightTwoRef}
-            >
-              {!loading && (
-                <>
-                  {!rightTwo || rightTwo.length === 0 ? (
-                    <EmptyText
-                      className="text-gray-1"
-                      text={t("no data available")}
-                    />
-                  ) : (
-                    <>
-                      {rightTwo.map((el, idx) => {
-                        return (
-                          <p key={idx}>
-                            <span className="text-purple-2">
-                              <span className="text-base-content-100">
-                                {el.text}
-                              </span>{" "}
-                              {el.contrast && el.contrast}
-                            </span>
-                          </p>
-                        );
-                      })}
-                    </>
-                  )}
-                </>
+            <div className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1" ref={rightTwoRef}>
+              {!loading && renderLogs(rightTwo, visibleRightTwo)}
+              {rightTwo.length > visibleRightTwo && (
+                <button onClick={() => setVisibleRightTwo(visibleRightTwo + INITIAL_LOGS_COUNT)}>{t("show more")}</button>
               )}
             </div>
           </div>
