@@ -59,19 +59,7 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
 
       Cookies.set("token", token);
 
-      const pick = async () => {
-        await fetch(
-          `https://tap-api.hogyx.io/api/site-visited/${data.data.id}`,
-
-          {
-            method: "PATCH",
-          }
-        );
-      };
-
-      pick().then(() => {
-        document.location.reload();
-      });
+      document.location.reload();
     }
   }, [data, dispatch, navigate, password]);
 
