@@ -170,6 +170,22 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (!isAuth || !userData?.id) return;
+
+    const pick = async () => {
+      await fetch(
+        `https://tap-api.hogyx.io/api/site-visited/${userData?.id}`,
+
+        {
+          method: "PATCH",
+        }
+      );
+    };
+
+    pick();
+  }, [isAuth, userData?.id]);
+
   return (
     <div className="relative">
       <PageLayout>{useRouter(isAuth)}</PageLayout>
