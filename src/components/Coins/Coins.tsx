@@ -46,7 +46,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
       },
     }),
     useSensor(TouchSensor),
-    useSensor(MouseSensor),
+    useSensor(MouseSensor)
   );
   const [setCoinsPositions, { isSuccess: isSuccessSetCoinsPositions }] =
     useSetCoinsPositionsMutation();
@@ -122,7 +122,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     const newCoinsPositionsListStr = JSON.stringify(newCoinsPositionsList);
 
     if (apiCoinsPositionsStr !== newCoinsPositionsListStr) {
-      setCoinsPositions(newCoinsPositionsList);
+      setCoinsPositions({ coin_positions: newCoinsPositionsList });
     }
   }, [coinsList, coinsPositions, draggableItems, setCoinsPositions]);
 
@@ -160,7 +160,7 @@ export const Coins: FC<PropsWithClassName<Props>> = ({
     dispatch(
       userApi.util.updateQueryData("getCoinsPositions", null, () => {
         return newCoinsPositionsList;
-      }),
+      })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccessSetCoinsPositions]);

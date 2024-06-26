@@ -34,7 +34,7 @@ export type Settings = {
   };
   landing_video: string | null;
   how_video: string | null;
-  wallet: string | null;
+  wallet_usdt: string | null;
   coin_prices: { [key: string]: string };
   offers_mail?: string;
   work_mail?: string;

@@ -43,7 +43,7 @@ export const NewsItem: FC<Props> = ({ data }) => {
           </p> */}
           <Link
             className="justify-items-end ml-auto"
-            to={`https://www.hogyx.io/article.php?id=${data.id}`}
+            to={`https://hogyx.io/ru/blog-details/${data.id}`}
           >
             Подробнее
           </Link>

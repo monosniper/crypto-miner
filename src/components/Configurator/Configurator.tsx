@@ -1,6 +1,6 @@
 import cn from "clsx";
 import { Select2 } from "../ui/Select2/Select2";
-import { MainBadge } from "../ui";
+import { Button, MainBadge } from "../ui";
 import { useConfigurator } from "@/hooks";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import {
@@ -12,7 +12,7 @@ import {
   OcConfigurator,
 } from "@/types";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 type Props<T extends FieldValues> = {
@@ -29,6 +29,7 @@ export const Configurator = ({
   const { configuration, base, oc, network, additional } = useConfigurator();
   const { data: coins } = useGetCoinsQuery(null);
   const { t } = useTranslation();
+  const [isSelectedAllCoins, setSelectedAllCoins] = useState(false);
 
   const selectCoin = (id: number) => {
     if (selectedCoins.find((coinId) => coinId === id)) {
@@ -129,6 +130,20 @@ export const Configurator = ({
       }
     });
   }, [additional, base, configuration, methods, network, oc]);
+
+  const toggleSelectAllCoins = () => {
+    if (!coins) return;
+
+    if (!isSelectedAllCoins) {
+      setSelectedCoins(coins.data.map((coin) => coin.id));
+      setSelectedAllCoins(true);
+
+      return;
+    }
+
+    setSelectedCoins([]);
+    setSelectedAllCoins(false);
+  };
 
   return (
     <div className={cn("box", "p-8")}>
@@ -242,9 +257,11 @@ export const Configurator = ({
                   {el.type === "select" && (
                     <Select2
                       list={list}
-                      defaultValue={methods.watch(
-                        `base.${el.slug as keyof BaseConfigurator}`
-                      ) as any}
+                      defaultValue={
+                        methods.watch(
+                          `base.${el.slug as keyof BaseConfigurator}`
+                        ) as any
+                      }
                       onChange={(value) => {
                         methods.setValue(
                           `base.${el.slug as keyof BaseConfigurator}`,
@@ -343,14 +360,26 @@ export const Configurator = ({
           <h3 className="text-base font-semibold">{t("coins")}</h3>
 
           <div className="flex items-center gap-1.5 flex-wrap">
-            {coins?.data.map((coin) => (
-              <MainBadge
-                key={coin.id}
-                title={coin.slug}
-                onClick={() => selectCoin(coin.id)}
-                active={checkActiveCoin(coin.id)}
-              />
-            ))}
+            {coins?.data.map((coin) => {
+              if (coin.id === 1) return;
+
+              return (
+                <MainBadge
+                  key={coin.id}
+                  title={coin.slug}
+                  onClick={() => selectCoin(coin.id)}
+                  active={checkActiveCoin(coin.id)}
+                />
+              );
+            })}
+
+            <Button
+              className={cn("py-2 px-8 max-h-[32px] !border-[0.5px]", {
+                "!border-red-500 !text-red-500": isSelectedAllCoins,
+              })}
+              title={isSelectedAllCoins ? "Удалить все" : "Выбрать все"}
+              onClick={toggleSelectAllCoins}
+            />
           </div>
         </div>
 

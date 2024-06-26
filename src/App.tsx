@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { main } from "./redux/slices/mainSlice";
-import { useRouter } from "@/hooks";
+import { useAuth, useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
 import { setAuth, setUserData, user } from "./redux/slices/userSlice";
 import { useGetMeDataQuery, useLazyGetMeDataQuery } from "./redux/api/userApi";
@@ -28,6 +28,8 @@ const App = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [getMe] = useLazyGetMeDataQuery();
+
+  useAuth();
 
   useEffect(() => {
     if (token) {
@@ -185,7 +187,6 @@ const App = () => {
 
     pick();
   }, [isAuth, userData?.id]);
-
   return (
     <div className="relative">
       <PageLayout>{useRouter(isAuth)}</PageLayout>
