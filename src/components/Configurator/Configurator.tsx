@@ -361,7 +361,7 @@ export const Configurator = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className="text-base font-semibold">{t("coins")}</h3>
+          <h3 className="text-base font-semibold">{t("Coins")}</h3>
 
           <div className="flex items-center gap-1.5 flex-wrap">
             {coins?.data.map((coin) => {

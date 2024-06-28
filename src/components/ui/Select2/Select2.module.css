@@ -4,7 +4,7 @@
 }
 
 .select {
-  @apply cursor-pointer px-3 py-2 rounded-lg bg-base-500 text-base-content-100 flex items-center justify-between gap-1 text-sm lg:max-w-[150px] lg:min-w-[150px] truncate;
+  @apply cursor-pointer px-3 py-2 rounded-lg bg-base-500 text-base-content-100 flex items-center justify-between gap-1 text-sm lg:max-w-[150px] lg:min-w-[150px] truncate lg:whitespace-nowrap;
 
   appearance: none;
 }
@@ -14,7 +14,7 @@
 }
 
 .list {
-  @apply absolute top-full left-0 right-0 w-full text-base-content-100 text-xs overflow-hidden z-10 rounded-lg bg-base-400 max-h-[250px] overflow-y-auto;
+  @apply absolute top-full left-0 right-0 lg:left-1/2 lg:-translate-x-1/2 w-full lg:min-w-full lg:w-max xl:left-0 xl:translate-x-0 xl:right-auto text-base-content-100 text-xs overflow-hidden z-10 rounded-lg bg-base-400 max-h-[250px] overflow-y-auto;
 }
 
 body[data-theme="light"] .list {
