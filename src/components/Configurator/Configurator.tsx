@@ -135,7 +135,9 @@ export const Configurator = ({
     if (!coins) return;
 
     if (!isSelectedAllCoins) {
-      setSelectedCoins(coins.data.map((coin) => coin.id));
+      setSelectedCoins(
+        coins.data.filter((coin) => coin.id !== 1).map((coin) => coin.id)
+      );
       setSelectedAllCoins(true);
 
       return;

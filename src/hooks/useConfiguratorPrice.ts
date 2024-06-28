@@ -37,6 +37,7 @@ export const useConfiguratorPrice = (data: Args) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useAppDispatch();
 
+
   useEffect(() => {
     if (
       !configuration ||
@@ -147,6 +148,8 @@ export const useConfiguratorPrice = (data: Args) => {
 
   useEffect(() => {
     let sum = 0;
+
+    console.log(data.selectedCoins);
 
     for (let i = 0; i < data.selectedCoins.length; i++) {
       const coinId = data.selectedCoins[i];
