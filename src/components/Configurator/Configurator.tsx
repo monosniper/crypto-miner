@@ -210,7 +210,7 @@ export const Configurator = ({
                   key={idx}
                   className="flex justify-between items-center gap-4 flex-wrap text-sm"
                 >
-                  <p>{el.slug}</p>
+                  <p>{t(el.slug)}</p>
 
                   {el.type === "select" && (
                     <Select2

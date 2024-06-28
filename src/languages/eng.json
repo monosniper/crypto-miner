@@ -241,6 +241,11 @@
   "disk": "Disk",
   "gpu_count": "Gpu_count",
   "ip_count": "Ip_count",
+  "oc": "oc",
+  "cpu": "cpu",
+  "ram": "ram",
+  "gpu": "gpu",
+  "ipv": "ipv",
 
   "Server in work": "Server in work",
 
