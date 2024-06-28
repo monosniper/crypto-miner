@@ -215,7 +215,7 @@ export const userApi = createApi({
     >({
       query(body) {
         return {
-          url: "orders/replenishments",
+          url: "me/replenishments",
           method: "POST",
           body,
         };

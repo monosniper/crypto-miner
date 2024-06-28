@@ -186,7 +186,9 @@ export const Configurator = ({
                     />
                   )}
 
-                  {el.type === "text" && <p>Text</p>}
+                  {el.type === "text" && (
+                    <p>{t(methods.watch("configuration.type")) ? t(methods.watch("configuration.type")) : t("Custom")}</p>
+                  )}
                 </div>
               );
             })}

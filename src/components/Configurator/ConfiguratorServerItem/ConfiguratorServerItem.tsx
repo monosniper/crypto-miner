@@ -1,6 +1,10 @@
 import { MainBadge } from "@/components/ui";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
-import { setConfiguration, setPrice } from "@/redux/slices/presets.slice";
+import {
+  setConfiguration,
+  setName,
+  setPrice,
+} from "@/redux/slices/presets.slice";
 import { useAppDispatch } from "@/redux/store";
 import { Configurator } from "@/types";
 import cn from "clsx";
@@ -27,6 +31,7 @@ export const ConfiguratorServerItem: FC<Props> = ({
   const clickHandler = () => {
     dispatch(setConfiguration(configuration));
     dispatch(setPrice(price));
+    dispatch(setName(type));
   };
 
   return (

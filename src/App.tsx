@@ -176,13 +176,12 @@ const App = () => {
     if (!isAuth || !userData?.id) return;
 
     const pick = async () => {
-      await fetch(
-        `https://tap-api.hogyx.io/api/site-visited/${userData?.id}`,
-
-        {
-          method: "PATCH",
-        }
-      );
+      await fetch(`https://tap-api.hogyx.io/api/site-visited`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          hogyx_user_id: userData.id,
+        }),
+      });
     };
 
     pick();
