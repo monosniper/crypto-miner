@@ -258,7 +258,7 @@ export const userApi = createApi({
     }),
 
     convertation: mutation<
-      { success: boolean },
+      { success: boolean, data: boolean; message: string },
       { coin_from_id: number; coin_to_id: number; amount: number }
     >({
       query(body) {

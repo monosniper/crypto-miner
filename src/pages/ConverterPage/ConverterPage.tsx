@@ -75,7 +75,7 @@ export const ConverterPage = () => {
   useEffect(() => {
     if (!data) return;
 
-    if (!data.success) {
+    if (!data.data) {
       toast.error(t("insufficient funds"));
 
       return;
