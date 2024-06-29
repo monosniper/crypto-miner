@@ -78,7 +78,9 @@ export const ConfiguratorPage = () => {
     if (!configuration) return;
 
     methods.setValue("configuration.location", configuration.location);
-    methods.setValue("configuration.type", name);
+    if(name) {
+      methods.setValue("configuration.type", name);
+    }
 
     methods.setValue("base.cpu", configuration.cpu);
     methods.setValue("base.disk", configuration.disk);
