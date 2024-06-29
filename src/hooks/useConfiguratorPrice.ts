@@ -148,19 +148,20 @@ export const useConfiguratorPrice = (data: Args) => {
 
   useEffect(() => {
     let sum = 0;
-
-    console.log(data.selectedCoins);
-
+  
     for (let i = 0; i < data.selectedCoins.length; i++) {
       const coinId = data.selectedCoins[i];
-
       const coinPrice = Number(settings?.coin_prices[coinId.toString()]);
-
       sum += coinPrice;
     }
-
+  
+    if (data.selectedCoins.length > 2) {
+      sum *= 1.2; // Increase by 20% if more than two coins are selected
+    }
+  
     setCoinsPrice(sum);
   }, [data.selectedCoins, settings?.coin_prices]);
+  
 
   useEffect(() => {
     const sum =
