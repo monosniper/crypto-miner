@@ -3,6 +3,7 @@ import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
 import { Found, Log, ServerLog } from "@/types";
 import cn from "clsx";
+import moment from "moment";
 
 type Props = {
   loading?: boolean;
@@ -69,7 +70,9 @@ export const LogsBlocks: FC<Props> = ({
         logs.slice(0, visibleCount).map((el, idx) => (
           <p key={idx} className="whitespace-nowrap">
             <span className="text-yellow-500">
-              [{(el as ServerLog).coin || (el as Found).id}]
+              {/* [{(el as ServerLog).coin || (el as Found).id}] */}
+
+              {`[${moment.utc(el.timestamp).local().format("DD.MM.YYYY")}]`}
             </span>{" "}
             {(el as ServerLog).text || `Found: ${(el as Found).amount || 0}`}{" "}
             <span className="text-purple-2">
@@ -82,8 +85,8 @@ export const LogsBlocks: FC<Props> = ({
   );
 
   return (
-    <div className="flex flex-wrap -m-3">
-      <div className={cn("w-full md:w-1/2 lg:w-1/4 p-3")}>
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+      <div className={cn("w-full")}>
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(390px-32px)] scrollbar-none flex flex-col gap-1"
@@ -101,7 +104,7 @@ export const LogsBlocks: FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className={cn("w-full md:w-1/2 lg:w-1/4 p-3")}>
+      <div className={cn("w-full")}>
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1"
@@ -122,9 +125,7 @@ export const LogsBlocks: FC<Props> = ({
         </div>
       </div>
 
-      <div
-        className={cn("w-full md:w-1/2 lg:w-1/4 p-3")}
-      >
+      <div className={cn("w-full")}>
         <div className="box w-full p-4 h-[375px] overflow-hidden">
           <div
             className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1"
@@ -141,18 +142,7 @@ export const LogsBlocks: FC<Props> = ({
                 {t("show-more")}
               </button>
             )}
-          </div>
-        </div>
-      </div>
 
-      <div
-        className={cn("w-full md:w-1/2 lg:w-1/4 p-3")}
-      >
-        <div className="box w-full p-4 h-[375px] overflow-hidden">
-          <div
-            className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1"
-            ref={rightTwoRef}
-          >
             {!loading && renderLogs(rightTwo, visibleRightTwo)}
             {rightTwo.length > visibleRightTwo && (
               <button
