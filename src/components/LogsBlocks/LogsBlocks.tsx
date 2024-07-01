@@ -68,7 +68,7 @@ export const LogsBlocks: FC<Props> = ({
         <EmptyText className="text-gray-1" text={t("no data available")} />
       ) : (
         logs.slice(0, visibleCount).map((el, idx) => (
-          <p key={idx} className="whitespace-nowrap">
+          <p key={idx} className="whitespace-nowrap text-sm">
             <span className="text-yellow-500">
               {/* [{(el as ServerLog).coin || (el as Found).id}] */}
 
