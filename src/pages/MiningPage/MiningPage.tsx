@@ -167,7 +167,7 @@ export const MiningPage = () => {
                 title={
                   userData?.session || sessionData?.data
                     ? t("at work")
-                    : sessionIsLoading
+                    : !sessionIsLoading
                     ? t("start")
                     : t("loading")
                 }

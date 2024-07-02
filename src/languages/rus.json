@@ -282,5 +282,9 @@
   "Contact us and suggestions": "Связь с нами и предложения",
   "To work with us": "Работать с нами",
   "Confirm your email": "Подтвердите почту",
-  "Custom": "Кастомный"
+  "Custom": "Кастомный",
+
+  "Income per day": "Доход в день",
+  "Income per week": "Доход в неделю",
+  "Income per month": "Доход в месяц"
 }
