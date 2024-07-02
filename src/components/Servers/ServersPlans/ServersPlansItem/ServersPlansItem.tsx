@@ -1,7 +1,7 @@
 import { Button, MainBadge } from "@/components/ui";
 import { Preset, PropsWithClassName } from "@/types";
 import cn from "clsx";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./ServersPlansItem.module.css";
 import { useTranslation } from "react-i18next";
 import { useSetOrderMutation } from "@/redux/api/userApi";
@@ -24,6 +24,9 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
   const { data: coins } = useGetCoinsQuery(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [monthIncome] = useState(Math.ceil(Number(data.price) / 5));
+  const [dayIncome] = useState(Math.ceil(Number(data.price) / 5 / 30));
+  const [weekIncome] = useState(Math.ceil(Number(data.price) / 5 / 4));
 
   useEffect(() => {
     if (!buyServerData) return;
@@ -81,6 +84,19 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
             <div className={styles.listItem}>{data.configuration.oc}</div>
 
             <div className={styles.listItem}>{data.configuration.ram}</div>
+            
+            <p>
+              {t("Income per day")}:{" "}
+              <span className="font-semibold">{dayIncome}$</span>
+            </p>
+            <p>
+              {t("Income per week")}:{" "}
+              <span className="font-semibold">{weekIncome}$</span>
+            </p>
+            <p>
+              {t("Income per month")}:{" "}
+              <span className="font-semibold">{monthIncome}$</span>
+            </p>
 
             {data.configuration.coins &&
               data.configuration.coins.length > 0 && (
