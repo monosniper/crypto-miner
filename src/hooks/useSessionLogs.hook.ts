@@ -24,68 +24,24 @@ export const useSessionLogs = (sessionData?: Session) => {
 
     if (!servers) return;
 
-    const interval = setInterval(() => {
-      const logs: ServerLog[] = [];
-      const founds: Found[] = [];
-      const currentDate = new Date();
-      const sessionMinerLogsList = [];
-      const sessionServerLogsList = [];
+    for (let i = 0; i < servers.length; i++) {
+      const server = servers[i];
 
-      for (let i = 0; i < servers.length; i++) {
-        const server = servers[i];
+      if (!server) return;
 
-        if (!server.logs && !server.founds) return;
-
-        if (server.logs) {
-          for (let j = 0; j < server.logs.length; j++) {
-            const log = server.logs[j];
-
-            const logDate = new Date(log.timestamp);
-
-            if (currentDate.getTime() > logDate.getTime()) {
-              logs.push(log);
-            }
-          }
-        }
-
-        if (server.founds) {
-          for (let j = 0; j < server.founds.length; j++) {
-            const log = server.founds[j];
-
-            const logDate = new Date(log.timestamp);
-
-            if (currentDate.getTime() > logDate.getTime()) {
-              founds.push(log);
-            }
-          }
-        }
+      if (server.logs) {
+        setServersAllLogs(server.logs);
       }
-
+      if (server.founds) {
+        setServersAllFounds(server.founds);
+      }
       if (sessionLogs) {
-        for (let i = 0; i < sessionLogs.length; i++) {
-          const log = sessionLogs[i];
-
-          const logDate = new Date(log.timestamp);
-
-          if (currentDate.getTime() > logDate.getTime()) {
-            if (log.type === "miner") {
-              sessionMinerLogsList.push(log);
-            }
-
-            if (log.type === "servers") {
-              sessionServerLogsList.push(log);
-            }
-          }
-        }
+        setSessionMinerLogs(sessionLogs?.filter((log) => log.type === "miner"));
+        setSessionServersLogs(
+          sessionLogs?.filter((log) => log.type === "servers")
+        );
       }
-
-      setServersAllLogs(logs);
-      setServersAllFounds(founds);
-      setSessionMinerLogs(sessionMinerLogsList);
-      setSessionServersLogs(sessionServerLogsList);
-    }, 2000);
-
-    return () => clearInterval(interval);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     getMe,
