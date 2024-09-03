@@ -57,10 +57,15 @@ export const MiningPage = () => {
     if (!userDataApi) return;
 
     dispatch(setUserData(userDataApi.data));
-  }, [dispatch, userDataApi]);
+
+    if (!userDataApi.data.session) {
+      localStorage.removeItem("opened-info-mining-modal");
+    }
+  }, [dispatch, userData?.session, userDataApi]);
 
   useEffect(() => {
-    if (!sessionData?.data) return;
+    if (!sessionData?.data || localStorage.getItem("opened-info-mining-modal"))
+      return;
 
     dispatch(
       setOpenModal({
@@ -77,6 +82,8 @@ export const MiningPage = () => {
         )
       )
     );
+
+    localStorage.setItem("opened-info-mining-modal", JSON.stringify(true));
   }, [dispatch, sessionData, t]);
 
   return (
@@ -135,7 +142,7 @@ export const MiningPage = () => {
                         className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
                       >
                         <CoinBlock
-                        className="cursor-pointer"
+                          className="cursor-pointer"
                           data={el}
                           type="mining"
                           selected={

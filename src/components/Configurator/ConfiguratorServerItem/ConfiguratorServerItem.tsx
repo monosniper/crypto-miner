@@ -1,10 +1,15 @@
 import { MainBadge } from "@/components/ui";
 import { useGetCoinsQuery } from "@/redux/api/coinsApi";
-import { setConfiguration, setPrice } from "@/redux/slices/presets.slice";
+import {
+  setConfiguration,
+  setName,
+  setPrice,
+} from "@/redux/slices/presets.slice";
 import { useAppDispatch } from "@/redux/store";
 import { Configurator } from "@/types";
 import cn from "clsx";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   type: string;
@@ -23,10 +28,15 @@ export const ConfiguratorServerItem: FC<Props> = ({
 }) => {
   const { data: allCoins } = useGetCoinsQuery(null);
   const dispatch = useAppDispatch();
+  const [monthIncome] = useState(Math.ceil(Number(price) / 5));
+  const [dayIncome] = useState(Math.ceil(Number(price) / 5 / 30));
+  const [weekIncome] = useState(Math.ceil(Number(price) / 5 / 4));
+  const { t } = useTranslation();
 
   const clickHandler = () => {
     dispatch(setConfiguration(configuration));
     dispatch(setPrice(price));
+    dispatch(setName(type));
   };
 
   return (
@@ -48,6 +58,21 @@ export const ConfiguratorServerItem: FC<Props> = ({
           {text}
         </p>
       ))}
+
+      <div className="flex flex-col gap-2">
+        <p>
+          {t("Income per day")}:{" "}
+          <span className="font-semibold">{dayIncome}$</span>
+        </p>
+        <p>
+          {t("Income per week")}:{" "}
+          <span className="font-semibold">{weekIncome}$</span>
+        </p>
+        <p>
+          {t("Income per month")}:{" "}
+          <span className="font-semibold">{monthIncome}$</span>
+        </p>
+      </div>
 
       <div className="flex items-center gap-1 flex-wrap">
         {coins.map((coinId, idx) => {

@@ -30,7 +30,7 @@ export const TextFieldSelect: FC<Props> = ({ value, onClickItem, list }) => {
   }, [list, value]);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative w-max" ref={ref}>
       <p
         className="cursor-pointer hover:text-primary flex items-center gap-2"
         onClick={() => setOpen((prev) => !prev)}

@@ -241,6 +241,11 @@
   "disk": "Disk",
   "gpu_count": "Gpu_count",
   "ip_count": "Ip_count",
+  "oc": "oc",
+  "cpu": "cpu",
+  "ram": "ram",
+  "gpu": "gpu",
+  "ipv": "ipv",
 
   "Server in work": "Server in work",
 
@@ -269,5 +274,11 @@
   "Cooperation": "Cooperation",
 
   "Contact us and suggestions": "Contact us and suggestions",
-  "To work with us": "To work with us"
+  "To work with us": "To work with us",
+  "Confirm your email": "Confirm your email",
+  "Custom": "Custom",
+
+  "Income per day": "Income per day",
+  "Income per week": "Income per week",
+  "Income per month": "Income per month"
 }

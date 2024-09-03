@@ -6,3 +6,5 @@ export * from "./useConfigurator";
 export * from "./useConfiguratorPrice";
 export * from "./useSession.hook";
 export * from "./useSessionLogs.hook";
+export * from "./useAuth";
+export * from "./useServerLogs.hook";

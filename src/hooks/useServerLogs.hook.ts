@@ -8,7 +8,7 @@ import { getEncryptedPassword } from "@/utils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export const useSessionLogs = (sessionData?: Session) => {
+export const useServerLogs = (sessionData?: Session) => {
   const [serversAllLogs, setServersAllLogs] = useState<ServerLog[]>([]);
   const [serversAllFounds, setServersAllFounds] = useState<Found[]>([]);
   const [sessionServersLogs, setSessionServersLogs] = useState<Log[]>([]);

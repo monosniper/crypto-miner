@@ -23,3 +23,4 @@ export * from "./PaymentFinishPage/PaymentFinishPage";
 export * from "./ProfilePage/ProfilePage";
 export * from "./ConfiguratorPage/ConfiguratorPage";
 export * from "./CooperationPage/CooperationPage";
+export * from "./EmailConfirmationPage/EmailConfirmationPage";

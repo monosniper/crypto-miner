@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { main } from "./redux/slices/mainSlice";
-import { useRouter } from "@/hooks";
+import { useAuth, useRouter } from "@/hooks";
 import { PageLayout } from "./components/layouts";
 import { setAuth, setUserData, user } from "./redux/slices/userSlice";
 import { useGetMeDataQuery, useLazyGetMeDataQuery } from "./redux/api/userApi";
@@ -28,6 +28,8 @@ const App = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [getMe] = useLazyGetMeDataQuery();
+
+  useAuth();
 
   useEffect(() => {
     if (token) {
@@ -174,18 +176,16 @@ const App = () => {
     if (!isAuth || !userData?.id) return;
 
     const pick = async () => {
-      await fetch(
-        `https://tap-api.hogyx.io/api/site-visited/${userData?.id}`,
-
-        {
-          method: "PATCH",
-        }
-      );
+      await fetch(`https://tap-api.hogyx.io/api/site-visited`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          hogyx_user_id: userData.id,
+        }),
+      });
     };
 
     pick();
   }, [isAuth, userData?.id]);
-
   return (
     <div className="relative">
       <PageLayout>{useRouter(isAuth)}</PageLayout>

@@ -24,8 +24,6 @@ export const SignInForm: FC<PropsWithClassName> = ({ className }) => {
   const formHandler = ({ email, password }: SignInFormData) => {
     const connectParam = searchParams.get("connect") || undefined;
 
-    console.log(connectParam);
-
     getMe({
       email,
       password,

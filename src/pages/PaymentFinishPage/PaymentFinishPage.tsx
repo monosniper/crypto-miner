@@ -133,7 +133,9 @@ export const PaymentFinishPage = () => {
 
             {type === "with-crypto" ? (
               <div className="flex items-start flex-col min-[600px]:flex-row min-[600px]:items-center gap-4 mt-4 overflow-hidden">
-                <QRCodeCanvas value="TUPr4wqgqqUDXnt5VdUn3Px15W" />
+                {settings?.wallet_usdt && (
+                  <QRCodeCanvas value={settings.wallet_usdt} />
+                )}
 
                 <div className="flex flex-col gap-3.5 w-full">
                   <p className="text-sm text-gray-1">
@@ -141,15 +143,15 @@ export const PaymentFinishPage = () => {
                   </p>
 
                   <div className="flex items-center gap-4 text-xl flex-wrap">
-                    {settings?.wallet && (
-                      <p className="truncate w-max">{settings?.wallet}</p>
+                    {settings?.wallet_usdt && (
+                      <p className="truncate w-max">{settings?.wallet_usdt}</p>
                     )}
                     <div
                       className="cursor-pointer"
                       onClick={() => {
-                        if (!settings?.wallet) return;
+                        if (!settings?.wallet_usdt) return;
 
-                        copyText(settings.wallet);
+                        copyText(settings.wallet_usdt);
 
                         toast.success(t("the text has been copied"));
                       }}

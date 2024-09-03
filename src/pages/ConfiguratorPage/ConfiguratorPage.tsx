@@ -21,7 +21,7 @@ export const ConfiguratorPage = () => {
   const [selectedCoins, setSelectedCoins] = useState<number[]>([]);
   const navigate = useNavigate();
   const { price } = useAppSelector(configurator);
-  const { configuration } = useAppSelector(presets);
+  const { configuration, name } = useAppSelector(presets);
   const [
     setOrder,
     { data: newOrder, error: newOrderError, isSuccess: newOrderIsSuccess },
@@ -55,7 +55,7 @@ export const ConfiguratorPage = () => {
       gpu: data.base.gpu,
       gpu_count: data.base.gpu_count,
       oc: data.oc.oc,
-      type: data.configuration.type,
+      // type: data.configuration.type,
       location: data.configuration.location,
       notifications: data.additional.notifications,
       ipv: data.network.ipv,
@@ -78,7 +78,9 @@ export const ConfiguratorPage = () => {
     if (!configuration) return;
 
     methods.setValue("configuration.location", configuration.location);
-    methods.setValue("configuration.type", "");
+    if(name) {
+      methods.setValue("configuration.type", name);
+    }
 
     methods.setValue("base.cpu", configuration.cpu);
     methods.setValue("base.disk", configuration.disk);
@@ -97,7 +99,7 @@ export const ConfiguratorPage = () => {
     methods.setValue("additional.notifications", configuration.notifications);
 
     setSelectedCoins(configuration.coins.map((el) => Number(el)));
-  }, [configuration, dispatch, methods]);
+  }, [configuration, dispatch, methods, name]);
 
   return (
     <form onSubmit={methods.handleSubmit(formHandler)}>

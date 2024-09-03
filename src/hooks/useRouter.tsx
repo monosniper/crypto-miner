@@ -24,6 +24,7 @@ const {
   ProfilePage,
   ConfiguratorPage,
   CooperationPage,
+  EmailConfirmationPage,
 } = lazily(() => import("@/pages"));
 
 export const useRouter = (isAuth: boolean) => {
@@ -225,6 +226,15 @@ export const useRouter = (isAuth: boolean) => {
             element={
               <Suspense>
                 <CooperationPage />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/email-confirmation"
+            element={
+              <Suspense>
+                <EmailConfirmationPage />
               </Suspense>
             }
           />

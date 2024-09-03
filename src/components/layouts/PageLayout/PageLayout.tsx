@@ -3,6 +3,7 @@ import { Header, RecentTransactions, Sidebar } from "@/components";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { setOpenSidebar } from "@/redux/slices/mainSlice";
 import { user } from "@/redux/slices/userSlice";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
@@ -14,6 +15,7 @@ export const PageLayout: FC<Props> = ({ children }) => {
   });
   const dispatch = useAppDispatch();
   const { isAuth } = useAppSelector(user);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const resizeListener = () => {
@@ -35,7 +37,7 @@ export const PageLayout: FC<Props> = ({ children }) => {
 
   return (
     <>
-      {isAuth ? (
+      {isAuth && pathname !== "/email-confirmation" ? (
         <div>
           <RecentTransactions />
           <Sidebar isLaptop={isLaptop} />

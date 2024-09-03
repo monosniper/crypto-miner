@@ -75,7 +75,7 @@ export const ConverterPage = () => {
   useEffect(() => {
     if (!data) return;
 
-    if (!data.success) {
+    if (!data.data) {
       toast.error(t("insufficient funds"));
 
       return;
@@ -167,18 +167,43 @@ export const ConverterPage = () => {
                 },
               }}
               rightBlock={
-                <TextFieldSelect
-                  value={fromCoinId}
-                  list={formatCoins}
-                  onClickItem={(id) => {
-                    if (id === toCoinId)
-                      return toast.error(
-                        t("You cannot convert identical coins")
-                      );
+                <div className="flex items-center gap-2">
+                  <button
+                    className="allBtn"
+                    type="button"
+                    onClick={() => {
+                      if (!walletData) return;
 
-                    setFromCoinId(id);
-                  }}
-                />
+                      const { balance } = walletData.data;
+                      const foundCoin = coins?.data.find(
+                        (coin) => coin.id === fromCoinId
+                      );
+                      const foundCoinSlug = foundCoin?.slug;
+
+                      if (!foundCoinSlug) return;
+
+                      methods.setValue(
+                        "amount",
+                        Number(balance[foundCoinSlug.toUpperCase()])
+                      );
+                    }}
+                  >
+                    {t("all")}
+                  </button>
+
+                  <TextFieldSelect
+                    value={fromCoinId}
+                    list={formatCoins}
+                    onClickItem={(id) => {
+                      if (id === toCoinId)
+                        return toast.error(
+                          t("You cannot convert identical coins")
+                        );
+
+                      setFromCoinId(id);
+                    }}
+                  />
+                </div>
               }
             />
 
@@ -210,18 +235,43 @@ export const ConverterPage = () => {
                   },
                 }}
                 rightBlock={
-                  <TextFieldSelect
-                    value={toCoinId}
-                    list={formatCoins}
-                    onClickItem={(id) => {
-                      if (id === fromCoinId)
-                        return toast.error(
-                          t("You cannot convert identical coins")
-                        );
+                  <div className="flex items-center gap-2">
+                    <button
+                      className="allBtn"
+                      type="button"
+                      onClick={() => {
+                        if (!walletData) return;
 
-                      setToCoinId(id);
-                    }}
-                  />
+                        const { balance } = walletData.data;
+                        const foundCoin = coins?.data.find(
+                          (coin) => coin.id === toCoinId
+                        );
+                        const foundCoinSlug = foundCoin?.slug;
+
+                        if (!foundCoinSlug) return;
+
+                        methods.setValue(
+                          "amountTwo",
+                          Number(balance[foundCoinSlug.toUpperCase()])
+                        );
+                      }}
+                    >
+                      {t("all")}
+                    </button>
+
+                    <TextFieldSelect
+                      value={toCoinId}
+                      list={formatCoins}
+                      onClickItem={(id) => {
+                        if (id === fromCoinId)
+                          return toast.error(
+                            t("You cannot convert identical coins")
+                          );
+
+                        setToCoinId(id);
+                      }}
+                    />
+                  </div>
                 }
               />
 
