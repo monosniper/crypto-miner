@@ -233,7 +233,7 @@ export const ServerPage = () => {
             <div className={cn("w-full")}>
               <div className="box w-full p-4 h-[375px] overflow-hidden">
                 <div className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1">
-                  {renderLogs(serverData.data.logs)}
+                  {renderLogs(serverData?.data.logs || [])}
                 </div>
               </div>
             </div>

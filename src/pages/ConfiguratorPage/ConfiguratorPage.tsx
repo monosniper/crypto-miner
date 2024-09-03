@@ -55,7 +55,7 @@ export const ConfiguratorPage = () => {
       gpu: data.base.gpu,
       gpu_count: data.base.gpu_count,
       oc: data.oc.oc,
-      type: data.configuration.type,
+      // type: data.configuration.type,
       location: data.configuration.location,
       notifications: data.additional.notifications,
       ipv: data.network.ipv,
