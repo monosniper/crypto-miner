@@ -84,7 +84,7 @@ export const ServersPlansItem: FC<PropsWithClassName<Props>> = ({
             <div className={styles.listItem}>{data.configuration.oc}</div>
 
             <div className={styles.listItem}>{data.configuration.ram}</div>
-            
+
             <p>
               {t("Income per day")}:{" "}
               <span className="font-semibold">{dayIncome}$</span>

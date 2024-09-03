@@ -1,14 +1,15 @@
-import { Graph, LogsBlock, Title } from "@/components";
+import { EmptyText, Graph, LogsBlock, Title } from "@/components";
 import { FanIcon, PrevIcon } from "@/components/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
-import { ServerStatuses } from "@/types";
+import { Found, Log, ServerLog, ServerStatuses } from "@/types";
 import { getServerStatus } from "@/data";
 import { useGetMyServerByIdQuery } from "@/redux/api/serversApi";
 import styles from "./ServerPage.module.css";
 import { useEffect, useState } from "react";
 import { getPastTimeStr } from "@/utils";
+import moment from "moment";
 
 // const currentDate = moment.utc();
 
@@ -104,6 +105,28 @@ export const ServerPage = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const renderLogs = (logs: (ServerLog | Found | Log)[]) => (
+    <>
+      {logs.length === 0 ? (
+        <EmptyText className="text-gray-1" text={t("no data available")} />
+      ) : (
+        logs.map((el, idx) => (
+          <p key={idx} className="whitespace-nowrap text-sm">
+            <span className="text-yellow-500">
+              {/* [{(el as ServerLog).coin || (el as Found).id}] */}
+
+              {`[${moment.utc(el.timestamp).local().format("DD.MM.YYYY")}]`}
+            </span>{" "}
+            {(el as ServerLog).text || `Found: ${(el as Found).amount || 0}`}{" "}
+            <span className="text-purple-2">
+              {(el as ServerLog).contrast || (el as Log).contrast}
+            </span>
+          </p>
+        ))
+      )}
+    </>
+  );
+
   return (
     <div>
       <button
@@ -183,28 +206,38 @@ export const ServerPage = () => {
         })}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
-          <LogsBlock
-            className="h-max"
-            children={
-              <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
-                <Graph
-                  graphData={cpuList}
-                  y={{
-                    ticks: 6,
-                    min: 20,
-                    max: 100,
-                    afterNumber: "%",
-                  }}
-                  margins={{
-                    left: 40,
-                    right: 0,
-                    bottom: 20,
-                  }}
-                />
+          <div className="flex flex-col gap-4 lg:gap-6">
+            <LogsBlock
+              className="h-max"
+              children={
+                <div className="relative -ml-4 lg:-ml-6 w-[calc(100%+32px)] lg:w-[calc(100%+48px)]">
+                  <Graph
+                    graphData={cpuList}
+                    y={{
+                      ticks: 6,
+                      min: 20,
+                      max: 100,
+                      afterNumber: "%",
+                    }}
+                    margins={{
+                      left: 40,
+                      right: 0,
+                      bottom: 20,
+                    }}
+                  />
+                </div>
+              }
+              title="CPU Usage"
+            />
+
+            <div className={cn("w-full")}>
+              <div className="box w-full p-4 h-[375px] overflow-hidden">
+                <div className="overflow-y-auto h-[calc(375px-32px)] scrollbar-none flex flex-col gap-1">
+                  {renderLogs(serverData.data.logs)}
+                </div>
               </div>
-            }
-            title="CPU Usage"
-          />
+            </div>
+          </div>
           <LogsBlock
             className="h-max"
             children={

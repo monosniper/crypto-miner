@@ -133,7 +133,9 @@ export const PaymentFinishPage = () => {
 
             {type === "with-crypto" ? (
               <div className="flex items-start flex-col min-[600px]:flex-row min-[600px]:items-center gap-4 mt-4 overflow-hidden">
-                <QRCodeCanvas value="TUPr4wqgqqUDXnt5VdUn3Px15W" />
+                {settings?.wallet_usdt && (
+                  <QRCodeCanvas value={settings.wallet_usdt} />
+                )}
 
                 <div className="flex flex-col gap-3.5 w-full">
                   <p className="text-sm text-gray-1">
