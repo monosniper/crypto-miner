@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Tooltip } from "react-tooltip";
 import socket from "@/core/socket";
 import Cookies from "js-cookie";
-import { HowUseModal, SuccessModal } from "./components";
+import { SuccessModal } from "./components";
 import { setOpenModal } from "./redux/slices/modalsOpensSlice";
 import { setText, setTitle } from "./redux/slices/successModal";
 import { NamesModals } from "./types";
@@ -209,7 +209,7 @@ const App = () => {
       <SuccessModal />
       <WaitingModal />
 
-      <HowUseModal />
+      {/*<HowUseModal />*/}
     </div>
   );
 };
