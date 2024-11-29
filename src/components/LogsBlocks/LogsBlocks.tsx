@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from "react";
+import {FC, useRef, useEffect, useState} from "react";
 import { EmptyText } from "..";
 import { useTranslation } from "react-i18next";
 import { Found, Log, ServerLog } from "@/types";
@@ -25,52 +25,60 @@ export const LogsBlocks: FC<Props> = ({
   const rightRef = useRef<HTMLDivElement>(null);
   const leftTwoRef = useRef<HTMLDivElement>(null);
   const rightTwoRef = useRef<HTMLDivElement>(null);
+  const [now, setNow] = useState(new Date())
 
   useEffect(() => {
     if (leftRef.current) {
       leftRef.current.scrollTo(0, leftRef.current.scrollHeight);
     }
-  }, [left]);
+  }, [left, now]);
 
   useEffect(() => {
     if (rightRef.current) {
       rightRef.current.scrollTo(0, rightRef.current.scrollHeight);
     }
-  }, [right]);
+  }, [right, now]);
 
   useEffect(() => {
     if (leftTwoRef.current) {
       leftTwoRef.current.scrollTo(0, leftTwoRef.current.scrollHeight);
     }
-  }, [leftTwo]);
+  }, [leftTwo, now]);
 
   useEffect(() => {
     if (rightTwoRef.current) {
       rightTwoRef.current.scrollTo(0, rightTwoRef.current.scrollHeight);
     }
-  }, [rightTwo]);
+  }, [rightTwo, now]);
 
-  const renderLogs = (logs: (ServerLog | Found | Log)[]) => (
-    <>
-      {logs.length === 0 ? (
-        <EmptyText className="text-gray-1" text={t("no data available")} />
-      ) : (
-        logs.map((el, idx) => (
-          <p key={idx} className="whitespace-nowrap text-sm">
+
+  useEffect(() => {
+    setInterval(() => setNow(new Date()), 1000)
+  }, []);
+
+  const renderLogs = (logs: (ServerLog | Found | Log)[]) => {
+    return (
+        <>
+          {logs.length === 0 ? (
+              <EmptyText className="text-gray-1" text={t("no data available")} />
+          ) : (
+              logs.map((el, idx) => now > new Date(el.timestamp) ? (
+                  <p key={idx} className="whitespace-nowrap text-sm">
             <span className="text-yellow-500">
               {/* [{(el as ServerLog).coin || (el as Found).id}] */}
 
               {`[${moment.utc(el.timestamp).local().format("DD.MM.YYYY")}]`}
             </span>{" "}
-            {(el as ServerLog).text || `Found: ${(el as Found).amount || 0}`}{" "}
-            <span className="text-purple-2">
+                    {(el as ServerLog).text || `Found: ${(el as Found).amount || 0}`}{" "}
+                    <span className="text-purple-2">
               {(el as ServerLog).contrast || (el as Log).contrast}
             </span>
-          </p>
-        ))
-      )}
-    </>
-  );
+                  </p>
+              ) : null)
+          )}
+        </>
+    )
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">

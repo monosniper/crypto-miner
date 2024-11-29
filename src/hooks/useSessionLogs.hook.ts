@@ -19,6 +19,7 @@ export const useSessionLogs = (sessionData?: Session) => {
   const encryptedPassword = getEncryptedPassword();
 
   useEffect(() => {
+    console.log('dasd')
     const servers = sessionData?.data?.servers;
     const sessionLogs = sessionData?.data?.logs;
 
@@ -44,11 +45,11 @@ export const useSessionLogs = (sessionData?: Session) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    getMe,
-    encryptedPassword,
+    // getMe,
+    // encryptedPassword,
     sessionData,
-    sessionMinerLogs.length,
-    sessionServersLogs.length,
+    // sessionMinerLogs.length,
+    // sessionServersLogs.length,
   ]);
 
   // useEffect(() => {
