@@ -65,12 +65,12 @@ export const Graph: FC<Props> = ({ graphData, y, margins }) => {
       const chartHeight = height - margin.top - margin.bottom;
 
       // Generate time data for the x-axis
-      const startTime = new Date(); // Current time as the start
+      const now = new Date()
+      const startTime = new Date(now.setMinutes(now.getMinutes() - 7)); // Current time as the start
       const timeData = Array.from(
         { length: 8 },
         (_, i) => d3.timeMinute.offset(startTime, i) // 1-minute intervals
       );
-
       // Create scales for x and y
       const xScale = d3
         .scaleTime()
