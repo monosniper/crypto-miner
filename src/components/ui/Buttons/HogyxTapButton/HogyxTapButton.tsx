@@ -2,7 +2,7 @@ import { Button } from "../Button/Button";
 
 export const HogyxTapButton = () => {
   const clickHandler = () => {
-    window.open("https://t.me/hogyx_tap_bot", "_blank");
+    window.open("https://t.me/whales_mining_bot", "_blank");
   };
 
   return (
@@ -10,8 +10,8 @@ export const HogyxTapButton = () => {
       className="flex items-center gap-2"
       type="button"
       color="primary"
-      icon={<img className="w-6 h-6" src="/images/hLogo.png" alt="Hogyx Tap" />}
-      title="Hogyx Tap"
+      icon={<img className="w-6 h-6" src="/images/hLogo.png" alt="Whales Tap" />}
+      title="Whales Tap"
       onClick={clickHandler}
     />
   );

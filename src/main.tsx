@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <MetaMaskProvider
         sdkOptions={{
           dappMetadata: {
-            name: "Hogyx",
+            name: "Whales",
             url: window.location.href,
           },
         }}

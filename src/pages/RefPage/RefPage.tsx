@@ -28,7 +28,7 @@ export const RefPage = () => {
             className="[&>input]:!text-gray-1"
             value={
               refData
-                ? `https://www.hogyx.io?ref_code=${refData.data?.ref_code}`
+                ? `https://app.whales-mining.space/ref?ref_code=${refData.data?.ref_code}`
                 : ""
             }
             readOnly={true}
@@ -39,7 +39,7 @@ export const RefPage = () => {
                   if (!refData?.data) return;
 
                   copyText(
-                    `https://www.hogyx.io?ref_code=${refData.data.ref_code}`
+                    `https://app.whales-mining.space/ref?ref_code=${refData.data.ref_code}`
                   );
 
                   toast.success(t("the text has been copied"));

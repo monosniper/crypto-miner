@@ -45,7 +45,7 @@ export const ProfilePage = () => {
             <p className="text-base-content-300">
               With the Metamask wallet connected, withdrawals from the platform
               will be transferred faster and directly to the wallet without
-              Hogyx commission
+              Whales commission
             </p>
           </div>
         </div>

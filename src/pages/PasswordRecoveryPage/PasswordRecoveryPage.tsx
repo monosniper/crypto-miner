@@ -12,7 +12,7 @@ export const PasswordRecoveryPage = () => {
       <div className={cn("box", "p-10 sm:p-14 mx-4")}>
         <h5 className="mx-auto w-max bg-gradient-3 bg-clip-text text-transparent text-[34px] leading-10 font-semibold font-droid flex items-center gap-2">
           <LogoIcon />
-          Hogyx
+          Whales
         </h5>
 
         <PasswordRecoveryForm className="mt-6" />
