@@ -147,7 +147,7 @@ export const Sidebar: FC<Props> = ({ isLaptop }) => {
 
           <div className="mt-6 flex flex-col gap-2 px-6">
             <p className="text-xs text-base-content-300">
-              © app.whales-mining.space, 2023
+              © app.whales-mining.space, { new Date().getFullYear() }
             </p>
             <Link
               className="text-xs text-base-content-300"

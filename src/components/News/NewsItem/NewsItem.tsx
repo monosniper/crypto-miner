@@ -43,7 +43,7 @@ export const NewsItem: FC<Props> = ({ data }) => {
           </p> */}
           <Link
             className="justify-items-end ml-auto"
-            to={`https://hogyx.space/ru/blog-details/${data.id}`}
+            to={`${import.meta.env.VITE_LANDING_URL}/blog-details/${data.id}`}
           >
             Подробнее
           </Link>

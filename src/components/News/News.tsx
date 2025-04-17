@@ -19,7 +19,7 @@ export const News: FC<Props> = ({ list, loading = false }) => {
 
         <Link
           className="py-2.5 px-4 rounded-full border border-base-border-100 bg-base-200 text-sm leading-none text-base-content-100"
-          to="https://www.hogyx.io/article.php"
+          to={`${import.meta.env.VITE_LANDING_URL}/blog`}
         >
           {t("more-news")}
         </Link>
